@@ -9,6 +9,8 @@
 
 import Foundation
 
-func test() -> Int{
-    return totalCalorie = dataCentre.arr.baseCalorie * 3
-}
+//func test() -> Int{
+//    var totalCalorie = dataCentre.arr.baseCalorie * 3
+//    return totalCalorie
+//}
+
