@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		352583DE2111680400BD330C /* DataFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352583DD2111680400BD330C /* DataFormat.swift */; };
+		352583E0211176F100BD330C /* DataCentre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352583DF211176F100BD330C /* DataCentre.swift */; };
+		352583E2211177B600BD330C /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352583E1211177B600BD330C /* SubViewController.swift */; };
+		352583E42111795000BD330C /* DataManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352583E32111795000BD330C /* DataManipulator.swift */; };
 		D215C00921096FBD00CE57CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215C00821096FBD00CE57CB /* AppDelegate.swift */; };
 		D215C00B21096FBD00CE57CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215C00A21096FBD00CE57CB /* ViewController.swift */; };
 		D215C00E21096FBD00CE57CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D215C00C21096FBD00CE57CB /* Main.storyboard */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		352583DD2111680400BD330C /* DataFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormat.swift; sourceTree = "<group>"; };
+		352583DF211176F100BD330C /* DataCentre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCentre.swift; sourceTree = "<group>"; };
+		352583E1211177B600BD330C /* SubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
+		352583E32111795000BD330C /* DataManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManipulator.swift; sourceTree = "<group>"; };
 		D215C00521096FBD00CE57CB /* Sulchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sulchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215C00821096FBD00CE57CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D215C00A21096FBD00CE57CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,10 +64,14 @@
 			children = (
 				D215C00821096FBD00CE57CB /* AppDelegate.swift */,
 				D215C00A21096FBD00CE57CB /* ViewController.swift */,
+				352583E1211177B600BD330C /* SubViewController.swift */,
 				D215C00C21096FBD00CE57CB /* Main.storyboard */,
 				D215C00F21096FC000CE57CB /* Assets.xcassets */,
 				D215C01121096FC000CE57CB /* LaunchScreen.storyboard */,
 				D215C01421096FC000CE57CB /* Info.plist */,
+				352583DD2111680400BD330C /* DataFormat.swift */,
+				352583E32111795000BD330C /* DataManipulator.swift */,
+				352583DF211176F100BD330C /* DataCentre.swift */,
 			);
 			path = Sulchedule;
 			sourceTree = "<group>";
@@ -135,7 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				352583E42111795000BD330C /* DataManipulator.swift in Sources */,
+				352583DE2111680400BD330C /* DataFormat.swift in Sources */,
 				D215C00B21096FBD00CE57CB /* ViewController.swift in Sources */,
+				352583E2211177B600BD330C /* SubViewController.swift in Sources */,
+				352583E0211176F100BD330C /* DataCentre.swift in Sources */,
 				D215C00921096FBD00CE57CB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,7 +305,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sulchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -306,7 +322,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sulchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
