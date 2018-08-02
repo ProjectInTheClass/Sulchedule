@@ -20,11 +20,11 @@ struct RecordDay {
     
     var location: String?
     var friends: String?
-    var expense: Int //값을 입력하지 않은 경우 사용
+    var expense: Int? //값을 입력하지 않은 경우 사용
     var customExpense: Int? //값을 입력한 경우 사용
-    var calories: Int
+    var calories: Int?
     
-    var drinks:[Int:Int] //index : bottles
+    var drinks:[Int:Int]? //index : bottles
 }
 
 struct RecordMonth {
