@@ -29,5 +29,3 @@ class DataCentre{
         sul.append(Sul(displayName: "칵테일", baseCalorie: 0, basePrice: 0, colorTag: "FFFFFF"))
     }
 }
-
-

@@ -45,7 +45,15 @@ struct UserData {
     var maxStreakOfMonth: Int? //연속으로 마신 날
     var maxCaloriesOfMonth: Int? //칼로리 목표
     var totalExpense: Int? //총 지출액
-    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
+//    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
+}
+
+struct CurrentGoalStatus {
+    var daysOfMonth: Int? //총 마신 날
+    var streakOfMonth: Int? //연속으로 마신 날
+    var caloriesOfMonth: Int? //칼로리 목표
+    var currentExpense: Int? //총 지출액
+//    var BottlePerSul: [Int:Int]? //술 종류당 한도 병 수
 }
 
 struct Sul {
