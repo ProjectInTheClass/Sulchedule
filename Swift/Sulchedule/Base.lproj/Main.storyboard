@@ -381,7 +381,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="기타 주류" id="v9j-3h-Swl">
-                        <barButtonItem key="backBarButtonItem" title="NONE" id="uuB-bV-Ebw"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="uuB-bV-Ebw"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cXd-jd-2nE" userLabel="First Responder" sceneMemberID="firstResponder"/>

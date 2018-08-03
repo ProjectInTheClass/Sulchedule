@@ -88,6 +88,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("\(#function)")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         animateViewMoving(up: true, moveValue: 150)
     }
