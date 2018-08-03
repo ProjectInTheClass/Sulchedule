@@ -91,8 +91,18 @@ class TodayAdditionalViewController: UITableViewController {
 
 class TodayAdditionalTableViewCell: UITableViewCell {
     
+    var flag = true
+    
     @IBOutlet weak var starButtonOutlet: UIButton!
     @IBAction func starButtonAction(_ sender: Any) {
+        if(flag){
+            starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
+            flag.toggle()
+        }
+        else{
+            starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
+            flag.toggle()
+        }
     }
     @IBOutlet weak var bottleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
