@@ -1,11 +1,3 @@
-//
-//  MethodPile.swift
-//  Sulchedule
-//
-//  Created by 조준오 on 2018/08/03.
-//  Copyright © 2018 wenchao. All rights reserved.
-//
-
 import Foundation
 
 func hexStringToUIColor (hex:String) -> UIColor {

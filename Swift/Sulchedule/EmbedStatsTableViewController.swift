@@ -1,11 +1,9 @@
 import UIKit
 
-class TodayAdditionalViewController: UITableViewController {
+class EmbedStatsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.navigationBar.tintColor = hexStringToUIColor(hex: "FFDC67")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -23,16 +21,21 @@ class TodayAdditionalViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 5
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todayAdditionalIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "embedstatsIdentifier", for: indexPath)
 
-        return cell
+        guard let customCell = cell as? EmbedStatsTableViewCell else{
+            return cell
+        }
+        
+        customCell.valueLabel.text = "dummy value"
+        customCell.titleLabel.text = "dummy title"
+        
+        return customCell
     }
-  
 
     /*
     // Override to support conditional editing of the table view.
@@ -81,26 +84,10 @@ class TodayAdditionalViewController: UITableViewController {
 
 }
 
-class TodayAdditionalTableViewCell: UITableViewCell {
+class EmbedStatsTableViewCell: UITableViewCell {
     
-    var flag = false
-    
-    @IBOutlet weak var starButtonOutlet: UIButton!
-    @IBAction func starButtonAction(_ sender: Any) {
-        if(flag){
-            starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
-            flag.toggle()
-        }
-        else{
-            starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
-            flag.toggle()
-        }
-    }
-    @IBOutlet weak var bottleLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBAction func bottleStepper(_ sender: UIStepper) {
-    }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -114,3 +101,4 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     }
     
 }
+

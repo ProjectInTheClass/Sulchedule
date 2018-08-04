@@ -1,10 +1,3 @@
-//
-//  DataFormat.swift
-//  Sulchedule
-//
-//  Created by 조준오 on 2018/08/01.
-//  Copyright © 2018 CAUAD10. All rights reserved.
-//
 //데이터 형식
 
 import Foundation

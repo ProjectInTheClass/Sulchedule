@@ -1,11 +1,3 @@
-//
-//  DelegateAppearanceViewController.swift
-//  FSCalendarSwiftExample
-//
-//  Created by dingwenchao on 30/12/2016.
-//  Copyright © 2016 wenchao. All rights reserved.
-//
-
 import UIKit
 
 class DelegateAppearanceViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
