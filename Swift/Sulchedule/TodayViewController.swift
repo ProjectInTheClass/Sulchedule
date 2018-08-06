@@ -1,13 +1,9 @@
 import UIKit
+import AudioToolbox.AudioServices
 
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
-    @IBAction func additionalviewButton(_ sender: Any) {
-        if(upFlag){
-            animateViewMoving(up: false, moveValue: 150)
-            self.view.endEditing(true)
-        }
-    }
+    @IBOutlet weak var loadAdditionalView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
     
@@ -36,12 +32,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var scope: FSCalendarScope = .week
     var upFlag = false
+    var firstRun: Bool = true
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter
     }()
+    
     lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
@@ -81,8 +79,35 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         newDaySelected(date: calendar.today!)
     }
     
-    deinit {
-        print("\(#function)")
+    override func viewDidAppear(_ animated: Bool) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        loadAdditionalView.addGestureRecognizer(tap)
+        
+        let tapFriends = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFriends(_:)))
+        let tapExpense = UITapGestureRecognizer(target: self, action: #selector(self.handleTapExpense(_:)))
+        let tapLocation = UITapGestureRecognizer(target: self, action: #selector(self.handleTapLocation(_:)))
+        container1.addGestureRecognizer(tapFriends)
+        container2.addGestureRecognizer(tapLocation)
+        container3.addGestureRecognizer(tapExpense)
+    }
+    
+    @objc func handleTapFriends(_ sender: UITapGestureRecognizer) {
+        inputFriends.isUserInteractionEnabled = true
+        inputFriends.becomeFirstResponder()
+    }
+    @objc func handleTapExpense(_ sender: UITapGestureRecognizer) {
+        inputExpense.isUserInteractionEnabled = true
+        inputExpense.becomeFirstResponder()
+    }
+    @objc func handleTapLocation(_ sender: UITapGestureRecognizer) {
+        inputLocation.isUserInteractionEnabled = true
+        inputLocation.becomeFirstResponder()
+    }
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "additionView")
+        // Alternative way to present the new view controller
+        self.navigationController?.show(vc, sender: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,11 +116,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        loadAdditionalView.isUserInteractionEnabled = false
         animateViewMoving(up: true, moveValue: 150)
         upFlag = true
     }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
+        inputFriends.isUserInteractionEnabled = false
+        inputExpense.isUserInteractionEnabled = false
+        inputLocation.isUserInteractionEnabled = false
+        loadAdditionalView.isUserInteractionEnabled = true
         animateViewMoving(up: false, moveValue: 150)
         upFlag = false
     }
@@ -141,7 +170,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("\(self.dateFormatter.string(from: calendar.currentPage))")
     }
     
     // MARK:- UITableViewDataSource
@@ -151,12 +179,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todayIdentifier")!
-        return cell
+        guard let customCell = cell as? TodayTableViewCell else{
+            return cell
+        }
+        return customCell
     }
     
     
@@ -173,6 +204,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK:- Target actions
     
     func newDaySelected(date: Date){
+        if(firstRun){
+            firstRun = false
+        }
+        else{
+            AudioServicesPlaySystemSound(peek)
+        }
         navigationTitle.title = "\(self.dateFormatter.string(from: date))"
         scope = .week
         self.calendar.setScope(scope, animated: true)
@@ -184,14 +221,29 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return false
     }
     
+    func setTagToCell(hex: String){
+        
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 class TodayTableViewCell: UITableViewCell {
-    
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bottleLabel: UILabel!
     @IBAction func bottleStepper(_ sender: UIStepper) {
+        
     }
     
     
@@ -206,16 +258,4 @@ class TodayTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-}
-
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
 }

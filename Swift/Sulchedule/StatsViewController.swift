@@ -1,4 +1,5 @@
 import UIKit
+import AudioToolbox.AudioServices
 
 class StatsViewController: UIViewController {
     var lastSegmentChoice: Int = 0
@@ -36,12 +37,8 @@ class StatsViewController: UIViewController {
         }
     }
     
-    //WTF is this
     @IBOutlet weak var leaderboardTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var picktargetTopConstraint: NSLayoutConstraint!
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,40 +62,44 @@ class StatsViewController: UIViewController {
     }
     
     @objc func sulClicked(){
+        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 0)
     }
     @objc func friendClicked(){
+        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 1)
     }
     @objc func locationClicked(){
+        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 2)
     }
     
     func loadSegment(whichSegment: Int){
         if(whichSegment == 0){
             if(firstAppearance){
-                print("set1 first")
                 firstAppearance = false
             }
             else{
                 animator(isLeft: true)
-                print("set1")
                 firstAppearance = false
             }
         }
         else{
-            print("set2")
             animator(isLeft: false)
             firstAppearance = false
         }
     }
     
     func animator(isLeft: Bool){
+//        AudioServicesPlaySystemSound(failed)
+        
+        let duration = 0.35
+        let delay = -0.15
         if(isLeft){
             leaderboardTopConstraint.constant = 0
             picktargetTopConstraint.constant = 280
             
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 1
                 self.locationView.alpha = 1
                 self.sulView.alpha = 1
@@ -110,9 +111,9 @@ class StatsViewController: UIViewController {
         }
         else{
             leaderboardTopConstraint.constant = -100
-            picktargetTopConstraint.constant = -40
+            picktargetTopConstraint.constant = -46
             
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 0
                 self.locationView.alpha = 0
                 self.sulView.alpha = 0
@@ -121,7 +122,7 @@ class StatsViewController: UIViewController {
             self.locationView.isUserInteractionEnabled = false
             self.sulView.isUserInteractionEnabled = false
         }
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }

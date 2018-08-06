@@ -21,11 +21,11 @@ class EmbedStatsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 10
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "embedstatsIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "embedStatsIdentifier", for: indexPath)
 
         guard let customCell = cell as? EmbedStatsTableViewCell else{
             return cell

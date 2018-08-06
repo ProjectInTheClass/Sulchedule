@@ -1,17 +1,20 @@
+//
+//  GoalsEditTableViewController.swift
+//  Sulchedule
+//
+//  Created by herojeff on 06/08/2018.
+//  Copyright © 2018 wenchao. All rights reserved.
+//
+
 import UIKit
 
-class TodayAdditionalViewController: UITableViewController {
+class GoalsEditTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController?.navigationBar.tintColor = hexStringToUIColor(hex: "FFDC67")
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
 
     // MARK: - Table view data source
@@ -23,19 +26,20 @@ class TodayAdditionalViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 5
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todayAdditionalIdentifier", for: indexPath)
-
-        guard let customCell = cell as? TodayAdditionalTableViewCell else{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "goalsEditIdentifier", for: indexPath)
+        
+        guard let customCell = cell as? GoalsEditTableCell else {
             return cell
         }
+
+        customCell.titleLabel.text = "Dummy Data"
+
         return customCell
     }
-  
 
     /*
     // Override to support conditional editing of the table view.
@@ -57,12 +61,11 @@ class TodayAdditionalViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
     }
-    */
 
     /*
     // Override to support conditional rearranging of the table view.
@@ -83,31 +86,17 @@ class TodayAdditionalViewController: UITableViewController {
     */
 
 }
-
-class TodayAdditionalTableViewCell: UITableViewCell {
+class GoalsEditTableCell: UITableViewCell {
     
-    var flag = false
-    
-    @IBOutlet weak var starButtonOutlet: UIButton!
-    @IBAction func starButtonAction(_ sender: Any) {
-        if(flag){
-            starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
-            flag.toggle()
-        }
-        else{
-            starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
-            flag.toggle()
-        }
-    }
-    @IBOutlet weak var bottleLabel: UILabel!
+    @IBOutlet weak var editField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBAction func bottleStepper(_ sender: UIStepper) {
+    @IBAction func switchChanged(_ sender: UISwitch) {
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        editField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: hexStringToUIColor(hex: "#FFDC67")])
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -4,9 +4,7 @@ class GoalsViewController: UIViewController {
     @IBOutlet weak var greenView: UIView!
     @IBOutlet weak var yellowView: UIView!
     @IBOutlet weak var redView: UIView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBAction func editButton(_ sender: Any) {
-    }
+    @IBOutlet weak var howYouDoingLabel: UILabel!
     
     
     let circlePath = UIBezierPath(arcCenter: CGPoint(x: 18,y: 18), radius: CGFloat(18), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
@@ -23,7 +21,8 @@ class GoalsViewController: UIViewController {
         
         initCirlce()
         formatter.dateFormat = "MM월 dd일"
-        dateLabel.text = formatter.string(from: date)
+        self.title = formatter.string(from: date)
+        howYouDoingLabel.text = "잘 돼가요?"
     }
     
     func initCirlce(){

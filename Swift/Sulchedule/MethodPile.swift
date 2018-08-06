@@ -1,4 +1,16 @@
 import Foundation
+import AudioToolbox.AudioServices
+
+// 'Peek' feedback (weak boom)
+let peek = SystemSoundID(1519)
+// 'Pop' feedback (strong boom)
+let pop = SystemSoundID(1520)
+// 'Cancelled' feedback (three sequential weak booms)
+let cancelled = SystemSoundID(1521)
+// 'Try Again' feedback (week boom then strong boom)
+let tryAgain = SystemSoundID(1102)
+// 'Failed' feedback (three sequential strong booms)
+let failed = SystemSoundID(1107)
 
 func hexStringToUIColor (hex:String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

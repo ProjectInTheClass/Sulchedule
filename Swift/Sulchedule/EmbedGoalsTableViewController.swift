@@ -1,11 +1,17 @@
+//
+//  EmbedGoalsUITableTableViewController.swift
+//  Sulchedule
+//
+//  Created by herojeff on 06/08/2018.
+//  Copyright © 2018 wenchao. All rights reserved.
+//
+
 import UIKit
 
-class TodayAdditionalViewController: UITableViewController {
+class EmbedGoalsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.navigationBar.tintColor = hexStringToUIColor(hex: "FFDC67")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -23,19 +29,24 @@ class TodayAdditionalViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 5
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todayAdditionalIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "embedGoalsIdentifier", for: indexPath)
 
-        guard let customCell = cell as? TodayAdditionalTableViewCell else{
+        guard let customCell = cell as? EmbedGoalsTableCell else{
             return cell
         }
+        
+        customCell.leftTitleLabel.text = "Ay"
+        customCell.leftValueLabel.text = String(100000)
+        customCell.rightValueLabel.text = String(110000)
+
         return customCell
     }
-  
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -45,7 +56,7 @@ class TodayAdditionalViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -55,7 +66,7 @@ class TodayAdditionalViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+ 
 
     /*
     // Override to support rearranging the table view.
@@ -83,27 +94,11 @@ class TodayAdditionalViewController: UITableViewController {
     */
 
 }
-
-class TodayAdditionalTableViewCell: UITableViewCell {
+class EmbedGoalsTableCell: UITableViewCell {
     
-    var flag = false
-    
-    @IBOutlet weak var starButtonOutlet: UIButton!
-    @IBAction func starButtonAction(_ sender: Any) {
-        if(flag){
-            starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
-            flag.toggle()
-        }
-        else{
-            starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
-            flag.toggle()
-        }
-    }
-    @IBOutlet weak var bottleLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBAction func bottleStepper(_ sender: UIStepper) {
-    }
-    
+    @IBOutlet weak var leftValueLabel: UILabel!
+    @IBOutlet weak var leftTitleLabel: UILabel!
+    @IBOutlet weak var rightValueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -117,3 +112,4 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     }
     
 }
+
