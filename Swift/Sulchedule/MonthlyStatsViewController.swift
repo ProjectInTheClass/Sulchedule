@@ -1,5 +1,4 @@
 import UIKit
-import AudioToolbox.AudioServices
 
 class MonthlyStatsViewController: UIViewController {
     var lastSegmentChoice: Int = 0
@@ -41,7 +40,7 @@ class MonthlyStatsViewController: UIViewController {
         thisMonthLabel.text = "지난 달(\(lastMonth)월)의 통계"
         
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         initCircle()
         
         let sulTap = UITapGestureRecognizer(target: self, action: #selector(sulClicked))
@@ -62,15 +61,12 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     @objc func sulClicked(){
-//        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 0)
     }
     @objc func friendClicked(){
-//        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 1)
     }
     @objc func locationClicked(){
-//        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 2)
     }
 

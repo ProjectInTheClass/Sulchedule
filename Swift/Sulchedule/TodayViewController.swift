@@ -32,7 +32,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var scope: FSCalendarScope = .week
     var upFlag = false
-    var firstRun: Bool = true
+    var firstRunForHaptic: Bool = true
+    var firstRunForMonthlySummary: Bool = true
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -60,8 +61,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.calendar.select(Date())
         
-        shouldViewMonthlyStats()
-        
         self.view.addGestureRecognizer(self.scopeGesture)
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
@@ -82,6 +81,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        shouldViewMonthlyStats()
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         loadAdditionalView.addGestureRecognizer(tap)
         
@@ -141,16 +142,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func shouldViewMonthlyStats(){
-        let formatterFirstDayOfMonth = DateFormatter()
-        formatterFirstDayOfMonth.dateFormat = "dd"
-        if(formatterFirstDayOfMonth.string(from: Date()) == "01"){
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
-            self.present(viewController, animated: false, completion: nil)
-            
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewController(withIdentifier: "monthlyView")
-//            self.navigationController?.modal (vc, sender: nil)
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            let formatterFirstDayOfMonth = DateFormatter()
+            formatterFirstDayOfMonth.dateFormat = "dd"
+            if(self.firstRunForMonthlySummary && formatterFirstDayOfMonth.string(from: Date()) == "01"){
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
+                self.present(viewController, animated: true, completion: {self.firstRunForMonthlySummary = false})
+            }
+        })
     }
     
     // MARK:- UIGestureRecognizerDelegate
@@ -223,8 +222,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK:- Target actions
     
     func newDaySelected(date: Date){
-        if(firstRun){
-            firstRun = false
+        if(firstRunForHaptic){
+            firstRunForHaptic = false
         }
         else{
             AudioServicesPlaySystemSound(peek)
