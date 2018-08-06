@@ -1,9 +1,9 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    var lastSegmentChoice = 0
+    var lastSegmentChoice: Int = 0
     
-    var firstRun = true
+    var firstAppearance = true
     let friendCircle = CAShapeLayer()
     let sulCircle = CAShapeLayer()
     let locationCircle = CAShapeLayer()
@@ -24,16 +24,24 @@ class StatsViewController: UIViewController {
     @IBAction func topSegmentControl(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            loadSegment(whichSegment: 0)
             lastSegmentChoice = 0
+            loadSegment(whichSegment: 0)
+            
         case 1:
-            loadSegment(whichSegment: 1)
             lastSegmentChoice = 1
+            loadSegment(whichSegment: 1)
+            
         default:
             print("wtf")
         }
-        
     }
+    
+    //WTF is this
+    @IBOutlet weak var leaderboardTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var picktargetTopConstraint: NSLayoutConstraint!
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +61,6 @@ class StatsViewController: UIViewController {
         sulView.layer.addSublayer(sulCircle)
         sulView.bringSubview(toFront: sulLabel)
         
-        firstRun = false
         cycleCircleBorder(cursor: 0)
     }
     
@@ -69,41 +76,32 @@ class StatsViewController: UIViewController {
     
     func loadSegment(whichSegment: Int){
         if(whichSegment == 0){
-            if(firstRun){
-                self.leaderboardView.frame = CGRect(x: self.leaderboardView.frame.origin.x, y: self.leaderboardView.frame.origin.y + 100, width: self.leaderboardView.frame.size.width, height: self.leaderboardView.frame.size.height)
-                
-                self.picktargetView.frame = CGRect(x: self.picktargetView.frame.origin.x, y: self.picktargetView.frame.origin.y + 320, width: self.picktargetView.frame.size.width, height: self.picktargetView.frame.size.height)
-                
-                self.embedStatsView.frame = CGRect(x: self.embedStatsView.frame.origin.x, y: self.embedStatsView.frame.origin.y + 320, width: self.embedStatsView.frame.size.width, height: self.embedStatsView.frame.size.height - 320)
-                
-                self.friendView.alpha = 1
-                self.locationView.alpha = 1
-                self.sulView.alpha = 1
+            if(firstAppearance){
+                print("set1 first")
+                firstAppearance = false
             }
             else{
                 animator(isLeft: true)
+                print("set1")
+                firstAppearance = false
             }
         }
         else{
-                animator(isLeft: false)
+            print("set2")
+            animator(isLeft: false)
+            firstAppearance = false
         }
     }
-
+    
     func animator(isLeft: Bool){
-        let duration = 0.4
-
         if(isLeft){
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
-                self.leaderboardView.frame = CGRect(x: self.leaderboardView.frame.origin.x, y: self.leaderboardView.frame.origin.y + 100, width: self.leaderboardView.frame.size.width, height: self.leaderboardView.frame.size.height)
-                
-                self.picktargetView.frame = CGRect(x: self.picktargetView.frame.origin.x, y: self.picktargetView.frame.origin.y + 320, width: self.picktargetView.frame.size.width, height: self.picktargetView.frame.size.height)
-                
-                self.embedStatsView.frame = CGRect(x: self.embedStatsView.frame.origin.x, y: self.embedStatsView.frame.origin.y + 320, width: self.embedStatsView.frame.size.width, height: self.embedStatsView.frame.size.height - 320)
-                
+            leaderboardTopConstraint.constant = 0
+            picktargetTopConstraint.constant = 280
+            
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 1
                 self.locationView.alpha = 1
                 self.sulView.alpha = 1
-            
             }, completion: nil)
             
             self.friendView.isUserInteractionEnabled = true
@@ -111,30 +109,26 @@ class StatsViewController: UIViewController {
             self.sulView.isUserInteractionEnabled = true
         }
         else{
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
-                self.leaderboardView.frame = CGRect(x: self.leaderboardView.frame.origin.x, y: self.leaderboardView.frame.origin.y - 100, width: self.leaderboardView.frame.size.width, height: self.leaderboardView.frame.size.height)
-                
-                self.picktargetView.frame = CGRect(x: self.picktargetView.frame.origin.x, y: self.picktargetView.frame.origin.y - 320, width: self.picktargetView.frame.size.width, height: self.picktargetView.frame.size.height)
-                
-                self.embedStatsView.frame = CGRect(x: self.embedStatsView.frame.origin.x, y: self.embedStatsView.frame.origin.y - 320
-                    , width: self.embedStatsView.frame.size.width, height: self.embedStatsView.frame.size.height + 320)
-                
+            leaderboardTopConstraint.constant = -100
+            picktargetTopConstraint.constant = -40
+            
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 0
                 self.locationView.alpha = 0
                 self.sulView.alpha = 0
-                
             }, completion: nil)
-            
             self.friendView.isUserInteractionEnabled = false
             self.locationView.isUserInteractionEnabled = false
             self.sulView.isUserInteractionEnabled = false
         }
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
-    
+
     func initCirlce(){
         topSegmentOutlet.selectedSegmentIndex = lastSegmentChoice
         topSegmentOutlet.bringSubview(toFront: picktargetView)
-        loadSegment(whichSegment: topSegmentOutlet.selectedSegmentIndex)
         
         friendCircle.path = circlePath.cgPath
         friendCircle.fillColor = hexStringToUIColor(hex: "#252B53").cgColor
@@ -187,15 +181,5 @@ class StatsViewController: UIViewController {
             print("wtf")
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

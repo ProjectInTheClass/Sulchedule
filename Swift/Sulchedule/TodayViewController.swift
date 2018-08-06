@@ -2,6 +2,12 @@ import UIKit
 
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
+    @IBAction func additionalviewButton(_ sender: Any) {
+        if(upFlag){
+            animateViewMoving(up: false, moveValue: 150)
+            self.view.endEditing(true)
+        }
+    }
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
     
@@ -29,13 +35,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var leftTypeLabel: UILabel!
     
     var scope: FSCalendarScope = .week
+    var upFlag = false
     
-    fileprivate lazy var dateFormatter: DateFormatter = {
+    lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         return formatter
     }()
-    fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
+    lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
         panGesture.delegate = self
@@ -68,8 +75,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                                                                 attributes: [NSAttributedStringKey.foregroundColor: hexStringToUIColor(hex: "#FFDC67")])
         container1.layer.borderWidth = 1
         container1.layer.borderColor = hexStringToUIColor(hex: "#FFDC67").cgColor
-//        container2.layer.borderWidth = 1
-//        container2.layer.borderColor = hexStringToUIColor(hex: "#FFDC67").cgColor
         container3.layer.borderWidth = 1
         container3.layer.borderColor = hexStringToUIColor(hex: "#FFDC67").cgColor
         
@@ -87,10 +92,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         animateViewMoving(up: true, moveValue: 150)
+        upFlag = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         animateViewMoving(up: false, moveValue: 150)
+        upFlag = false
     }
     func animateViewMoving (up:Bool, moveValue :CGFloat){
         let movementDuration:TimeInterval = 0.3
