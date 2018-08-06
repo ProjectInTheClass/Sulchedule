@@ -42,7 +42,7 @@ class StatsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initCirlce()
+        initCircle()
         
         let sulTap = UITapGestureRecognizer(target: self, action: #selector(sulClicked))
         let friendTap = UITapGestureRecognizer(target: self, action: #selector(friendClicked))
@@ -62,15 +62,15 @@ class StatsViewController: UIViewController {
     }
     
     @objc func sulClicked(){
-        AudioServicesPlaySystemSound(peek)
+//        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 0)
     }
     @objc func friendClicked(){
-        AudioServicesPlaySystemSound(peek)
+//        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 1)
     }
     @objc func locationClicked(){
-        AudioServicesPlaySystemSound(peek)
+//        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 2)
     }
     
@@ -91,7 +91,7 @@ class StatsViewController: UIViewController {
     }
     
     func animator(isLeft: Bool){
-//        AudioServicesPlaySystemSound(failed)
+        AudioServicesPlaySystemSound(cancelled)
         
         let duration = 0.35
         let delay = -0.15
@@ -127,7 +127,7 @@ class StatsViewController: UIViewController {
         }, completion: nil)
     }
 
-    func initCirlce(){
+    func initCircle(){
         topSegmentOutlet.selectedSegmentIndex = lastSegmentChoice
         topSegmentOutlet.bringSubview(toFront: picktargetView)
         

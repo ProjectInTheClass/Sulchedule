@@ -33,6 +33,9 @@ class TodayAdditionalViewController: UITableViewController {
         guard let customCell = cell as? TodayAdditionalTableViewCell else{
             return cell
         }
+        
+        customCell.bottleLabel.text = "3병"
+        customCell.titleLabel.text = "Dummy Data"
         return customCell
     }
   

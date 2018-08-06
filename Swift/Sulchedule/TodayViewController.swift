@@ -187,6 +187,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let customCell = cell as? TodayTableViewCell else{
             return cell
         }
+        
+        customCell.bottleLabel.text = "3병"
+        customCell.titleLabel.text = "Dummy Data"
+        
         return customCell
     }
     
@@ -221,9 +225,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return false
     }
     
-    func setTagToCell(hex: String){
-        
-    }
 }
 
 extension UIViewController {

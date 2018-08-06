@@ -31,8 +31,8 @@ class EmbedStatsTableViewController: UITableViewController {
             return cell
         }
         
-        customCell.valueLabel.text = "dummy value"
-        customCell.titleLabel.text = "dummy title"
+        customCell.valueLabel.text = "Dummy Value"
+        customCell.titleLabel.text = "Dummy Title"
         
         return customCell
     }

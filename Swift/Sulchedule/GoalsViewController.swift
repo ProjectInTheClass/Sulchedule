@@ -19,13 +19,17 @@ class GoalsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initCirlce()
-        formatter.dateFormat = "MM월 dd일"
-        self.title = formatter.string(from: date)
-        howYouDoingLabel.text = "잘 돼가요?"
+        initCircle()
+        formatter.dateFormat = "M월 dd일"
+        self.navigationItem.title = formatter.string(from: date)
     }
     
-    func initCirlce(){
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    func initCircle(){
         redView.layer.addSublayer(redCircle)
         yellowView.layer.addSublayer(yellowCircle)
         greenView.layer.addSublayer(greenCircle)
@@ -47,14 +51,17 @@ class GoalsViewController: UIViewController {
             redView.alpha = 1.0
             yellowView.alpha = alpha
             greenView.alpha = alpha
+            howYouDoingLabel.text = "어떡하려고 그래요...?"
         case 1:
             redView.alpha = alpha
             yellowView.alpha = 1.0
             greenView.alpha = alpha
+            howYouDoingLabel.text = "아슬아슬해요!!!"
         case 0:
             redView.alpha = alpha
             yellowView.alpha = alpha
             greenView.alpha = 1.0
+            howYouDoingLabel.text = "목표한 대로 잘하고 있어요!"
         default:
             print("wtf")
         }

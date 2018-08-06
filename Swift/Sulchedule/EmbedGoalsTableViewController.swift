@@ -40,22 +40,14 @@ class EmbedGoalsTableViewController: UITableViewController {
             return cell
         }
         
-        customCell.leftTitleLabel.text = "Ay"
-        customCell.leftValueLabel.text = String(100000)
+        customCell.leftTitleLabel.text = "Dummy Data"
+        customCell.leftValueLabel.text = "100000원"
         customCell.rightValueLabel.text = String(110000)
 
         return customCell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -96,13 +88,35 @@ class EmbedGoalsTableViewController: UITableViewController {
 }
 class EmbedGoalsTableCell: UITableViewCell {
     
+    @IBOutlet var bgGraph: UIView!
     @IBOutlet weak var leftValueLabel: UILabel!
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var rightValueLabel: UILabel!
     
+    @IBOutlet weak var graphWidth: NSLayoutConstraint!
+    @IBOutlet weak var actualGraph: UIView!
+    
+    func drawRect(color: String, value: Float)
+    {
+        bgGraph.layer.cornerRadius = bgGraph.bounds.height/2
+        actualGraph.layer.cornerRadius = bgGraph.bounds.height/2
+        bgGraph.layer.backgroundColor = hexStringToUIColor(hex: "#252B53").cgColor
+        graphWidth.constant = CGFloat(value * Float(bgGraph.bounds.width))
+        if(color == "green"){
+            actualGraph.layer.backgroundColor = hexStringToUIColor(hex: "#72FF7D").cgColor
+        }
+        else if(color == "yellow"){
+            actualGraph.layer.backgroundColor = hexStringToUIColor(hex: "#FFC400").cgColor
+        }
+        else{
+            actualGraph.layer.backgroundColor = hexStringToUIColor(hex: "#FF6060").cgColor
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        drawRect(color: "red", value: 0.55)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

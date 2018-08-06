@@ -1,20 +1,38 @@
-//
-//  GoalsEditTableViewController.swift
-//  Sulchedule
-//
-//  Created by herojeff on 06/08/2018.
-//  Copyright © 2018 wenchao. All rights reserved.
-//
-
 import UIKit
+import AudioToolbox.AudioServices
 
-class GoalsEditTableViewController: UITableViewController {
+protocol GoalsEditTableDelegate {
+    func tableManipulate(_ sender: GoalsEditTableCell)
+}
+
+struct UserGoalOrder{
+    var name: String
+    var checked: Bool
+    var value: Int
+}
+var goals: [UserGoalOrder] = [UserGoalOrder(name: "First Dummy", checked: false, value: 1000), UserGoalOrder(name: "Second Dummy", checked: true, value: 1500), UserGoalOrder(name: "Third Dummy", checked: false, value: 2000)]
+
+class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
+    
+    func tableManipulate(_ sender: GoalsEditTableCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        
+        goals[indexPath.row].checked.toggle()
+        sender.uiSwitch.setOn(goals[indexPath.row].checked, animated: true)
+    }
+    
+    let formatter = DateFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationController?.navigationBar.tintColor = hexStringToUIColor(hex: "FFDC67")
+        formatter.dateFormat = "M월 목표 수정"
+        self.navigationItem.title = formatter.string(from: Date())
+        self.tableView.isEditing = true
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GoalsEditTableViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 
     // MARK: - Table view data source
@@ -26,7 +44,14 @@ class GoalsEditTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return goals.count
+    }
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,7 +61,10 @@ class GoalsEditTableViewController: UITableViewController {
             return cell
         }
 
-        customCell.titleLabel.text = "Dummy Data"
+        customCell.titleLabel.text = "\(goals[indexPath.row].name)"
+        customCell.delegate = self
+        customCell.uiSwitch.setOn(goals[indexPath.row].checked, animated: false)
+        customCell.editField.text = String(goals[indexPath.row].value)
 
         return customCell
     }
@@ -48,24 +76,19 @@ class GoalsEditTableViewController: UITableViewController {
         return true
     }
     */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        AudioServicesPlaySystemSound(peek)
+        let v = goals[fromIndexPath.row]
+        goals.remove(at: fromIndexPath.row)
+        goals.insert(v, at: to.row)
     }
+    
+    override func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
 
     /*
     // Override to support conditional rearranging of the table view.
@@ -88,9 +111,13 @@ class GoalsEditTableViewController: UITableViewController {
 }
 class GoalsEditTableCell: UITableViewCell {
     
+    var delegate: GoalsEditTableDelegate?
+    
     @IBOutlet weak var editField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var uiSwitch: UISwitch!
     @IBAction func switchChanged(_ sender: UISwitch) {
+        delegate?.tableManipulate(self)
     }
     
     override func awakeFromNib() {
@@ -104,5 +131,4 @@ class GoalsEditTableCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
 }
