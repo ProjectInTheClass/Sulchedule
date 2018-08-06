@@ -1,7 +1,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+                                                                                                                  class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
@@ -12,18 +12,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().tintColor = hexStringToUIColor(hex: "#FFFFFF")
-        UINavigationBar.appearance().barTintColor = hexStringToUIColor(hex: "#252B53")
+        UINavigationBar.appearance().barTintColor = colorLightBlue
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().clipsToBounds = false
-        UINavigationBar.appearance().backgroundColor = hexStringToUIColor(hex: "#252B53")
+        UINavigationBar.appearance().backgroundColor = colorLightBlue
         
             UINavigationBar.appearance().titleTextAttributes = [
                 NSAttributedStringKey.font: UIFont(name: "Helvetica Neue", size: 17)!,
                 NSAttributedStringKey.foregroundColor: UIColor.white
         ]
         
-        UITabBar.appearance().tintColor = hexStringToUIColor(hex: "#FFDC67")
-        UITabBar.appearance().barTintColor = hexStringToUIColor(hex: "#252B53")
+        UITabBar.appearance().tintColor = colorPoint
+        UITabBar.appearance().barTintColor = colorLightBlue
         if #available(iOS 10.0, *) {
             UITabBar.appearance().unselectedItemTintColor = .white
         }

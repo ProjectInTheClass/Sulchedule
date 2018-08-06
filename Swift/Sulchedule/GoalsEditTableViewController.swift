@@ -26,7 +26,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.tintColor = hexStringToUIColor(hex: "FFDC67")
+        self.navigationController?.navigationBar.tintColor = colorPoint
         formatter.dateFormat = "M월 목표 수정"
         self.navigationItem.title = formatter.string(from: Date())
         self.tableView.isEditing = true
@@ -123,7 +123,7 @@ class GoalsEditTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         editField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: hexStringToUIColor(hex: "#FFDC67")])
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

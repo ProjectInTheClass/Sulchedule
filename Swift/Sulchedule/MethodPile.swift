@@ -12,6 +12,14 @@ let tryAgain = SystemSoundID(1102)
 // 'Failed' feedback (three sequential strong booms)
 let failed = SystemSoundID(1107)
 
+let colorYellow = hexStringToUIColor(hex:"FFC400")
+let colorGreen = hexStringToUIColor(hex:"72FF7D")
+let colorRed = hexStringToUIColor(hex:"FF6060")
+let colorGray = hexStringToUIColor(hex:"A4A4A4")
+let colorPoint = hexStringToUIColor(hex:"FFDC67")
+let colorLightBlue = hexStringToUIColor(hex:"252B53")
+let colorDarkBlue = hexStringToUIColor(hex:"0B102F")
+
 func hexStringToUIColor (hex:String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     

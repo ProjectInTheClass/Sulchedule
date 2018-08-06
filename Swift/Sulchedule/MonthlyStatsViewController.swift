@@ -1,13 +1,14 @@
 import UIKit
 import AudioToolbox.AudioServices
 
-class StatsViewController: UIViewController {
+class MonthlyStatsViewController: UIViewController {
     var lastSegmentChoice: Int = 0
     
     var firstAppearance = true
     let friendCircle = CAShapeLayer()
     let sulCircle = CAShapeLayer()
     let locationCircle = CAShapeLayer()
+    var lastMonth: Int = 0
     let circlePath = UIBezierPath(arcCenter: CGPoint(x: 48.5,y: 48.5), radius: CGFloat(48.5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
     
     @IBOutlet weak var sulLabel: UILabel!
@@ -21,27 +22,23 @@ class StatsViewController: UIViewController {
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
-    @IBOutlet weak var topSegmentOutlet: UISegmentedControl!
-    @IBAction func topSegmentControl(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            lastSegmentChoice = 0
-            loadSegment(whichSegment: 0)
-            
-        case 1:
-            lastSegmentChoice = 1
-            loadSegment(whichSegment: 1)
-            
-        default:
-            print("wtf")
-        }
-    }
+    @IBOutlet weak var thisMonthLabel: UILabel!
     
-    @IBOutlet weak var leaderboardTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var picktargetTopConstraint: NSLayoutConstraint!
+    @IBAction func dismissButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M"
+        lastMonth = Int(formatter.string(from: Date())) ?? 1
+        lastMonth -= 1
+        if(lastMonth == 0){
+            lastMonth = 12
+        }
+        thisMonthLabel.text = "지난 달(\(lastMonth)월)의 통계"
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -76,64 +73,8 @@ class StatsViewController: UIViewController {
 //        AudioServicesPlaySystemSound(peek)
         cycleCircleBorder(cursor: 2)
     }
-    
-    func loadSegment(whichSegment: Int){
-        if(whichSegment == 0){
-            if(firstAppearance){
-                firstAppearance = false
-            }
-            else{
-                animator(isLeft: true)
-                firstAppearance = false
-            }
-        }
-        else{
-            animator(isLeft: false)
-            firstAppearance = false
-        }
-    }
-    
-    func animator(isLeft: Bool){
-        AudioServicesPlaySystemSound(cancelled)
-        
-        let duration = 0.35
-        let delay = -0.15
-        if(isLeft){
-            leaderboardTopConstraint.constant = 0
-            picktargetTopConstraint.constant = 280
-            
-            UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
-                self.friendView.alpha = 1
-                self.locationView.alpha = 1
-                self.sulView.alpha = 1
-            }, completion: nil)
-            
-            self.friendView.isUserInteractionEnabled = true
-            self.locationView.isUserInteractionEnabled = true
-            self.sulView.isUserInteractionEnabled = true
-        }
-        else{
-            leaderboardTopConstraint.constant = -100
-            picktargetTopConstraint.constant = -46
-            
-            UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
-                self.friendView.alpha = 0
-                self.locationView.alpha = 0
-                self.sulView.alpha = 0
-            }, completion: nil)
-            self.friendView.isUserInteractionEnabled = false
-            self.locationView.isUserInteractionEnabled = false
-            self.sulView.isUserInteractionEnabled = false
-        }
-        UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseInOut], animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
 
     func initCircle(){
-        topSegmentOutlet.selectedSegmentIndex = lastSegmentChoice
-        topSegmentOutlet.bringSubview(toFront: picktargetView)
-        
         friendCircle.path = circlePath.cgPath
         friendCircle.fillColor = colorLightBlue.cgColor
         friendCircle.strokeColor = colorPoint.cgColor

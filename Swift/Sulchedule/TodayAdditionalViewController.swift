@@ -5,7 +5,7 @@ class TodayAdditionalViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.tintColor = hexStringToUIColor(hex: "FFDC67")
+        self.navigationController?.navigationBar.tintColor = colorPoint
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

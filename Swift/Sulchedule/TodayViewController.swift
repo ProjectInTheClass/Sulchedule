@@ -60,21 +60,23 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.calendar.select(Date())
         
+        shouldViewMonthlyStats()
+        
         self.view.addGestureRecognizer(self.scopeGesture)
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
 
         inputFriends.attributedPlaceholder = NSAttributedString(string: "함께한 사람",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: hexStringToUIColor(hex: "#FFDC67")])
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         inputLocation.attributedPlaceholder = NSAttributedString(string: "장소",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: hexStringToUIColor(hex: "#FFDC67")])
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         inputExpense.attributedPlaceholder = NSAttributedString(string: "지출액",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: hexStringToUIColor(hex: "#FFDC67")])
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         container1.layer.borderWidth = 1
-        container1.layer.borderColor = hexStringToUIColor(hex: "#FFDC67").cgColor
+        container1.layer.borderColor = colorPoint.cgColor
         container3.layer.borderWidth = 1
-        container3.layer.borderColor = hexStringToUIColor(hex: "#FFDC67").cgColor
+        container3.layer.borderColor = colorPoint.cgColor
         
         newDaySelected(date: calendar.today!)
     }
@@ -133,9 +135,22 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let movement:CGFloat = ( up ? -moveValue : moveValue)
         UIView.beginAnimations("animateView", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(movementDuration )
+        UIView.setAnimationDuration(movementDuration)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
+    }
+    
+    func shouldViewMonthlyStats(){
+        let formatterFirstDayOfMonth = DateFormatter()
+        formatterFirstDayOfMonth.dateFormat = "dd"
+        if(formatterFirstDayOfMonth.string(from: Date()) == "01"){
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
+            self.present(viewController, animated: false, completion: nil)
+            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "monthlyView")
+//            self.navigationController?.modal (vc, sender: nil)
+        }
     }
     
     // MARK:- UIGestureRecognizerDelegate

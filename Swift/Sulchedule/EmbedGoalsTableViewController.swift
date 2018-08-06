@@ -100,16 +100,16 @@ class EmbedGoalsTableCell: UITableViewCell {
     {
         bgGraph.layer.cornerRadius = bgGraph.bounds.height/2
         actualGraph.layer.cornerRadius = bgGraph.bounds.height/2
-        bgGraph.layer.backgroundColor = hexStringToUIColor(hex: "#252B53").cgColor
+        bgGraph.layer.backgroundColor = colorLightBlue.cgColor
         graphWidth.constant = CGFloat(value * Float(bgGraph.bounds.width))
         if(color == "green"){
-            actualGraph.layer.backgroundColor = hexStringToUIColor(hex: "#72FF7D").cgColor
+            actualGraph.layer.backgroundColor = colorGreen.cgColor
         }
         else if(color == "yellow"){
-            actualGraph.layer.backgroundColor = hexStringToUIColor(hex: "#FFC400").cgColor
+            actualGraph.layer.backgroundColor = colorYellow.cgColor
         }
         else{
-            actualGraph.layer.backgroundColor = hexStringToUIColor(hex: "#FF6060").cgColor
+            actualGraph.layer.backgroundColor = colorRed.cgColor
         }
     }
     

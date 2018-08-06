@@ -35,11 +35,11 @@ class GoalsViewController: UIViewController {
         greenView.layer.addSublayer(greenCircle)
         
         redCircle.path = circlePath.cgPath
-        redCircle.fillColor = hexStringToUIColor(hex: "#FF6060").cgColor
+        redCircle.fillColor = colorRed.cgColor
         yellowCircle.path = circlePath.cgPath
-        yellowCircle.fillColor = hexStringToUIColor(hex: "#FFC400").cgColor
+        yellowCircle.fillColor = colorYellow.cgColor
         greenCircle.path = circlePath.cgPath
-        greenCircle.fillColor = hexStringToUIColor(hex: "#72FF7D").cgColor
+        greenCircle.fillColor = colorGreen.cgColor
         
         cycleCircleBorder(cursor: 0)
     }
