@@ -20,6 +20,13 @@ let colorPoint = hexStringToUIColor(hex:"FFDC67")
 let colorLightBlue = hexStringToUIColor(hex:"252B53")
 let colorDarkBlue = hexStringToUIColor(hex:"0B102F")
 
+protocol Control2VCDelegate {
+    func sendData(data:Int)
+}
+protocol VC2ControlDelegate {
+    func sendData(data:Int)
+}
+
 func hexStringToUIColor (hex:String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     

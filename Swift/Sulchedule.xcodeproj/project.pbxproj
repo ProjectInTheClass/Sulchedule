@@ -35,6 +35,10 @@
 		354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */; };
 		3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */; };
 		3595EFCA2115E9D100F20009 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595EFC92115E9D100F20009 /* GoalsViewController.swift */; };
+		35975CBD21192EE600CDF77E /* MonthlySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */; };
+		35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */; };
+		35975CC5211947E400CDF77E /* IconSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC4211947E400CDF77E /* IconSelectViewController.swift */; };
+		35975CC7211950DC00CDF77E /* EmbedIconSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */; };
 		359EDF2321139D0C00B98BF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359EDF2221139D0C00B98BF9 /* Images.xcassets */; };
 		35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */; };
 		EE0954AD1B97DDE0007F6964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0954AC1B97DDE0007F6964 /* AppDelegate.swift */; };
@@ -101,6 +105,10 @@
 		354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedGoalsTableViewController.swift; sourceTree = "<group>"; };
 		3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatsViewController.swift; sourceTree = "<group>"; };
 		3595EFC92115E9D100F20009 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
+		35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryViewController.swift; sourceTree = "<group>"; };
+		35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryFrameViewController.swift; sourceTree = "<group>"; };
+		35975CC4211947E400CDF77E /* IconSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectViewController.swift; sourceTree = "<group>"; };
+		35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedIconSelectTableViewController.swift; sourceTree = "<group>"; };
 		359EDF2221139D0C00B98BF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsEditTableViewController.swift; sourceTree = "<group>"; };
 		EE0954A71B97DDE0007F6964 /* Sulchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sulchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,9 +221,13 @@
 				350CBC582113553E00802FB4 /* DataFormat.swift */,
 				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
 				3595EFC92115E9D100F20009 /* GoalsViewController.swift */,
+				35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */,
 				350CBC572113553E00802FB4 /* DataManipulator.swift */,
+				35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */,
 				35458DC82113D6D700878206 /* MethodPile.swift */,
 				35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */,
+				35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */,
+				35975CC4211947E400CDF77E /* IconSelectViewController.swift */,
 				EE0954B01B97DDE0007F6964 /* Main.storyboard */,
 				EE0954B51B97DDE0007F6964 /* LaunchScreen.xib */,
 				EE0954AA1B97DDE0007F6964 /* Supporting Files */,
@@ -354,6 +366,7 @@
 				30F4C9411E07C3AD00D2EC4D /* FSCalendarConstants.m in Sources */,
 				354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */,
 				30F4C9401E07C3AD00D2EC4D /* FSCalendarCollectionViewLayout.m in Sources */,
+				35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */,
 				30F4C93F1E07C3AD00D2EC4D /* FSCalendarCollectionView.m in Sources */,
 				30F4C9471E07C3AD00D2EC4D /* FSCalendarStickyHeader.m in Sources */,
 				350CBC5A2113553F00802FB4 /* DataManipulator.swift in Sources */,
@@ -367,12 +380,15 @@
 				305282C91E1608A100CC2877 /* TodayViewController.swift in Sources */,
 				350CBC5C2113553F00802FB4 /* DataCentre.swift in Sources */,
 				353AA8612113FA5F00FEDDB5 /* StatsViewController.swift in Sources */,
+				35975CC5211947E400CDF77E /* IconSelectViewController.swift in Sources */,
 				35058F452115B63C002DBF23 /* EmbedStatsTableViewController.swift in Sources */,
 				30F4C9431E07C3AD00D2EC4D /* FSCalendarDelegationProxy.m in Sources */,
 				35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */,
+				35975CC7211950DC00CDF77E /* EmbedIconSelectTableViewController.swift in Sources */,
 				30F4C93C1E07C3AD00D2EC4D /* FSCalendarAppearance.m in Sources */,
 				30F4C9481E07C3AD00D2EC4D /* FSCalendarWeekdayView.m in Sources */,
 				30F4C93E1E07C3AD00D2EC4D /* FSCalendarCell.m in Sources */,
+				35975CBD21192EE600CDF77E /* MonthlySummaryViewController.swift in Sources */,
 				30D458E91DB4E2DB00B163C7 /* LoadViewExampleViewController.swift in Sources */,
 				30F4C9391E07C3AD00D2EC4D /* FSCalendar+Deprecated.m in Sources */,
 				EE0954AD1B97DDE0007F6964 /* AppDelegate.swift in Sources */,
@@ -531,7 +547,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 45339DQ884;
 				INFOPLIST_FILE = "$(SRCROOT)/Sulchedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.herojeff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -548,7 +564,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 45339DQ884;
 				INFOPLIST_FILE = "$(SRCROOT)/Sulchedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.herojeff;
 				PRODUCT_NAME = "$(TARGET_NAME)";

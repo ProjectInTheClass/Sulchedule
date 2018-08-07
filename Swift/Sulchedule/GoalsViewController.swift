@@ -20,7 +20,7 @@ class GoalsViewController: UIViewController {
         super.viewDidLoad()
         
         initCircle()
-        formatter.dateFormat = "M월 dd일"
+        formatter.dateFormat = "M월 d일"
         self.navigationItem.title = formatter.string(from: date)
     }
     
@@ -41,7 +41,7 @@ class GoalsViewController: UIViewController {
         greenCircle.path = circlePath.cgPath
         greenCircle.fillColor = colorGreen.cgColor
         
-        cycleCircleBorder(cursor: 0)
+        cycleCircleBorder(cursor: 2)
     }
     
     func cycleCircleBorder(cursor: Int){

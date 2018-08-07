@@ -8,6 +8,7 @@ class MonthlyStatsViewController: UIViewController {
     let sulCircle = CAShapeLayer()
     let locationCircle = CAShapeLayer()
     var lastMonth: Int = 0
+    var lastYear: Int = 2000
     let circlePath = UIBezierPath(arcCenter: CGPoint(x: 48.5,y: 48.5), radius: CGFloat(48.5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
     
     @IBOutlet weak var sulLabel: UILabel!
@@ -21,24 +22,9 @@ class MonthlyStatsViewController: UIViewController {
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
-    @IBOutlet weak var thisMonthLabel: UILabel!
-    
-    @IBAction func dismissButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "M"
-        lastMonth = Int(formatter.string(from: Date())) ?? 1
-        lastMonth -= 1
-        if(lastMonth == 0){
-            lastMonth = 12
-        }
-        thisMonthLabel.text = "지난 달(\(lastMonth)월)의 통계"
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         initCircle()
