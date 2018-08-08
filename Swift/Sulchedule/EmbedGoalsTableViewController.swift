@@ -43,6 +43,19 @@ class EmbedGoalsTableViewController: UITableViewController {
         customCell.leftTitleLabel.text = "Dummy Data"
         customCell.leftValueLabel.text = "100000원"
         customCell.rightValueLabel.text = String(110000)
+        
+        if(isBrightTheme){
+            customCell.leftValueLabel.textColor = .black
+            customCell.rightValueLabel.textColor = .black
+            customCell.leftTitleLabel.textColor = .gray
+            customCell.rightTitleLabel.textColor = .gray
+        }
+        else{
+            customCell.leftValueLabel.textColor = .white
+            customCell.rightValueLabel.textColor = .white
+            customCell.leftTitleLabel.textColor = colorGray
+            customCell.rightTitleLabel.textColor = colorGray
+        }
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bgGraph.layer.backgroundColor = colorLightBackground.cgColor
 
@@ -121,8 +134,6 @@ class EmbedGoalsTableCell: UITableViewCell {
         super.awakeFromNib()
         
         drawRect(color: "red", value: 0.55)
-        leftTitleLabel.textColor = .gray
-        rightTitleLabel.textColor = .gray
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

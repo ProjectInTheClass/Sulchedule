@@ -1,15 +1,17 @@
-//
-//  AddSulViewController.swift
-//  Sulchedule
-//
-//  Created by herojeff on 08/08/2018.
-//  Copyright © 2018 wenchao. All rights reserved.
-//
-
 import UIKit
 
 class AddSulViewController: UIViewController {
 
+    @IBOutlet var background: UIView!
+    @IBOutlet weak var foreground: UIView!
+    @IBOutlet weak var dismissButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBAction func dismissButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func saveButton(_ sender: Any) {
+        //addSul
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +21,10 @@ class AddSulViewController: UIViewController {
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
+        background.backgroundColor = colorLightBackground
+        foreground.backgroundColor = colorDeepBackground
+        saveButton.tintColor = colorPoint
+        dismissButton.tintColor = colorPoint
         if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }

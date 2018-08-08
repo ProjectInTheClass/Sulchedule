@@ -42,6 +42,7 @@
 		35975CC7211950DC00CDF77E /* EmbedIconSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */; };
 		359EDF2321139D0C00B98BF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359EDF2221139D0C00B98BF9 /* Images.xcassets */; };
 		35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */; };
+		35B940D8211B55EB00287C00 /* EmbedAddSulTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */; };
 		35FABC29211AB60400E3ECC1 /* AddSulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */; };
 		EE0954AD1B97DDE0007F6964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0954AC1B97DDE0007F6964 /* AppDelegate.swift */; };
 		EE0954AF1B97DDE0007F6964 /* InterfaceBuilderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0954AE1B97DDE0007F6964 /* InterfaceBuilderViewController.swift */; };
@@ -114,6 +115,7 @@
 		35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedIconSelectTableViewController.swift; sourceTree = "<group>"; };
 		359EDF2221139D0C00B98BF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsEditTableViewController.swift; sourceTree = "<group>"; };
+		35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedAddSulTableViewController.swift; sourceTree = "<group>"; };
 		35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSulViewController.swift; sourceTree = "<group>"; };
 		EE0954A71B97DDE0007F6964 /* Sulchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sulchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE0954AB1B97DDE0007F6964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				353AA8602113FA5F00FEDDB5 /* StatsViewController.swift */,
 				3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */,
 				30D458E81DB4E2DB00B163C7 /* LoadViewExampleViewController.swift */,
+				35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */,
 				350CBC592113553F00802FB4 /* DataCentre.swift */,
 				350CBC582113553E00802FB4 /* DataFormat.swift */,
 				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
@@ -376,6 +379,7 @@
 				35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */,
 				30F4C93F1E07C3AD00D2EC4D /* FSCalendarCollectionView.m in Sources */,
 				30F4C9471E07C3AD00D2EC4D /* FSCalendarStickyHeader.m in Sources */,
+				35B940D8211B55EB00287C00 /* EmbedAddSulTableViewController.swift in Sources */,
 				350CBC5A2113553F00802FB4 /* DataManipulator.swift in Sources */,
 				30F4C9461E07C3AD00D2EC4D /* FSCalendarScopeHandle.m in Sources */,
 				30F4C9451E07C3AD00D2EC4D /* FSCalendarHeaderView.m in Sources */,

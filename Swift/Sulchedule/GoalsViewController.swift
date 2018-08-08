@@ -25,10 +25,13 @@ class GoalsViewController: UIViewController {
         self.navigationItem.title = formatter.string(from: date)
     }
     override func viewWillAppear(_ animated: Bool) {
+        topBackgroundView.backgroundColor = colorLightBackground
+        navigationItem.rightBarButtonItem?.tintColor = colorPoint
         if(isBrightTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-            topBackgroundView.backgroundColor = colorLightBackground
-            navigationItem.rightBarButtonItem?.tintColor = colorPoint
+        }
+        else{
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         }
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint

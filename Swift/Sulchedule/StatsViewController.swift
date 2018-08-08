@@ -158,9 +158,15 @@ class StatsViewController: UIViewController {
     func loadSegment(whichSegment: Int){
         if(whichSegment == 0){
             if(firstAppearance){
+                if(isVibrationOn){
+                    AudioServicesPlaySystemSound(failed)
+                }
                 firstAppearance = false
             }
             else{
+                if(isVibrationOn){
+                    AudioServicesPlaySystemSound(cancelled)
+                }
                 animator(isLeft: true)
                 firstAppearance = false
             }
@@ -172,9 +178,6 @@ class StatsViewController: UIViewController {
     }
     
     func animator(isLeft: Bool){
-        if(isVibrationOn){
-            AudioServicesPlaySystemSound(cancelled)
-        }
         
         let duration = 0.35
         let delay = -0.15

@@ -13,20 +13,6 @@ import UIKit
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
             colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
-            UINavigationBar.appearance().tintColor = UIColor.black
-            UIApplication.shared.statusBarStyle = .default
-            UITabBar.appearance().unselectedItemTintColor = .black
-            
-            UILabel.appearance().textColor = UIColor.black
-            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
-        }
-        else{
-            UINavigationBar.appearance().tintColor = UIColor.white
-            UIApplication.shared.statusBarStyle = .lightContent
-            UITabBar.appearance().unselectedItemTintColor = .white
-            
-            UILabel.appearance().textColor = UIColor.white
-            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         }
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)

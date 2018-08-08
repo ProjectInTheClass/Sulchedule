@@ -6,6 +6,7 @@ class TodayAdditionalViewController: UITableViewController {
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "직접 추가", style: .done, target: self, action: #selector(loadAddSul))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -21,6 +22,11 @@ class TodayAdditionalViewController: UITableViewController {
 
         }
         backgroundView.reloadData()
+    }
+    
+    @objc func loadAddSul(){
+        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addSul") as UIViewController
+        self.present(viewController, animated: true, completion: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -287,6 +287,16 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         customCell.backgroundColor = .clear
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
+        if(isBrightTheme){
+            customCell.bottleLabel.textColor = .black
+            customCell.titleLabel.textColor = .gray
+        }
+        else{
+            customCell.bottleLabel.textColor = .white
+            customCell.titleLabel.textColor = colorGray
+        }
+        
+        
         
         return customCell
     }
