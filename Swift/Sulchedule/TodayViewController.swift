@@ -48,15 +48,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if(!isDarkTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             bottomContainer.backgroundColor = colorLightBackground
-            rightTypeLabel.textColor = .black
-            leftCalorieLevel.textColor = .black
-            leftTypeLabel.textColor = .black
-            rightExpenseLabel.textColor = .black
             tableFooter.backgroundColor = colorDeepBackground
             tableView.backgroundColor = colorDeepBackground
-            textColor1.textColor = .black
             textColor2.textColor = .gray
             disclosureIcon.image = UIImage(named:"Chevron_blue")
+            inputFriends.textColor = .black
+            inputLocation.textColor = .black
+            inputExpense.textColor = .black
         }
         navigationTitle.leftBarButtonItem?.tintColor = colorPoint
         navigationTitle.rightBarButtonItem?.tintColor = colorPoint
@@ -318,7 +316,6 @@ class TodayTableViewCell: UITableViewCell {
         super.awakeFromNib()
         if(!isDarkTheme){
             titleLabel.textColor = .gray
-            bottleLabel.textColor = .black
             bottleStepper.tintColor = colorPoint
         }
     }

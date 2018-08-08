@@ -3,8 +3,17 @@ import UIKit
 
 class EmbedIconSelectTableViewController: UITableViewController {
 
+    @IBOutlet var backgroundTable: UITableView!
+    @IBOutlet weak var cell1: UITableViewCell!
+    @IBOutlet weak var cell2: UITableViewCell!
+    @IBOutlet weak var cell3: UITableViewCell!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backgroundTable.backgroundColor = colorDeepBackground
+        cell1.contentView.backgroundColor = colorDeepBackground
+        cell2.contentView.backgroundColor = colorDeepBackground
+        cell3.contentView.backgroundColor = colorDeepBackground
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

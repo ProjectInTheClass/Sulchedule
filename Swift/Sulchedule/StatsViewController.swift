@@ -12,13 +12,18 @@ class StatsViewController: UIViewController {
     var circlePath: UIBezierPath? = nil
     
     @IBOutlet weak var sulLabel: UILabel!
-    @IBOutlet weak var friendLabel: UIView!
-    @IBOutlet weak var locationLabel: UIView!
+    @IBOutlet weak var friendLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var picktargetView: UIView!
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var friendView: UIView!
     @IBOutlet weak var sulView: UIView!
+    @IBOutlet weak var firstPlaceLabel: UIView!
+    @IBOutlet weak var firstPlaceView: UIView!
+    @IBOutlet weak var firstPlaceText: UILabel!
+    @IBOutlet weak var secondPlaceView: UIView!
+    @IBOutlet weak var thirdPlaceView: UIView!
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
@@ -43,7 +48,14 @@ class StatsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if(!isDarkTheme){
+            leaderboardView.backgroundColor = colorLightBackground
+            picktargetView.backgroundColor = colorDeepBackground
+            firstPlaceLabel.backgroundColor = colorPoint
+            firstPlaceText.textColor = .white
+            topSegmentOutlet.tintColor = colorPoint
+            topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
+        }
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +71,15 @@ class StatsViewController: UIViewController {
         friendView.addGestureRecognizer(friendTap)
         locationView.addGestureRecognizer(locationTap)
         
+        let radius: CGFloat = firstPlaceView.frame.width / 2.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: firstPlaceView.frame.height))
+        firstPlaceView.layer.shadowColor = UIColor.black.cgColor
+        firstPlaceView.layer.shadowOffset = CGSize(width: 0, height: 0)  //Here you control x and y
+        firstPlaceView.layer.shadowOpacity = 0.2
+        firstPlaceView.layer.shadowRadius = 5.0 //Here your control your blur
+        firstPlaceView.layer.masksToBounds =  false
+        firstPlaceView.layer.shadowPath = shadowPath.cgPath
+
         friendView.layer.addSublayer(friendCircle)
         friendView.bringSubview(toFront: friendLabel)
         locationView.layer.addSublayer(locationCircle)

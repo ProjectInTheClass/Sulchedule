@@ -2,14 +2,22 @@ import UIKit
 
 class EmbedStatsTableViewController: UITableViewController {
 
+    @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(!isDarkTheme){
+            backgroundView.backgroundColor = .white
+        }
     }
 
     // MARK: - Table view data source
@@ -33,6 +41,9 @@ class EmbedStatsTableViewController: UITableViewController {
         
         customCell.valueLabel.text = "Dummy Value"
         customCell.titleLabel.text = "Dummy Title"
+        if(!isDarkTheme){
+            customCell.backgroundColor = .white
+        }
         
         return customCell
     }
@@ -91,7 +102,9 @@ class EmbedStatsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        if(!isDarkTheme){
+            titleLabel.textColor = .gray
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

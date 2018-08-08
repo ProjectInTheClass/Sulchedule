@@ -2,9 +2,11 @@ import UIKit
 
 class EmbedGoalsTableViewController: UITableViewController {
 
+    @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        backgroundView.backgroundColor = colorDeepBackground
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -35,6 +37,7 @@ class EmbedGoalsTableViewController: UITableViewController {
         customCell.leftTitleLabel.text = "Dummy Data"
         customCell.leftValueLabel.text = "100000원"
         customCell.rightValueLabel.text = String(110000)
+        customCell.contentView.backgroundColor = colorDeepBackground
 
         return customCell
     }
@@ -85,6 +88,7 @@ class EmbedGoalsTableCell: UITableViewCell {
     @IBOutlet weak var leftValueLabel: UILabel!
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var rightValueLabel: UILabel!
+    @IBOutlet weak var rightTitleLabel: UILabel!
     
     @IBOutlet weak var graphWidth: NSLayoutConstraint!
     @IBOutlet weak var actualGraph: UIView!
@@ -110,6 +114,8 @@ class EmbedGoalsTableCell: UITableViewCell {
         super.awakeFromNib()
         
         drawRect(color: "red", value: 0.55)
+        leftTitleLabel.textColor = .gray
+        rightTitleLabel.textColor = .gray
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -14,6 +14,9 @@ class MonthlyStatsViewController: UIViewController {
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UIView!
     @IBOutlet weak var locationLabel: UIView!
+    @IBOutlet weak var firstPlaceLabel: UIView!
+    @IBOutlet weak var firstPlaceText: UILabel!
+    @IBOutlet weak var firstPlaceView: UIView!
     
     @IBOutlet weak var picktargetView: UIView!
     @IBOutlet weak var locationView: UIView!
@@ -25,6 +28,13 @@ class MonthlyStatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(!isDarkTheme){
+            leaderboardView.backgroundColor = colorLightBackground
+            picktargetView.backgroundColor = colorDeepBackground
+            firstPlaceLabel.backgroundColor = colorPoint
+            firstPlaceText.textColor = .white
+            
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         initCircle()
@@ -35,6 +45,15 @@ class MonthlyStatsViewController: UIViewController {
         sulView.addGestureRecognizer(sulTap)
         friendView.addGestureRecognizer(friendTap)
         locationView.addGestureRecognizer(locationTap)
+        
+        let radius: CGFloat = firstPlaceView.frame.width / 2.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: firstPlaceView.frame.height))
+        firstPlaceView.layer.shadowColor = UIColor.black.cgColor
+        firstPlaceView.layer.shadowOffset = CGSize(width: 0, height: 0)  //Here you control x and y
+        firstPlaceView.layer.shadowOpacity = 0.2
+        firstPlaceView.layer.shadowRadius = 5.0 //Here your control your blur
+        firstPlaceView.layer.masksToBounds =  false
+        firstPlaceView.layer.shadowPath = shadowPath.cgPath
         
         friendView.layer.addSublayer(friendCircle)
         friendView.bringSubview(toFront: friendLabel)

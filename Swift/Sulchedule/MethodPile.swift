@@ -12,7 +12,7 @@ let tryAgain = SystemSoundID(1102)
 // 'Failed' feedback (three sequential strong booms)
 let failed = SystemSoundID(1107)
 
-let isDarkTheme = false
+let isDarkTheme = true
 
 let colorYellow = hexStringToUIColor(hex:"FFC400")
 let colorGreen = hexStringToUIColor(hex:"72FF7D")

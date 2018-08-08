@@ -18,6 +18,9 @@ var goalOrder = [0,1,2,3]
 
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
     
+    @IBOutlet var backgroundView: UITableView!
+    @IBOutlet weak var cell: GoalsEditTableCell!
+    
     func tableManipulateSwitch(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         
@@ -46,6 +49,10 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GoalsEditTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        if(!isDarkTheme){
+            backgroundView.backgroundColor = colorDeepBackground
+        }
     }
 
     // MARK: - Table view data source
@@ -78,6 +85,16 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         customCell.delegate = self
         customCell.uiSwitch.setOn(goals[indexPath.row].checked, animated: false)
         customCell.editField.text = String(goals[indexPath.row].value)
+        customCell.contentView.backgroundColor = colorDeepBackground
+        customCell.tintColor = colorDeepBackground
+        customCell.backgroundColor = colorDeepBackground
+        
+        for view in customCell.subviews {
+            if(view.description.lowercased().contains("reorder")){
+                print(view)
+                view.superview?.backgroundColor = colorDeepBackground
+            }
+        }
 
         return customCell
     }
@@ -113,7 +130,6 @@ class GoalsEditTableCell: UITableViewCell {
     
     @IBOutlet weak var editField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBAction func labelEditEnded(_ sender: UITextField) {
         delegate?.tableManipulateValue(self)
     }
@@ -127,6 +143,13 @@ class GoalsEditTableCell: UITableViewCell {
         super.awakeFromNib()
         editField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        if(!isDarkTheme){
+            uiSwitch.tintColor = colorPoint
+            uiSwitch.thumbTintColor = colorLightBackground
+            uiSwitch.onTintColor = colorPoint
+            editField.textColor = colorPoint
+            editField.tintColor = .black
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

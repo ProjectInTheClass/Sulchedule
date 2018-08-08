@@ -5,6 +5,7 @@ class GoalsViewController: UIViewController {
     @IBOutlet weak var yellowView: UIView!
     @IBOutlet weak var redView: UIView!
     @IBOutlet weak var howYouDoingLabel: UILabel!
+    @IBOutlet weak var topBackgroundView: UIView!
     
     
     let circlePath = UIBezierPath(arcCenter: CGPoint(x: 18,y: 18), radius: CGFloat(18), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
@@ -18,6 +19,12 @@ class GoalsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if(!isDarkTheme){
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
+            topBackgroundView.backgroundColor = colorLightBackground
+            navigationItem.rightBarButtonItem?.tintColor = colorPoint
+        }
         
         initCircle()
         formatter.dateFormat = "M월 d일"

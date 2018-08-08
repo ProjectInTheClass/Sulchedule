@@ -3,10 +3,12 @@ import UIKit
 
 class TodayAdditionalViewController: UITableViewController {
 
+    @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.tintColor = colorPoint
+        backgroundView.backgroundColor = colorDeepBackground
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,6 +39,9 @@ class TodayAdditionalViewController: UITableViewController {
         
         customCell.bottleLabel.text = "3병"
         customCell.titleLabel.text = "Dummy Data"
+        if(!isDarkTheme){
+            customCell.contentView.backgroundColor = .white
+        }
         return customCell
     }
   
@@ -94,24 +99,41 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starButtonOutlet: UIButton!
     @IBAction func starButtonAction(_ sender: Any) {
-        if(flag){
-            starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
-            flag.toggle()
+        if(isDarkTheme){
+            if(flag){
+                starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
+                flag.toggle()
+            }
+            else{
+                starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
+                flag.toggle()
+            }
         }
         else{
-            starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
-            flag.toggle()
+            if(flag){
+                starButtonOutlet.setImage(UIImage(named: "star_blue_empty"), for: UIControlState())
+                flag.toggle()
+            }
+            else{
+                starButtonOutlet.setImage(UIImage(named: "star_blue"), for: UIControlState())
+                flag.toggle()
+            }
         }
     }
     @IBOutlet weak var bottleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
     }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        if(!isDarkTheme){
+            bottleStepper.tintColor = colorPoint
+            bottleLabel.textColor = .black
+            titleLabel.textColor = .gray
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -8,6 +8,8 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     var vc: MonthlySummaryViewController? = nil
     var delegate: Control2VCDelegate? = nil
 
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var pageOutlet: UIPageControl!
     @IBOutlet var navigationBarTitle: UINavigationItem!
     @IBAction func dismissButton(_ sender: UIBarButtonItem) {
@@ -16,6 +18,16 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if(!isDarkTheme){
+            navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
+            pageOutlet.backgroundColor = colorDeepBackground
+            pageOutlet.pageIndicatorTintColor = .gray
+            backgroundView.backgroundColor = colorLightBackground
+            navigationBar.tintColor = .black
+            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        }
+        pageOutlet.currentPageIndicatorTintColor = colorPoint
 
         let formatter = DateFormatter()
         formatter.dateFormat = "M"
