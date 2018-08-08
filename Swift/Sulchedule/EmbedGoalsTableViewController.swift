@@ -1,11 +1,3 @@
-//
-//  EmbedGoalsUITableTableViewController.swift
-//  Sulchedule
-//
-//  Created by herojeff on 06/08/2018.
-//  Copyright © 2018 wenchao. All rights reserved.
-//
-
 import UIKit
 
 class EmbedGoalsTableViewController: UITableViewController {
@@ -29,7 +21,7 @@ class EmbedGoalsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 4
     }
 
     
@@ -46,6 +38,7 @@ class EmbedGoalsTableViewController: UITableViewController {
 
         return customCell
     }
+
     
     
     
@@ -100,7 +93,7 @@ class EmbedGoalsTableCell: UITableViewCell {
     {
         bgGraph.layer.cornerRadius = bgGraph.bounds.height/2
         actualGraph.layer.cornerRadius = bgGraph.bounds.height/2
-        bgGraph.layer.backgroundColor = colorLightBlue.cgColor
+        bgGraph.layer.backgroundColor = colorLightBackground.cgColor
         graphWidth.constant = CGFloat(value * Float(bgGraph.bounds.width))
         if(color == "green"){
             actualGraph.layer.backgroundColor = colorGreen.cgColor

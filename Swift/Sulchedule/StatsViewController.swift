@@ -8,7 +8,8 @@ class StatsViewController: UIViewController {
     let friendCircle = CAShapeLayer()
     let sulCircle = CAShapeLayer()
     let locationCircle = CAShapeLayer()
-    let circlePath = UIBezierPath(arcCenter: CGPoint(x: 48.5,y: 48.5), radius: CGFloat(48.5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+    var radOfCircle: CGFloat = 0
+    var circlePath: UIBezierPath? = nil
     
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UIView!
@@ -43,8 +44,12 @@ class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     }
     override func viewWillAppear(_ animated: Bool) {
+        radOfCircle = sulView.bounds.height/2
+        circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+        
         initCircle()
         
         let sulTap = UITapGestureRecognizer(target: self, action: #selector(sulClicked))
@@ -100,7 +105,7 @@ class StatsViewController: UIViewController {
         let delay = -0.15
         if(isLeft){
             leaderboardTopConstraint.constant = 0
-            picktargetTopConstraint.constant = 280
+            picktargetTopConstraint.constant = 268
             
             UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 1
@@ -134,16 +139,16 @@ class StatsViewController: UIViewController {
         topSegmentOutlet.selectedSegmentIndex = lastSegmentChoice
         topSegmentOutlet.bringSubview(toFront: picktargetView)
         
-        friendCircle.path = circlePath.cgPath
-        friendCircle.fillColor = colorLightBlue.cgColor
+        friendCircle.path = circlePath?.cgPath
+        friendCircle.fillColor = colorLightBackground.cgColor
         friendCircle.strokeColor = colorPoint.cgColor
         friendCircle.lineWidth = 3.0
-        sulCircle.path = circlePath.cgPath
-        sulCircle.fillColor = colorLightBlue.cgColor
+        sulCircle.path = circlePath?.cgPath
+        sulCircle.fillColor = colorLightBackground.cgColor
         sulCircle.strokeColor = colorPoint.cgColor
         sulCircle.lineWidth = 0
-        locationCircle.path = circlePath.cgPath
-        locationCircle.fillColor = colorLightBlue.cgColor
+        locationCircle.path = circlePath?.cgPath
+        locationCircle.fillColor = colorLightBackground.cgColor
         locationCircle.strokeColor = colorPoint.cgColor
         locationCircle.lineWidth = 0
     }

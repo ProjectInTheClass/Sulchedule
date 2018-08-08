@@ -12,13 +12,15 @@ let tryAgain = SystemSoundID(1102)
 // 'Failed' feedback (three sequential strong booms)
 let failed = SystemSoundID(1107)
 
+let isDarkTheme = false
+
 let colorYellow = hexStringToUIColor(hex:"FFC400")
 let colorGreen = hexStringToUIColor(hex:"72FF7D")
 let colorRed = hexStringToUIColor(hex:"FF6060")
 let colorGray = hexStringToUIColor(hex:"A4A4A4")
-let colorPoint = hexStringToUIColor(hex:"FFDC67")
-let colorLightBlue = hexStringToUIColor(hex:"252B53")
-let colorDarkBlue = hexStringToUIColor(hex:"0B102F")
+var colorPoint = hexStringToUIColor(hex:"FFDC67")
+var colorLightBackground = hexStringToUIColor(hex:"252B53")
+var colorDeepBackground = hexStringToUIColor(hex:"0B102F")
 
 protocol Control2VCDelegate {
     func sendData(data:Int)

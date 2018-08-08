@@ -1,7 +1,8 @@
+//table view input
 import UIKit
 import AudioToolbox.AudioServices
 
-class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
+class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var loadAdditionalView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -29,29 +30,36 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var rightTypeLabel: UILabel!
     @IBOutlet weak var leftCalorieLevel: UILabel!
     @IBOutlet weak var leftTypeLabel: UILabel!
+    @IBOutlet weak var bottomContainer: UIView!
+    @IBOutlet weak var tableFooter: UIView!
+    @IBOutlet weak var textColor1: UILabel!
+    @IBOutlet weak var textColor2: UILabel!
+    @IBOutlet weak var disclosureIcon: UIImageView!
+    
     
     var scope: FSCalendarScope = .week
     var upFlag = false
     var firstRunForHaptic: Bool = true
     var firstRunForMonthlySummary: Bool = true
     
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
-        return formatter
-    }()
-    
-    lazy var scopeGesture: UIPanGestureRecognizer = {
-        [unowned self] in
-        let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
-        panGesture.delegate = self
-        panGesture.minimumNumberOfTouches = 1
-        panGesture.maximumNumberOfTouches = 2
-        return panGesture
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if(!isDarkTheme){
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
+            bottomContainer.backgroundColor = colorLightBackground
+            rightTypeLabel.textColor = .black
+            leftCalorieLevel.textColor = .black
+            leftTypeLabel.textColor = .black
+            rightExpenseLabel.textColor = .black
+            tableFooter.backgroundColor = colorDeepBackground
+            tableView.backgroundColor = colorDeepBackground
+            textColor1.textColor = .black
+            textColor2.textColor = .gray
+            disclosureIcon.image = UIImage(named:"Chevron_blue")
+        }
+        navigationTitle.leftBarButtonItem?.tintColor = colorPoint
+        navigationTitle.rightBarButtonItem?.tintColor = colorPoint
         
         self.inputFriends.delegate = self
         self.inputExpense.delegate = self
@@ -65,11 +73,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
-
+        
         inputFriends.attributedPlaceholder = NSAttributedString(string: "함께한 사람",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         inputLocation.attributedPlaceholder = NSAttributedString(string: "장소",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         inputExpense.attributedPlaceholder = NSAttributedString(string: "지출액",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         container1.layer.borderWidth = 1
@@ -92,6 +100,43 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         container1.addGestureRecognizer(tapFriends)
         container2.addGestureRecognizer(tapLocation)
         container3.addGestureRecognizer(tapExpense)
+    }
+    
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter
+    }()
+    
+    lazy var scopeGesture: UIPanGestureRecognizer = {
+        [unowned self] in
+        let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
+        panGesture.delegate = self
+        panGesture.minimumNumberOfTouches = 1
+        panGesture.maximumNumberOfTouches = 2
+        return panGesture
+    }()
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        self.calendar.calendarHeaderView.backgroundColor = colorLightBackground
+        self.calendar.calendarWeekdayView.backgroundColor = colorLightBackground
+        self.calendar.backgroundColor = colorLightBackground
+        if(isDarkTheme){
+            return .white
+        }
+        else{
+            self.calendar.appearance.weekdayTextColor = .black
+            self.calendar.appearance.titleDefaultColor = .white
+            self.calendar.appearance.todayColor = .white
+            
+            return .black
+        }
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        return .white
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+        return colorPoint
     }
     
     @objc func handleTapFriends(_ sender: UITapGestureRecognizer) {
@@ -204,8 +249,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         customCell.bottleLabel.text = "3병"
         customCell.titleLabel.text = "Dummy Data"
+        customCell.backgroundColor = .clear
+        customCell.contentView.backgroundColor = colorDeepBackground
         
         return customCell
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = .clear
     }
     
     
@@ -229,6 +279,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             AudioServicesPlaySystemSound(peek)
         }
         navigationTitle.title = "\(self.dateFormatter.string(from: date))"
+        
         scope = .week
         self.calendar.setScope(scope, animated: true)
         //load data into tableView
@@ -238,6 +289,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.view.endEditing(true)
         return false
     }
+    
     
 }
 
@@ -257,14 +309,18 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bottleLabel: UILabel!
+    @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
-        
     }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        if(!isDarkTheme){
+            titleLabel.textColor = .gray
+            bottleLabel.textColor = .black
+            bottleStepper.tintColor = colorPoint
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

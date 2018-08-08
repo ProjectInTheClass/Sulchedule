@@ -1,3 +1,4 @@
+//table view input
 import UIKit
 import AudioToolbox.AudioServices
 
@@ -12,6 +13,8 @@ struct UserGoalOrder{
     var value: Int
 }
 var goals: [UserGoalOrder] = [UserGoalOrder(name: "First Dummy", checked: false, value: 1000), UserGoalOrder(name: "Second Dummy", checked: true, value: 1500), UserGoalOrder(name: "Third Dummy", checked: false, value: 2000)]
+
+var goalOrder = [0,1,2,3]
 
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
     
@@ -91,8 +94,12 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         AudioServicesPlaySystemSound(peek)
         let v = goals[fromIndexPath.row]
+        let order = goalOrder[fromIndexPath.row]
         goals.remove(at: fromIndexPath.row)
+        goalOrder.remove(at: fromIndexPath.row)
         goals.insert(v, at: to.row)
+        goalOrder.insert(order, at: to.row)
+        print(goalOrder)
     }
     
     override func dismissKeyboard() {
@@ -112,6 +119,7 @@ class GoalsEditTableCell: UITableViewCell {
     }
     @IBOutlet weak var uiSwitch: UISwitch!
     @IBAction func switchChanged(_ sender: UISwitch) {
+        AudioServicesPlaySystemSound(peek)
         delegate?.tableManipulateSwitch(self)
     }
     

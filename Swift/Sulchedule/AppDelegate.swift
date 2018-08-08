@@ -9,13 +9,27 @@ import UIKit
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        if(!isDarkTheme){
+            colorPoint = hexStringToUIColor(hex: "#0067B2")
+            colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
+            colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
+            UINavigationBar.appearance().tintColor = hexStringToUIColor(hex: "#000000")
+            UIApplication.shared.statusBarStyle = .default
+            UITabBar.appearance().unselectedItemTintColor = .black
+        }
+        else{
+            UINavigationBar.appearance().tintColor = hexStringToUIColor(hex: "#FFFFFF")
+            UIApplication.shared.statusBarStyle = .lightContent
+            UITabBar.appearance().unselectedItemTintColor = .white
+        }
+        
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().tintColor = hexStringToUIColor(hex: "#FFFFFF")
-        UINavigationBar.appearance().barTintColor = colorLightBlue
+        
+        UINavigationBar.appearance().barTintColor = colorLightBackground
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().clipsToBounds = false
-        UINavigationBar.appearance().backgroundColor = colorLightBlue
+        UINavigationBar.appearance().backgroundColor = colorLightBackground
         
             UINavigationBar.appearance().titleTextAttributes = [
                 NSAttributedStringKey.font: UIFont(name: "Helvetica Neue", size: 17)!,
@@ -23,15 +37,10 @@ import UIKit
         ]
         
         UITabBar.appearance().tintColor = colorPoint
-        UITabBar.appearance().barTintColor = colorLightBlue
-        if #available(iOS 10.0, *) {
-            UITabBar.appearance().unselectedItemTintColor = .white
-        }
+        UITabBar.appearance().barTintColor = colorLightBackground
         UITabBar.appearance().layer.borderWidth = 0.10
         UITabBar.appearance().layer.borderColor = UIColor.clear.cgColor
         UITabBar.appearance().clipsToBounds = true
-        
-        UIApplication.shared.statusBarStyle = .lightContent
         
         return true
     }

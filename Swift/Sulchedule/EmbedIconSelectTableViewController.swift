@@ -1,11 +1,4 @@
-//
-//  EmbedIconSelectTableViewController.swift
-//  Sulchedule
-//
-//  Created by herojeff on 07/08/2018.
-//  Copyright © 2018 wenchao. All rights reserved.
-//
-
+//table view input
 import UIKit
 
 class EmbedIconSelectTableViewController: UITableViewController {

@@ -61,15 +61,15 @@ class MonthlyStatsViewController: UIViewController {
 
     func initCircle(){
         friendCircle.path = circlePath.cgPath
-        friendCircle.fillColor = colorLightBlue.cgColor
+        friendCircle.fillColor = colorLightBackground.cgColor
         friendCircle.strokeColor = colorPoint.cgColor
         friendCircle.lineWidth = 3.0
         sulCircle.path = circlePath.cgPath
-        sulCircle.fillColor = colorLightBlue.cgColor
+        sulCircle.fillColor = colorLightBackground.cgColor
         sulCircle.strokeColor = colorPoint.cgColor
         sulCircle.lineWidth = 0
         locationCircle.path = circlePath.cgPath
-        locationCircle.fillColor = colorLightBlue.cgColor
+        locationCircle.fillColor = colorLightBackground.cgColor
         locationCircle.strokeColor = colorPoint.cgColor
         locationCircle.lineWidth = 0
     }
