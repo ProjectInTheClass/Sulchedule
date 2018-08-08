@@ -6,7 +6,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     }
     
     var vc: MonthlySummaryViewController? = nil
-    var delegate2: Control2VCDelegate? = nil
+    var delegate: Control2VCDelegate? = nil
 
     @IBOutlet weak var pageOutlet: UIPageControl!
     @IBOutlet var navigationBarTitle: UINavigationItem!

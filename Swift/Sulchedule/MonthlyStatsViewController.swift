@@ -47,12 +47,15 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     @objc func sulClicked(){
+        //Dev on Main first, than transfer here
         cycleCircleBorder(cursor: 0)
     }
     @objc func friendClicked(){
+        //Dev on Main first, than transfer here
         cycleCircleBorder(cursor: 1)
     }
     @objc func locationClicked(){
+        //Dev on Main first, than transfer here
         cycleCircleBorder(cursor: 2)
     }
 
@@ -72,6 +75,7 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     func cycleCircleBorder(cursor: Int){
+        //Dev on Main first, than transfer here
         switch (cursor){
         case 0:
             friendCircle.lineWidth = 0.0
@@ -91,6 +95,7 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     func reloadLeaderboard(cursor: Int){
+        //Dev on Main first, than transfer here
         switch (cursor){
         case 0:
             friendCircle.lineWidth = 0.0

@@ -62,6 +62,6 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let viewController: MonthlySummaryFrameViewController = segue.destination as! MonthlySummaryFrameViewController
-        viewController.delegate2 = self
+        viewController.delegate = self
     }
 }

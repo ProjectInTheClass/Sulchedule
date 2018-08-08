@@ -743,6 +743,9 @@
                                             <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                            <connections>
+                                                <action selector="labelEditEnded:" destination="BeR-DA-kNK" eventType="editingDidEnd" id="nEz-ld-GFA"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -1203,7 +1206,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="0fA-De-rPS" customClass="MonthlySummaryViewController" customModule="Sulchedule" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4H-x4-pPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-413" y="2563"/>
+            <point key="canvasLocation" x="-473" y="2551"/>
         </scene>
         <!--Monthly Summary Frame View Controller-->
         <scene sceneID="49G-Lu-gb7">
@@ -1598,7 +1601,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UlF-Ub-rUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2070" y="2532"/>
+            <point key="canvasLocation" x="2070" y="2552"/>
         </scene>
         <!--MonthlyGoals-->
         <scene sceneID="4Gk-jB-Le6">
@@ -1852,7 +1855,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aD7-9N-Ubh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1832.8" y="3965.667166416792"/>
+            <point key="canvasLocation" x="2071" y="3949"/>
         </scene>
         <!--Embed Goals-->
         <scene sceneID="pfG-4B-J6i">

@@ -2,7 +2,8 @@ import UIKit
 import AudioToolbox.AudioServices
 
 protocol GoalsEditTableDelegate {
-    func tableManipulate(_ sender: GoalsEditTableCell)
+    func tableManipulateSwitch(_ sender: GoalsEditTableCell)
+    func tableManipulateValue(_ sender: GoalsEditTableCell)
 }
 
 struct UserGoalOrder{
@@ -14,11 +15,20 @@ var goals: [UserGoalOrder] = [UserGoalOrder(name: "First Dummy", checked: false,
 
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
     
-    func tableManipulate(_ sender: GoalsEditTableCell) {
+    func tableManipulateSwitch(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         
         goals[indexPath.row].checked.toggle()
         sender.uiSwitch.setOn(goals[indexPath.row].checked, animated: true)
+    }
+    
+    func tableManipulateValue(_ sender: GoalsEditTableCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        
+//        apply to array here
+        let k: NSString = sender.editField.text! as NSString
+        goals[indexPath.row].value = Int(k.integerValue)
+        tableView.reloadData()
     }
     
     let formatter = DateFormatter()
@@ -88,25 +98,6 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     override func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 class GoalsEditTableCell: UITableViewCell {
@@ -115,9 +106,13 @@ class GoalsEditTableCell: UITableViewCell {
     
     @IBOutlet weak var editField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBAction func labelEditEnded(_ sender: UITextField) {
+        delegate?.tableManipulateValue(self)
+    }
     @IBOutlet weak var uiSwitch: UISwitch!
     @IBAction func switchChanged(_ sender: UISwitch) {
-        delegate?.tableManipulate(self)
+        delegate?.tableManipulateSwitch(self)
     }
     
     override func awakeFromNib() {
