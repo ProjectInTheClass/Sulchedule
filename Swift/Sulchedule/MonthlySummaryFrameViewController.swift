@@ -18,16 +18,6 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if(!isDarkTheme){
-            navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
-            pageOutlet.backgroundColor = colorDeepBackground
-            pageOutlet.pageIndicatorTintColor = .gray
-            backgroundView.backgroundColor = colorLightBackground
-            navigationBar.tintColor = .black
-            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
-        }
-        pageOutlet.currentPageIndicatorTintColor = colorPoint
 
         let formatter = DateFormatter()
         formatter.dateFormat = "M"
@@ -41,6 +31,26 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
         }
         
         navigationBarTitle.title = "지난 달(\(lastMonth)월)의 통계"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(!isDarkTheme){
+            navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
+            pageOutlet.backgroundColor = colorDeepBackground
+            pageOutlet.pageIndicatorTintColor = .gray
+            backgroundView.backgroundColor = colorLightBackground
+            navigationBar.tintColor = .black
+            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        }
+        pageOutlet.currentPageIndicatorTintColor = colorPoint
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

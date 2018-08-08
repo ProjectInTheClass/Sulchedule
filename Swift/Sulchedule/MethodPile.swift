@@ -12,7 +12,8 @@ let tryAgain = SystemSoundID(1102)
 // 'Failed' feedback (three sequential strong booms)
 let failed = SystemSoundID(1107)
 
-let isDarkTheme = true
+var isDarkTheme = false
+var isVibrationOn = true
 
 let colorYellow = hexStringToUIColor(hex:"FFC400")
 let colorGreen = hexStringToUIColor(hex:"72FF7D")
@@ -28,6 +29,11 @@ protocol Control2VCDelegate {
 protocol VC2ControlDelegate {
     func sendData(data:Int)
 }
+
+//func reloadTabBarColor(){
+//    self.tabBarController?.tabBar.backgroundColor = colorLightBackground
+//    self.tabBarController?.tabBar.tintColor = colorPoint
+//}
 
 func hexStringToUIColor (hex:String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

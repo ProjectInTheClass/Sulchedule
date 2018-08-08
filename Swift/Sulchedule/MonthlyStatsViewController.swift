@@ -9,12 +9,15 @@ class MonthlyStatsViewController: UIViewController {
     let locationCircle = CAShapeLayer()
     var lastMonth: Int = 0
     var lastYear: Int = 2000
-    let circlePath = UIBezierPath(arcCenter: CGPoint(x: 48.5,y: 48.5), radius: CGFloat(48.5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+    var radOfCircle: CGFloat = 0
+    var circlePath: UIBezierPath? = nil
     
     @IBOutlet weak var sulLabel: UILabel!
-    @IBOutlet weak var friendLabel: UIView!
-    @IBOutlet weak var locationLabel: UIView!
+    @IBOutlet weak var friendLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var firstPlaceLabel: UIView!
+    @IBOutlet weak var secondPlaceLabel: UILabel!
+    @IBOutlet weak var thirdPlaceLabel: UILabel!
     @IBOutlet weak var firstPlaceText: UILabel!
     @IBOutlet weak var firstPlaceView: UIView!
     
@@ -25,18 +28,57 @@ class MonthlyStatsViewController: UIViewController {
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
-
+    
+    @IBOutlet weak var title1: UILabel!
+    @IBOutlet weak var desc1: UILabel!
+    @IBOutlet weak var title2: UILabel!
+    @IBOutlet weak var title3: UILabel!
+    @IBOutlet weak var desc3: UILabel!
+    @IBOutlet weak var desc2: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(!isDarkTheme){
-            leaderboardView.backgroundColor = colorLightBackground
-            picktargetView.backgroundColor = colorDeepBackground
-            firstPlaceLabel.backgroundColor = colorPoint
-            firstPlaceText.textColor = .white
-            
-        }
     }
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        leaderboardView.backgroundColor = colorLightBackground
+        picktargetView.backgroundColor = colorDeepBackground
+        firstPlaceLabel.backgroundColor = colorPoint
+        if(!isDarkTheme){
+            firstPlaceText.textColor = .white
+            secondPlaceLabel.textColor = .black
+            thirdPlaceLabel.textColor = .black
+            
+            sulLabel.textColor = .black
+            friendLabel.textColor = .black
+            locationLabel.textColor = .black
+            
+            title1.textColor = .black
+            desc1.textColor = .black
+            title2.textColor = .black
+            desc2.textColor = .black
+            title3.textColor = .black
+            desc3.textColor = .black
+        }
+        else{
+            firstPlaceText.textColor = .black
+            secondPlaceLabel.textColor = .black
+            thirdPlaceLabel.textColor = .black
+            
+            sulLabel.textColor = .white
+            friendLabel.textColor = .white
+            locationLabel.textColor = .white
+            
+            title1.textColor = .black
+            desc1.textColor = .black
+            title2.textColor = .black
+            desc2.textColor = .black
+            title3.textColor = .black
+            desc3.textColor = .black
+        }
+        
+        radOfCircle = sulView.bounds.height/2
+        circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+        
         initCircle()
         
         let sulTap = UITapGestureRecognizer(target: self, action: #selector(sulClicked))
@@ -63,6 +105,14 @@ class MonthlyStatsViewController: UIViewController {
         sulView.bringSubview(toFront: sulLabel)
         
         cycleCircleBorder(cursor: 0)
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
     
     @objc func sulClicked(){
@@ -79,15 +129,15 @@ class MonthlyStatsViewController: UIViewController {
     }
 
     func initCircle(){
-        friendCircle.path = circlePath.cgPath
+        friendCircle.path = circlePath?.cgPath
         friendCircle.fillColor = colorLightBackground.cgColor
         friendCircle.strokeColor = colorPoint.cgColor
         friendCircle.lineWidth = 3.0
-        sulCircle.path = circlePath.cgPath
+        sulCircle.path = circlePath?.cgPath
         sulCircle.fillColor = colorLightBackground.cgColor
         sulCircle.strokeColor = colorPoint.cgColor
         sulCircle.lineWidth = 0
-        locationCircle.path = circlePath.cgPath
+        locationCircle.path = circlePath?.cgPath
         locationCircle.fillColor = colorLightBackground.cgColor
         locationCircle.strokeColor = colorPoint.cgColor
         locationCircle.lineWidth = 0

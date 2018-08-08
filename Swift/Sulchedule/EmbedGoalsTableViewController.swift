@@ -6,12 +6,18 @@ class EmbedGoalsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
         backgroundView.backgroundColor = colorDeepBackground
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        backgroundView.reloadData()
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
 
     // MARK: - Table view data source

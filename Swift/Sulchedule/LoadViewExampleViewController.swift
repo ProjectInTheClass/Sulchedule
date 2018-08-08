@@ -24,6 +24,9 @@ class LoadViewExampleViewController: UIViewController, FSCalendarDataSource, FSC
         super.viewDidLoad()
         self.title = "FSCalendar"
     }
+    override func viewWillAppear(_ animated: Bool) {
+        calendar.reloadData()
+    }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         if monthPosition == .previous || monthPosition == .next {

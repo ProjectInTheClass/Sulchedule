@@ -19,18 +19,26 @@ class GoalsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        initCircle()
+        formatter.dateFormat = "M월 d일"
+        self.navigationItem.title = formatter.string(from: date)
+    }
+    override func viewWillAppear(_ animated: Bool) {
         if(!isDarkTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             topBackgroundView.backgroundColor = colorLightBackground
             navigationItem.rightBarButtonItem?.tintColor = colorPoint
         }
-        
-        initCircle()
-        formatter.dateFormat = "M월 d일"
-        self.navigationItem.title = formatter.string(from: date)
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

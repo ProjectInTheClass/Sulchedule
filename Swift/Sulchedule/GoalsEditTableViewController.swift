@@ -42,16 +42,26 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.tintColor = colorPoint
         formatter.dateFormat = "M월 목표 수정"
         self.navigationItem.title = formatter.string(from: Date())
         self.tableView.isEditing = true
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GoalsEditTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = colorPoint
         if(!isDarkTheme){
             backgroundView.backgroundColor = colorDeepBackground
+        }
+        backgroundView.reloadData()
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
     }
 
@@ -109,7 +119,9 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        AudioServicesPlaySystemSound(peek)
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(peek)
+        }
         let v = goals[fromIndexPath.row]
         let order = goalOrder[fromIndexPath.row]
         goals.remove(at: fromIndexPath.row)
@@ -135,7 +147,9 @@ class GoalsEditTableCell: UITableViewCell {
     }
     @IBOutlet weak var uiSwitch: UISwitch!
     @IBAction func switchChanged(_ sender: UISwitch) {
-        AudioServicesPlaySystemSound(peek)
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(peek)
+        }
         delegate?.tableManipulateSwitch(self)
     }
     
@@ -143,12 +157,17 @@ class GoalsEditTableCell: UITableViewCell {
         super.awakeFromNib()
         editField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        
+        uiSwitch.tintColor = colorPoint
+        uiSwitch.thumbTintColor = colorLightBackground
+        uiSwitch.onTintColor = colorPoint
+        editField.textColor = colorPoint
+        
         if(!isDarkTheme){
-            uiSwitch.tintColor = colorPoint
-            uiSwitch.thumbTintColor = colorLightBackground
-            uiSwitch.onTintColor = colorPoint
-            editField.textColor = colorPoint
             editField.tintColor = .black
+        }
+        else{
+            editField.tintColor = .white
         }
     }
     

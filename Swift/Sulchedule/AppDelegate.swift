@@ -24,6 +24,9 @@ import UIKit
             UINavigationBar.appearance().tintColor = UIColor.white
             UIApplication.shared.statusBarStyle = .lightContent
             UITabBar.appearance().unselectedItemTintColor = .white
+            
+            UILabel.appearance().textColor = UIColor.white
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         }
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
@@ -33,14 +36,15 @@ import UIKit
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().clipsToBounds = false
         UINavigationBar.appearance().backgroundColor = colorLightBackground
+        UITabBar.appearance().tintColor = colorPoint
+        UITabBar.appearance().barTintColor = colorLightBackground
         
             UINavigationBar.appearance().titleTextAttributes = [
                 NSAttributedStringKey.font: UIFont(name: "Helvetica Neue", size: 17)!,
                 NSAttributedStringKey.foregroundColor: UIColor.white
         ]
         
-        UITabBar.appearance().tintColor = colorPoint
-        UITabBar.appearance().barTintColor = colorLightBackground
+        
         UITabBar.appearance().layer.borderWidth = 0.10
         UITabBar.appearance().layer.borderColor = UIColor.clear.cgColor
         UITabBar.appearance().clipsToBounds = true

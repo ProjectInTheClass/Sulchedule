@@ -10,16 +10,28 @@ class EmbedIconSelectTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        backgroundTable.backgroundColor = colorDeepBackground
-        cell1.contentView.backgroundColor = colorDeepBackground
-        cell2.contentView.backgroundColor = colorDeepBackground
-        cell3.contentView.backgroundColor = colorDeepBackground
+
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        backgroundTable.backgroundColor = colorDeepBackground
+        cell1.contentView.backgroundColor = colorDeepBackground
+        cell2.contentView.backgroundColor = colorDeepBackground
+        cell3.contentView.backgroundColor = colorDeepBackground
+        backgroundTable.reloadData()
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
 
     // MARK: - Table view data source

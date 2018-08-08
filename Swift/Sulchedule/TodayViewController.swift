@@ -45,19 +45,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(!isDarkTheme){
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-            bottomContainer.backgroundColor = colorLightBackground
-            tableFooter.backgroundColor = colorDeepBackground
-            tableView.backgroundColor = colorDeepBackground
-            textColor2.textColor = .gray
-            disclosureIcon.image = UIImage(named:"Chevron_blue")
-            inputFriends.textColor = .black
-            inputLocation.textColor = .black
-            inputExpense.textColor = .black
-        }
-        navigationTitle.leftBarButtonItem?.tintColor = colorPoint
-        navigationTitle.rightBarButtonItem?.tintColor = colorPoint
+        
         
         self.inputFriends.delegate = self
         self.inputExpense.delegate = self
@@ -78,16 +66,56 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         inputExpense.attributedPlaceholder = NSAttributedString(string: "지출액",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        
+        
+        newDaySelected(date: calendar.today!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        shouldViewMonthlyStats()
+        
+        
+
+        if(!isDarkTheme){
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
+            
+            textColor2.textColor = .gray
+            disclosureIcon.image = UIImage(named:"Chevron_blue")
+            inputFriends.textColor = .black
+            inputLocation.textColor = .black
+            inputExpense.textColor = .black
+            
+            self.calendar.appearance.weekdayTextColor = .black
+            self.calendar.appearance.titleDefaultColor = .white
+        }
+        else{
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+            
+            textColor2.textColor = colorGray
+            disclosureIcon.image = UIImage(named:"Chevron")
+            inputFriends.textColor = .white
+            inputLocation.textColor = .white
+            inputExpense.textColor = .white
+            
+            self.calendar.appearance.weekdayTextColor = .white
+            self.calendar.appearance.titleDefaultColor = .black
+        }
+        navigationTitle.leftBarButtonItem?.tintColor = colorPoint
+        navigationTitle.rightBarButtonItem?.tintColor = colorPoint
+        
         container1.layer.borderWidth = 1
         container1.layer.borderColor = colorPoint.cgColor
         container3.layer.borderWidth = 1
         container3.layer.borderColor = colorPoint.cgColor
         
-        newDaySelected(date: calendar.today!)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        shouldViewMonthlyStats()
+        bottomContainer.backgroundColor = colorLightBackground
+        tableFooter.backgroundColor = colorDeepBackground
+        tableView.backgroundColor = colorDeepBackground
+        
+        self.calendar.appearance.todayColor = colorDeepBackground
+        self.calendar.calendarHeaderView.backgroundColor = colorLightBackground
+        self.calendar.calendarWeekdayView.backgroundColor = colorLightBackground
+        self.calendar.backgroundColor = colorLightBackground
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         loadAdditionalView.addGestureRecognizer(tap)
@@ -98,6 +126,17 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         container1.addGestureRecognizer(tapFriends)
         container2.addGestureRecognizer(tapLocation)
         container3.addGestureRecognizer(tapExpense)
+        
+        calendar.reloadData()
+        tableView.reloadData()
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
     
     lazy var dateFormatter: DateFormatter = {
@@ -116,22 +155,20 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }()
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        self.calendar.calendarHeaderView.backgroundColor = colorLightBackground
-        self.calendar.calendarWeekdayView.backgroundColor = colorLightBackground
-        self.calendar.backgroundColor = colorLightBackground
-        if(isDarkTheme){
-            return .white
+        if(!isDarkTheme){
+            return .black
         }
         else{
-            self.calendar.appearance.weekdayTextColor = .black
-            self.calendar.appearance.titleDefaultColor = .white
-            self.calendar.appearance.todayColor = .white
-            
-            return .black
+            return .white
         }
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        return .white
+        if(!isDarkTheme){
+            return .white
+        }
+        else{
+            return .black
+        }
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         return colorPoint
@@ -249,6 +286,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         customCell.titleLabel.text = "Dummy Data"
         customCell.backgroundColor = .clear
         customCell.contentView.backgroundColor = colorDeepBackground
+        customCell.bottleStepper.tintColor = colorPoint
         
         return customCell
     }
@@ -274,7 +312,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             firstRunForHaptic = false
         }
         else{
-            AudioServicesPlaySystemSound(peek)
+            if(isVibrationOn){
+                AudioServicesPlaySystemSound(peek)
+            }
         }
         navigationTitle.title = "\(self.dateFormatter.string(from: date))"
         
@@ -316,7 +356,9 @@ class TodayTableViewCell: UITableViewCell {
         super.awakeFromNib()
         if(!isDarkTheme){
             titleLabel.textColor = .gray
-            bottleStepper.tintColor = colorPoint
+        }
+        else{
+            titleLabel.textColor = colorGray
         }
     }
     

@@ -1020,6 +1020,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="통계" image="stats" id="MgJ-oT-2nr"/>
                     <connections>
+                        <outlet property="desc1" destination="ckK-wA-DKt" id="sRP-HH-wdk"/>
+                        <outlet property="desc2" destination="u51-JA-IdP" id="mBT-mk-LJB"/>
+                        <outlet property="desc3" destination="oSN-4r-Xoi" id="veP-hm-SFl"/>
                         <outlet property="embedStatsView" destination="Sc6-et-vAL" id="0F5-3X-8Nr"/>
                         <outlet property="firstPlaceLabel" destination="mwW-uD-Znt" id="i5E-v0-py8"/>
                         <outlet property="firstPlaceText" destination="lIS-VQ-oC2" id="lkl-u7-LRa"/>
@@ -1032,10 +1035,15 @@
                         <outlet property="locationView" destination="Wpr-3W-Kva" id="2a7-xd-Pbu"/>
                         <outlet property="picktargetTopConstraint" destination="nH2-XR-tm4" id="pA4-4L-shY"/>
                         <outlet property="picktargetView" destination="RDO-bg-aVM" id="g5U-1f-FyT"/>
+                        <outlet property="secondPlaceLabel" destination="wQp-Vl-twd" id="PV0-D6-OhZ"/>
                         <outlet property="secondPlaceView" destination="8NJ-02-sla" id="spp-Y4-zoR"/>
                         <outlet property="sulLabel" destination="o2R-EH-rOx" id="BPr-6w-b13"/>
                         <outlet property="sulView" destination="RIB-Be-mCV" id="Npg-6w-s3i"/>
+                        <outlet property="thirdPlaceLabel" destination="8RA-dL-Kes" id="cdQ-yJ-e6n"/>
                         <outlet property="thirdPlaceView" destination="T6d-0L-txK" id="EPx-9J-4ts"/>
+                        <outlet property="title1" destination="Rbt-Oa-c7o" id="AYh-th-2bb"/>
+                        <outlet property="title2" destination="Zy4-E3-LCY" id="mB5-jB-yCV"/>
+                        <outlet property="title3" destination="PRf-L7-sCA" id="wAO-py-Gob"/>
                         <outlet property="topSegmentOutlet" destination="Zwg-Ue-gFa" id="3o6-gC-Kwf"/>
                     </connections>
                 </viewController>
@@ -1178,10 +1186,10 @@
             </objects>
             <point key="canvasLocation" x="1132" y="1127.5862068965519"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Settings Table View Controller-->
         <scene sceneID="4HI-XJ-4Bu">
             <objects>
-                <tableViewController id="xxh-ge-aWb" sceneMemberID="viewController">
+                <tableViewController id="xxh-ge-aWb" customClass="SettingsTableViewController" customModule="Sulchedule" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ztu-6O-Fxd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1201,6 +1209,9 @@
                                                     <rect key="frame" x="14" y="14.5" width="51" height="31"/>
                                                     <color key="tintColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="darkThemeSwitch:" destination="xxh-ge-aWb" eventType="valueChanged" id="OZY-8z-x24"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="어두운 테마" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9U-iH-aAP">
                                                     <rect key="frame" x="77" y="19.5" width="78" height="21"/>
@@ -1226,10 +1237,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ydg-PR-fcU">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydg-PR-fcU">
                                                     <rect key="frame" x="14" y="14.5" width="51" height="31"/>
                                                     <color key="tintColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="vibrationSwitch:" destination="xxh-ge-aWb" eventType="valueChanged" id="RxQ-t0-vHr"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="진동 활성화" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5C-4g-hJw">
                                                     <rect key="frame" x="77" y="19.5" width="78" height="21"/>
@@ -1279,6 +1293,14 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" systemItem="more" id="YcF-CE-PZt"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="Ztu-6O-Fxd" id="1K8-BC-aYy"/>
+                        <outlet property="cell1" destination="etF-8C-p6s" id="3VU-AM-Qve"/>
+                        <outlet property="cell2" destination="nOJ-mM-yoh" id="yHv-Xf-wkz"/>
+                        <outlet property="cell3" destination="d1a-VB-7qo" id="Ptb-vJ-ths"/>
+                        <outlet property="darkThemeSwitch" destination="mcR-hP-0Qk" id="3MC-gl-b5e"/>
+                        <outlet property="vibrationSwitch" destination="ydg-PR-fcU" id="odJ-D6-TtV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ev-Xf-jGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1617,6 +1639,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="통계" image="stats" id="deF-zm-ZyB"/>
                     <connections>
+                        <outlet property="desc1" destination="FB2-r4-8bp" id="z5b-cf-7mP"/>
+                        <outlet property="desc2" destination="ZrJ-gL-2yG" id="m2A-4C-2iF"/>
+                        <outlet property="desc3" destination="1mX-Rt-XvY" id="KIQ-WG-Qqt"/>
                         <outlet property="embedStatsView" destination="26S-V9-xce" id="bth-yQ-Jqq"/>
                         <outlet property="firstPlaceLabel" destination="0kl-tP-fXq" id="QjO-of-VSO"/>
                         <outlet property="firstPlaceText" destination="wmg-ax-EHG" id="2f5-AM-fXR"/>
@@ -1627,8 +1652,13 @@
                         <outlet property="locationLabel" destination="918-xt-W5I" id="MFU-BK-Hwi"/>
                         <outlet property="locationView" destination="wJ6-Kd-QJo" id="m3f-js-nOI"/>
                         <outlet property="picktargetView" destination="248-OC-E9u" id="zs1-gp-LkU"/>
+                        <outlet property="secondPlaceLabel" destination="WNB-Ru-Iis" id="Ibu-ec-xv3"/>
                         <outlet property="sulLabel" destination="Dk2-oe-dar" id="ZVg-eC-W51"/>
                         <outlet property="sulView" destination="wRm-oe-QuT" id="GDx-TW-xjw"/>
+                        <outlet property="thirdPlaceLabel" destination="Gkx-Ei-4ny" id="GlP-Da-gxY"/>
+                        <outlet property="title1" destination="0B8-h1-Lu0" id="Jmy-KQ-Bm4"/>
+                        <outlet property="title2" destination="tvF-V6-pNb" id="uR9-3a-CQr"/>
+                        <outlet property="title3" destination="2CU-Nx-5lQ" id="4DZ-yn-3cP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0D-cp-pOW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2082,11 +2112,11 @@
         <image name="Chevron" width="13" height="21"/>
         <image name="crown" width="20" height="20"/>
         <image name="defaultbeta" width="1024" height="1024"/>
-        <image name="goals" width="12" height="12"/>
+        <image name="goals" width="40" height="40"/>
         <image name="happybeta" width="512" height="512"/>
         <image name="sad2beta" width="512" height="512"/>
         <image name="star_empty" width="20" height="20"/>
-        <image name="stats" width="25" height="23"/>
-        <image name="today" width="12" height="12"/>
+        <image name="stats" width="40" height="40"/>
+        <image name="today" width="40" height="40"/>
     </resources>
 </document>

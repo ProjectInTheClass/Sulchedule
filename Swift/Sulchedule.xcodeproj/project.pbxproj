@@ -34,6 +34,7 @@
 		35458DC92113D6D800878206 /* MethodPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35458DC82113D6D700878206 /* MethodPile.swift */; };
 		354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */; };
 		3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */; };
+		3580500D211B22AB00157E65 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3580500C211B22AB00157E65 /* SettingsTableViewController.swift */; };
 		3595EFCA2115E9D100F20009 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595EFC92115E9D100F20009 /* GoalsViewController.swift */; };
 		35975CBD21192EE600CDF77E /* MonthlySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */; };
 		35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */; };
@@ -105,6 +106,7 @@
 		35458DC82113D6D700878206 /* MethodPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodPile.swift; sourceTree = "<group>"; };
 		354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedGoalsTableViewController.swift; sourceTree = "<group>"; };
 		3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatsViewController.swift; sourceTree = "<group>"; };
+		3580500C211B22AB00157E65 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3595EFC92115E9D100F20009 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryViewController.swift; sourceTree = "<group>"; };
 		35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryFrameViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				350CBC582113553E00802FB4 /* DataFormat.swift */,
 				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
 				3595EFC92115E9D100F20009 /* GoalsViewController.swift */,
+				3580500C211B22AB00157E65 /* SettingsTableViewController.swift */,
 				35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */,
 				350CBC572113553E00802FB4 /* DataManipulator.swift */,
 				35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */,
@@ -379,6 +382,7 @@
 				F916F3911E1E57DD00F01811 /* FSCalendarTransitionCoordinator.m in Sources */,
 				35458DC72113D52B00878206 /* TodayAdditionalViewController.swift in Sources */,
 				3024AF171E164F8C008B6001 /* DelegateAppearanceViewController.swift in Sources */,
+				3580500D211B22AB00157E65 /* SettingsTableViewController.swift in Sources */,
 				30F4C93A1E07C3AD00D2EC4D /* FSCalendar.m in Sources */,
 				350CBC5B2113553F00802FB4 /* DataFormat.swift in Sources */,
 				305282C91E1608A100CC2877 /* TodayViewController.swift in Sources */,

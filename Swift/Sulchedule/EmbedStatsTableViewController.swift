@@ -15,8 +15,15 @@ class EmbedStatsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        backgroundView.backgroundColor = colorDeepBackground
+        backgroundView.reloadData()
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
         if(!isDarkTheme){
-            backgroundView.backgroundColor = .white
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
     }
 
@@ -41,8 +48,15 @@ class EmbedStatsTableViewController: UITableViewController {
         
         customCell.valueLabel.text = "Dummy Value"
         customCell.titleLabel.text = "Dummy Title"
+        customCell.backgroundColor = colorDeepBackground
+        
         if(!isDarkTheme){
-            customCell.backgroundColor = .white
+            customCell.valueLabel.textColor = .black
+            customCell.titleLabel.textColor = .gray
+        }
+        else{
+            customCell.valueLabel.textColor = .white
+            customCell.titleLabel.textColor = colorGray
         }
         
         return customCell

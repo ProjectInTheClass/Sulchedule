@@ -20,10 +20,19 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var friendView: UIView!
     @IBOutlet weak var sulView: UIView!
     @IBOutlet weak var firstPlaceLabel: UIView!
+    @IBOutlet weak var secondPlaceLabel: UILabel!
+    @IBOutlet weak var thirdPlaceLabel: UILabel!
     @IBOutlet weak var firstPlaceView: UIView!
     @IBOutlet weak var firstPlaceText: UILabel!
     @IBOutlet weak var secondPlaceView: UIView!
     @IBOutlet weak var thirdPlaceView: UIView!
+    
+    @IBOutlet weak var title1: UILabel!
+    @IBOutlet weak var desc1: UILabel!
+    @IBOutlet weak var title2: UILabel!
+    @IBOutlet weak var desc2: UILabel!
+    @IBOutlet weak var title3: UILabel!
+    @IBOutlet weak var desc3: UILabel!
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
@@ -48,17 +57,46 @@ class StatsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(!isDarkTheme){
-            leaderboardView.backgroundColor = colorLightBackground
-            picktargetView.backgroundColor = colorDeepBackground
-            firstPlaceLabel.backgroundColor = colorPoint
-            firstPlaceText.textColor = .white
-            topSegmentOutlet.tintColor = colorPoint
-            topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
-        }
-        
     }
     override func viewWillAppear(_ animated: Bool) {
+        leaderboardView.backgroundColor = colorLightBackground
+        picktargetView.backgroundColor = colorDeepBackground
+        firstPlaceLabel.backgroundColor = colorPoint
+        topSegmentOutlet.tintColor = colorPoint
+        topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
+        if(!isDarkTheme){
+            firstPlaceText.textColor = .white
+            secondPlaceLabel.textColor = .black
+            thirdPlaceLabel.textColor = .black
+            
+            sulLabel.textColor = .black
+            friendLabel.textColor = .black
+            locationLabel.textColor = .black
+            
+            title1.textColor = .black
+            desc1.textColor = .black
+            title2.textColor = .black
+            desc2.textColor = .black
+            title3.textColor = .black
+            desc3.textColor = .black
+        }
+        else{
+            firstPlaceText.textColor = .black
+            secondPlaceLabel.textColor = .black
+            thirdPlaceLabel.textColor = .black
+            
+            sulLabel.textColor = .white
+            friendLabel.textColor = .white
+            locationLabel.textColor = .white
+            
+            title1.textColor = .black
+            desc1.textColor = .black
+            title2.textColor = .black
+            desc2.textColor = .black
+            title3.textColor = .black
+            desc3.textColor = .black
+        }
+        
         radOfCircle = sulView.bounds.height/2
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
         
@@ -88,18 +126,32 @@ class StatsViewController: UIViewController {
         sulView.bringSubview(toFront: sulLabel)
         
         cycleCircleBorder(cursor: 0)
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(!isDarkTheme){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
     }
     
     @objc func sulClicked(){
-//        AudioServicesPlaySystemSound(peek)
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(peek)
+        }
         cycleCircleBorder(cursor: 0)
     }
     @objc func friendClicked(){
-//        AudioServicesPlaySystemSound(peek)
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(peek)
+        }
         cycleCircleBorder(cursor: 1)
     }
     @objc func locationClicked(){
-//        AudioServicesPlaySystemSound(peek)
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(peek)
+        }
         cycleCircleBorder(cursor: 2)
     }
     
@@ -120,7 +172,9 @@ class StatsViewController: UIViewController {
     }
     
     func animator(isLeft: Bool){
-        AudioServicesPlaySystemSound(cancelled)
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(cancelled)
+        }
         
         let duration = 0.35
         let delay = -0.15
