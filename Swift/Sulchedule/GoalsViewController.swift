@@ -25,14 +25,14 @@ class GoalsViewController: UIViewController {
         self.navigationItem.title = formatter.string(from: date)
     }
     override func viewWillAppear(_ animated: Bool) {
-        if(!isDarkTheme){
+        if(isBrightTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             topBackgroundView.backgroundColor = colorLightBackground
             navigationItem.rightBarButtonItem?.tintColor = colorPoint
         }
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{

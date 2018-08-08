@@ -76,7 +76,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         
 
-        if(!isDarkTheme){
+        if(isBrightTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             
             textColor2.textColor = .gray
@@ -131,7 +131,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -155,7 +155,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }()
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        if(!isDarkTheme){
+        if(isBrightTheme){
             return .black
         }
         else{
@@ -163,7 +163,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        if(!isDarkTheme){
+        if(isBrightTheme){
             return .white
         }
         else{
@@ -349,12 +349,15 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var bottleLabel: UILabel!
     @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(peek)
+        }
     }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(!isDarkTheme){
+        if(isBrightTheme){
             titleLabel.textColor = .gray
         }
         else{

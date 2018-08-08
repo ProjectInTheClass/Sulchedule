@@ -1186,7 +1186,7 @@
             </objects>
             <point key="canvasLocation" x="1132" y="1127.5862068965519"/>
         </scene>
-        <!--Settings Table View Controller-->
+        <!--더보기-->
         <scene sceneID="4HI-XJ-4Bu">
             <objects>
                 <tableViewController id="xxh-ge-aWb" customClass="SettingsTableViewController" customModule="Sulchedule" customModuleProvider="target" sceneMemberID="viewController">
@@ -1205,7 +1205,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mcR-hP-0Qk">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mcR-hP-0Qk">
                                                     <rect key="frame" x="14" y="14.5" width="51" height="31"/>
                                                     <color key="tintColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1292,7 +1292,7 @@
                             <outlet property="delegate" destination="xxh-ge-aWb" id="JWB-aS-WfI"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="YcF-CE-PZt"/>
+                    <tabBarItem key="tabBarItem" title="더보기" image="more" id="YcF-CE-PZt"/>
                     <connections>
                         <outlet property="backgroundView" destination="Ztu-6O-Fxd" id="1K8-BC-aYy"/>
                         <outlet property="cell1" destination="etF-8C-p6s" id="3VU-AM-Qve"/>
@@ -2114,6 +2114,7 @@
         <image name="defaultbeta" width="1024" height="1024"/>
         <image name="goals" width="40" height="40"/>
         <image name="happybeta" width="512" height="512"/>
+        <image name="more" width="40" height="40"/>
         <image name="sad2beta" width="512" height="512"/>
         <image name="star_empty" width="20" height="20"/>
         <image name="stats" width="40" height="40"/>

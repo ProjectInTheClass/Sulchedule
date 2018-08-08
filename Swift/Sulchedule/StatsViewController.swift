@@ -64,7 +64,7 @@ class StatsViewController: UIViewController {
         firstPlaceLabel.backgroundColor = colorPoint
         topSegmentOutlet.tintColor = colorPoint
         topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
-        if(!isDarkTheme){
+        if(isBrightTheme){
             firstPlaceText.textColor = .white
             secondPlaceLabel.textColor = .black
             thirdPlaceLabel.textColor = .black
@@ -128,7 +128,7 @@ class StatsViewController: UIViewController {
         cycleCircleBorder(cursor: 0)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{

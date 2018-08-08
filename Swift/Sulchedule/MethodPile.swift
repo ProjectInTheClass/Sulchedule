@@ -12,7 +12,7 @@ let tryAgain = SystemSoundID(1102)
 // 'Failed' feedback (three sequential strong booms)
 let failed = SystemSoundID(1107)
 
-var isDarkTheme = false
+var isBrightTheme = false
 var isVibrationOn = true
 
 let colorYellow = hexStringToUIColor(hex:"FFC400")

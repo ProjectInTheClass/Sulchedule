@@ -34,7 +34,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if(!isDarkTheme){
+        if(isBrightTheme){
             navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
             pageOutlet.backgroundColor = colorDeepBackground
             pageOutlet.pageIndicatorTintColor = .gray
@@ -45,7 +45,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
         pageOutlet.currentPageIndicatorTintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{

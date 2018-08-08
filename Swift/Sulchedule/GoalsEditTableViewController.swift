@@ -51,13 +51,13 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             backgroundView.backgroundColor = colorDeepBackground
         }
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -163,7 +163,7 @@ class GoalsEditTableCell: UITableViewCell {
         uiSwitch.onTintColor = colorPoint
         editField.textColor = colorPoint
         
-        if(!isDarkTheme){
+        if(isBrightTheme){
             editField.tintColor = .black
         }
         else{

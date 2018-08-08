@@ -43,7 +43,7 @@ class MonthlyStatsViewController: UIViewController {
         leaderboardView.backgroundColor = colorLightBackground
         picktargetView.backgroundColor = colorDeepBackground
         firstPlaceLabel.backgroundColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             firstPlaceText.textColor = .white
             secondPlaceLabel.textColor = .black
             thirdPlaceLabel.textColor = .black
@@ -107,7 +107,7 @@ class MonthlyStatsViewController: UIViewController {
         cycleCircleBorder(cursor: 0)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{

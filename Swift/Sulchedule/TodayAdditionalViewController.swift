@@ -13,7 +13,7 @@ class TodayAdditionalViewController: UITableViewController {
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.backgroundColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
         }
         else{
@@ -44,7 +44,7 @@ class TodayAdditionalViewController: UITableViewController {
         
         customCell.bottleLabel.text = "3병"
         customCell.titleLabel.text = "Dummy Data"
-        if(!isDarkTheme){
+        if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -55,7 +55,7 @@ class TodayAdditionalViewController: UITableViewController {
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         
-        if(isDarkTheme){
+        if(!isBrightTheme){
             if(flag2){
                 customCell.starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
                 flag2.toggle()
@@ -133,7 +133,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starButtonOutlet: UIButton!
     @IBAction func starButtonAction(_ sender: Any) {
-        if(isDarkTheme){
+        if(!isBrightTheme){
             if(flag){
                 starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
                 flag.toggle()
@@ -163,7 +163,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(!isDarkTheme){
+        if(isBrightTheme){
             bottleStepper.tintColor = colorPoint
             bottleLabel.textColor = .black
             titleLabel.textColor = .gray

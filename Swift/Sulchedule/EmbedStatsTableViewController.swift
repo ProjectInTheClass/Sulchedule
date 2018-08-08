@@ -19,7 +19,7 @@ class EmbedStatsTableViewController: UITableViewController {
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -50,7 +50,7 @@ class EmbedStatsTableViewController: UITableViewController {
         customCell.titleLabel.text = "Dummy Title"
         customCell.backgroundColor = colorDeepBackground
         
-        if(!isDarkTheme){
+        if(isBrightTheme){
             customCell.valueLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -116,7 +116,7 @@ class EmbedStatsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(!isDarkTheme){
+        if(isBrightTheme){
             titleLabel.textColor = .gray
         }
     }

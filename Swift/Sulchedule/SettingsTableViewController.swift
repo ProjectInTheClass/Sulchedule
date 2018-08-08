@@ -13,9 +13,9 @@ class SettingsTableViewController: UITableViewController {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(peek)
         }
-        isDarkTheme.toggle()
+        isBrightTheme.toggle()
         
-        if(!isDarkTheme){
+        if(isBrightTheme){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
             colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
@@ -63,7 +63,7 @@ class SettingsTableViewController: UITableViewController {
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(!isDarkTheme){
+        if(isBrightTheme){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -91,10 +91,10 @@ class SettingsTableViewController: UITableViewController {
         cell3.backgroundColor = colorDeepBackground
         
         darkThemeSwitch.tintColor = colorPoint
-        darkThemeSwitch.thumbTintColor = colorLightBackground
+        darkThemeSwitch.thumbTintColor = .white
         darkThemeSwitch.onTintColor = colorPoint
         vibrationSwitch.tintColor = colorPoint
-        vibrationSwitch.thumbTintColor = colorLightBackground
+        vibrationSwitch.thumbTintColor = .white
         vibrationSwitch.onTintColor = colorPoint
     }
 
