@@ -44,6 +44,7 @@ class EmbedGoalsTableViewController: UITableViewController {
         customCell.leftValueLabel.text = "100000원"
         customCell.rightValueLabel.text = String(110000)
         customCell.contentView.backgroundColor = colorDeepBackground
+        customCell.bgGraph.layer.backgroundColor = colorLightBackground.cgColor
 
         return customCell
     }
