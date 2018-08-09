@@ -158,9 +158,6 @@ class StatsViewController: UIViewController {
     func loadSegment(whichSegment: Int){
         if(whichSegment == 0){
             if(firstAppearance){
-                if(isVibrationOn){
-                    AudioServicesPlaySystemSound(failed)
-                }
                 firstAppearance = false
             }
             else{
@@ -172,6 +169,9 @@ class StatsViewController: UIViewController {
             }
         }
         else{
+            if(isVibrationOn){
+                AudioServicesPlaySystemSound(failed)
+            }
             animator(isLeft: false)
             firstAppearance = false
         }

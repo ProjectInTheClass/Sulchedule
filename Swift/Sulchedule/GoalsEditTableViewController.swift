@@ -41,6 +41,8 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
 
         formatter.dateFormat = "M월 목표 수정"
         self.navigationItem.title = formatter.string(from: Date())
@@ -63,6 +65,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        backgroundView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -104,6 +107,13 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
                 print(view)
                 view.superview?.backgroundColor = colorDeepBackground
             }
+        }
+        
+        if(isBrightTheme){
+            customCell.editField.keyboardAppearance = .light
+        }
+        else{
+            customCell.editField.keyboardAppearance = .dark
         }
 
         return customCell

@@ -21,7 +21,7 @@ class GoalsViewController: UIViewController {
         super.viewDidLoad()
     
         initCircle()
-        formatter.dateFormat = "M월 d일"
+        formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
     }
     override func viewWillAppear(_ animated: Bool) {

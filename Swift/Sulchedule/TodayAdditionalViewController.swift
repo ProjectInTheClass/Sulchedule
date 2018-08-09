@@ -138,7 +138,8 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     var flag = false
     
     @IBOutlet weak var starButtonOutlet: UIButton!
-    @IBAction func starButtonAction(_ sender: Any) {
+    
+    @IBAction func starOnTap(_ sender: UIButton) {
         if(!isBrightTheme){
             if(flag){
                 starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())

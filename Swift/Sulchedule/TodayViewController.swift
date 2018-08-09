@@ -20,21 +20,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         calendar.select(date, scrollToDate: true)
         newDaySelected(date: calendar.today!)
     }
-    @IBOutlet weak var inputFriends: UITextField!
-    @IBOutlet weak var inputLocation: UITextField!
-    @IBOutlet weak var inputExpense: UITextField!
-    @IBOutlet weak var container1: UIView!
-    @IBOutlet weak var container2: UIView!
-    @IBOutlet weak var container3: UIView!
     @IBOutlet weak var rightExpenseLabel: UILabel!
-    @IBOutlet weak var rightTypeLabel: UILabel!
     @IBOutlet weak var leftCalorieLevel: UILabel!
-    @IBOutlet weak var leftTypeLabel: UILabel!
     @IBOutlet weak var bottomContainer: UIView!
     @IBOutlet weak var tableFooter: UIView!
     @IBOutlet weak var textColor1: UILabel!
     @IBOutlet weak var textColor2: UILabel!
     @IBOutlet weak var disclosureIcon: UIImageView!
+    @IBOutlet weak var loadMoreInformationVIew: UIView!
+    @IBOutlet weak var loadMoreInformationLabel: UILabel!
     
     
     var scope: FSCalendarScope = .week
@@ -45,12 +39,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        self.inputFriends.delegate = self
-        self.inputExpense.delegate = self
-        self.inputLocation.delegate = self
-        
         self.hideKeyboardWhenTappedAround()
         
         self.calendar.select(Date())
@@ -59,54 +47,39 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
-        
-        inputFriends.attributedPlaceholder = NSAttributedString(string: "함께한 사람",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        inputLocation.attributedPlaceholder = NSAttributedString(string: "장소",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        inputExpense.attributedPlaceholder = NSAttributedString(string: "지출액",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        
-        
+              
         newDaySelected(date: calendar.today!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         shouldViewMonthlyStats()
         
-        
+        loadMoreInformationLabel.textColor = colorPoint
 
         if(isBrightTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             
             textColor2.textColor = .gray
             disclosureIcon.image = UIImage(named:"Chevron_blue")
-            inputFriends.textColor = .black
-            inputLocation.textColor = .black
-            inputExpense.textColor = .black
             
             self.calendar.appearance.weekdayTextColor = .black
             self.calendar.appearance.titleDefaultColor = .white
+        
         }
         else{
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
             
             textColor2.textColor = colorGray
             disclosureIcon.image = UIImage(named:"Chevron")
-            inputFriends.textColor = .white
-            inputLocation.textColor = .white
-            inputExpense.textColor = .white
             
             self.calendar.appearance.weekdayTextColor = .white
             self.calendar.appearance.titleDefaultColor = .black
+
         }
         navigationTitle.leftBarButtonItem?.tintColor = colorPoint
         navigationTitle.rightBarButtonItem?.tintColor = colorPoint
-        
-        container1.layer.borderWidth = 1
-        container1.layer.borderColor = colorPoint.cgColor
-        container3.layer.borderWidth = 1
-        container3.layer.borderColor = colorPoint.cgColor
+
+        loadMoreInformationVIew.backgroundColor = colorLightBackground
         
         bottomContainer.backgroundColor = colorLightBackground
         tableFooter.backgroundColor = colorDeepBackground
@@ -119,13 +92,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         loadAdditionalView.addGestureRecognizer(tap)
-        
-        let tapFriends = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFriends(_:)))
-        let tapExpense = UITapGestureRecognizer(target: self, action: #selector(self.handleTapExpense(_:)))
-        let tapLocation = UITapGestureRecognizer(target: self, action: #selector(self.handleTapLocation(_:)))
-        container1.addGestureRecognizer(tapFriends)
-        container2.addGestureRecognizer(tapLocation)
-        container3.addGestureRecognizer(tapExpense)
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.handleTapMoreInfo(_:)))
+        loadMoreInformationVIew.addGestureRecognizer(tap2)
         
         calendar.reloadData()
         tableView.reloadData()
@@ -141,7 +109,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
+        formatter.dateFormat = "yyyy년 M월 d일"
         return formatter
     }()
     
@@ -173,22 +141,16 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         return colorPoint
     }
-    
-    @objc func handleTapFriends(_ sender: UITapGestureRecognizer) {
-        inputFriends.isUserInteractionEnabled = true
-        inputFriends.becomeFirstResponder()
-    }
-    @objc func handleTapExpense(_ sender: UITapGestureRecognizer) {
-        inputExpense.isUserInteractionEnabled = true
-        inputExpense.becomeFirstResponder()
-    }
-    @objc func handleTapLocation(_ sender: UITapGestureRecognizer) {
-        inputLocation.isUserInteractionEnabled = true
-        inputLocation.becomeFirstResponder()
-    }
+
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "additionView")
+        // Alternative way to present the new view controller
+        self.navigationController?.show(vc, sender: nil)
+    }
+    @objc func handleTapMoreInfo(_ sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "moreInfoView")
         // Alternative way to present the new view controller
         self.navigationController?.show(vc, sender: nil)
     }
@@ -204,9 +166,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         upFlag = true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        inputFriends.isUserInteractionEnabled = false
-        inputExpense.isUserInteractionEnabled = false
-        inputLocation.isUserInteractionEnabled = false
         loadAdditionalView.isUserInteractionEnabled = true
         animateViewMoving(up: false, moveValue: 150)
         upFlag = false
