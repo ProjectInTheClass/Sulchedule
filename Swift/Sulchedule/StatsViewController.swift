@@ -138,19 +138,19 @@ class StatsViewController: UIViewController {
     
     @objc func sulClicked(){
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         cycleCircleBorder(cursor: 0)
     }
     @objc func friendClicked(){
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         cycleCircleBorder(cursor: 1)
     }
     @objc func locationClicked(){
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         cycleCircleBorder(cursor: 2)
     }
@@ -162,7 +162,7 @@ class StatsViewController: UIViewController {
             }
             else{
                 if(isVibrationOn){
-                    AudioServicesPlaySystemSound(cancelled)
+                    AudioServicesPlaySystemSound(vibCancelled)
                 }
                 animator(isLeft: true)
                 firstAppearance = false
@@ -170,7 +170,7 @@ class StatsViewController: UIViewController {
         }
         else{
             if(isVibrationOn){
-                AudioServicesPlaySystemSound(failed)
+                AudioServicesPlaySystemSound(vibFailed)
             }
             animator(isLeft: false)
             firstAppearance = false

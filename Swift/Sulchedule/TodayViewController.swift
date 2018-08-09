@@ -293,7 +293,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         else{
             if(isVibrationOn){
-                AudioServicesPlaySystemSound(peek)
+                AudioServicesPlaySystemSound(vibPeek)
             }
         }
         navigationTitle.title = "\(self.dateFormatter.string(from: date))"
@@ -330,7 +330,7 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
     }
     

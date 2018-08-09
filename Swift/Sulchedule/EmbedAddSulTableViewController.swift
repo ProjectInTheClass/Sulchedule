@@ -96,7 +96,7 @@ class EmbedAddSulTableViewController: UITableViewController {
  
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         let v = arr[fromIndexPath.row]
 //        let order = goalOrder[fromIndexPath.row]

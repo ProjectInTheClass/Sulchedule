@@ -11,7 +11,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var vibrationSwitch: UISwitch!
     @IBAction func darkThemeSwitch(_ sender: UISwitch) {
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         isBrightTheme.toggle()
         
@@ -72,7 +72,7 @@ class SettingsTableViewController: UITableViewController {
     }
     @IBAction func vibrationSwitch(_ sender: UISwitch) {
         if(!isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibTryAgain)
         }
         isVibrationOn.toggle()
     }

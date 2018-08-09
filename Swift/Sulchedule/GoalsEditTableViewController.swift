@@ -130,7 +130,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         let v = goals[fromIndexPath.row]
         let order = goalOrder[fromIndexPath.row]
@@ -158,7 +158,7 @@ class GoalsEditTableCell: UITableViewCell {
     @IBOutlet weak var uiSwitch: UISwitch!
     @IBAction func switchChanged(_ sender: UISwitch) {
         if(isVibrationOn){
-            AudioServicesPlaySystemSound(peek)
+            AudioServicesPlaySystemSound(vibPeek)
         }
         delegate?.tableManipulateSwitch(self)
     }

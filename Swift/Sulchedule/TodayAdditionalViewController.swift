@@ -1,5 +1,6 @@
 //table view input
 import UIKit
+import AudioToolbox.AudioServices
 
 class TodayAdditionalViewController: UITableViewController {
 
@@ -140,6 +141,9 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     @IBOutlet weak var starButtonOutlet: UIButton!
     
     @IBAction func starOnTap(_ sender: UIButton) {
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(vibPeek)
+        }
         if(!isBrightTheme){
             if(flag){
                 starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
