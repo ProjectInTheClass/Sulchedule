@@ -20,8 +20,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         calendar.select(date, scrollToDate: true)
         newDaySelected(date: calendar.today!)
     }
-    @IBOutlet weak var rightExpenseLabel: UILabel!
-    @IBOutlet weak var leftCalorieLevel: UILabel!
+    @IBOutlet weak var CalorieLabel: UILabel!
     @IBOutlet weak var bottomContainer: UIView!
     @IBOutlet weak var tableFooter: UIView!
     @IBOutlet weak var textColor1: UILabel!
@@ -49,6 +48,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
               
         newDaySelected(date: calendar.today!)
+        
+        //test value
+        CalorieLabel.text = "약 65000원, 약 1205kcal"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +83,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         loadMoreInformationVIew.backgroundColor = colorLightBackground
         
-        bottomContainer.backgroundColor = colorLightBackground
+        bottomContainer.backgroundColor = colorDeepBackground
         tableFooter.backgroundColor = colorDeepBackground
         tableView.backgroundColor = colorDeepBackground
         
@@ -105,6 +107,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        
+        let gradient = CAGradientLayer(layer: bottomContainer.layer)
+        gradient.frame = bottomContainer.bounds
+        gradient.colors = [UIColor.clear.cgColor, UIColor.blue.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.2)
+        bottomContainer.backgroundColor = colorDeepBackground
+        bottomContainer.layer.mask = gradient
     }
     
     lazy var dateFormatter: DateFormatter = {
@@ -246,6 +256,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         customCell.backgroundColor = .clear
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
+        customCell.colorTag.backgroundColor = .clear
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray

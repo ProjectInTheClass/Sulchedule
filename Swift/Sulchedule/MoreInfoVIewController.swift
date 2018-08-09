@@ -26,9 +26,55 @@ class MoreInfoVIewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        self.navigationItem.title = "deep"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = colorPoint
         background.backgroundColor = colorDeepBackground
+        
+        expenseField.textColor = colorPoint
+        locationField.textColor = colorPoint
+        friendsField.textColor = colorPoint
+        
+        if(isBrightTheme){
+            expenseField.tintColor = .black
+            locationField.tintColor = .black
+            friendsField.tintColor = .black
+            expenseField.keyboardAppearance = .light
+            locationField.keyboardAppearance = .light
+            friendsField.keyboardAppearance = .light
+        }
+        else{
+            expenseField.tintColor = .white
+            locationField.tintColor = .white
+            friendsField.tintColor = .white
+            expenseField.keyboardAppearance = .dark
+            locationField.keyboardAppearance = .dark
+            friendsField.keyboardAppearance = .dark
+        }
+        
+        expenseField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        locationField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        
+        expenseField.text = ""
+        locationField.text = ""
+        friendsField.text = ""
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        expenseField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        locationField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
     
 

@@ -53,10 +53,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = colorPoint
-        if(isBrightTheme){
-            backgroundView.backgroundColor = colorDeepBackground
-        }
-        backgroundView.reloadData()
+        backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
@@ -115,6 +112,9 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         else{
             customCell.editField.keyboardAppearance = .dark
         }
+        
+        customCell.editField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
 
         return customCell
     }

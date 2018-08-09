@@ -60,6 +60,14 @@ class AddSulViewController: UIViewController {
         priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                               attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
+    override func viewDidAppear(_ animated: Bool) {
+        nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                             attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+    }
     
 
     /*
