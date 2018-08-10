@@ -63,7 +63,7 @@ class GoalsViewController: UIViewController {
     }
     
     func cycleCircleBorder(cursor: Int){
-        let alpha: CGFloat = 0.3
+        let alpha: CGFloat = 0.2
         switch (cursor){
         case 2:
             redView.alpha = 1.0

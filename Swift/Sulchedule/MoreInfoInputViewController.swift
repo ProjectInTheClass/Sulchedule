@@ -1,33 +1,82 @@
-//
-//  MoreInfoVIewController.swift
-//  Sulchedule
-//
-//  Created by herojeff on 09/08/2018.
-//  Copyright © 2018 wenchao. All rights reserved.
-//
-
 import UIKit
 
-class MoreInfoVIewController: UIViewController {
+//var moreInfoInputFriends: String?
+//var moreInfoInputExpense: String?
+//var moreInfoInputLocation: String?
+//
+//func getTodayMoreInfoPromptLabel() -> String?{
+//    if(){
+//        return nil
+//    }
+//
+//}
+
+class MoreInfoInputViewController: UIViewController {
 
     @IBOutlet weak var expenseField: UITextField!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var friendsField: UITextField!
     @IBOutlet var background: UIView!
     
-    @IBAction func expenseField(_ sender: Any) {
+    @IBAction func expenseField(_ sender: UITextField) {
+        let input = sender.text
+        //try catch, if fail -> clear sender.text
         //pass data
     }
-    @IBAction func locationField(_ sender: Any) {
+    @IBAction func locationField(_ sender: UITextField) {
+        let input = sender.text
+        var split: [Substring] = (input?.split(separator: ","))!
+        var returnArray: [String] = []
+        if(split.count != 0){
+            for i in 0...split.count - 1{
+                while(split[i].hasSuffix(" ")){
+                    split[i].removeLast()
+                }
+                while(split[i].hasPrefix(" ")){
+                    split[i].removeFirst()
+                }
+                returnArray.append(String(split[i]))
+            }
+            var tmpText: String = ""
+            for string in returnArray{
+                tmpText.append(", \(string)")
+            }
+            tmpText.removeFirst()
+            tmpText.removeFirst()
+            sender.text = tmpText
+        }
         //pass data
     }
-    @IBAction func friendsField(_ sender: Any) {
+    @IBAction func friendsField(_ sender: UITextField) {
+        let input = sender.text
+        var split: [Substring] = (input?.split(separator: ","))!
+        var returnArray: [String] = []
+        if(split.count != 0){
+            for i in 0...split.count - 1{
+                while(split[i].hasSuffix(" ")){
+                    split[i].removeLast()
+                }
+                while(split[i].hasPrefix(" ")){
+                    split[i].removeFirst()
+                }
+                returnArray.append(String(split[i]))
+            }
+            var tmpText: String = ""
+            for string in returnArray{
+                tmpText.append(", \(string)")
+            }
+            tmpText.removeFirst()
+            tmpText.removeFirst()
+            sender.text = tmpText
+        }
         //pass data
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "deep"
+        self.navigationItem.title = "추가 정보 입력"
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +124,11 @@ class MoreInfoVIewController: UIViewController {
                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
 

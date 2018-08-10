@@ -3,6 +3,7 @@ import UIKit
 class AddSulViewController: UIViewController {
 
     @IBOutlet var background: UIView!
+    @IBOutlet weak var embedTableView: UIView!
     @IBOutlet weak var foreground: UIView!
     @IBOutlet weak var dismissButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -27,6 +28,8 @@ class AddSulViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.hideKeyboardWhenTappedAround()
+        print(self)
     }
     override func viewWillAppear(_ animated: Bool) {
         

@@ -38,8 +38,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hideKeyboardWhenTappedAround()
-        
         self.calendar.select(Date())
         
         self.view.addGestureRecognizer(self.scopeGesture)
@@ -170,25 +168,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        loadAdditionalView.isUserInteractionEnabled = false
-        animateViewMoving(up: true, moveValue: 150)
-        upFlag = true
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        loadAdditionalView.isUserInteractionEnabled = true
-        animateViewMoving(up: false, moveValue: 150)
-        upFlag = false
-    }
-    func animateViewMoving (up:Bool, moveValue :CGFloat){
-        let movementDuration:TimeInterval = 0.3
-        let movement:CGFloat = ( up ? -moveValue : moveValue)
-        UIView.beginAnimations("animateView", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(movementDuration)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
-    }
+
     
     func shouldViewMonthlyStats(){
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
