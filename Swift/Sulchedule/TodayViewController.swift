@@ -20,14 +20,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         calendar.select(date, scrollToDate: true)
         newDaySelected(date: calendar.today!)
     }
-    @IBOutlet weak var CalorieLabel: UILabel!
+    @IBOutlet weak var bottomInfoLabel: UILabel!
     @IBOutlet weak var bottomContainer: UIView!
     @IBOutlet weak var tableFooter: UIView!
     @IBOutlet weak var textColor1: UILabel!
     @IBOutlet weak var textColor2: UILabel!
     @IBOutlet weak var disclosureIcon: UIImageView!
-    @IBOutlet weak var loadMoreInformationVIew: UIView!
-    @IBOutlet weak var loadMoreInformationLabel: UILabel!
+    @IBOutlet weak var moreInfoInput: UIView!
+    @IBOutlet weak var topInfoLabel: UILabel!
     
     
     var scope: FSCalendarScope = .week
@@ -48,13 +48,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         newDaySelected(date: calendar.today!)
         
         //test value
-        CalorieLabel.text = "약 65000원, 약 1205kcal"
+        bottomInfoLabel.text = "약 65000원, 약 1205kcal"
+        setTopInfoLabelString()
+        setBottomInfoLabelString()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         shouldViewMonthlyStats()
         
-        loadMoreInformationLabel.textColor = colorPoint
+        topInfoLabel.textColor = colorPoint
 
         if(isBrightTheme){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
@@ -79,7 +81,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         navigationTitle.leftBarButtonItem?.tintColor = colorPoint
         navigationTitle.rightBarButtonItem?.tintColor = colorPoint
 
-        loadMoreInformationVIew.backgroundColor = colorLightBackground
+        moreInfoInput.backgroundColor = colorLightBackground
         
         bottomContainer.backgroundColor = colorDeepBackground
         tableFooter.backgroundColor = colorDeepBackground
@@ -93,7 +95,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         loadAdditionalView.addGestureRecognizer(tap)
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.handleTapMoreInfo(_:)))
-        loadMoreInformationVIew.addGestureRecognizer(tap2)
+        moreInfoInput.addGestureRecognizer(tap2)
         
         calendar.reloadData()
         tableView.reloadData()
@@ -281,7 +283,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         scope = .week
         self.calendar.setScope(scope, animated: true)
+        
         //load data into tableView
+        //set new array
+        //reload table
+        setTopInfoLabelString()
+        setBottomInfoLabelString()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -289,7 +296,47 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return false
     }
     
+    func setTopInfoLabelString(){
+        var tempStr: String = ""
+        tempStr = "Temp와(과) Temp에서 Temp원 소비했어요."
+//        if(name.count == 0 && locations.count == 0){
+//            topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
+//            tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
+//        }
+//        else{
+//        if locations.count != 0{
+//            for i in locations{
+//                tempStr.append(i + ", ")
+//            }
+//            tempStr.removeLast()
+//            tempStr.removeLast()
+//            tempStr.append("에서 ")
+//            if name.count != 0{
+//                for i in names{
+//                    tempStr.append(i + ", ")
+//                }
+//            tempStr.removeLast()
+//            tempStr.removeLast()
+//            tempStr.append("와(과) 함께했어요")
+//            }
+//        }
+//
+//        topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
+//
+//        }
+        topInfoLabel.text = tempStr
+    }
     
+    
+    func setBottomInfoLabelString(){
+//        if (customExpense == 0){
+//            bottomInfoLabel.text = "약 \(expense)원, 약 \(calorie)kcal"
+//        }
+//        else{
+//            bottomInfoLabel.text = "\(customExpense)원, 약 \(calorie)kcal"
+//        }
+    }
+    //customexpense가 0인지 nil인지 확인!
 }
 
 extension UIViewController {

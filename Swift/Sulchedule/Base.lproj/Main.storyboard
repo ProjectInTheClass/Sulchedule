@@ -196,7 +196,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8p1-Rc-rPC">
                                 <rect key="frame" x="0.0" y="349" width="375" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="함께한 사람, 지출액, 장소를 입력하려면 누르세요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glt-nh-ekg">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="함께한 사람, 지출액, 장소를 입력하려면 누르세요" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glt-nh-ekg">
                                         <rect key="frame" x="15" y="19.5" width="345" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -256,19 +256,19 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="CalorieLabel" destination="dnA-50-4xA" id="RFd-qv-0Ew"/>
                         <outlet property="bottomContainer" destination="Toh-PI-JW8" id="upA-K4-vXZ"/>
+                        <outlet property="bottomInfoLabel" destination="dnA-50-4xA" id="RFd-qv-0Ew"/>
                         <outlet property="calendar" destination="su8-WM-shD" id="LH5-zR-zpl"/>
                         <outlet property="calendarHeightConstraint" destination="Z6p-MX-DMQ" id="B5d-EW-256"/>
                         <outlet property="disclosureIcon" destination="Td3-Vn-eBQ" id="8OF-2P-x9Z"/>
                         <outlet property="loadAdditionalView" destination="liY-lW-AO8" id="r7a-jS-pgp"/>
-                        <outlet property="loadMoreInformationLabel" destination="glt-nh-ekg" id="2Oh-9y-WdQ"/>
-                        <outlet property="loadMoreInformationVIew" destination="8p1-Rc-rPC" id="nEw-G1-oCo"/>
+                        <outlet property="moreInfoInput" destination="8p1-Rc-rPC" id="nEw-G1-oCo"/>
                         <outlet property="navigationTitle" destination="U1K-uT-cPv" id="Ton-Vc-WNy"/>
                         <outlet property="tableFooter" destination="k7m-d1-m3S" id="Tj1-Bi-lQf"/>
                         <outlet property="tableView" destination="JDR-5L-1w9" id="fr7-Q6-Q5E"/>
                         <outlet property="textColor1" destination="loI-Sm-mGv" id="m6z-B1-s8s"/>
                         <outlet property="textColor2" destination="Wre-c3-pdQ" id="Uj0-Sy-eDf"/>
+                        <outlet property="topInfoLabel" destination="glt-nh-ekg" id="2Oh-9y-WdQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ref-0a-lFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
