@@ -75,20 +75,39 @@ func getRecordDayBottles(day: Day, index : Int) -> Int?{
 
 //// 얘가 젤 문제
 
-func setRecordDayForSul(day: Day, index: Int, bottles: Int) {
+func setRecordDayForSul(day: Day, index: Int, bottles: Int){
     var recordDay = getRecordDay(day: day)
-    // 드링크 딕셔너리에 값이 추가가 안됨
-    recordDay?.drinks = [index : bottles]
+    //     print(recordDay?.drinks)
+    
+    if recordDay?.drinks != nil  {
+        recordDay?.drinks = recordDay?.drinks
+        //      print(recordDay?.drinks)
+    }else {
+        recordDay?.drinks = [:]
+    }
+    recordDay?.drinks![index] = bottles
+    
+    
     //익스펜스랑 칼로리는 그냥 위에 어레이만 잘 되면 그냥 그냥 함수로 그냥그냥 하면 해결될듯!
-    recordDay?.expense = sul[index].basePrice * bottles
-    recordDay?.calories = sul[index].baseCalorie * bottles
+    let a = sul[index].basePrice * bottles
+    let b = sul[index].baseCalorie * bottles
+    
+    if recordDay?.expense != nil {
+        recordDay?.expense  = recordDay?.expense
+    }else {
+        recordDay?.expense = 0
+    }
+    
+    recordDay?.expense = (recordDay?.expense)! + a
+    
+    if recordDay?.calories != nil {
+        recordDay?.calories = recordDay?.calories
+    }else {
+        recordDay?.calories = 0
+    }
+    
+    recordDay?.calories = (recordDay?.calories)! + b
 }
-
-//        let setRecord = setRecordDayForSul(day: Day(year: 2018, month: 08, day: 05), index: 0, bottles: 4)
-//        let setRecord2 = setRecordDayForSul(day: Day(year: 2018, month: 08, day: 06), index: 1, bottles: 5)
-//        let setRecord3 = setRecordDayForSul(day: Day(year: 2018, month: 08, day: 07), index: 1, bottles: 3)
-//        let setRecord4 = setRecordDayForSul(day: Day(year: 2018, month: 08, day: 08), index: 2, bottles: 1)
-//        let setRecord5 = setRecordDayForSul(day: Day(year: 2018, month: 08, day: 09), index: 0, bottles: 5)
 
 
 //setRecordDayCustomExpense(day: Day, customExpense: Int)    day: 지정한 날짜, customExpense: 사용자가 직접 입력한 지출액        Day에 해당하는 RecordDay의 customExpense를 설정합니다.
