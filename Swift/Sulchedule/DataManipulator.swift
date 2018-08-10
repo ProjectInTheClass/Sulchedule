@@ -415,15 +415,220 @@ func getRecordMonthCalorie(month: Day) -> Int?{
 }
 
 //getWeeklyFriend(day: Day) -> [String: Int]    day: Day    [String: 같이 마신 사람, Int: 사람별 횟수] 딕셔너리의 배열    이건 정렬/탑3/선별 등 없이 그냥 주간 데이터 다 던져주시면 됩니다.
+func getWeeklyFriend() -> [String: Int] {
+    
+    var pastfriends:Array<String> = []
+    
+    
+    for i in 0...13  {
+        //근 7일이므로 7번 돌린다.
+        let pastdays = Calendar.current.date(byAdding: .day, value: -i, to: Date())
+        print(pastdays)
+        //돌릴때마다 호출하는 날짜가 하나씩 줄어든다.
+        let calendar = Calendar.current
+        
+        let pastyear = calendar.component(.year, from: pastdays!)
+        let pastmonth = calendar.component(.month, from: pastdays!)
+        let pastday = calendar.component(.day, from: pastdays!)
+        
+        
+        let newday = Day(year: pastyear, month: pastmonth, day: pastday)
+        
+        if let abc = getRecordDay(day: newday)?.friends {
+            pastfriends += abc
+        }
+        //어레이에 날짜에 해당하는 값을 하나씩 넣어준다.
+        
+    }//포문으로 사람 이름을 다 넣어주는 어레이를 만든다.
+    
+    let drinkWhoCountindata:Array<String> = pastfriends
+    //최근 7일 간 사람이름이 들어있는 변수 생성
+    var drinkweeklyWhoAndTimes:[String:Int] = [:]
+    //사람이름과 횟수를 넣는 변수 생성
+    
+    for word in drinkWhoCountindata {
+        if drinkweeklyWhoAndTimes[word] == nil {
+            drinkweeklyWhoAndTimes[word] = 1
+        }
+        else {
+            drinkweeklyWhoAndTimes[word]! += 1
+        }
+    }
+    
+    
+    return drinkweeklyWhoAndTimes
+}
 
 
 //getWeeklySul(day: Day) -> [Int: Int]    day: Day    [Int: 마신 술 인덱스, Int: 술별 횟수] 딕셔너리의 배열    이건 정렬/탑3/선별 등 없이 그냥 주간 데이터 다 던져주시면 됩니다.
+func getWeeklySul() -> [Int: Int] {
+    
+    var pastSul:[Int:Int]
+    var weeklySulDictionary : [[Int:Int]]? = [[0:0]]
+    var weeklySulSummery : [Int:Int] = [:]
+    
+    
+    
+    for i in 0...13  {
+        //근 7일이므로 7번 돌린다.
+        let pastdays = Calendar.current.date(byAdding: .day, value: -i, to: Date())
+   //     print(pastdays)
+        //돌릴때마다 호출하는 날짜가 하나씩 줄어든다.
+        let calendar = Calendar.current
+        
+        let pastyear = calendar.component(.year, from: pastdays!)
+        let pastmonth = calendar.component(.month, from: pastdays!)
+        let pastday = calendar.component(.day, from: pastdays!)
+        
+        let newday = Day(year: pastyear, month: pastmonth, day: pastday)
+        
+        if getRecordDay(day: newday)?.drinks != nil {
+            weeklySulDictionary?.append((getRecordDay(day: newday)?.drinks)!)
+        }
+        
+        
+        //     weeklySulDictionary?.append((getRecordDay(day: newday)?.drinks))
+        
+        //        print(getRecordDay(day: newday)?.drinks)
+   //     print (weeklySulDictionary)
+    }
+  //  print(weeklySulDictionary)
+    
+    var keyArray:Array<Int> = []
+    
+    var count = (weeklySulDictionary?.count)!-1
+    for j in 0...count {
+        let index = weeklySulDictionary!
+        keyArray += index[j].keys
+    }
+    //   print(keyArray)
+    
+    let sortedkeyArray = keyArray.sorted(by : >)
+    
+    //   print(sortedkeyArray)
+    print(sortedkeyArray[0])
+    let largestKeyNumber = sortedkeyArray[0]
+    for i in 0...largestKeyNumber{
+        var sumofIndexBottleNumber = 0
+        for person in weeklySulDictionary!{
+            if let indexbottlenumber = person[i]{
+                sumofIndexBottleNumber += indexbottlenumber
+            }
+        }
+        weeklySulSummery[i] = sumofIndexBottleNumber
+    }
+    //    print(weeklySulSummery)
+    
+    return weeklySulSummery
+}
+
+
 
 //getWeeklyLocation(day: Day) -> [String: Int]    day: Day    [String: 마신 장소, Int: 장소별 횟수] 딕셔너리의 배열    이건 정렬/탑3/선별 등 없이 그냥 주간 데이터 다 던져주시면 됩니다.
+func getWeeklyLoation() -> [String: Int] {
+    
+    var pastlocation:Array<String> = []
+    
+    
+    for i in 0...13  {
+        //근 7일이므로 7번 돌린다.
+        let pastdays = Calendar.current.date(byAdding: .day, value: -i, to: Date())
+   //     print(pastdays)
+        //돌릴때마다 호출하는 날짜가 하나씩 줄어든다.
+        let calendar = Calendar.current
+        
+        let pastyear = calendar.component(.year, from: pastdays!)
+        let pastmonth = calendar.component(.month, from: pastdays!)
+        let pastday = calendar.component(.day, from: pastdays!)
+        
+        
+        let newday = Day(year: pastyear, month: pastmonth, day: pastday)
+        
+        if let abc = getRecordDay(day: newday)?.location {
+            pastlocation += abc
+        }
+        //어레이에 날짜에 해당하는 값을 하나씩 넣어준다.
+        
+    }//포문으로 사람 이름을 다 넣어주는 어레이를 만든다.
+    
+    let drinkLocationCountindata:Array<String> = pastlocation
+    //최근 7일 간 사람이름이 들어있는 변수 생성
+    var drinkweeklyLocationAndTimes:[String:Int] = [:]
+    //사람이름과 횟수를 넣는 변수 생성
+    
+    for word in drinkLocationCountindata {
+        if drinkweeklyLocationAndTimes[word] == nil {
+            drinkweeklyLocationAndTimes[word] = 1
+        }
+        else {
+            drinkweeklyLocationAndTimes[word]! += 1
+        }
+    }
+    
+    
+    return drinkweeklyLocationAndTimes
+}
+
+
 
 //getWeeklyExpense(day: Day) -> Int    day: Day    Int(이번 주 사용한 돈)
+func getWeeklyExpense() -> Int {
+    
+    var weeklyExpense : Int = 0
+    
+    for i in 0...13  {
+        //근 7일이므로 7번 돌린다.
+        let pastdays = Calendar.current.date(byAdding: .day, value: -i, to: Date())
+   //     print(pastdays)
+        //돌릴때마다 호출하는 날짜가 하나씩 줄어든다.
+        let calendar = Calendar.current
+        
+        let pastyear = calendar.component(.year, from: pastdays!)
+        let pastmonth = calendar.component(.month, from: pastdays!)
+        let pastday = calendar.component(.day, from: pastdays!)
+        
+        
+        let newday = Day(year: pastyear, month: pastmonth, day: pastday)
+        if let onedayExpense = getRecordDay(day: newday)?.expense {
+            weeklyExpense = weeklyExpense + onedayExpense
+        }
+        if let onedayCustomExpense = getRecordDay(day: newday)?.customExpense{
+            weeklyExpense = weeklyExpense + onedayCustomExpense
+        }
+        
+        
+        
+        print(weeklyExpense)
+    }//포문으로  가격을 다 더해준다.
+    
+    return weeklyExpense
+}
+
+
 
 //getWeeklyCalorie(day: Day) -> Int    day: Day    Int(이번 주 칼로리)
+func getWeeklyCalorie() -> Int {
+    var weeklyCalorie : Int = 0
+    
+    for i in 0...13 {
+        let pastdays = Calendar.current.date(byAdding: .day, value: -i, to: Date())
+   //     print(pastdays)
+        //돌릴때마다 호출하는 날짜가 하나씩 줄어든다.
+        let calendar = Calendar.current
+        
+        let pastyear = calendar.component(.year, from: pastdays!)
+        let pastmonth = calendar.component(.month, from: pastdays!)
+        let pastday = calendar.component(.day, from: pastdays!)
+        
+        
+        let newday = Day(year: pastyear, month: pastmonth, day: pastday)
+        if let onedayCalorie = (getRecordDay(day: newday)?.calories){
+            weeklyCalorie = weeklyCalorie + onedayCalorie
+        }
+        print(weeklyCalorie)
+    }
+    return weeklyCalorie
+}
 
 
 // 목표
@@ -483,14 +688,125 @@ func getCurrentExpenseLimit(month: Day) -> Int?{
 }
 
 //getDaysOfMonthStatus(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 1일부터 오늘까지 마신 일 수)    month가 현재 달보다 이전이면 1일부터 말일까지 합
+func getDaysOfMonthStatus(month:Day) -> Int {
+    
+    let inputMonth = month.month
+    //    print(inputMonth)
+    let inputYear = month.year
+    //   print(inputYear)
+    
+    let todaycount = 31
+    var monthDayCount = 0
+    
+    for i in 1...todaycount  {
+        
+        let newday = Day(year: inputYear, month: inputMonth, day: i)
+        //        print(newday.day)
+        let recordMonth = getRecordDay(day: newday)
+        //       print(recordMonth)
+        if recordMonth != nil{
+            monthDayCount += 1
+        }else {
+            monthDayCount += 0
+        }
+    }
+    return monthDayCount
+}
+
 
 //getStreakOfMonthStatus(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 1일부터 오늘까지 마신 연속 일 수 최고기록)    month가 현재 달보다 이전이면 1일부터 말일까지 합산
+func getStreakOfMonthStatus(month:Day) -> Int {
+    
+    let inputMonth = month.month
+    let inputYear = month.year
+    
+    var getStreakOfMonthStatus = 0
+    
+    
+    
+    var monthRecordList : [RecordDay?] = []
+    
+    
+    for i in 1...31 {
+        let newday = Day(year: inputYear, month: inputMonth, day: i)
+        monthRecordList.append(getRecordDay(day: newday))
+        print(monthRecordList)
+    }
+    let countMonThRecordList = monthRecordList.count - 1
+    
+    var counting1 = 0
+    var steakArray:Array<Int> = []
+    
+    for i in 0...countMonThRecordList{
+        if monthRecordList[i] != nil {
+            counting1 += 1
+        }else{
+            counting1 = 0
+        }
+        steakArray += [counting1]
+    }
+    
+    print(steakArray)
+    var sortedSteakArray = steakArray.sorted(by: >)
+    
+    return sortedSteakArray[0]
+}
+
 
 //getCaloriesOfMonthStatus(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 1일부터 오늘까지의 칼로리)    month가 현재 달보다 이전이면 1일부터 말일까지 합산
+func getCaloriesOfMonthStatus(month: Day) -> Int {
+    
+    let inputMonth = month.month
+    //    print(inputMonth)
+    let inputYear = month.year
+    //   print(inputYear)
+    
+    let todaycount = 31
+    var monthlyCalorySum = 0
+    
+    for i in 1...todaycount  {
+        
+        let newday = Day(year: inputYear, month: inputMonth, day: i)
+        //        print(newday.day)
+        let recordDailyCount = getRecordDay(day: newday)?.calories
+        //       print(recordMonth)
+        if recordDailyCount != nil{
+            monthlyCalorySum += recordDailyCount!
+        }
+    }
+    return monthlyCalorySum
+}
+
 
 //getCurrentExpenseStatus(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 1일부터 오늘까지 쓴 돈)    month가 현재 달보다 이전이면 1일부터 말일까지 합산
 
-
+func getCurrentExpenseStatus(month:Day) -> Int {
+    let inputMonth = month.month
+    //    print(inputMonth)
+    let inputYear = month.year
+    //   print(inputYear)
+    
+    let todaycount = 31
+    var monthlyExpenseSum = 0
+    
+    for i in 1...todaycount  {
+        
+        let newday = Day(year: inputYear, month: inputMonth, day: i)
+        //        print(newday.day)
+        let recordDailyCount = getRecordDay(day: newday)?.expense
+        let recordDailyCount2 = getRecordDay(day: newday)?.customExpense
+        //       print(recordMonth)
+        if recordDailyCount != nil {
+            monthlyExpenseSum += recordDailyCount!
+        }
+        
+        if recordDailyCount2 != nil {
+            monthlyExpenseSum += recordDailyCount2!
+        }
+        print(monthlyExpenseSum)
+    }
+    return monthlyExpenseSum
+}
 
 
 
