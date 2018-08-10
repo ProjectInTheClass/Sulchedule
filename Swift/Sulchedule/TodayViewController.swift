@@ -2,6 +2,8 @@
 import UIKit
 import AudioToolbox.AudioServices
 
+var selectedDay: Day = dateToDayConverter(date: Date())
+
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var loadAdditionalView: UIView!
@@ -47,10 +49,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
               
         newDaySelected(date: calendar.today!)
         
-        //test value
-        bottomInfoLabel.text = "약 65000원, 약 1205kcal"
         setTopInfoLabelString()
         setBottomInfoLabelString()
+        
+        selectedDay = dateToDayConverter(date: Date())
+        
+//        setFavoriteSul(1, true)
+        userData.favorites = [0, 2]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -224,7 +229,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let temp = getFavoriteSul()?.count ?? 0
+        return temp
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -232,10 +238,17 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let customCell = cell as? TodayTableViewCell else{
             return cell
         }
- 
-        customCell.bottleStepper.value = 5//술 값 읽어오기
+        
+        //Init
+        let favorite = getFavoriteSul()
+        let temp = getRecordDay(day: selectedDay)?.drinks![favorite![indexPath.row]] ?? 0 //좋아하는 술 얼마나 마셨는지
+        
+        //Value
+        customCell.bottleStepper.value = Double((temp))
         customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))병"
-        customCell.titleLabel.text = "술 이름"
+        customCell.titleLabel.text = sul[favorite![indexPath.row]].displayName ?? "undefined"
+        
+        //UI
         customCell.backgroundColor = .clear
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
@@ -337,6 +350,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 //        }
     }
     //customexpense가 0인지 nil인지 확인!
+    
+    
 }
 
 extension UIViewController {
@@ -360,7 +375,13 @@ class TodayTableViewCell: UITableViewCell {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
+        let cell = sender.superview?.superview as! UITableViewCell
+        
+        setRecordDayForSul(day: selectedDay, index: 0, bottles: Int(sender.value))
+        
         bottleLabel.text = "\(String(Int(sender.value)))병"
+        
+        
     }
     
     
@@ -381,3 +402,4 @@ class TodayTableViewCell: UITableViewCell {
     }
     
 }
+

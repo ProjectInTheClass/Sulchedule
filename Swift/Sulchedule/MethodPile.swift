@@ -56,3 +56,15 @@ func hexStringToUIColor (hex:String) -> UIColor {
         alpha: CGFloat(1.0)
     )
 }
+
+func dateToDayConverter(date: Date) -> Day{
+    let initFormatter = DateFormatter()
+    initFormatter.dateFormat = "d"
+    let year = initFormatter.string(from: date)
+    initFormatter.dateFormat = "m"
+    let month = initFormatter.string(from: date)
+    initFormatter.dateFormat = "yyyy"
+    let day = initFormatter.string(from: date)
+    
+    return Day(year: NumberFormatter().number(from: year)!.intValue, month: NumberFormatter().number(from: month)!.intValue, day: NumberFormatter().number(from: day)!.intValue)
+}
