@@ -19,7 +19,6 @@ var goalOrder = [0,1,2,3]
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
     
     @IBOutlet var backgroundView: UITableView!
-    @IBOutlet weak var cell: GoalsEditTableCell!
     
     func tableManipulateSwitch(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }

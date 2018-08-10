@@ -17,10 +17,21 @@ class MoreInfoInputViewController: UIViewController {
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var friendsField: UITextField!
     @IBOutlet var background: UIView!
+    @IBOutlet weak var promptLabel: UILabel!
     
     @IBAction func expenseField(_ sender: UITextField) {
-        let input = sender.text
-        //try catch, if fail -> clear sender.text
+        var input: String
+        var returnValue: Int
+        if(sender.text != "" || sender.text != nil){
+            input = sender.text!
+            
+            if let myNumber = NumberFormatter().number(from: input) {
+                returnValue = myNumber.intValue
+                // do what you need to do with myInt
+            } else {
+                sender.text = ""
+            }
+        }
         //pass data
     }
     @IBAction func locationField(_ sender: UITextField) {
@@ -72,6 +83,7 @@ class MoreInfoInputViewController: UIViewController {
         //pass data
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,6 +98,16 @@ class MoreInfoInputViewController: UIViewController {
         expenseField.textColor = colorPoint
         locationField.textColor = colorPoint
         friendsField.textColor = colorPoint
+        promptLabel.backgroundColor = colorLightBackground
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+        {
+            _ = expenseField
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
+        
         
         if(isBrightTheme){
             expenseField.tintColor = .black

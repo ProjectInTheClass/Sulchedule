@@ -15,6 +15,26 @@ import UIKit
             colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
         }
         
+        if(isBrightTheme){
+            UINavigationBar.appearance().tintColor = UIColor.black
+            UIApplication.shared.statusBarStyle = .default
+            UITabBar.appearance().unselectedItemTintColor = .black
+            UILabel.appearance().textColor = UIColor.black
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
+        }
+        else{
+            UINavigationBar.appearance().tintColor = UIColor.white
+            UIApplication.shared.statusBarStyle = .lightContent
+            UITabBar.appearance().unselectedItemTintColor = .white
+            UILabel.appearance().textColor = UIColor.white
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        }
+        
+        UINavigationBar.appearance().barTintColor = colorLightBackground
+        UINavigationBar.appearance().backgroundColor = colorLightBackground
+        UITabBar.appearance().tintColor = colorPoint
+        UITabBar.appearance().barTintColor = colorLightBackground
+        
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         UINavigationBar.appearance().shadowImage = UIImage()
         

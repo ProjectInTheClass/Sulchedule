@@ -2,6 +2,7 @@ import UIKit
 
 class AddSulViewController: UIViewController {
 
+    @IBOutlet weak var tableDescriptionLabel: UILabel!
     @IBOutlet var background: UIView!
     @IBOutlet weak var embedTableView: UIView!
     @IBOutlet weak var foreground: UIView!
@@ -16,6 +17,10 @@ class AddSulViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var calorieField: UITextField!
     @IBOutlet weak var priceField: UITextField!
+    @IBOutlet weak var unitField: UITextField!
+    @IBAction func unitField(_ sender: UITextField) {
+        //pass to temporary Sul
+    }
     @IBAction func nameField(_ sender: UITextField) {
         //pass to temporary Sul
     }
@@ -32,7 +37,8 @@ class AddSulViewController: UIViewController {
         print(self)
     }
     override func viewWillAppear(_ animated: Bool) {
-        
+    
+        tableDescriptionLabel.backgroundColor = colorLightBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         background.backgroundColor = colorLightBackground
@@ -44,23 +50,32 @@ class AddSulViewController: UIViewController {
             nameField.keyboardAppearance = .light
             calorieField.keyboardAppearance = .light
             priceField.keyboardAppearance = .light
+            unitField.keyboardAppearance = .light
+            
+            tableDescriptionLabel.textColor = .black
         }
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
             nameField.keyboardAppearance = .dark
             calorieField.keyboardAppearance = .dark
             priceField.keyboardAppearance = .dark
+            unitField.keyboardAppearance = .dark
+            
+            tableDescriptionLabel.textColor = .white
         }
         
         nameField.textColor = colorPoint
         calorieField.textColor = colorPoint
         priceField.textColor = colorPoint
-        
+        unitField.textColor = colorPoint
+
         nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                               attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -69,6 +84,8 @@ class AddSulViewController: UIViewController {
         calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                               attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
     

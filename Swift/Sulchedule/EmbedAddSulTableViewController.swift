@@ -19,7 +19,7 @@ class EmbedAddSulTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        backgroundView.backgroundColor = colorDeepBackground
+        backgroundView.backgroundColor = colorLightBackground
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
@@ -51,7 +51,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         
         customCell.valueLabel.text = "Dummy Value"
         customCell.titleLabel.text = "Dummy Title"
-        customCell.backgroundColor = colorDeepBackground
+        customCell.backgroundColor = colorLightBackground
         
         if(isBrightTheme){
             customCell.valueLabel.textColor = .gray
@@ -65,7 +65,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         for view in customCell.subviews {
             if(view.description.lowercased().contains("reorder")){
                 print(view)
-                view.superview?.backgroundColor = colorDeepBackground
+                view.superview?.backgroundColor = colorLightBackground
             }
         }
         
@@ -88,9 +88,7 @@ class EmbedAddSulTableViewController: UITableViewController {
             // Delete the row from the data source
             print("delete method")
 //            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
  
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

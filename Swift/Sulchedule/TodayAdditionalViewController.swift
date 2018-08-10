@@ -2,7 +2,15 @@
 import UIKit
 import AudioToolbox.AudioServices
 
+var star: UIImage?
+var star_empty: UIImage?
+
 class TodayAdditionalViewController: UITableViewController {
+
+    let star_yellow = UIImage(named: "star")
+    let star_yellow_empty = UIImage(named: "star_empty")
+    let star_blue = UIImage(named: "star_blue")
+    let star_blue_empty = UIImage(named: "star_blue_empty")
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
@@ -17,9 +25,13 @@ class TodayAdditionalViewController: UITableViewController {
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+            star = star_blue!
+            star_empty = star_blue_empty!
         }
         else{
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            star = star_yellow!
+            star_empty = star_yellow_empty!
 
         }
         backgroundView.reloadData()
@@ -43,14 +55,13 @@ class TodayAdditionalViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todayAdditionalIdentifier", for: indexPath)
-        var flag2 = false
 
         guard let customCell = cell as? TodayAdditionalTableViewCell else{
             return cell
         }
         
-        customCell.bottleLabel.text = "3병"
-        customCell.titleLabel.text = "Dummy Data"
+        customCell.bottleLabel.text = String(Int(customCell.bottleStepper.value))
+        customCell.titleLabel.text = "술 이름"
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
@@ -61,26 +72,13 @@ class TodayAdditionalViewController: UITableViewController {
         }
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
+        customCell.colorTag.backgroundColor = .clear
         
-        if(!isBrightTheme){
-            if(flag2){
-                customCell.starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
-                flag2.toggle()
-            }
-            else{
-                customCell.starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
-                flag2.toggle()
-            }
+        if(customCell.flag){
+            customCell.starButtonOutlet.setImage(star!, for: UIControlState())
         }
         else{
-            if(flag2){
-                customCell.starButtonOutlet.setImage(UIImage(named: "star_blue_empty"), for: UIControlState())
-                flag2.toggle()
-            }
-            else{
-                customCell.starButtonOutlet.setImage(UIImage(named: "star_blue"), for: UIControlState())
-                flag2.toggle()
-            }
+            customCell.starButtonOutlet.setImage(star_empty!, for: UIControlState())
         }
         
         return customCell
@@ -136,7 +134,7 @@ class TodayAdditionalViewController: UITableViewController {
 
 class TodayAdditionalTableViewCell: UITableViewCell {
     
-    var flag = false
+    var flag = true
     
     @IBOutlet weak var starButtonOutlet: UIButton!
     
@@ -144,31 +142,24 @@ class TodayAdditionalTableViewCell: UITableViewCell {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        if(!isBrightTheme){
-            if(flag){
-                starButtonOutlet.setImage(UIImage(named: "star_empty"), for: UIControlState())
-                flag.toggle()
-            }
-            else{
-                starButtonOutlet.setImage(UIImage(named: "star"), for: UIControlState())
-                flag.toggle()
-            }
+        if(flag){
+            starButtonOutlet.setImage(star!, for: UIControlState())
+            flag.toggle()
         }
         else{
-            if(flag){
-                starButtonOutlet.setImage(UIImage(named: "star_blue_empty"), for: UIControlState())
-                flag.toggle()
-            }
-            else{
-                starButtonOutlet.setImage(UIImage(named: "star_blue"), for: UIControlState())
-                flag.toggle()
-            }
+            starButtonOutlet.setImage(star_empty!, for: UIControlState())
+            flag.toggle()
         }
     }
+    @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var bottleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(vibPeek)
+        }
+        bottleLabel.text = String(Int(bottleStepper.value))
     }
     
     

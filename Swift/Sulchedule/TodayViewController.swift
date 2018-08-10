@@ -230,9 +230,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let customCell = cell as? TodayTableViewCell else{
             return cell
         }
-        
-        customCell.bottleLabel.text = "3병"
-        customCell.titleLabel.text = "Dummy Data"
+ 
+        customCell.bottleStepper.value = 5//술 값 읽어오기
+        customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))병"
+        customCell.titleLabel.text = "술 이름"
         customCell.backgroundColor = .clear
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
@@ -312,6 +313,7 @@ class TodayTableViewCell: UITableViewCell {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
+        bottleLabel.text = "\(String(Int(sender.value)))병"
     }
     
     

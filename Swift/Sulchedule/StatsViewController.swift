@@ -170,7 +170,7 @@ class StatsViewController: UIViewController {
         }
         else{
             if(isVibrationOn){
-                AudioServicesPlaySystemSound(vibFailed)
+                AudioServicesPlaySystemSound(vibCancelled)
             }
             animator(isLeft: false)
             firstAppearance = false

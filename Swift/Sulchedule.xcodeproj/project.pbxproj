@@ -193,6 +193,68 @@
 			path = ../FSCalendar;
 			sourceTree = "<group>";
 		};
+		35338384211D31C000171B16 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EE0954B01B97DDE0007F6964 /* Main.storyboard */,
+				EE0954B51B97DDE0007F6964 /* LaunchScreen.xib */,
+				35458DC82113D6D700878206 /* MethodPile.swift */,
+				35338386211D31F500171B16 /* ViewController */,
+				35338385211D31E900171B16 /* TableViewController */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		35338385211D31E900171B16 /* TableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				35058F442115B63C002DBF23 /* EmbedStatsTableViewController.swift */,
+				35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */,
+				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
+				35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */,
+				35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */,
+				3580500C211B22AB00157E65 /* SettingsTableViewController.swift */,
+			);
+			name = TableViewController;
+			sourceTree = "<group>";
+		};
+		35338386211D31F500171B16 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				305282C81E1608A100CC2877 /* TodayViewController.swift */,
+				35458DC62113D52B00878206 /* TodayAdditionalViewController.swift */,
+				356C2649211BE87100678280 /* MoreInfoInputViewController.swift */,
+				35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */,
+				353AA8602113FA5F00FEDDB5 /* StatsViewController.swift */,
+				3595EFC92115E9D100F20009 /* GoalsViewController.swift */,
+				3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */,
+				35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */,
+				35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */,
+				35975CC4211947E400CDF77E /* IconSelectViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		35338387211D321000171B16 /* FSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				3024AF161E164F8C008B6001 /* DelegateAppearanceViewController.swift */,
+				EE0954AE1B97DDE0007F6964 /* InterfaceBuilderViewController.swift */,
+				30D458E81DB4E2DB00B163C7 /* LoadViewExampleViewController.swift */,
+			);
+			name = FSCalendar;
+			sourceTree = "<group>";
+		};
+		35338389211D325A00171B16 /* DataCentre */ = {
+			isa = PBXGroup;
+			children = (
+				350CBC592113553F00802FB4 /* DataCentre.swift */,
+				350CBC582113553E00802FB4 /* DataFormat.swift */,
+				350CBC572113553E00802FB4 /* DataManipulator.swift */,
+			);
+			name = DataCentre;
+			sourceTree = "<group>";
+		};
 		EE09549E1B97DDE0007F6964 = {
 			isa = PBXGroup;
 			children = (
@@ -217,31 +279,9 @@
 			children = (
 				EE0954AC1B97DDE0007F6964 /* AppDelegate.swift */,
 				359EDF2221139D0C00B98BF9 /* Images.xcassets */,
-				3024AF161E164F8C008B6001 /* DelegateAppearanceViewController.swift */,
-				305282C81E1608A100CC2877 /* TodayViewController.swift */,
-				35458DC62113D52B00878206 /* TodayAdditionalViewController.swift */,
-				EE0954AE1B97DDE0007F6964 /* InterfaceBuilderViewController.swift */,
-				35058F442115B63C002DBF23 /* EmbedStatsTableViewController.swift */,
-				353AA8602113FA5F00FEDDB5 /* StatsViewController.swift */,
-				3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */,
-				30D458E81DB4E2DB00B163C7 /* LoadViewExampleViewController.swift */,
-				35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */,
-				350CBC592113553F00802FB4 /* DataCentre.swift */,
-				350CBC582113553E00802FB4 /* DataFormat.swift */,
-				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
-				3595EFC92115E9D100F20009 /* GoalsViewController.swift */,
-				356C2649211BE87100678280 /* MoreInfoInputViewController.swift */,
-				3580500C211B22AB00157E65 /* SettingsTableViewController.swift */,
-				35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */,
-				350CBC572113553E00802FB4 /* DataManipulator.swift */,
-				35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */,
-				35458DC82113D6D700878206 /* MethodPile.swift */,
-				35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */,
-				35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */,
-				35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */,
-				35975CC4211947E400CDF77E /* IconSelectViewController.swift */,
-				EE0954B01B97DDE0007F6964 /* Main.storyboard */,
-				EE0954B51B97DDE0007F6964 /* LaunchScreen.xib */,
+				35338387211D321000171B16 /* FSCalendar */,
+				35338384211D31C000171B16 /* UI */,
+				35338389211D325A00171B16 /* DataCentre */,
 				EE0954AA1B97DDE0007F6964 /* Supporting Files */,
 			);
 			path = Sulchedule;

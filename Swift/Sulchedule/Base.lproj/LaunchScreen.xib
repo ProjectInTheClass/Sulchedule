@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14306.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,64 +15,33 @@
             <rect key="frame" x="0.0" y="0.0" width="336" height="583"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1VQ-uD-eRP">
-                    <rect key="frame" x="0.0" y="0.0" width="336" height="463"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultbeta" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aBD-PV-bWe">
-                            <rect key="frame" x="104" y="167.5" width="128" height="128"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="128" id="nVJ-Jl-7m4"/>
-                                <constraint firstAttribute="width" constant="128" id="vaU-Fn-x2T"/>
-                            </constraints>
-                        </imageView>
-                    </subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3m-m2-eV3">
+                    <rect key="frame" x="0.0" y="534" width="336" height="49"/>
                     <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="aBD-PV-bWe" firstAttribute="centerY" secondItem="1VQ-uD-eRP" secondAttribute="centerY" id="Pzf-LU-2Hb"/>
-                        <constraint firstItem="aBD-PV-bWe" firstAttribute="centerX" secondItem="1VQ-uD-eRP" secondAttribute="centerX" id="W6I-9r-jG8"/>
+                        <constraint firstAttribute="height" constant="49" id="hVA-yc-9NT"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3m-m2-eV3">
-                    <rect key="frame" x="0.0" y="463" width="336" height="120"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="술케줄" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                            <rect key="frame" x="14" y="14" width="67.5" height="31.5"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sulchedule® 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                            <rect key="frame" x="14" y="53.5" width="137.5" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzo-BJ-gE2">
+                    <rect key="frame" x="0.0" y="0.0" width="336" height="209"/>
+                    <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="8ie-xW-0ye" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="8" id="DED-jS-AI6"/>
-                        <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="J3m-m2-eV3" secondAttribute="leading" constant="14" id="EXs-XY-ICy"/>
-                        <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="J3m-m2-eV3" secondAttribute="top" constant="14" id="FuS-hX-2ga"/>
-                        <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="kId-c2-rCX" secondAttribute="leading" id="gsi-fT-QHh"/>
-                        <constraint firstAttribute="height" constant="120" id="hVA-yc-9NT"/>
+                        <constraint firstAttribute="height" constant="209" id="NgH-dX-g3H"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.042121171950000001" green="0.049208171670000002" blue="0.13812841479999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="1VQ-uD-eRP" secondAttribute="trailing" id="EZR-mw-Cwj"/>
-                <constraint firstItem="1VQ-uD-eRP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Sgj-Ad-n67"/>
+                <constraint firstAttribute="trailing" secondItem="tzo-BJ-gE2" secondAttribute="trailing" id="8mc-dt-oYy"/>
                 <constraint firstItem="J3m-m2-eV3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="frt-X6-tW1"/>
                 <constraint firstAttribute="bottom" secondItem="J3m-m2-eV3" secondAttribute="bottom" id="iqJ-4I-c8k"/>
                 <constraint firstAttribute="trailing" secondItem="J3m-m2-eV3" secondAttribute="trailing" id="pmN-qX-3rM"/>
-                <constraint firstItem="1VQ-uD-eRP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="y4p-be-URG"/>
-                <constraint firstItem="J3m-m2-eV3" firstAttribute="top" secondItem="1VQ-uD-eRP" secondAttribute="bottom" id="yFa-mH-Xla"/>
+                <constraint firstItem="tzo-BJ-gE2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xg0-h3-Owq"/>
+                <constraint firstItem="tzo-BJ-gE2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yZw-QX-uLg"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="476" y="403.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="defaultbeta" width="1024" height="1024"/>
-    </resources>
 </document>
