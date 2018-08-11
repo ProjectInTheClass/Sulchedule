@@ -75,31 +75,36 @@ func getRecordDayBottles(day: Day, index : Int) -> Int?{
 func setRecordDayForSul(day: Day, index: Int, bottles: Int){
     //     print(recordDay?.drinks)
     
-    let initRecordDay = RecordDay(today: day, location: [], friends: [], expense: 0, customExpense: 0, calories: 0, drinks: [:])
     
-    //print(getRecordDay(day: day)?.drinks)
-    
-    if getRecordDay(day: day)?.drinks != nil  {
-        getRecordDay(day: day)?.drinks = getRecordDay(day: day)?.drinks
-        //      print(recordDay?.drinks)
-    }else {
-        addNewRecordDay(newRecordDay: initRecordDay)
-        getRecordDay(day: day)?.drinks = [:]
-        getRecordDay(day: day)?.calories = 0
-        getRecordDay(day: day)?.expense = 0
-    }
+    //        if getRecordDay(day: day)?.drinks != nil  {
+    //            getRecordDay(day: day)?.drinks = getRecordDay(day: day)?.drinks
+    //            //      print(recordDay?.drinks)
+    //        }else {
+    //            getRecordDay(day: day)?.drinks = [:]
+    //        }
     getRecordDay(day: day)?.drinks![index] = bottles
     
     
-    
     //익스펜스랑 칼로리는 그냥 위에 어레이만 잘 되면 그냥 그냥 함수로 그냥그냥 하면 해결될듯!
-    let a = sul[index].basePrice * bottles
-    let b = sul[index].baseCalorie * bottles
     
-    getRecordDay(day: day)?.calories = (getRecordDay(day: day)?.calories)! + b
+    var arrayOfGetRecordDay:[Int] = []
+    var expenseSum = 0
+    var calorySum = 0
     
-    getRecordDay(day: day)?.expense = (getRecordDay(day: day)?.expense)! + a
+    if let getre = getRecordDay(day: day)?.drinks?.keys{
+        arrayOfGetRecordDay += getre
+    }
     
+    for i in 0...(getRecordDay(day: day)?.drinks?.count)! - 1 {
+        expenseSum += sul[arrayOfGetRecordDay[i]].basePrice * (getRecordDay(day: day)?.drinks![arrayOfGetRecordDay[i]])!
+    }
+    getRecordDay(day: day)?.expense = expenseSum
+    
+    
+    for i in 0...(getRecordDay(day: day)?.drinks?.count)! - 1 {
+        calorySum += sul[arrayOfGetRecordDay[i]].baseCalorie * (getRecordDay(day: day)?.drinks![arrayOfGetRecordDay[i]])!
+    }
+    getRecordDay(day: day)?.calories = calorySum
 }
 
 
