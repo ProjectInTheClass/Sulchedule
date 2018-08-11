@@ -5,7 +5,16 @@ import AudioToolbox.AudioServices
 var star: UIImage?
 var star_empty: UIImage?
 
-class TodayAdditionalViewController: UITableViewController {
+protocol TodayAdditionalTableDelegate{
+    func tableManipulate(_ sender: TodayAdditionalTableViewCell)
+}
+
+class TodayAdditionalViewController: UITableViewController, TodayAdditionalTableDelegate {
+    func tableManipulate(_ sender: TodayAdditionalTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        let index = indexPath.row
+        setRecordDayForSul(day: selectedDay, index: index, bottles: Int(sender.bottleStepper.value))
+    }
 
     let star_yellow = UIImage(named: "star")
     let star_yellow_empty = UIImage(named: "star_empty")
@@ -60,8 +69,9 @@ class TodayAdditionalViewController: UITableViewController {
             return cell
         }
         
-        customCell.bottleLabel.text = String(Int(customCell.bottleStepper.value))
-        customCell.titleLabel.text = "술 이름"
+        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: indexPath.row) ?? 0)
+        customCell.bottleLabel.text = String("\(Int(customCell.bottleStepper.value))")
+        customCell.titleLabel.text = sul[indexPath.row].displayName
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
@@ -80,6 +90,8 @@ class TodayAdditionalViewController: UITableViewController {
         else{
             customCell.starButtonOutlet.setImage(star_empty!, for: UIControlState())
         }
+        
+        customCell.delegate = self
         
         return customCell
     }
@@ -134,6 +146,7 @@ class TodayAdditionalViewController: UITableViewController {
 
 class TodayAdditionalTableViewCell: UITableViewCell {
     
+    var delegate: TodayAdditionalTableDelegate?
     var flag = true
     
     @IBOutlet weak var starButtonOutlet: UIButton!
@@ -160,6 +173,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
             AudioServicesPlaySystemSound(vibPeek)
         }
         bottleLabel.text = String(Int(bottleStepper.value))
+        delegate?.tableManipulate(self)
     }
     
     

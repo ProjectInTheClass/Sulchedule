@@ -6,7 +6,7 @@ import UIKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        addNewRecordDay(newRecordDay: dummyA)
+        addNewRecordDay(newRecordDay: dummyA)
 //        addNewRecordDay(newRecordDay: dummyB)
 //        addNewRecordDay(newRecordDay: dummyC)
 //        addNewRecordDay(newRecordDay: dummyD)

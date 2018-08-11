@@ -5,17 +5,18 @@ import AudioToolbox.AudioServices
 var selectedDay: Day = dateToDayConverter(date: Date())
 var gotDay: RecordDay?
 
-protocol TableDelegate {
+protocol TodayTableDelegate {
     func tableManipulate(_ sender: TodayTableViewCell)
 }
 
-class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, TableDelegate {
+class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, TodayTableDelegate {
     func tableManipulate(_ sender: TodayTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
         let favorite = getFavoriteSul()
         setRecordDayForSul(day: selectedDay, index: favorite![index], bottles: Int(sender.bottleStepper.value))
-
+        setTopInfoLabelString()
+        setBottomInfoLabelString()
     }
     
     
@@ -346,10 +347,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setBottomInfoLabelString(){
         if (gotDay?.customExpense == nil){
-            bottomInfoLabel.text = "약 \(gotDay?.expense)원, 약 \(gotDay?.calories)kcal"
+            bottomInfoLabel.text = "약 \((gotDay?.expense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
         else{
-            bottomInfoLabel.text = "\(gotDay?.customExpense)원, 약 \(gotDay?.calories)kcal"
+            bottomInfoLabel.text = "\((gotDay?.customExpense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
     }
     
@@ -373,7 +374,7 @@ extension UIViewController {
 
 class TodayTableViewCell: UITableViewCell {
     
-    var delegate: TableDelegate?
+    var delegate: TodayTableDelegate?
     
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -387,6 +388,7 @@ class TodayTableViewCell: UITableViewCell {
         
         bottleLabel.text = "\(String(Int(sender.value)))병"
         delegate?.tableManipulate(self)
+        
     }
     
     

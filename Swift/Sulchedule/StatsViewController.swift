@@ -164,6 +164,7 @@ class StatsViewController: UIViewController {
         switch cursor {
         case 0:
             let suls = getRecordMonthBestSul(month: dateToMonthConverter(date: Date()))
+            print(suls)
             if(suls == nil){
                 title1.text = "정보 없음"
                 desc1.text = ""
@@ -176,6 +177,7 @@ class StatsViewController: UIViewController {
             }
         case 1:
             let friends = getRecordMonthBestFriends(month: dateToMonthConverter(date: Date()))
+            print(friends)
             if(friends == nil){
                 title1.text = "정보 없음"
                 desc1.text = ""
@@ -189,6 +191,7 @@ class StatsViewController: UIViewController {
             }
         case 2:
             let locations = getRecordMonthBestLocation(month: dateToMonthConverter(date: Date()))
+            print(locations)
             if(locations == nil){
                 title1.text = "정보 없음"
                 desc1.text = ""

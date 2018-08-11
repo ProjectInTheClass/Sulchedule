@@ -199,20 +199,12 @@ func getRecordMonthBestFriends(month: Day) -> [[String: Int]?]?{
     var toplated:[[String:Int]?] = []
     
     let count1 = sortedMonthWithWho.count
-    if count1 == 0 {
-        return []
-    } else if count1 < 2 {
-        for i in 0...count1 - 1 {
-            toplated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
+    for i in 0...count1 - 1{
+        if(i==3){
+            break
         }
-    } else {
-        for i in 0...2 {
-            toplated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
-        }
+        toplated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
     }
-    
-    
-    
     return toplated
 }
 
@@ -329,7 +321,6 @@ func getRecordMonthBestSul(month: Day) -> [[Int:[Int?]]]? {
             dictionary += [[array[i] : [kcal[array[i]], price[array[i]], bottles[array[i]]]]]
         }
     }
-    
     
     return dictionary
 }
