@@ -23,12 +23,10 @@ func getRecordDay(day: Day) -> RecordDay?{
                 ,recordDayList[i].today.month == day.month
                 ,recordDayList[i].today.day == day.day{
                 return recordDayList[i]
-            } else {
-                var defalutRecordDay:RecordDay = RecordDay(today: day, location: nil, friends: nil, expense: nil, customExpense: nil, calories: nil, drinks: nil)
-                return defalutRecordDay
             }
         }
-        return nil
+        var defalutRecordDay:RecordDay = RecordDay(today: day, location: nil, friends: nil, expense: nil, customExpense: nil, calories: nil, drinks: nil)
+        return defalutRecordDay
     }
 }
 
@@ -49,12 +47,11 @@ func getRecordMonth(day: Day) -> RecordMonth?{
             if recordMonthList[i].thisMonth.year == day.year
                 ,recordMonthList[i].thisMonth.month == day.month{
                 return recordMonthList[i]
-            } else {
-                var defalutRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: nil, bestFriend: nil, totalExpense: nil, totalCalories: nil, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
-                return defalutRecordMonth
             }
+            
         }
-        return nil
+        var defalutRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: nil, bestFriend: nil, totalExpense: nil, totalCalories: nil, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
+        return defalutRecordMonth
     }
 }
 
