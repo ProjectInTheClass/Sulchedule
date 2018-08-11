@@ -912,6 +912,15 @@ func setCurrentExpenseLimit(month: Day, value: Int) {
     }
 }
 
+func getSulIndexByName(sulName: String) -> Int?{
+    var count = sul.count - 1
+    for i in 0...count {
+        if sul[i].displayName == sulName {
+            return i
+        }
+    }
+    return nil
+}
 
 
 
