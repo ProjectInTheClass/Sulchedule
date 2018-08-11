@@ -25,8 +25,9 @@ func getRecordDay(day: Day) -> RecordDay?{
                 return recordDayList[i]
             }
         }
-        var defalutRecordDay:RecordDay = RecordDay(today: day, location: [], friends: [], expense: 0, customExpense: 0 , calories: 0, drinks: [:])
-        return defalutRecordDay
+        let defaultRecordDay:RecordDay = RecordDay(today: day, location: [], friends: [], expense: 0, customExpense: 0 , calories: 0, drinks: [:])
+        addNewRecordDay(newRecordDay: defaultRecordDay)
+        return defaultRecordDay
     }
 }
 
@@ -50,7 +51,7 @@ func getRecordMonth(day: Day) -> RecordMonth?{
             }
             
         }
-        var defalutRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: nil, bestFriend: nil, totalExpense: nil, totalCalories: nil, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
+        let defalutRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
         return defalutRecordMonth
     }
 }
@@ -58,13 +59,12 @@ func getRecordMonth(day: Day) -> RecordMonth?{
 //getRecordDayBottles(day: Day, index: Int) -> Int    day: 지정한 날짜, index: 술의 인덱스    Int(몇 병 마셨는지)    Day와 인덱스를 드리면 그 날 인덱스에 해당하는 술을 몇 병 마셨는지 정수로 리턴
 
 func getRecordDayBottles(day: Day, index : Int) -> Int?{
-    var recordDay = getRecordDay(day: day)
+    let recordDay = getRecordDay(day: day)
     
-    if let drinks = recordDay?.drinks {
-        return (drinks[index])!
-    }else{
-        return nil
+    guard let drinks = recordDay?.drinks else{
+        return 0
     }
+        return drinks[index]
 }
 
 //setRecordDayForSul(index: Int, bottles: Int)    index: 술의 인덱스, bottles: 그 술의 병 수
@@ -107,16 +107,15 @@ func setRecordDayForSul(day: Day, index: Int, bottles: Int){
 //setRecordDayCustomExpense(day: Day, customExpense: Int)    day: 지정한 날짜, customExpense: 사용자가 직접 입력한 지출액        Day에 해당하는 RecordDay의 customExpense를 설정합니다.
 
 func setRecordDayCustomExpense(day: Day, customExpense: Int?){
-    var recordDay = getRecordDay(day: day)
+    let recordDay = getRecordDay(day: day)
     recordDay?.customExpense = customExpense
 }
 
-let setCustomExpense = setRecordDayCustomExpense(day: Day(year: 2018, month: 08, day: 05), customExpense: 32000)
 /*
  //getFavoriteSul() -> [Int]        [Int](즐겨찾기한 술 인덱스의 배열)    즐겨찾기로 설정된 술 인덱스의 배열을 반환(UserData - favorites)
  */
 // userData 의 초기화 값이 있어야 활성화가 되서
-var userData = UserData(dangerLever: nil, favorites: nil, succeededLastMonth: false, goal_maxDaysOfMonth: nil, maxStreakOfMonth: nil, maxCaloriesOfMonth: nil, totalExpense: nil, purchased: false)
+var userData = UserData(dangerLever: 0, favorites: [], succeededLastMonth: false, goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0, purchased: false)
 
 func getFavoriteSul() -> [Int]?{
     return userData.favorites
@@ -125,7 +124,7 @@ func getFavoriteSul() -> [Int]?{
 //setRecordDayLocation(day: Day, location: String)    day: 지정한 날짜, location: 장소 문자열        location을 해당 RecordDay에 저장해주세요!
 
 func setRecordDayLocation(day: Day, location: [String]?){
-    var recordDay = getRecordDay(day: day)
+    let recordDay = getRecordDay(day: day)
     recordDay?.location = location
 }
 
@@ -142,7 +141,7 @@ let setLocation = setRecordDayLocation(day: Day(year: 2018, month: 08, day: 05),
 //setRecordDayFriends(day:Day, friends: [String]    day: 지정한 날짜, friends: 친구들의 배열        friends를 해당 RecordDay에 저장해주세요!
 
 func setRecordDayFriends(day:Day, friends: [String]?){
-    var recordDay = getRecordDay(day: day)
+    let recordDay = getRecordDay(day: day)
     recordDay?.friends = friends
 }
 
@@ -150,11 +149,11 @@ func setRecordDayFriends(day:Day, friends: [String]?){
 //getRecordDayCalorie(day: Day) -> Int    day: Day    Int(오늘의 칼로리)    오늘 칼로리를 반환
 //성공
 func getRecordDayCalorie(day: Day) -> Int?{
-    var recordDay = getRecordDay(day: day)
+    let recordDay = getRecordDay(day: day)
     if let kcal = recordDay?.calories {
         return kcal
     }
-    return nil
+    return 0
 }
 
 
@@ -173,7 +172,7 @@ func getRecordMonthBestFriends(month: Day) -> [[String: Int]?]?{
     for i in 0...count {
         if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
             // force unwrapping을 하긴 햇는데 불안함.
-            if var recordList = recordDayList[i].friends {
+            if let recordList = recordDayList[i].friends {
                 thisMonth += recordList
             }
         }
@@ -192,9 +191,9 @@ func getRecordMonthBestFriends(month: Day) -> [[String: Int]?]?{
     
     var toplated:[[String:Int]?] = []
     
-    var count1 = sortedMonthWithWho.count
+    let count1 = sortedMonthWithWho.count
     if count1 == 0 {
-        return nil
+        return []
     } else if count1 < 2 {
         for i in 0...count1 - 1 {
             toplated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
@@ -216,12 +215,12 @@ func getRecordMonthBestFriends(month: Day) -> [[String: Int]?]?{
 
 func monthlyKcalPerSul(month: Day) -> [Int:Int] {
     var dictionary:[Int:Int] = [:]
-    var count = recordDayList.count - 1
+    let count = recordDayList.count - 1
     var kcal:[[Int:Int]] = []
     for i in 0...count {
         if recordDayList[i].today.year == month.year,
             recordDayList[i].today.month == month.month {
-            if var drinks = recordDayList[i].drinks {
+            if let drinks = recordDayList[i].drinks {
                 kcal.append(drinks)
             }
         }
@@ -230,8 +229,7 @@ func monthlyKcalPerSul(month: Day) -> [Int:Int] {
     for j in 0...sul.count - 1 {
         var sum: Int = Int()
         for index in kcal{
-            // 왜 포스 언래핑?
-            if var ind = index[j]{
+            if let ind = index[j]{
                 sum += ind
             }
         }
@@ -245,12 +243,12 @@ let getMonthlyKcal = monthlyKcalPerSul(month: Day(year: 2018, month: 08, day: ni
 
 func monthlyPricePerSul(month: Day) -> [Int:Int] {
     var dictionary:[Int:Int] = [:]
-    var count = recordDayList.count - 1
+    let count = recordDayList.count - 1
     var price:[[Int:Int]] = []
     for i in 0...count {
         if recordDayList[i].today.year == month.year,
             recordDayList[i].today.month == month.month {
-            if var drinks = recordDayList[i].drinks {
+            if let drinks = recordDayList[i].drinks {
                 price.append(drinks)
             }
         }
@@ -259,8 +257,7 @@ func monthlyPricePerSul(month: Day) -> [Int:Int] {
     for j in 0...sul.count - 1 {
         var sum: Int = Int()
         for index in price{
-            // 왜 포스 언래핑?
-            if var ind = index[j]{
+            if let ind = index[j]{
                 sum += ind
             }
         }
@@ -274,12 +271,12 @@ let getMonthlyPrice = monthlyPricePerSul(month: Day(year: 2018, month: 08, day: 
 
 func monthlybottlesPerSul(month: Day) -> [Int:Int] {
     var dictionary:[Int:Int] = [:]
-    var count = recordDayList.count - 1
+    let count = recordDayList.count - 1
     var price:[[Int:Int]] = []
     for i in 0...count {
         if recordDayList[i].today.year == month.year,
             recordDayList[i].today.month == month.month {
-            if var drinks = recordDayList[i].drinks {
+            if let drinks = recordDayList[i].drinks {
                 price.append(drinks)
             }
         }
@@ -288,8 +285,7 @@ func monthlybottlesPerSul(month: Day) -> [Int:Int] {
     for j in 0...sul.count {
         var sum: Int = Int()
         for index in price {
-            // 왜 포스 언래핑?
-            if var ind = index[j]{
+            if let ind = index[j]{
                 sum += ind
             }
             dictionary[j] = sum
@@ -310,7 +306,7 @@ func getRecordMonthBestSul(month: Day) -> [[Int:[Int?]]]? {
     var dictionary:[[Int:[Int?]]] = []
     
     if bottles.count == 0 {
-        return nil
+        return []
     } else {
         let sort = bottles.sorted(by: {$0.1 > $1.1})
         
@@ -344,8 +340,7 @@ func getRecordMonthBestLocation(month: Day) -> [[String: Int]]?{
     
     for i in 0...count {
         if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
-            // force unwrapping을 하긴 햇는데 불안함.
-            if var recordList = recordDayList[i].location {
+            if let recordList = recordDayList[i].location {
                 thisMonth += recordList
             }
         }
@@ -364,8 +359,8 @@ func getRecordMonthBestLocation(month: Day) -> [[String: Int]]?{
     
     var toplated:[[String:Int]] = []
     
-    var count1 = sortedMonthWhere.count - 1
-    if drinkWhereAndTimes == nil {
+    let count1 = sortedMonthWhere.count - 1
+    if count1 == -1 {
         return toplated
     } else if count1 < 2 {
         for i in 0...count1 {
@@ -393,12 +388,12 @@ func getRecordMonthExpense(month: Day) -> Int?{
     for i in 0...count {
         if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
             if recordDayList[i].customExpense == nil {
-                // force unwrapping을 하긴 햇는데 불안함.
-                if var reco = recordDayList[i].expense {
+    
+                if let reco = recordDayList[i].expense {
                     thisMonth += [reco]
                 }
             } else {
-                if var reco = recordDayList[i].customExpense {
+                if let reco = recordDayList[i].customExpense {
                     thisMonth += [reco]
                 }
             }
@@ -418,7 +413,7 @@ func getRecordMonthCalorie(month: Day) -> Int?{
     for i in 0...count {
         if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
             // force unwrapping을 하긴 햇는데 불안함.
-            if var reco = recordDayList[i].calories {
+            if let reco = recordDayList[i].calories {
                 thisMonth += [reco]
             }
         }
@@ -509,7 +504,7 @@ func getWeeklySul() -> [Int: Int] {
     
     var keyArray:Array<Int> = []
     
-    var count = (weeklySulDictionary?.count)!-1
+    let count = (weeklySulDictionary?.count)!-1
     for j in 0...count {
         let index = weeklySulDictionary!
         keyArray += index[j].keys
@@ -667,7 +662,7 @@ func getCurrentGoalStatusList(month: Day) -> CurrentGoalStatus?{
 
 func getDaysOfMonthLimit(month: Day) -> Int?{
     guard var daysLimit = getCurrentGoalStatusList(month: month)?.daysOfMonth else{
-        return nil
+        return 0
     }
     return daysLimit
 }
@@ -676,7 +671,7 @@ func getDaysOfMonthLimit(month: Day) -> Int?{
 
 func getStreakOfMonthLimit(month: Day) -> Int?{
     guard var streakLimit = getCurrentGoalStatusList(month: month)?.streakOfMonth else{
-        return nil
+        return 0
     }
     return streakLimit
 }
@@ -685,7 +680,7 @@ func getStreakOfMonthLimit(month: Day) -> Int?{
 
 func getCaloriesOfMonthLimit(month: Day) -> Int?{
     guard var caloriesLimit = getCurrentGoalStatusList(month: month)?.caloriesOfMonth else{
-        return nil
+        return 0
     }
     return caloriesLimit
 }
@@ -695,7 +690,7 @@ func getCaloriesOfMonthLimit(month: Day) -> Int?{
 
 func getCurrentExpenseLimit(month: Day) -> Int?{
     guard var expenseLimit = getCurrentGoalStatusList(month: month)?.currentExpense else{
-        return nil
+        return 0
     }
     return expenseLimit
 }
@@ -919,7 +914,7 @@ func getSulIndexByName(sulName: String) -> Int?{
             return i
         }
     }
-    return nil
+    return 0
 }
 
 func getSulType(index : Int) -> String{
