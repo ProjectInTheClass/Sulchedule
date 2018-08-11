@@ -14,7 +14,7 @@ class EmbedStatsTableViewController: UITableViewController {
             tableValues.append("\(getWeeklyCalorie())kcal")
             for item in getWeeklySul() {
                 tableTitles.append(sul[item.key].displayName)
-                tableValues.append("\(item.value)병")
+                tableValues.append("\(item.value)\(getSulUnit(index: item.key))")
                 //Add Unit!
             }
             for item in getWeeklyFriend() {
@@ -34,7 +34,7 @@ class EmbedStatsTableViewController: UITableViewController {
 
             for item in getRecordMonthAllSul(month: dateToMonthConverter(date: Date()))! {
                 tableTitles.append(sul[Array(item.keys)[0]].displayName)
-                tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)병")
+                tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)\(getSulUnit(index: Array(item.keys)[0]))")
             }
             
             for item in getRecordMonthAllFriends(month: dateToMonthConverter(date: Date()))! {

@@ -63,9 +63,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
         
-        userData.favorites = [0, 2]
-        favorite = getFavoriteSul()
         //        setFavoriteSul(1, true)
+        userData.favorites = [0, 3]//test value
+        favorite = getFavoriteSul()
               
         newDaySelected(date: calendar.today!)
         gotDay = getRecordDay(day: selectedDay)
@@ -255,7 +255,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
         //Value
         customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 0)
-        customCell.bottleLabel.text = "\(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 0)병"
+        customCell.bottleLabel.text = "\(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 0)\(getSulUnit(index: favorite![indexPath.row]))"
         customCell.titleLabel.text = sul[favorite![indexPath.row]].displayName ?? "undefined"
         
         //UI
@@ -384,9 +384,8 @@ class TodayTableViewCell: UITableViewCell {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        let favorite = getFavoriteSul()
         
-        bottleLabel.text = "\(String(Int(sender.value)))병"
+        bottleLabel.text = "\(String(Int(sender.value)))\(getSulUnit(index: getSulIndexByName(sulName: titleLabel.text!)!))"
         delegate?.tableManipulate(self)
         
     }

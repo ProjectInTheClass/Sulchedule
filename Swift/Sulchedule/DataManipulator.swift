@@ -1025,13 +1025,13 @@ func getSulIndexByName(sulName: String) -> Int?{
     return 0
 }
 
-func getSulType(index : Int) -> String{
-    let type = sul[index].type
-    return type
+func getSulUnit(index : Int) -> String{
+    let unit = sul[index].unit
+    return unit
 }
 
-func setSulType(index : Int, type : String){
-    sul[index].type = type
+func setSulUnit(index : Int, unit : String){
+    sul[index].unit = unit
 }
 
 func addUserSul(newSul : Sul) {

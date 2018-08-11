@@ -194,18 +194,17 @@ class StatsViewController: UIViewController {
                 title1.text = sul[Array(temp.keys)[0]].displayName
                 sulLabel.text = sul[Array(temp.keys)[0]].displayName
                 let temp2 = temp[Array(temp.keys)[0]]!
-                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원"
+                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
                 title2.text = "정보 부족"
                 desc2.text = ""
                 title3.text = "정보 부족"
                 desc3.text = ""
-                //\n\(temp2[2]!)\(sul[Array(temp.keys)[0]].unit)
             }
             if(2 <= k.count){
                 let temp = k[1]
                 title2.text = sul[Array(temp.keys)[0]].displayName
                 let temp2 = temp[Array(temp.keys)[0]]!
-                desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)병"
+                desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
                 title3.text = "정보 부족"
                 desc3.text = ""
             }
@@ -213,7 +212,7 @@ class StatsViewController: UIViewController {
                 let temp = k[2]
                 title3.text = sul[Array(temp.keys)[0]].displayName
                 let temp2 = temp[Array(temp.keys)[0]]!
-                desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)병"
+                desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
             }
 
         case 1:

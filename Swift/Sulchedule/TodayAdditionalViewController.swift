@@ -70,7 +70,7 @@ class TodayAdditionalViewController: UITableViewController, TodayAdditionalTable
         }
         
         customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: indexPath.row) ?? 0)
-        customCell.bottleLabel.text = String("\(Int(customCell.bottleStepper.value))")
+        customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: indexPath.row))"
         customCell.titleLabel.text = sul[indexPath.row].displayName
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
@@ -172,7 +172,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        bottleLabel.text = String(Int(bottleStepper.value))
+        bottleLabel.text = "\(Int(bottleStepper.value))\(getSulUnit(index: getSulIndexByName(sulName: titleLabel.text!)!))"
         delegate?.tableManipulate(self)
     }
     
