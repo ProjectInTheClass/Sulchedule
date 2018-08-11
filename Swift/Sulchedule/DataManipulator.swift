@@ -16,7 +16,8 @@ func addNewRecordDay(newRecordDay: RecordDay){
 
 func getRecordDay(day: Day) -> RecordDay?{
     if recordDayList.count == 0 {
-        return nil
+        let firstRecordDay:RecordDay = RecordDay(today: dateToDayConverter(date: Date()), location: [], friends: [], expense: 0, customExpense: 0, calories: 0, drinks: [:])
+        return firstRecordDay
     } else {
         for i in 0...recordDayList.count - 1 {
             if recordDayList[i].today.year == day.year
