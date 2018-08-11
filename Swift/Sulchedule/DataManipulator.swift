@@ -76,38 +76,38 @@ func getRecordDayBottles(day: Day, index : Int) -> Int?{
 //// 얘가 젤 문제
 
 func setRecordDayForSul(day: Day, index: Int, bottles: Int){
-    var recordDay = getRecordDay(day: day)
     //     print(recordDay?.drinks)
     
-    if recordDay?.drinks != nil  {
-        recordDay?.drinks = recordDay?.drinks
+    if getRecordDay(day: day)?.drinks != nil  {
+        getRecordDay(day: day)?.drinks = getRecordDay(day: day)?.drinks
         //      print(recordDay?.drinks)
     }else {
-        recordDay?.drinks = [:]
+        getRecordDay(day: day)?.drinks = [:]
     }
-    recordDay?.drinks![index] = bottles
+    getRecordDay(day: day)?.drinks![index] = bottles
     
     
     //익스펜스랑 칼로리는 그냥 위에 어레이만 잘 되면 그냥 그냥 함수로 그냥그냥 하면 해결될듯!
     let a = sul[index].basePrice * bottles
     let b = sul[index].baseCalorie * bottles
     
-    if recordDay?.expense != nil {
-        recordDay?.expense  = recordDay?.expense
+    if getRecordDay(day: day)?.expense != nil {
+        getRecordDay(day: day)?.expense  = getRecordDay(day: day)?.expense
     }else {
-        recordDay?.expense = 0
+        getRecordDay(day: day)?.expense = 0
     }
     
-    recordDay?.expense = (recordDay?.expense)! + a
+    getRecordDay(day: day)?.expense = (getRecordDay(day: day)?.expense)! + a
     
-    if recordDay?.calories != nil {
-        recordDay?.calories = recordDay?.calories
+    if getRecordDay(day: day)?.calories != nil {
+        getRecordDay(day: day)?.calories = getRecordDay(day: day)?.calories
     }else {
-        recordDay?.calories = 0
+        getRecordDay(day: day)?.calories = 0
     }
     
-    recordDay?.calories = (recordDay?.calories)! + b
+    getRecordDay(day: day)?.calories = (getRecordDay(day: day)?.calories)! + b
 }
+
 
 
 //setRecordDayCustomExpense(day: Day, customExpense: Int)    day: 지정한 날짜, customExpense: 사용자가 직접 입력한 지출액        Day에 해당하는 RecordDay의 customExpense를 설정합니다.
