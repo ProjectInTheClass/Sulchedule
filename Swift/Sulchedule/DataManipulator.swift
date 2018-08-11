@@ -25,7 +25,7 @@ func getRecordDay(day: Day) -> RecordDay?{
                 return recordDayList[i]
             }
         }
-        var defalutRecordDay:RecordDay = RecordDay(today: day, location: nil, friends: nil, expense: nil, customExpense: nil, calories: nil, drinks: nil)
+        var defalutRecordDay:RecordDay = RecordDay(today: day, location: [], friends: [], expense: 0, customExpense: 0 , calories: 0, drinks: [:])
         return defalutRecordDay
     }
 }
@@ -87,7 +87,6 @@ func setRecordDayForSul(day: Day, index: Int, bottles: Int){
         getRecordDay(day: day)?.drinks = [:]
         getRecordDay(day: day)?.calories = 0
         getRecordDay(day: day)?.expense = 0
-        print(getRecordDay(day: day)?.drinks)
     }
     getRecordDay(day: day)?.drinks![index] = bottles
     
