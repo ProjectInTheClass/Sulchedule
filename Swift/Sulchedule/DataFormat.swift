@@ -142,10 +142,18 @@ class CurrentGoalStatus {
     }
 }
 
-struct Sul {
+class Sul {
     var displayName: String
     var baseCalorie: Int //단위 당 kcal (예 : 소주 = 300)
     var basePrice: Int
     var colorTag: String //컬러 코드에 # 포함 (예: "#FFFFFF")
     var type: String
+    
+    init(displayName: String, baseCalorie: Int, basePrice: Int, colorTag: String, type: String) {
+        self.displayName = displayName
+        self.baseCalorie = baseCalorie
+        self.basePrice = basePrice
+        self.colorTag = colorTag
+        self.type = type
+    }
 }

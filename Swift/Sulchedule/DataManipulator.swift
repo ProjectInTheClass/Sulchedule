@@ -922,6 +922,15 @@ func getSulIndexByName(sulName: String) -> Int?{
     return nil
 }
 
+func getSulType(index : Int) -> String{
+    let type = sul[index].type
+    return type
+}
+
+func setSulType(index : Int, type : String){
+    sul[index].type = type
+}
+
 
 
 
