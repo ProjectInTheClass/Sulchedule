@@ -7,9 +7,24 @@ struct SulSulSUl{
     var price: Int
 }
 
+extension UITableView {
+    func scrollToBottom(animated: Bool = true) {
+        let section = self.numberOfSections
+        if section > 0 {
+            let row = self.numberOfRows(inSection: section - 1)
+            if row > 0 {
+                self.scrollToRow(at: NSIndexPath(row: row - 1, section: section - 1) as IndexPath, at: .bottom, animated: animated)
+            }
+        }
+    }
+}
+
 class EmbedAddSulTableViewController: UITableViewController {
     
-    var arr: [SulSulSUl] = [SulSulSUl(name: "First Dummy", calorie: 1, price: 1000), SulSulSUl(name: "Second Dummy", calorie: 2, price: 1500), SulSulSUl(name: "Third Dummy", calorie: 3, price: 2000)]
+    func reload(){
+        backgroundView.reloadData()
+        backgroundView.scrollToBottom()
+    }
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
@@ -38,7 +53,7 @@ class EmbedAddSulTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return getUserSul().count
     }
 
     
@@ -49,8 +64,8 @@ class EmbedAddSulTableViewController: UITableViewController {
             return cell
         }
         
-        customCell.valueLabel.text = "Dummy Value"
-        customCell.titleLabel.text = "Dummy Title"
+        customCell.titleLabel.text = (getUserSul())[indexPath.row].displayName
+        customCell.valueLabel.text = "\((getUserSul())[indexPath.row].basePrice)\((getUserSul())[indexPath.row].unit), \((getUserSul())[indexPath.row].baseCalorie)kcal"
         customCell.backgroundColor = colorLightBackground
         
         if(isBrightTheme){
@@ -62,12 +77,12 @@ class EmbedAddSulTableViewController: UITableViewController {
             customCell.titleLabel.textColor = .white
         }
         
-        for view in customCell.subviews {
-            if(view.description.lowercased().contains("reorder")){
-                print(view)
-                view.superview?.backgroundColor = colorLightBackground
-            }
-        }
+//        for view in customCell.subviews {
+//            if(view.description.lowercased().contains("reorder")){
+//                print(view)
+//                view.superview?.backgroundColor = colorLightBackground
+//            }
+//        }
         
         return customCell
     }
@@ -86,23 +101,29 @@ class EmbedAddSulTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            print("delete method")
-//            tableView.deleteRows(at: [indexPath], with: .fade)
+            userData.newSul.remove(at: indexPath.row)
+            let originalSulCount = sul.count - userData.newSul.count
+//            setRecordDayForSul(day: selectedDay, index: indexPath.row + originalSulCount - 1, bottles: 0)
+//            해당 인덱스에 대한 모든 날의 기록을 삭제하는 메소드가 필요!
+//            removeSulFromEveryRecordDay(index: indexPath.row + originalSulCount - 1)
+            sul.remove(at: indexPath.row + originalSulCount - 1)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
  
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        if(isVibrationOn){
-            AudioServicesPlaySystemSound(vibPeek)
-        }
-        let v = arr[fromIndexPath.row]
+//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+//        if(isVibrationOn){
+//            AudioServicesPlaySystemSound(vibPeek)
+//        }
+//        let v = arr[fromIndexPath.row]
 //        let order = goalOrder[fromIndexPath.row]
-        arr.remove(at: fromIndexPath.row)
+//        arr.remove(at: fromIndexPath.row)
 //        goalOrder.remove(at: fromIndexPath.row)
-        arr.insert(v, at: to.row)
+//        arr.insert(v, at: to.row)
 //        goalOrder.insert(order, at: to.row)
 //        print(goalOrder)
-    }
+//    }
     
     override func dismissKeyboard() {
         view.endEditing(true)

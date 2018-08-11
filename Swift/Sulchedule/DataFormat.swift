@@ -152,11 +152,11 @@ class Sul {
     var colorTag: String //컬러 코드에 # 포함 (예: "#FFFFFF")
     var unit: String
     
-    init(displayName: String, baseCalorie: Int, basePrice: Int, colorTag: String, type: String) {
+    init(displayName: String, baseCalorie: Int, basePrice: Int, colorTag: String, unit: String) {
         self.displayName = displayName
         self.baseCalorie = baseCalorie
         self.basePrice = basePrice
         self.colorTag = colorTag
-        self.unit = type
+        self.unit = unit
     }
 }

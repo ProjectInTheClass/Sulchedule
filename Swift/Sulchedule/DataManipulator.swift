@@ -1035,7 +1035,8 @@ func setSulUnit(index : Int, unit : String){
 }
 
 func addUserSul(newSul : Sul) {
-    userData.newSul.append(newSul)
+    userData.newSul.append(newSul) //아카이빙과 전용 배열을 위한 데이터
+    sul.append(newSul) //통합 데이터에도 추가해서 사용 가능하게 하기
 }
 
 func getUserSul() ->[Sul]{

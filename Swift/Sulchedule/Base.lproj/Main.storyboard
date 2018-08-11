@@ -458,7 +458,7 @@
                                         <rect key="frame" x="148" y="75" width="199" height="21"/>
                                         <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="unitField:" destination="iD6-Bx-hYN" eventType="editingDidEnd" id="562-0q-DP6"/>
                                         </connections>

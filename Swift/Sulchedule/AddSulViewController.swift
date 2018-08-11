@@ -1,6 +1,8 @@
 import UIKit
 
 class AddSulViewController: UIViewController {
+    
+    var vc: EmbedAddSulTableViewController?
 
     @IBOutlet weak var tableDescriptionLabel: UILabel!
     @IBOutlet var background: UIView!
@@ -12,7 +14,43 @@ class AddSulViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButton(_ sender: Any) {
-        //save temporary Sul to array
+        if(nameField.text != "" && calorieField.text != "" && priceField.text != "" && unitField.text != "" && nameField.text != nil && calorieField.text != nil && priceField.text != nil && unitField.text != nil){
+            addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))
+            nameField.text = ""
+            calorieField.text = ""
+            unitField.text = ""
+            priceField.text = ""
+            
+            vc?.reload()
+            dismissKeyboard()
+            
+            nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+            priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+            calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                    attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+            unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        }
+        else{
+            if(nameField.text == "" || nameField.text == nil){
+                nameField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
+                                                                     attributes: [NSAttributedStringKey.foregroundColor: colorRed])
+            }
+            if(priceField.text == "" || priceField.text == nil){
+                priceField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
+                                                                      attributes: [NSAttributedStringKey.foregroundColor: colorRed])
+            }
+            if(calorieField.text == "" || calorieField.text == nil){
+                calorieField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
+                                                                        attributes: [NSAttributedStringKey.foregroundColor: colorRed])
+            }
+            if(unitField.text == "" || unitField.text == nil){
+                unitField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
+                                                                     attributes: [NSAttributedStringKey.foregroundColor: colorRed])
+            }
+        }
     }
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var calorieField: UITextField!
@@ -25,10 +63,38 @@ class AddSulViewController: UIViewController {
         //pass to temporary Sul
     }
     @IBAction func calorieField(_ sender: UITextField) {
-        //pass to temporary Sul
+        var input: String
+        var returnValue: Int? = nil
+        if(sender.text != "" || sender.text != nil){
+            input = sender.text!
+            
+            if let myNumber = NumberFormatter().number(from: input) {
+                returnValue = myNumber.intValue
+                sender.text = String(myNumber.intValue)
+                // do what you need to do with myInt
+            } else {
+                sender.text = ""
+            }
+        }
     }
     @IBAction func priceField(_ sender: UITextField) {
-        //pass to temporary Sul
+        var input: String
+        var returnValue: Int? = nil
+        if(sender.text != "" || sender.text != nil){
+            input = sender.text!
+            
+            if let myNumber = NumberFormatter().number(from: input) {
+                returnValue = myNumber.intValue
+                sender.text = String(myNumber.intValue)
+                // do what you need to do with myInt
+            } else {
+                sender.text = ""
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        vc = segue.destination as! EmbedAddSulTableViewController
     }
     override func viewDidLoad() {
         super.viewDidLoad()
