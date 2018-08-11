@@ -13,6 +13,8 @@ class MonthlyStatsViewController: UIViewController {
     var radOfCircle: CGFloat = 0
     var circlePath: UIBezierPath? = nil
     
+    var vc:EmbedStatsTableViewController? = nil
+    
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -39,6 +41,10 @@ class MonthlyStatsViewController: UIViewController {
     
     var selectedMonth: Day?
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        vc = segue.destination as! EmbedStatsTableViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         desc1.numberOfLines = 3
@@ -59,6 +65,7 @@ class MonthlyStatsViewController: UIViewController {
             year -= 1
         }
         selectedMonth = Day(year: year, month: month, day:nil)
+        vc?.month = selectedMonth!
     }
     override func viewWillAppear(_ animated: Bool) {
         leaderboardView.backgroundColor = colorLightBackground

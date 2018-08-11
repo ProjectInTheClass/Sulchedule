@@ -66,9 +66,20 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         //        setFavoriteSul(1, true)
         userData.favorites = [0, 3]//test value
         favorite = getFavoriteSul()
-              
-        newDaySelected(date: calendar.today!)
-        gotDay = getRecordDay(day: selectedDay)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h"
+        if(Int(formatter.string(from: Date()))! < 12) { //getShowYesterdayFirst 추가
+            newDaySelected(date: Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)
+            gotDay = getRecordDay(day: selectedDay)
+            calendar.select(Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)
+            navigationTitle.title = "\(self.dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)) (어제)"
+        }
+        else {
+            newDaySelected(date: calendar.today!)
+            gotDay = getRecordDay(day: selectedDay)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

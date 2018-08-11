@@ -16,10 +16,25 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var addSulButton: UIButton!
     @IBOutlet weak var resetContainer: UIView!
     @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var yesterdayButton: UIButton!
+    @IBOutlet weak var yesterdayContainer: UIView!
     
     var vibOn: UIImage?
     var vibOff: UIImage?
+    
+    var showyester = false //
+    
+    @IBAction func yesterdayButton(_ sender: UIButton) {
+        showyester.toggle()
+        if(showyester){
+            yesterdayButton.titleLabel!.text = "정오까지 전날 날짜가 표시됩니다"
+        }
+        else{
+            yesterdayButton.titleLabel!.text = "자정부터 당시 날짜가 표시됩니다"
+        }
+    }
     @IBAction func resetButton(_ sender: UIButton) {
+        //reset method
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -4,6 +4,7 @@ class EmbedStatsTableViewController: UITableViewController {
     var showWeekly = false
     var tableValues: [String] = []
     var tableTitles: [String] = []
+    var month = dateToMonthConverter(date: Date())
     func showWeeklyFunc(showWeekly: Bool){
         tableValues = []
         tableTitles = []
@@ -29,20 +30,20 @@ class EmbedStatsTableViewController: UITableViewController {
         else{
             tableTitles.append("총 지출액")
             tableTitles.append("총 열량")
-            tableValues.append("\(getRecordMonthExpense(month: dateToMonthConverter(date: Date()))!)원")
-            tableValues.append("\(getRecordMonthCalorie(month: dateToMonthConverter(date: Date()))!)kcal")
+            tableValues.append("\(getRecordMonthExpense(month: month))원")
+            tableValues.append("\(getRecordMonthCalorie(month: month))kcal")
 
-            for item in getRecordMonthAllSul(month: dateToMonthConverter(date: Date()))! {
+            for item in getRecordMonthAllSul(month: month)! {
                 tableTitles.append(sul[Array(item.keys)[0]].displayName)
                 tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)\(getSulUnit(index: Array(item.keys)[0]))")
             }
             
-            for item in getRecordMonthAllFriends(month: dateToMonthConverter(date: Date()))! {
+            for item in getRecordMonthAllFriends(month: month)! {
                 tableTitles.append(Array(item!.keys)[0])
                 tableValues.append("\(item![Array(item!.keys)[0]]!)회 합석")
             }
             
-            for item in getRecordMonthAllLocation(month: dateToMonthConverter(date: Date()))! {
+            for item in getRecordMonthAllLocation(month: month)! {
                 tableTitles.append(Array(item.keys)[0])
                 tableValues.append("\(item[Array(item.keys)[0]]!)회 방문")
             }
