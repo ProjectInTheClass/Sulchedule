@@ -253,8 +253,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     
         //Value
-        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 10)
-        customCell.bottleLabel.text = "\(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]))병"
+        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 0)
+        customCell.bottleLabel.text = "\(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 0)병"
         customCell.titleLabel.text = sul[favorite![indexPath.row]].displayName ?? "undefined"
         
         //UI

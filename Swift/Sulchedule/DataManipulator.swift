@@ -16,7 +16,7 @@ func addNewRecordDay(newRecordDay: RecordDay){
 
 func getRecordDay(day: Day) -> RecordDay?{
     if recordDayList.count == 0 {
-        let firstRecordDay:RecordDay = RecordDay(today: dateToDayConverter(date: Date()), location: [], friends: [], expense: 0, customExpense: 0, calories: 0, drinks: [:])
+        let firstRecordDay:RecordDay = RecordDay(today: dateToDayConverter(date: Date()), location: [], friends: [], expense: 0, customExpense: nil, calories: 0, drinks: [:])
         addNewRecordDay(newRecordDay: firstRecordDay)
         return firstRecordDay
     } else {
@@ -27,7 +27,7 @@ func getRecordDay(day: Day) -> RecordDay?{
                 return recordDayList[i]
             }
         }
-        let defaultRecordDay:RecordDay = RecordDay(today: day, location: [], friends: [], expense: 0, customExpense: 0 , calories: 0, drinks: [:])
+        let defaultRecordDay:RecordDay = RecordDay(today: day, location: [], friends: [], expense: 0, customExpense: nil, calories: 0, drinks: [:])
         addNewRecordDay(newRecordDay: defaultRecordDay)
         return defaultRecordDay
     }
@@ -53,8 +53,8 @@ func getRecordMonth(day: Day) -> RecordMonth?{
             }
             
         }
-        let defalutRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
-        return defalutRecordMonth
+        let defaultRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
+        return defaultRecordMonth
     }
 }
 
@@ -66,7 +66,7 @@ func getRecordDayBottles(day: Day, index : Int) -> Int?{
     guard let drinks = recordDay?.drinks else{
         return 0
     }
-        return drinks[index]
+    return drinks[index]
 }
 
 //setRecordDayForSul(index: Int, bottles: Int)    index: 술의 인덱스, bottles: 그 술의 병 수
