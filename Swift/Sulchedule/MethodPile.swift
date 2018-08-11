@@ -78,9 +78,3 @@ func dateToMonthConverter(date: Date) -> Day{
     
     return Day(year: NumberFormatter().number(from: year)!.intValue, month: NumberFormatter().number(from: month)!.intValue, day:nil)
 }
-
-func recordDayInit(day: Day){
-    if(getRecordDay(day: day) == nil){
-        addNewRecordDay(newRecordDay: RecordDay(today: day, location: nil, friends: nil, expense: nil, customExpense: nil, calories: nil, drinks: nil))
-    }
-}

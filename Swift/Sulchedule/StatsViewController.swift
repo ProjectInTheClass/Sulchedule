@@ -126,6 +126,7 @@ class StatsViewController: UIViewController {
         sulView.bringSubview(toFront: sulLabel)
         
         cycleCircleBorder(cursor: 0)
+        showPlatform(cursor: 0)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
@@ -172,7 +173,6 @@ class StatsViewController: UIViewController {
                 desc3.text = ""
             }
             else{
-                
             }
         case 1:
             let friends = getRecordMonthBestFriends(month: dateToMonthConverter(date: Date()))
@@ -183,6 +183,9 @@ class StatsViewController: UIViewController {
                 desc2.text = ""
                 title3.text = "정보 없음"
                 desc3.text = ""
+            }
+            else{
+//                print(friends[0]!)
             }
         case 2:
             let locations = getRecordMonthBestLocation(month: dateToMonthConverter(date: Date()))

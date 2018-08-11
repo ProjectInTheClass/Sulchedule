@@ -14,7 +14,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
         let favorite = getFavoriteSul()
-        recordDayInit(day: selectedDay)
         setRecordDayForSul(day: selectedDay, index: favorite![index], bottles: Int(sender.bottleStepper.value))
 
     }
@@ -176,13 +175,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "additionView")
-        // Alternative way to present the new view controller
         self.navigationController?.show(vc, sender: nil)
     }
     @objc func handleTapMoreInfo(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "moreInfoView")
-        // Alternative way to present the new view controller
         self.navigationController?.show(vc, sender: nil)
     }
     
@@ -229,7 +226,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         newDaySelected(date: date)
-        print(date)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -297,13 +293,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         scope = .week
         self.calendar.setScope(scope, animated: true)
         
-        recordDayInit(day: selectedDay)
         gotDay = getRecordDay(day: selectedDay)!
         
         
-        for item in favorite!{
-            setRecordDayForSul(day: selectedDay, index: item, bottles: 0)
-        }
+//        for item in favorite!{
+//            setRecordDayForSul(day: selectedDay, index: item, bottles: 0)
+//        }
         
         //load data into tableView
         //set new array
@@ -320,15 +315,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setTopInfoLabelString(){
         var tempStr: String = ""
-        gotDay?.location = ["다", "라"]
         if((gotDay?.friends == nil && gotDay?.location == nil) || (gotDay?.friends?.count == 0 && gotDay?.location?.count == 0)){
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
             tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
         }
         else{
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
-            let tempLocation = gotDay?.location ?? [""]
-            let tempFriends = gotDay?.friends ?? [""]
+            let tempLocation = gotDay?.location ?? []
+            let tempFriends = gotDay?.friends ?? []
             
             if (tempLocation.count != 0){
                 for i in (tempLocation) {

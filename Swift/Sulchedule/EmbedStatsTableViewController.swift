@@ -1,6 +1,10 @@
 import UIKit
 
-class EmbedStatsTableViewController: UITableViewController {
+class EmbedStatsTableViewController: UITableViewController, TableDelegate {
+    func tableManipulate(_ sender: TodayTableViewCell) {
+        
+    }
+    
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {

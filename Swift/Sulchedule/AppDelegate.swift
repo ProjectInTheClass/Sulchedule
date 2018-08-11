@@ -15,6 +15,7 @@ import UIKit
 //        addNewRecordDay(newRecordDay: dummyG)
 //        addNewRecordDay(newRecordDay: dummyH)
         
+        
         if(isBrightTheme){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")

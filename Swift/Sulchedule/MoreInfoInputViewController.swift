@@ -57,6 +57,7 @@ class MoreInfoInputViewController: UIViewController {
             tmpText.removeFirst()
             sender.text = tmpText
         }
+        print(returnArray)
         setRecordDayLocation(day: selectedDay, location: returnArray)
     }
     @IBAction func friendsField(_ sender: UITextField) {
@@ -149,7 +150,9 @@ class MoreInfoInputViewController: UIViewController {
         for string in gotDay?.location ?? [""]{
             reusableTemp.append(", \(string)")
         }
-        reusableTemp.removeFirst(2)
+        if(reusableTemp.count >= 2){
+            reusableTemp.removeFirst(2)
+        }
         locationField.text = reusableTemp
         
         let k = (gotDay!.customExpense) ?? 0
