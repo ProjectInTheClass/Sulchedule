@@ -3,14 +3,30 @@ import UIKit
 import AudioToolbox.AudioServices
 
 var selectedDay: Day = dateToDayConverter(date: Date())
+var gotDay: RecordDay?
 
-class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
+protocol TableDelegate {
+    func tableManipulate(_ sender: TodayTableViewCell)
+}
+
+class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, TableDelegate {
+    func tableManipulate(_ sender: TodayTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        let index = indexPath.row
+        let favorite = getFavoriteSul()
+        recordDayInit(day: selectedDay)
+        setRecordDayForSul(day: selectedDay, index: favorite![index], bottles: Int(sender.bottleStepper.value))
+
+    }
+    
     
     @IBOutlet weak var loadAdditionalView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
+    
+    var favorite: [Int]? = nil
     
     @IBOutlet weak var navigationTitle: UINavigationItem!
     @IBAction func calendarView(_ sender: Any) {
@@ -46,16 +62,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
+        
+        userData.favorites = [0, 2]
+        favorite = getFavoriteSul()
+        //        setFavoriteSul(1, true)
               
         newDaySelected(date: calendar.today!)
-        
-        setTopInfoLabelString()
-        setBottomInfoLabelString()
-        
-        selectedDay = dateToDayConverter(date: Date())
-        
-//        setFavoriteSul(1, true)
-        userData.favorites = [0, 2]
+        gotDay = getRecordDay(day: selectedDay)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,6 +117,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         calendar.reloadData()
         tableView.reloadData()
+        setTopInfoLabelString()
+        setBottomInfoLabelString()
+        
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
@@ -213,6 +229,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         newDaySelected(date: date)
+        print(date)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -238,14 +255,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let customCell = cell as? TodayTableViewCell else{
             return cell
         }
-        
-        //Init
-        let favorite = getFavoriteSul()
-        let temp = getRecordDay(day: selectedDay)?.drinks![favorite![indexPath.row]] ?? 0 //좋아하는 술 얼마나 마셨는지
-        
+    
         //Value
-        customCell.bottleStepper.value = Double((temp))
-        customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))병"
+        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]) ?? 10)
+        customCell.bottleLabel.text = "\(getRecordDayBottles(day: selectedDay, index: favorite![indexPath.row]))병"
         customCell.titleLabel.text = sul[favorite![indexPath.row]].displayName ?? "undefined"
         
         //UI
@@ -262,23 +275,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             customCell.titleLabel.textColor = colorGray
         }
         
-        
+        customCell.delegate = self
         
         return customCell
-    }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = .clear
-    }
-    
-    
-    // MARK:- UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
     }
     
     // MARK:- Target actions
@@ -293,15 +292,25 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
         navigationTitle.title = "\(self.dateFormatter.string(from: date))"
+        selectedDay = dateToDayConverter(date: date)
         
         scope = .week
         self.calendar.setScope(scope, animated: true)
+        
+        recordDayInit(day: selectedDay)
+        gotDay = getRecordDay(day: selectedDay)!
+        
+        
+        for item in favorite!{
+            setRecordDayForSul(day: selectedDay, index: item, bottles: 0)
+        }
         
         //load data into tableView
         //set new array
         //reload table
         setTopInfoLabelString()
         setBottomInfoLabelString()
+        tableView.reloadData()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -311,46 +320,48 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setTopInfoLabelString(){
         var tempStr: String = ""
-        tempStr = "Temp와(과) Temp에서 Temp원 소비했어요."
-//        if(name.count == 0 && locations.count == 0){
-//            topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
-//            tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
-//        }
-//        else{
-//        if locations.count != 0{
-//            for i in locations{
-//                tempStr.append(i + ", ")
-//            }
-//            tempStr.removeLast()
-//            tempStr.removeLast()
-//            tempStr.append("에서 ")
-//            if name.count != 0{
-//                for i in names{
-//                    tempStr.append(i + ", ")
-//                }
-//            tempStr.removeLast()
-//            tempStr.removeLast()
-//            tempStr.append("와(과) 함께했어요")
-//            }
-//        }
-//
-//        topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
-//
-//        }
+        gotDay?.location = ["다", "라"]
+        if((gotDay?.friends == nil && gotDay?.location == nil) || (gotDay?.friends?.count == 0 && gotDay?.location?.count == 0)){
+            topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
+            tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
+        }
+        else{
+            topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
+            let tempLocation = gotDay?.location ?? [""]
+            let tempFriends = gotDay?.friends ?? [""]
+            
+            if (tempLocation.count != 0){
+                for i in (tempLocation) {
+                    tempStr.append(i + ", ")
+                }
+                tempStr.removeLast(2)
+                tempStr.append("에서 ")
+            }
+            if (tempFriends.count != 0){
+                for i in (tempFriends) {
+                    tempStr.append(i + ", ")
+                }
+                tempStr.removeLast(2)
+                tempStr.append("와(과) ")
+            }
+            tempStr.append("마셨어요")
+        }
         topInfoLabel.text = tempStr
     }
     
     
     func setBottomInfoLabelString(){
-//        if (customExpense == 0){
-//            bottomInfoLabel.text = "약 \(expense)원, 약 \(calorie)kcal"
-//        }
-//        else{
-//            bottomInfoLabel.text = "\(customExpense)원, 약 \(calorie)kcal"
-//        }
+        if (gotDay?.customExpense == nil){
+            bottomInfoLabel.text = "약 \(gotDay?.expense)원, 약 \(gotDay?.calories)kcal"
+        }
+        else{
+            bottomInfoLabel.text = "\(gotDay?.customExpense)원, 약 \(gotDay?.calories)kcal"
+        }
     }
-    //customexpense가 0인지 nil인지 확인!
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
     
 }
 
@@ -367,6 +378,9 @@ extension UIViewController {
 }
 
 class TodayTableViewCell: UITableViewCell {
+    
+    var delegate: TableDelegate?
+    
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bottleLabel: UILabel!
@@ -375,13 +389,10 @@ class TodayTableViewCell: UITableViewCell {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        let cell = sender.superview?.superview as! UITableViewCell
-        
-        setRecordDayForSul(day: selectedDay, index: 0, bottles: Int(sender.value))
+        let favorite = getFavoriteSul()
         
         bottleLabel.text = "\(String(Int(sender.value)))병"
-        
-        
+        delegate?.tableManipulate(self)
     }
     
     

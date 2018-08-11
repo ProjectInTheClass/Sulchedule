@@ -98,12 +98,12 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         customCell.tintColor = colorDeepBackground
         customCell.backgroundColor = colorDeepBackground
         
-        for view in customCell.subviews {
-            if(view.description.lowercased().contains("reorder")){
-                print(view)
-                view.superview?.backgroundColor = colorDeepBackground
-            }
-        }
+//        for view in customCell.subviews {
+//            if(view.description.lowercased().contains("reorder")){
+//                print(view)
+//                view.superview?.backgroundColor = colorDeepBackground
+//            }
+//        }
         
         if(isBrightTheme){
             customCell.editField.keyboardAppearance = .light
@@ -127,18 +127,18 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     */
     
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        if(isVibrationOn){
-            AudioServicesPlaySystemSound(vibPeek)
-        }
-        let v = goals[fromIndexPath.row]
-        let order = goalOrder[fromIndexPath.row]
-        goals.remove(at: fromIndexPath.row)
-        goalOrder.remove(at: fromIndexPath.row)
-        goals.insert(v, at: to.row)
-        goalOrder.insert(order, at: to.row)
-        print(goalOrder)
-    }
+//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+//        if(isVibrationOn){
+//            AudioServicesPlaySystemSound(vibPeek)
+//        }
+//        let v = goals[fromIndexPath.row]
+//        let order = goalOrder[fromIndexPath.row]
+//        goals.remove(at: fromIndexPath.row)
+//        goalOrder.remove(at: fromIndexPath.row)
+//        goals.insert(v, at: to.row)
+//        goalOrder.insert(order, at: to.row)
+//        print(goalOrder)
+//    }
     
     override func dismissKeyboard() {
         view.endEditing(true)

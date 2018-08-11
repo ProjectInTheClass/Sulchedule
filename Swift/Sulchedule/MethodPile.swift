@@ -60,11 +60,27 @@ func hexStringToUIColor (hex:String) -> UIColor {
 func dateToDayConverter(date: Date) -> Day{
     let initFormatter = DateFormatter()
     initFormatter.dateFormat = "d"
-    let year = initFormatter.string(from: date)
-    initFormatter.dateFormat = "m"
+    let day = initFormatter.string(from: date)
+    initFormatter.dateFormat = "M"
     let month = initFormatter.string(from: date)
     initFormatter.dateFormat = "yyyy"
-    let day = initFormatter.string(from: date)
+    let year = initFormatter.string(from: date)
     
     return Day(year: NumberFormatter().number(from: year)!.intValue, month: NumberFormatter().number(from: month)!.intValue, day: NumberFormatter().number(from: day)!.intValue)
+}
+
+func dateToMonthConverter(date: Date) -> Day{
+    let initFormatter = DateFormatter()
+    initFormatter.dateFormat = "M"
+    let month = initFormatter.string(from: date)
+    initFormatter.dateFormat = "yyyy"
+    let year = initFormatter.string(from: date)
+    
+    return Day(year: NumberFormatter().number(from: year)!.intValue, month: NumberFormatter().number(from: month)!.intValue, day:nil)
+}
+
+func recordDayInit(day: Day){
+    if(getRecordDay(day: day) == nil){
+        addNewRecordDay(newRecordDay: RecordDay(today: day, location: nil, friends: nil, expense: nil, customExpense: nil, calories: nil, drinks: nil))
+    }
 }

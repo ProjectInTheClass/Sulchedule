@@ -38,7 +38,8 @@
 		35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */; };
 		35975CC5211947E400CDF77E /* IconSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC4211947E400CDF77E /* IconSelectViewController.swift */; };
 		35975CC7211950DC00CDF77E /* EmbedIconSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */; };
-		359EDF2321139D0C00B98BF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359EDF2221139D0C00B98BF9 /* Images.xcassets */; };
+		35991190211E9B81002A5319 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3599118F211E9B81002A5319 /* SettingsViewController.swift */; };
+		35991192211EBE25002A5319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35991191211EBE23002A5319 /* Images.xcassets */; };
 		35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */; };
 		35B940D8211B55EB00287C00 /* EmbedAddSulTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */; };
 		35FABC29211AB60400E3ECC1 /* AddSulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */; };
@@ -112,7 +113,8 @@
 		35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryFrameViewController.swift; sourceTree = "<group>"; };
 		35975CC4211947E400CDF77E /* IconSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectViewController.swift; sourceTree = "<group>"; };
 		35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedIconSelectTableViewController.swift; sourceTree = "<group>"; };
-		359EDF2221139D0C00B98BF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3599118F211E9B81002A5319 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		35991191211EBE23002A5319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsEditTableViewController.swift; sourceTree = "<group>"; };
 		35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedAddSulTableViewController.swift; sourceTree = "<group>"; };
 		35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSulViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				35458DC62113D52B00878206 /* TodayAdditionalViewController.swift */,
 				356C2649211BE87100678280 /* MoreInfoInputViewController.swift */,
 				35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */,
+				3599118F211E9B81002A5319 /* SettingsViewController.swift */,
 				353AA8602113FA5F00FEDDB5 /* StatsViewController.swift */,
 				3595EFC92115E9D100F20009 /* GoalsViewController.swift */,
 				3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */,
@@ -277,8 +280,8 @@
 		EE0954A91B97DDE0007F6964 /* Sulchedule */ = {
 			isa = PBXGroup;
 			children = (
+				35991191211EBE23002A5319 /* Images.xcassets */,
 				EE0954AC1B97DDE0007F6964 /* AppDelegate.swift */,
-				359EDF2221139D0C00B98BF9 /* Images.xcassets */,
 				35338387211D321000171B16 /* FSCalendar */,
 				35338384211D31C000171B16 /* UI */,
 				35338389211D325A00171B16 /* DataCentre */,
@@ -392,7 +395,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				359EDF2321139D0C00B98BF9 /* Images.xcassets in Resources */,
+				35991192211EBE25002A5319 /* Images.xcassets in Resources */,
 				EE0954B21B97DDE0007F6964 /* Main.storyboard in Resources */,
 				EE0954B71B97DDE0007F6964 /* LaunchScreen.xib in Resources */,
 			);
@@ -419,6 +422,7 @@
 				35FABC29211AB60400E3ECC1 /* AddSulViewController.swift in Sources */,
 				354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */,
 				30F4C9401E07C3AD00D2EC4D /* FSCalendarCollectionViewLayout.m in Sources */,
+				35991190211E9B81002A5319 /* SettingsViewController.swift in Sources */,
 				35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */,
 				D2D756F5211D7032008051F2 /* DataCentre.swift in Sources */,
 				30F4C93F1E07C3AD00D2EC4D /* FSCalendarCollectionView.m in Sources */,
@@ -610,7 +614,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Sulchedule/Objc-Bridge-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -627,7 +631,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Sulchedule/Objc-Bridge-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

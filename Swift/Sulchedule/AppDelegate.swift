@@ -6,6 +6,14 @@ import UIKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        addNewRecordDay(newRecordDay: dummyA)
+//        addNewRecordDay(newRecordDay: dummyB)
+//        addNewRecordDay(newRecordDay: dummyC)
+//        addNewRecordDay(newRecordDay: dummyD)
+//        addNewRecordDay(newRecordDay: dummyE)
+//        addNewRecordDay(newRecordDay: dummyF)
+//        addNewRecordDay(newRecordDay: dummyG)
+//        addNewRecordDay(newRecordDay: dummyH)
         
         if(isBrightTheme){
             colorPoint = hexStringToUIColor(hex: "#0067B2")

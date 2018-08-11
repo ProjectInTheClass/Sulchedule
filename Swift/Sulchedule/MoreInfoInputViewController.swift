@@ -21,18 +21,19 @@ class MoreInfoInputViewController: UIViewController {
     
     @IBAction func expenseField(_ sender: UITextField) {
         var input: String
-        var returnValue: Int
+        var returnValue: Int? = nil
         if(sender.text != "" || sender.text != nil){
             input = sender.text!
             
             if let myNumber = NumberFormatter().number(from: input) {
                 returnValue = myNumber.intValue
+                sender.text = String(myNumber.intValue)
                 // do what you need to do with myInt
             } else {
                 sender.text = ""
             }
         }
-        //pass data
+        setRecordDayCustomExpense(day: selectedDay, customExpense: returnValue)
     }
     @IBAction func locationField(_ sender: UITextField) {
         let input = sender.text
@@ -56,7 +57,7 @@ class MoreInfoInputViewController: UIViewController {
             tmpText.removeFirst()
             sender.text = tmpText
         }
-        //pass data
+        setRecordDayLocation(day: selectedDay, location: returnArray)
     }
     @IBAction func friendsField(_ sender: UITextField) {
         let input = sender.text
@@ -80,7 +81,7 @@ class MoreInfoInputViewController: UIViewController {
             tmpText.removeFirst()
             sender.text = tmpText
         }
-        //pass data
+        setRecordDayFriends(day: selectedDay, friends: returnArray)
     }
     
     
@@ -133,10 +134,95 @@ class MoreInfoInputViewController: UIViewController {
         friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         
-        expenseField.text = ""
-        locationField.text = ""
-        friendsField.text = ""
+        var reusableTemp = ""
         
+        for string in gotDay?.friends ?? [""]{
+            reusableTemp.append(", \(string)")
+        }
+        if(reusableTemp.count >= 2){
+            reusableTemp.removeFirst(2)
+        }
+        friendsField.text = reusableTemp
+        
+        reusableTemp = ""
+        
+        for string in gotDay?.location ?? [""]{
+            reusableTemp.append(", \(string)")
+        }
+        reusableTemp.removeFirst(2)
+        locationField.text = reusableTemp
+        
+        let k = (gotDay!.customExpense) ?? 0
+        if(k == 0){
+            expenseField.text = ""
+        }
+        else{
+            expenseField.text = String(k)
+        }
+        
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        var input: String
+        var returnValue: Int? = nil
+        if(expenseField.text != "" || expenseField.text != nil){
+            input = expenseField.text!
+            
+            if let myNumber = NumberFormatter().number(from: input) {
+                returnValue = myNumber.intValue
+                expenseField.text = String(myNumber.intValue)
+                // do what you need to do with myInt
+            } else {
+                expenseField.text = ""
+            }
+        }
+        setRecordDayCustomExpense(day: selectedDay, customExpense: returnValue)
+
+        input = locationField.text ?? ""
+        var split: [Substring] = (input.split(separator: ","))
+        var returnArray: [String] = []
+        if(split.count != 0){
+            for i in 0...split.count - 1{
+                while(split[i].hasSuffix(" ")){
+                    split[i].removeLast()
+                }
+                while(split[i].hasPrefix(" ")){
+                    split[i].removeFirst()
+                }
+                returnArray.append(String(split[i]))
+            }
+            var tmpText: String = ""
+            for string in returnArray{
+                tmpText.append(", \(string)")
+            }
+            tmpText.removeFirst()
+            tmpText.removeFirst()
+            locationField.text = tmpText
+        }
+        setRecordDayLocation(day: selectedDay, location: returnArray)
+
+        input = friendsField.text ?? ""
+        split = (input.split(separator: ","))
+        returnArray = []
+        if(split.count != 0){
+            for i in 0...split.count - 1{
+                while(split[i].hasSuffix(" ")){
+                    split[i].removeLast()
+                }
+                while(split[i].hasPrefix(" ")){
+                    split[i].removeFirst()
+                }
+                returnArray.append(String(split[i]))
+            }
+            var tmpText: String = ""
+            for string in returnArray{
+                tmpText.append(", \(string)")
+            }
+            tmpText.removeFirst()
+            tmpText.removeFirst()
+            friendsField.text = tmpText
+        }
+        setRecordDayFriends(day: selectedDay, friends: returnArray)
     }
     
     override func viewDidAppear(_ animated: Bool) {

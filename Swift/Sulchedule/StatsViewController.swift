@@ -136,23 +136,67 @@ class StatsViewController: UIViewController {
         }
     }
     
+    
     @objc func sulClicked(){
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
         cycleCircleBorder(cursor: 0)
+        showPlatform(cursor: 0)
     }
     @objc func friendClicked(){
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
         cycleCircleBorder(cursor: 1)
+        showPlatform(cursor: 1)
     }
     @objc func locationClicked(){
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
         cycleCircleBorder(cursor: 2)
+        showPlatform(cursor: 2)
+    }
+    
+    func showPlatform(cursor: Int){
+        switch cursor {
+        case 0:
+            let suls = getRecordMonthBestSul(month: dateToMonthConverter(date: Date()))
+            if(suls == nil){
+                title1.text = "정보 없음"
+                desc1.text = ""
+                title2.text = "정보 없음"
+                desc2.text = ""
+                title3.text = "정보 없음"
+                desc3.text = ""
+            }
+            else{
+                
+            }
+        case 1:
+            let friends = getRecordMonthBestFriends(month: dateToMonthConverter(date: Date()))
+            if(friends == nil){
+                title1.text = "정보 없음"
+                desc1.text = ""
+                title2.text = "정보 없음"
+                desc2.text = ""
+                title3.text = "정보 없음"
+                desc3.text = ""
+            }
+        case 2:
+            let locations = getRecordMonthBestLocation(month: dateToMonthConverter(date: Date()))
+            if(locations == nil){
+                title1.text = "정보 없음"
+                desc1.text = ""
+                title2.text = "정보 없음"
+                desc2.text = ""
+                title3.text = "정보 없음"
+                desc3.text = ""
+            }
+        default:
+            print("wtf")
+        }
     }
     
     func loadSegment(whichSegment: Int){
@@ -232,25 +276,6 @@ class StatsViewController: UIViewController {
     }
     
     func cycleCircleBorder(cursor: Int){
-        switch (cursor){
-        case 0:
-            friendCircle.lineWidth = 0.0
-            sulCircle.lineWidth = 3.0
-            locationCircle.lineWidth = 0.0
-        case 1:
-            friendCircle.lineWidth = 3.0
-            sulCircle.lineWidth = 0.0
-            locationCircle.lineWidth = 0.0
-        case 2:
-            friendCircle.lineWidth = 0.0
-            sulCircle.lineWidth = 0.0
-            locationCircle.lineWidth = 3.0
-        default:
-            print("wtf")
-        }
-    }
-    
-    func reloadLeaderboard(cursor: Int){
         switch (cursor){
         case 0:
             friendCircle.lineWidth = 0.0
