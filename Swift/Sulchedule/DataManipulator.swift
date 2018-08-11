@@ -934,7 +934,12 @@ func setSulType(index : Int, type : String){
 }
 
 func addUserSul(newSul : Sul) {
-    sul.append(newSul)
+    userData.newSul.append(newSul)
+}
+
+func getUserSul() ->[Sul]{
+    let userSul = userData.newSul
+    return userSul
 }
 
 func setPurchased(purchased: Bool){

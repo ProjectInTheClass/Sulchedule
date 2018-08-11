@@ -93,6 +93,7 @@ class UserData {
     var maxCaloriesOfMonth: Int? //칼로리 목표
     var totalExpense: Int? //총 지출액
     var purchased: Bool
+    var newSul: [Sul] = []
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
     init(dangerLever : Int?, favorites: [Int]?, succeededLastMonth: Bool, goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?, purchased: Bool) {
