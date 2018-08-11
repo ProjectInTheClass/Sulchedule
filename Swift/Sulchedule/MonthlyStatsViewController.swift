@@ -149,7 +149,6 @@ class MonthlyStatsViewController: UIViewController {
         case 0:
             let suls = getRecordMonthBestSul(month: selectedMonth!)
             let k = suls!
-            sulLabel.numberOfLines = 2
             sulLabel.text = "음주 기록이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
@@ -181,7 +180,6 @@ class MonthlyStatsViewController: UIViewController {
         case 1:
             let friends = getRecordMonthBestFriends(month: selectedMonth!)
             let k = friends!
-            friendLabel.numberOfLines = 2
             friendLabel.text = "술친구가\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]!
@@ -212,7 +210,6 @@ class MonthlyStatsViewController: UIViewController {
         case 2:
             let locations = getRecordMonthBestLocation(month: selectedMonth!)
             let k = locations!
-            locationLabel.numberOfLines = 2
             locationLabel.text = "자주 가는 곳이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]

@@ -196,19 +196,54 @@ func getRecordMonthBestFriends(month: Day) -> [[String: Int]?]?{
     }
     let sortedMonthWithWho = drinkWhoAndTimes.sorted(by: {$0.1 > $1.1})
     
-    var toplated:[[String:Int]?] = []
+    var topRated:[[String:Int]?] = []
     
     let count1 = sortedMonthWithWho.count
     if(count1 == 0){
-        return toplated
+        return topRated
     }
     for i in 0...count1 - 1{
         if(i==3){
             break
         }
-        toplated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
+        topRated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
     }
-    return toplated
+    return topRated
+}
+
+func getRecordMonthAllFriends(month: Day) -> [[String: Int]?]?{
+    let count = recordDayList.count - 1
+    var thisMonth:[String] = []
+    
+    for i in 0...count {
+        if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
+            // force unwrapping을 하긴 햇는데 불안함.
+            if let recordList = recordDayList[i].friends {
+                thisMonth += recordList
+            }
+        }
+    }
+    
+    var drinkWhoAndTimes:[String : Int] = [:]
+    
+    for word in thisMonth {
+        if drinkWhoAndTimes[word] == nil {
+            drinkWhoAndTimes[word] = 1
+        } else {
+            drinkWhoAndTimes[word]! += 1
+        }
+    }
+    
+    let sortedMonthWithWho = drinkWhoAndTimes.sorted(by: {$0.1 > $1.1})
+    var topRated:[[String:Int]?] = []
+    let count1 = sortedMonthWithWho.count
+    if(count1 == 0){
+        return topRated
+    }
+    for i in 0...count1 - 1{
+        topRated.append([sortedMonthWithWho[i].key :sortedMonthWithWho[i].value])
+    }
+    return topRated
 }
 
 //getRecordMonthBestSul(month: Day) -> [Int:[Int, Int, Int]]    month: Day(day가 nil)    [Int(술의 인덱스):[Int(그 술 마시면서 얻은 칼로리):, Int(그 술로 지출한 추정 액수), Int(그 술 몇 번 마셨는지)]]의 배열을 포함한 딕셔너리의 배열    단상 화면에 사용할 용도이므로 탑3만! 디자인 가이드 참고
@@ -331,6 +366,31 @@ func getRecordMonthBestSul(month: Day) -> [[Int:[Int?]]]? {
     return dictionary
 }
 
+func getRecordMonthAllSul(month: Day) -> [[Int:[Int?]]]? {
+    var kcal = monthlyKcalPerSul(month: month)
+    var price = monthlyPricePerSul(month: month)
+    var bottles = monthlybottlesPerSul(month: month)
+    
+    var dictionary:[[Int:[Int?]]] = []
+    
+    if bottles.count == 0 {
+        return []
+    } else {
+        let sort = bottles.sorted(by: {$0.1 > $1.1})
+        var array:[Int] = []
+        for i in 0...sort.count - 1{
+            array.append(sort[i].key)
+        }
+        for i in 0...sort.count - 1 {
+            dictionary += [[array[i] : [kcal[array[i]], price[array[i]], bottles[array[i]]]]]
+            if(bottles[array[i]] == 0){
+                dictionary.removeLast()
+            }
+        }
+        return dictionary
+    }
+}
+
 //getRecordMonthBestLocation(month: Day) -> [String: Int]    month: Day(day가 nil)    [String: 이번 달 가장 많이 마신 장소, Int: 그곳에서 마신 횟수] 최상위 세 곳의 딕셔너리로 만든 배열    단상 화면에 사용할 용도이므로 탑3만! 디자인 가이드 참고
 
 // 탑 3만 가져오는 함수를 추가하면 댈듯
@@ -361,24 +421,65 @@ func getRecordMonthBestLocation(month: Day) -> [[String: Int]]?{
     }
     let sortedMonthWhere = drinkWhereAndTimes.sorted(by: {$0.1 > $1.1})
     
-    var toplated:[[String:Int]] = []
+    var topRated:[[String:Int]] = []
     
     let count1 = sortedMonthWhere.count - 1
     if count1 == -1 {
-        return toplated
+        return topRated
     } else if count1 < 2 {
         for i in 0...count1 {
-            toplated.append([sortedMonthWhere[i].key :sortedMonthWhere[i].value])
+            topRated.append([sortedMonthWhere[i].key :sortedMonthWhere[i].value])
         }
     } else {
         for i in 0...2 {
-            toplated.append([sortedMonthWhere[i].key :sortedMonthWhere[i].value])
+            topRated.append([sortedMonthWhere[i].key :sortedMonthWhere[i].value])
         }
     }
     
     
     
-    return toplated
+    return topRated
+}
+
+func getRecordMonthAllLocation(month: Day) -> [[String: Int]]?{
+    // 총 기록 딕셔너리에 Day값을 집어 넣을 수 있어야 함
+    // 총 기록 딕셔너리에 Day값을 집어 넣을 수 있어야 함
+    
+    let count = recordDayList.count - 1
+    
+    var thisMonth:[String] = []
+    
+    for i in 0...count {
+        if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
+            if let recordList = recordDayList[i].location {
+                thisMonth += recordList
+            }
+        }
+    }
+    
+    var drinkWhereAndTimes:[String : Int] = [:]
+    
+    for word in thisMonth {
+        if drinkWhereAndTimes[word] == nil {
+            drinkWhereAndTimes[word] = 1
+        } else {
+            drinkWhereAndTimes[word]! += 1
+        }
+    }
+    let sortedMonthWhere = drinkWhereAndTimes.sorted(by: {$0.1 > $1.1})
+    
+    var topRated:[[String:Int]] = []
+    
+    let count1 = sortedMonthWhere.count - 1
+    if count1 == -1 {
+        return topRated
+    }
+    else {
+        for i in 0...count1 {
+            topRated.append([sortedMonthWhere[i].key :sortedMonthWhere[i].value])
+        }
+    }
+    return topRated
 }
 
 //getRecordMonthExpense(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 지출액)
@@ -435,7 +536,7 @@ func getWeeklyFriend() -> [String: Int] {
     for i in 0...13  {
         //근 7일이므로 7번 돌린다.
         let pastdays = Calendar.current.date(byAdding: .day, value: -i, to: Date())
-        print(pastdays)
+//        print(pastdays)
         //돌릴때마다 호출하는 날짜가 하나씩 줄어든다.
         let calendar = Calendar.current
         
@@ -476,8 +577,8 @@ func getWeeklyFriend() -> [String: Int] {
 func getWeeklySul() -> [Int: Int] {
     
     var pastSul:[Int:Int]
-    var weeklySulDictionary : [[Int:Int]]? = [[0:0]]
-    var weeklySulSummery : [Int:Int] = [:]
+    var weeklySulDictionary : [[Int:Int]]? = [[:]]
+    var weeklySulSummary : [Int:Int] = [:]
     
     
     
@@ -518,26 +619,29 @@ func getWeeklySul() -> [Int: Int] {
     let sortedkeyArray = keyArray.sorted(by : >)
     
     //   print(sortedkeyArray)
-    print(sortedkeyArray[0])
+//    print(sortedkeyArray[0])
+    if(sortedkeyArray.count != 0){
     let largestKeyNumber = sortedkeyArray[0]
-    for i in 0...largestKeyNumber{
-        var sumofIndexBottleNumber = 0
-        for person in weeklySulDictionary!{
-            if let indexbottlenumber = person[i]{
-                sumofIndexBottleNumber += indexbottlenumber
+        for i in 0...largestKeyNumber{
+            var sumofIndexBottleNumber = 0
+            for person in weeklySulDictionary!{
+                if let indexbottlenumber = person[i]{
+                    sumofIndexBottleNumber += indexbottlenumber
+                }
+            }
+            if(sumofIndexBottleNumber != 0){
+                weeklySulSummary[i] = sumofIndexBottleNumber
             }
         }
-        weeklySulSummery[i] = sumofIndexBottleNumber
+        //    print(weeklySulSummery)
     }
-    //    print(weeklySulSummery)
-    
-    return weeklySulSummery
+    return weeklySulSummary
 }
 
 
 
 //getWeeklyLocation(day: Day) -> [String: Int]    day: Day    [String: 마신 장소, Int: 장소별 횟수] 딕셔너리의 배열    이건 정렬/탑3/선별 등 없이 그냥 주간 데이터 다 던져주시면 됩니다.
-func getWeeklyLoation() -> [String: Int] {
+func getWeeklyLocation() -> [String: Int] {
     
     var pastlocation:Array<String> = []
     
@@ -610,7 +714,7 @@ func getWeeklyExpense() -> Int {
         
         
         
-        print(weeklyExpense)
+//        print(weeklyExpense)
     }//포문으로  가격을 다 더해준다.
     
     return weeklyExpense
@@ -637,7 +741,7 @@ func getWeeklyCalorie() -> Int {
         if let onedayCalorie = (getRecordDay(day: newday)?.calories){
             weeklyCalorie = weeklyCalorie + onedayCalorie
         }
-        print(weeklyCalorie)
+//        print(weeklyCalorie)
     }
     return weeklyCalorie
 }
@@ -742,7 +846,7 @@ func getStreakOfMonthStatus(month:Day) -> Int {
     for i in 1...31 {
         let newday = Day(year: inputYear, month: inputMonth, day: i)
         monthRecordList.append(getRecordDay(day: newday))
-        print(monthRecordList)
+//        print(monthRecordList)
     }
     let countMonThRecordList = monthRecordList.count - 1
     
@@ -758,7 +862,7 @@ func getStreakOfMonthStatus(month:Day) -> Int {
         steakArray += [counting1]
     }
     
-    print(steakArray)
+//    print(steakArray)
     var sortedSteakArray = steakArray.sorted(by: >)
     
     return sortedSteakArray[0]
@@ -815,7 +919,7 @@ func getCurrentExpenseStatus(month:Day) -> Int {
         if recordDailyCount2 != nil {
             monthlyExpenseSum += recordDailyCount2!
         }
-        print(monthlyExpenseSum)
+//        print(monthlyExpenseSum)
     }
     return monthlyExpenseSum
 }

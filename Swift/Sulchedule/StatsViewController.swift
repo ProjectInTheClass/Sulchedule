@@ -294,8 +294,8 @@ class StatsViewController: UIViewController {
                 animator(isLeft: true)
                 firstAppearance = false
             }
-            vc?.showMore = false
-            vc?.showMoreFunc()
+            vc?.showWeekly = false
+            vc?.showWeeklyFunc(showWeekly: false)
         }
         else{
             if(isVibrationOn){
@@ -303,8 +303,8 @@ class StatsViewController: UIViewController {
             }
             animator(isLeft: false)
             firstAppearance = false
-            vc?.showMore = true
-            vc?.showMoreFunc()
+            vc?.showWeekly = true
+            vc?.showWeeklyFunc(showWeekly: true)
         }
     }
     

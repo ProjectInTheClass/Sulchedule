@@ -1,16 +1,60 @@
 import UIKit
 
 class EmbedStatsTableViewController: UITableViewController {
-    var showMore = false
-    func showMoreFunc(){
-        print(showMore)
+    var showWeekly = false
+    var tableValues: [String] = []
+    var tableTitles: [String] = []
+    func showWeeklyFunc(showWeekly: Bool){
+        tableValues = []
+        tableTitles = []
+        if(showWeekly){
+            tableTitles.append("총 지출액")
+            tableTitles.append("총 열량")
+            tableValues.append("\(getWeeklyExpense())원")
+            tableValues.append("\(getWeeklyCalorie())kcal")
+            for item in getWeeklySul() {
+                tableTitles.append(sul[item.key].displayName)
+                tableValues.append("\(item.value)병")
+                //Add Unit!
+            }
+            for item in getWeeklyFriend() {
+                tableTitles.append(item.key)
+                tableValues.append("\(item.value)회 합석")
+            }
+            for item in getWeeklyLocation() {
+                tableTitles.append(item.key)
+                tableValues.append("\(item.value)회 방문")
+            }
+        }
+        else{
+            tableTitles.append("총 지출액")
+            tableTitles.append("총 열량")
+            tableValues.append("\(getRecordMonthExpense(month: dateToMonthConverter(date: Date()))!)원")
+            tableValues.append("\(getRecordMonthCalorie(month: dateToMonthConverter(date: Date()))!)kcal")
+
+            for item in getRecordMonthAllSul(month: dateToMonthConverter(date: Date()))! {
+                tableTitles.append(sul[Array(item.keys)[0]].displayName)
+                tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)병")
+            }
+            
+            for item in getRecordMonthAllFriends(month: dateToMonthConverter(date: Date()))! {
+                tableTitles.append(Array(item!.keys)[0])
+                tableValues.append("\(item![Array(item!.keys)[0]]!)회 합석")
+            }
+            
+            for item in getRecordMonthAllLocation(month: dateToMonthConverter(date: Date()))! {
+                tableTitles.append(Array(item.keys)[0])
+                tableValues.append("\(item[Array(item.keys)[0]]!)회 방문")
+            }
+        }
+        backgroundView.reloadData()
     }
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+9
+        showWeeklyFunc(showWeekly: showWeekly)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -20,7 +64,7 @@ class EmbedStatsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         backgroundView.backgroundColor = colorDeepBackground
-        backgroundView.reloadData()
+        showWeeklyFunc(showWeekly: showWeekly)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
@@ -40,7 +84,7 @@ class EmbedStatsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return tableTitles.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,10 +94,10 @@ class EmbedStatsTableViewController: UITableViewController {
             return cell
         }
         
-        customCell.valueLabel.text = "Dummy Value"
-        customCell.titleLabel.text = "Dummy Title"
-        customCell.backgroundColor = colorDeepBackground
+        customCell.valueLabel.text = tableValues[indexPath.row]
+        customCell.titleLabel.text = tableTitles[indexPath.row]
         
+        customCell.backgroundColor = colorDeepBackground
         if(isBrightTheme){
             customCell.valueLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
