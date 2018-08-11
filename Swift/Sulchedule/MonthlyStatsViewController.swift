@@ -1,4 +1,5 @@
 import UIKit
+import AudioToolbox.AudioServices
 
 class MonthlyStatsViewController: UIViewController {
     var lastSegmentChoice: Int = 0
@@ -36,8 +37,28 @@ class MonthlyStatsViewController: UIViewController {
     @IBOutlet weak var desc3: UILabel!
     @IBOutlet weak var desc2: UILabel!
     
+    var selectedMonth: Day?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        desc1.numberOfLines = 3
+        desc2.numberOfLines = 3
+        desc3.numberOfLines = 3
+        sulLabel.numberOfLines = 2
+        friendLabel.numberOfLines = 2
+        locationLabel.numberOfLines = 2
+        
+        let initFormatter = DateFormatter()
+        initFormatter.dateFormat = "M"
+        var month = NumberFormatter().number(from: initFormatter.string(from: Date()))!.intValue
+        initFormatter.dateFormat = "yyyy"
+        var year = NumberFormatter().number(from: initFormatter.string(from: Date()))!.intValue
+        month -= 1
+        if(month == 0){
+            month += 12
+            year -= 1
+        }
+        selectedMonth = Day(year: year, month: month, day:nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         leaderboardView.backgroundColor = colorLightBackground
@@ -104,7 +125,6 @@ class MonthlyStatsViewController: UIViewController {
         sulView.layer.addSublayer(sulCircle)
         sulView.bringSubview(toFront: sulLabel)
         
-        cycleCircleBorder(cursor: 0)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
@@ -113,19 +133,131 @@ class MonthlyStatsViewController: UIViewController {
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        showPlatform(cursor: 2)
+        showPlatform(cursor: 1)
+        showPlatform(cursor: 0)
+        cycleCircleBorder(cursor: 0)
+    }
+    func showPlatform(cursor: Int){
+        title1.text = "정보 부족"
+        desc1.text = ""
+        title2.text = "정보 부족"
+        desc2.text = ""
+        title3.text = "정보 부족"
+        desc3.text = ""
+        switch cursor {
+        case 0:
+            let suls = getRecordMonthBestSul(month: selectedMonth!)
+            let k = suls!
+            sulLabel.numberOfLines = 2
+            sulLabel.text = "음주 기록이\n없습니다"
+            if(1 <= k.count){
+                let temp = k[0]
+                title1.text = sul[Array(temp.keys)[0]].displayName
+                sulLabel.text = sul[Array(temp.keys)[0]].displayName
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원"
+                title2.text = "정보 부족"
+                desc2.text = ""
+                title3.text = "정보 부족"
+                desc3.text = ""
+                //\n\(temp2[2]!)\(sul[Array(temp.keys)[0]].unit)
+            }
+            if(2 <= k.count){
+                let temp = k[1]
+                title2.text = sul[Array(temp.keys)[0]].displayName
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)병"
+                title3.text = "정보 부족"
+                desc3.text = ""
+            }
+            if(3 <= k.count){
+                let temp = k[2]
+                title3.text = sul[Array(temp.keys)[0]].displayName
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)병"
+            }
+            
+        case 1:
+            let friends = getRecordMonthBestFriends(month: selectedMonth!)
+            let k = friends!
+            friendLabel.numberOfLines = 2
+            friendLabel.text = "술친구가\n없습니다"
+            if(1 <= k.count){
+                let temp = k[0]!
+                title1.text = Array(temp.keys)[0]
+                friendLabel.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2)회"
+                title2.text = "정보 부족"
+                desc2.text = ""
+                title3.text = "정보 부족"
+                desc3.text = ""
+            }
+            if(2 <= k.count){
+                let temp = k[1]!
+                title2.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2)회"
+                title3.text = "정보 부족"
+                desc3.text = ""
+            }
+            if(3 <= k.count){
+                let temp = k[2]!
+                title3.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc3.text = "\(temp2)회"
+            }
+            
+        case 2:
+            let locations = getRecordMonthBestLocation(month: selectedMonth!)
+            let k = locations!
+            locationLabel.numberOfLines = 2
+            locationLabel.text = "자주 가는 곳이\n없습니다"
+            if(1 <= k.count){
+                let temp = k[0]
+                title1.text = Array(temp.keys)[0]
+                locationLabel.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2)회"
+                title2.text = "정보 부족"
+                desc2.text = ""
+                title3.text = "정보 부족"
+                desc3.text = ""
+            }
+            if(2 <= k.count){
+                let temp = k[1]
+                title2.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2)회"
+                title3.text = "정보 부족"
+                desc3.text = ""
+            }
+            if(3 <= k.count){
+                let temp = k[2]
+                title3.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc3.text = "\(temp2)회"
+            }
+        default:
+            print("wtf")
+        }
     }
     
     @objc func sulClicked(){
         //Dev on Main first, than transfer here
         cycleCircleBorder(cursor: 0)
+        showPlatform(cursor: 0)
     }
     @objc func friendClicked(){
         //Dev on Main first, than transfer here
         cycleCircleBorder(cursor: 1)
+        showPlatform(cursor: 1)
     }
     @objc func locationClicked(){
         //Dev on Main first, than transfer here
         cycleCircleBorder(cursor: 2)
+        showPlatform(cursor: 2)
     }
 
     func initCircle(){
@@ -145,26 +277,9 @@ class MonthlyStatsViewController: UIViewController {
     
     func cycleCircleBorder(cursor: Int){
         //Dev on Main first, than transfer here
-        switch (cursor){
-        case 0:
-            friendCircle.lineWidth = 0.0
-            sulCircle.lineWidth = 3.0
-            locationCircle.lineWidth = 0.0
-        case 1:
-            friendCircle.lineWidth = 3.0
-            sulCircle.lineWidth = 0.0
-            locationCircle.lineWidth = 0.0
-        case 2:
-            friendCircle.lineWidth = 0.0
-            sulCircle.lineWidth = 0.0
-            locationCircle.lineWidth = 3.0
-        default:
-            print("wtf")
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(vibPeek)
         }
-    }
-    
-    func reloadLeaderboard(cursor: Int){
-        //Dev on Main first, than transfer here
         switch (cursor){
         case 0:
             friendCircle.lineWidth = 0.0

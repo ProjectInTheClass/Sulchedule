@@ -10,8 +10,9 @@ class StatsViewController: UIViewController {
     let locationCircle = CAShapeLayer()
     var radOfCircle: CGFloat = 0
     var circlePath: UIBezierPath? = nil
-    
     var currentCursor: Int = 0
+    
+    var vc:EmbedStatsTableViewController? = nil
     
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UILabel!
@@ -61,6 +62,10 @@ class StatsViewController: UIViewController {
         super.viewDidLoad()
         
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        vc = segue.destination as? EmbedStatsTableViewController
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         leaderboardView.backgroundColor = colorLightBackground
         picktargetView.backgroundColor = colorDeepBackground
@@ -182,7 +187,8 @@ class StatsViewController: UIViewController {
         case 0:
             let suls = getRecordMonthBestSul(month: dateToMonthConverter(date: Date()))
             let k = suls!
-            sulLabel.text = "음주 기록이 없습니다."
+            sulLabel.numberOfLines = 2
+            sulLabel.text = "음주 기록이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
                 title1.text = sul[Array(temp.keys)[0]].displayName
@@ -213,7 +219,8 @@ class StatsViewController: UIViewController {
         case 1:
             let friends = getRecordMonthBestFriends(month: dateToMonthConverter(date: Date()))
             let k = friends!
-            friendLabel.text = "술친구가 없습니다."
+            friendLabel.numberOfLines = 2
+            friendLabel.text = "술친구가\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]!
                 title1.text = Array(temp.keys)[0]
@@ -243,7 +250,8 @@ class StatsViewController: UIViewController {
         case 2:
             let locations = getRecordMonthBestLocation(month: dateToMonthConverter(date: Date()))
             let k = locations!
-            locationLabel.text = "자주 음주하는 장소가 없습니다."
+            locationLabel.numberOfLines = 2
+            locationLabel.text = "자주 가는 곳이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
                 title1.text = Array(temp.keys)[0]
@@ -286,6 +294,8 @@ class StatsViewController: UIViewController {
                 animator(isLeft: true)
                 firstAppearance = false
             }
+            vc?.showMore = false
+            vc?.showMoreFunc()
         }
         else{
             if(isVibrationOn){
@@ -293,6 +303,8 @@ class StatsViewController: UIViewController {
             }
             animator(isLeft: false)
             firstAppearance = false
+            vc?.showMore = true
+            vc?.showMoreFunc()
         }
     }
     

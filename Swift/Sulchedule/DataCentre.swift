@@ -23,9 +23,9 @@ class DataCentre{
     }
 }
 
-var dummyA = RecordDay(today: Day(year: 2018, month: 08, day: 10), location: ["홍대", "합정"], friends: ["공대호", "이재연", "홍창범"], expense: 48000, customExpense: 90000, calories: 1968, drinks: [0:6, 5:2])
+var dummyA = RecordDay(today: Day(year: 2018, month: 07, day: 10), location: ["홍대", "합정"], friends: ["공대호", "이재연", "홍창범"], expense: 48000, customExpense: 90000, calories: 1968, drinks: [0:6, 5:2])
 
-var dummyB = RecordDay(today: Day(year: 2018, month: 08, day: 08), location: ["흑석"], friends: ["공대호", "임규헌", "조준오"], expense: 20000, customExpense: 40000, calories: 1500, drinks: [0:5])
+var dummyB = RecordDay(today: Day(year: 2018, month: 07, day: 08), location: ["흑석"], friends: ["공대호", "임규헌", "조준오"], expense: 20000, customExpense: 40000, calories: 1500, drinks: [0:5])
 
 var dummyC = RecordDay(today: Day(year: 2018, month: 08, day: 07), location: ["흑석"], friends: ["임규헌", "조준오", "공대호"], expense: 19000, customExpense: 20000, calories: 1385, drinks: [0:4, 2:1])
 

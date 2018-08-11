@@ -23,6 +23,16 @@ class GoalsViewController: UIViewController {
         initCircle()
         formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
+        
+//        var goalStatList = getCurrentGoalStatusList(month: dateToMonthConverter(date: Date()))
+//        print(goalStatList)
+        
+        //currentGoalStatList 받아오기
+        //isEnabled 모두 호출
+        //배열에 표시할 항목 정하고 current/goal_... 연산
+        //바 길이 설정
+        //바 길이 0.8 이상이면 노란색 -> 설정하면서 dangerLevel 세팅
+        //바 길이 1 이상이면 빨간색 -> 설정하면서 dangerLevel 세팅
     }
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground

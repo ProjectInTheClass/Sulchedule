@@ -88,10 +88,10 @@ class UserData {
     var favorites: [Int]? //index
     var succeededLastMonth: Bool
     
-    var goal_maxDaysOfMonth: Int? //총 마신 날
-    var maxStreakOfMonth: Int? //연속으로 마신 날
-    var maxCaloriesOfMonth: Int? //칼로리 목표
-    var totalExpense: Int? //총 지출액
+    var goal_DaysOfMonth: Int? //총 마신 날
+    var goal_MaxStreakOfMonth: Int? //연속으로 마신 날
+    var goal_CaloriesOfMonth: Int? //칼로리 목표
+    var goal_TotalExpense: Int? //총 지출액
     var purchased: Bool
     var newSul: [Sul] = []
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
@@ -106,16 +106,16 @@ class UserData {
         self.succeededLastMonth = succeededLastMonth
         
         if let goal = goal_maxDaysOfMonth {
-            self.goal_maxDaysOfMonth = goal
+            self.goal_DaysOfMonth = goal
         }
         if let maxStreak = maxStreakOfMonth {
-            self.maxStreakOfMonth = maxStreak
+            self.goal_MaxStreakOfMonth = maxStreak
         }
         if let maxKcal = maxCaloriesOfMonth {
-            self.maxCaloriesOfMonth = maxKcal
+            self.goal_CaloriesOfMonth = maxKcal
         }
         if let totalExp = totalExpense {
-            self.totalExpense = totalExp
+            self.goal_TotalExpense = totalExp
         }
         self.purchased = purchased
     }

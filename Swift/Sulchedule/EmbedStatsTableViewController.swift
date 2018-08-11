@@ -1,7 +1,10 @@
 import UIKit
 
 class EmbedStatsTableViewController: UITableViewController {
-    
+    var showMore = false
+    func showMoreFunc(){
+        print(showMore)
+    }
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
