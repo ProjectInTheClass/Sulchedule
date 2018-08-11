@@ -11,6 +11,8 @@ class StatsViewController: UIViewController {
     var radOfCircle: CGFloat = 0
     var circlePath: UIBezierPath? = nil
     
+    var currentCursor: Int = 0
+    
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -28,11 +30,11 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var thirdPlaceView: UIView!
     
     @IBOutlet weak var title1: UILabel!
-    @IBOutlet weak var desc1: UILabel!
+    @IBOutlet weak var desc1: UITextView!
     @IBOutlet weak var title2: UILabel!
-    @IBOutlet weak var desc2: UILabel!
+    @IBOutlet weak var desc2: UITextView!
     @IBOutlet weak var title3: UILabel!
-    @IBOutlet weak var desc3: UILabel!
+    @IBOutlet weak var desc3: UITextView!
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
@@ -57,6 +59,7 @@ class StatsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         leaderboardView.backgroundColor = colorLightBackground
@@ -125,8 +128,7 @@ class StatsViewController: UIViewController {
         sulView.layer.addSublayer(sulCircle)
         sulView.bringSubview(toFront: sulLabel)
         
-        cycleCircleBorder(cursor: 0)
-        showPlatform(cursor: 0)
+        
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(isBrightTheme){
@@ -135,6 +137,12 @@ class StatsViewController: UIViewController {
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        
+        showPlatform(cursor: 0)
+        showPlatform(cursor: 1)
+        showPlatform(cursor: 2)
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     
     
@@ -142,63 +150,124 @@ class StatsViewController: UIViewController {
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        cycleCircleBorder(cursor: 0)
-        showPlatform(cursor: 0)
+        currentCursor = 0
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     @objc func friendClicked(){
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        cycleCircleBorder(cursor: 1)
-        showPlatform(cursor: 1)
+        currentCursor = 1
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     @objc func locationClicked(){
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        cycleCircleBorder(cursor: 2)
-        showPlatform(cursor: 2)
+        currentCursor = 2
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     
     func showPlatform(cursor: Int){
+        title1.text = "정보 부족"
+        desc1.text = ""
+        title2.text = "정보 부족"
+        desc2.text = ""
+        title3.text = "정보 부족"
+        desc3.text = ""
         switch cursor {
         case 0:
             let suls = getRecordMonthBestSul(month: dateToMonthConverter(date: Date()))
-            print(suls)
-            if(suls == nil){
-                title1.text = "정보 없음"
-                desc1.text = ""
-                title2.text = "정보 없음"
+            let k = suls!
+            sulLabel.text = "음주 기록이 없습니다."
+            if(1 <= k.count){
+                let temp = k[0]
+                title1.text = sul[Array(temp.keys)[0]].displayName
+                sulLabel.text = sul[Array(temp.keys)[0]].displayName
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원"
+                title2.text = "정보 부족"
                 desc2.text = ""
-                title3.text = "정보 없음"
+                title3.text = "정보 부족"
+                desc3.text = ""
+                //\n\(temp2[2]!)\(sul[Array(temp.keys)[0]].unit)
+            }
+            if(2 <= k.count){
+                let temp = k[1]
+                title2.text = sul[Array(temp.keys)[0]].displayName
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)병"
+                title3.text = "정보 부족"
                 desc3.text = ""
             }
-            else{
+            if(3 <= k.count){
+                let temp = k[2]
+                title3.text = sul[Array(temp.keys)[0]].displayName
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)병"
             }
+
         case 1:
             let friends = getRecordMonthBestFriends(month: dateToMonthConverter(date: Date()))
-            print(friends)
-            if(friends == nil){
-                title1.text = "정보 없음"
-                desc1.text = ""
-                title2.text = "정보 없음"
+            let k = friends!
+            friendLabel.text = "술친구가 없습니다."
+            if(1 <= k.count){
+                let temp = k[0]!
+                title1.text = Array(temp.keys)[0]
+                friendLabel.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2)회"
+                title2.text = "정보 부족"
                 desc2.text = ""
-                title3.text = "정보 없음"
+                title3.text = "정보 부족"
                 desc3.text = ""
             }
-            else{
-//                print(friends[0]!)
+            if(2 <= k.count){
+                let temp = k[1]!
+                title2.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2)회"
+                title3.text = "정보 부족"
+                desc3.text = ""
             }
+            if(3 <= k.count){
+                let temp = k[2]!
+                title3.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc3.text = "\(temp2)회"
+            }
+
         case 2:
             let locations = getRecordMonthBestLocation(month: dateToMonthConverter(date: Date()))
-            print(locations)
-            if(locations == nil){
-                title1.text = "정보 없음"
-                desc1.text = ""
-                title2.text = "정보 없음"
+            let k = locations!
+            locationLabel.text = "자주 음주하는 장소가 없습니다."
+            if(1 <= k.count){
+                let temp = k[0]
+                title1.text = Array(temp.keys)[0]
+                locationLabel.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2)회"
+                title2.text = "정보 부족"
                 desc2.text = ""
-                title3.text = "정보 없음"
+                title3.text = "정보 부족"
                 desc3.text = ""
+            }
+            if(2 <= k.count){
+                let temp = k[1]
+                title2.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2)회"
+                title3.text = "정보 부족"
+                desc3.text = ""
+            }
+            if(3 <= k.count){
+                let temp = k[2]
+                title3.text = Array(temp.keys)[0]
+                let temp2 = temp[Array(temp.keys)[0]]!
+                desc3.text = "\(temp2)회"
             }
         default:
             print("wtf")

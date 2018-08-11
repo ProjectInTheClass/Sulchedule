@@ -199,6 +199,9 @@ func getRecordMonthBestFriends(month: Day) -> [[String: Int]?]?{
     var toplated:[[String:Int]?] = []
     
     let count1 = sortedMonthWithWho.count
+    if(count1 == 0){
+        return toplated
+    }
     for i in 0...count1 - 1{
         if(i==3){
             break
@@ -319,7 +322,7 @@ func getRecordMonthBestSul(month: Day) -> [[Int:[Int?]]]? {
         //            }
         for i in 0...2 {
             dictionary += [[array[i] : [kcal[array[i]], price[array[i]], bottles[array[i]]]]]
-            if(kcal[array[i]] == 0 && price[array[i]] == 0 && bottles[array[i]] == 0){
+            if(bottles[array[i]] == 0){
                 dictionary.removeLast()
             }
         }
