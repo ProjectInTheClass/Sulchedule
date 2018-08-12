@@ -1098,7 +1098,9 @@ func setFavouriteSul(index: Int, set: Bool){
 }
 
 func setSulDisabled(index : Int){
-    sul[index].enabled = false
+    if userData.newSul.count != 0 {
+    userData.newSul[index].enabled = false
+    }
 }
 
 func setFirstLaunch(){
