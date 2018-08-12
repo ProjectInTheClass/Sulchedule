@@ -30,8 +30,8 @@ class EmbedStatsTableViewController: UITableViewController {
         else{
             tableTitles.append("총 지출액")
             tableTitles.append("총 열량")
-            tableValues.append("\(getRecordMonthExpense(month: month))원")
-            tableValues.append("\(getRecordMonthCalorie(month: month))kcal")
+            tableValues.append("\(getRecordMonthExpense(month: month)!)원")
+            tableValues.append("\(getRecordMonthCalorie(month: month)!)kcal")
 
             for item in getRecordMonthAllSul(month: month)! {
                 tableTitles.append(sul[Array(item.keys)[0]].displayName)

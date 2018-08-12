@@ -278,7 +278,7 @@
         <!--Addition-->
         <scene sceneID="1Gb-Sl-NNS">
             <objects>
-                <tableViewController storyboardIdentifier="additionView" title="Addition" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vmW-U7-1zf" customClass="TodayAdditionalViewController" customModule="Sulchedule" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="additionView" title="Addition" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vmW-U7-1zf" customClass="TodayAdditionalTableViewController" customModule="Sulchedule" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Iy6-AB-JH0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -412,7 +412,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sV7-HY-k3L">
-                                        <rect key="frame" x="28" y="31" width="100" height="21"/>
+                                        <rect key="frame" x="28" y="30" width="100" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="wqg-xv-QGG"/>
                                         </constraints>
@@ -421,9 +421,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Seo-px-ySE">
-                                        <rect key="frame" x="148" y="24" width="199" height="35"/>
+                                        <rect key="frame" x="148" y="18.5" width="199" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="bdn-bp-S5H"/>
+                                            <constraint firstAttribute="height" constant="44" id="bdn-bp-S5H"/>
                                         </constraints>
                                         <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -433,13 +433,13 @@
                                         </connections>
                                     </textField>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97m-Pp-0pJ">
-                                        <rect key="frame" x="0.0" y="276" width="375" height="327"/>
+                                        <rect key="frame" x="0.0" y="273.5" width="375" height="329.5"/>
                                         <connections>
                                             <segue destination="fBx-B6-ehz" kind="embed" id="k5G-cx-klp"/>
                                         </connections>
                                     </containerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="직접 추가한 주류의 목록" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttj-15-pXi">
-                                        <rect key="frame" x="0.0" y="236" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="233.5" width="375" height="40"/>
                                         <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="hLf-0M-6Rf"/>
@@ -449,7 +449,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="단위" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdR-1o-jL3">
-                                        <rect key="frame" x="28" y="82" width="100" height="21"/>
+                                        <rect key="frame" x="28" y="80.5" width="100" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="82Q-oa-POe"/>
                                         </constraints>
@@ -458,9 +458,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G2x-h7-W2L">
-                                        <rect key="frame" x="148" y="75" width="199" height="35"/>
+                                        <rect key="frame" x="148" y="69" width="199" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="3id-Th-Xc9"/>
+                                            <constraint firstAttribute="height" constant="44" id="3id-Th-Xc9"/>
                                         </constraints>
                                         <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -470,7 +470,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="단위당 칼로리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbC-gE-hP9">
-                                        <rect key="frame" x="28" y="133" width="100" height="21"/>
+                                        <rect key="frame" x="28" y="131.5" width="100" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="lnb-5R-J1w"/>
                                         </constraints>
@@ -479,9 +479,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fa5-AW-kEX">
-                                        <rect key="frame" x="148" y="126" width="199" height="35"/>
+                                        <rect key="frame" x="148" y="120" width="199" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="41Y-n9-gx0"/>
+                                            <constraint firstAttribute="height" constant="44" id="41Y-n9-gx0"/>
                                         </constraints>
                                         <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -491,7 +491,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="단위당 가격" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEf-Wt-g9p">
-                                        <rect key="frame" x="28" y="184" width="100" height="21"/>
+                                        <rect key="frame" x="28" y="182.5" width="100" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="0y3-iZ-JKL"/>
                                         </constraints>
@@ -500,9 +500,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tkj-Op-mvy">
-                                        <rect key="frame" x="148" y="177" width="199" height="35"/>
+                                        <rect key="frame" x="148" y="171" width="199" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="6X8-6C-p4F"/>
+                                            <constraint firstAttribute="height" constant="44" id="6X8-6C-p4F"/>
                                         </constraints>
                                         <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -527,18 +527,18 @@
                                     <constraint firstAttribute="trailing" secondItem="97m-Pp-0pJ" secondAttribute="trailing" id="Mmr-aw-B7W"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="G2x-h7-W2L" secondAttribute="trailing" constant="20" id="Myz-tY-My6"/>
                                     <constraint firstItem="97m-Pp-0pJ" firstAttribute="top" secondItem="ttj-15-pXi" secondAttribute="bottom" id="Nco-1k-vdq"/>
+                                    <constraint firstItem="vdR-1o-jL3" firstAttribute="top" secondItem="sV7-HY-k3L" secondAttribute="bottom" constant="30" id="PCZ-vs-I1g"/>
                                     <constraint firstItem="G2x-h7-W2L" firstAttribute="leading" secondItem="vdR-1o-jL3" secondAttribute="trailing" constant="20" id="QDe-GJ-i4I"/>
-                                    <constraint firstItem="Seo-px-ySE" firstAttribute="top" secondItem="4hb-iN-1Lf" secondAttribute="top" constant="24" id="ZLu-hH-YVY"/>
+                                    <constraint firstItem="sV7-HY-k3L" firstAttribute="top" secondItem="4hb-iN-1Lf" secondAttribute="top" constant="30" id="YMl-j5-xQY"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="Seo-px-ySE" secondAttribute="trailing" constant="20" id="aMM-iW-m1W"/>
                                     <constraint firstItem="fa5-AW-kEX" firstAttribute="width" secondItem="Seo-px-ySE" secondAttribute="width" id="bEE-ec-Ood"/>
-                                    <constraint firstItem="G2x-h7-W2L" firstAttribute="top" secondItem="Seo-px-ySE" secondAttribute="bottom" constant="16" id="gMV-0t-2Ps"/>
                                     <constraint firstItem="WbC-gE-hP9" firstAttribute="leading" secondItem="sV7-HY-k3L" secondAttribute="leading" id="gly-F3-QYk"/>
-                                    <constraint firstItem="ttj-15-pXi" firstAttribute="top" secondItem="Tkj-Op-mvy" secondAttribute="bottom" constant="24" id="hWt-2J-SfH"/>
-                                    <constraint firstItem="fa5-AW-kEX" firstAttribute="top" secondItem="G2x-h7-W2L" secondAttribute="bottom" constant="16" id="j25-yu-RZ7"/>
                                     <constraint firstItem="WbC-gE-hP9" firstAttribute="width" secondItem="sV7-HY-k3L" secondAttribute="width" id="k0v-PR-iJI"/>
-                                    <constraint firstItem="Tkj-Op-mvy" firstAttribute="top" secondItem="fa5-AW-kEX" secondAttribute="bottom" constant="16" id="kjW-yE-Qxu"/>
                                     <constraint firstItem="G2x-h7-W2L" firstAttribute="centerY" secondItem="vdR-1o-jL3" secondAttribute="centerY" id="mln-cu-xi6"/>
+                                    <constraint firstItem="ttj-15-pXi" firstAttribute="top" secondItem="gEf-Wt-g9p" secondAttribute="bottom" constant="30" id="owa-gf-bfg"/>
+                                    <constraint firstItem="gEf-Wt-g9p" firstAttribute="top" secondItem="WbC-gE-hP9" secondAttribute="bottom" constant="30" id="poF-IG-iOo"/>
                                     <constraint firstItem="Tkj-Op-mvy" firstAttribute="width" secondItem="Seo-px-ySE" secondAttribute="width" id="seE-mp-ONr"/>
+                                    <constraint firstItem="WbC-gE-hP9" firstAttribute="top" secondItem="vdR-1o-jL3" secondAttribute="bottom" constant="30" id="tGA-fc-K4m"/>
                                     <constraint firstItem="Seo-px-ySE" firstAttribute="leading" secondItem="sV7-HY-k3L" secondAttribute="trailing" constant="20" id="utX-8W-dEs"/>
                                     <constraint firstItem="sV7-HY-k3L" firstAttribute="leading" secondItem="4hb-iN-1Lf" secondAttribute="leadingMargin" constant="20" id="xof-NC-iec"/>
                                     <constraint firstItem="Tkj-Op-mvy" firstAttribute="centerY" secondItem="gEf-Wt-g9p" secondAttribute="centerY" id="y9y-j1-pqR"/>
@@ -813,7 +813,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8ee-Bd-Ui1">
-                                            <rect key="frame" x="226" y="19.5" width="135" height="21"/>
+                                            <rect key="frame" x="226" y="8" width="135" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="ztl-F0-Aox"/>
+                                            </constraints>
                                             <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1415,7 +1418,6 @@
                                         </state>
                                         <connections>
                                             <action selector="resetButton:" destination="c8Q-P2-alE" eventType="touchUpInside" id="rto-oT-4SO"/>
-                                            <action selector="yesterdayButton:" destination="c8Q-P2-alE" eventType="touchUpInside" id="fnD-xZ-IcC"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1437,6 +1439,9 @@
                                         <state key="normal" title="어제부터 보이기 활성화됨">
                                             <color key="titleColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="yesterdayButton:" destination="c8Q-P2-alE" eventType="touchUpInside" id="ChY-EH-J9o"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1491,8 +1496,8 @@
                         <outlet property="vibContainer" destination="gaL-bB-6W0" id="hEs-5v-hGI"/>
                         <outlet property="vibLabel" destination="mqs-pc-UiJ" id="So4-0l-1LY"/>
                         <outlet property="vibrationImageView" destination="Bbl-H7-dso" id="oYD-kt-QPe"/>
-                        <outlet property="yesterdayButton" destination="f54-NO-xuo" id="nst-ZE-irV"/>
-                        <outlet property="yesterdayContainer" destination="uqb-8l-jWY" id="Zbq-5R-qDy"/>
+                        <outlet property="yesterdayButton" destination="lCd-ZN-fLz" id="nKU-1W-YN6"/>
+                        <outlet property="yesterdayContainer" destination="lGy-Rz-Igy" id="R0d-Kf-VTH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XOq-M1-qw3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2305,7 +2310,7 @@
             <objects>
                 <tableViewController id="fBx-B6-ehz" customClass="EmbedAddSulTableViewController" customModule="Sulchedule" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ofi-af-ytg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="327"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="329.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="0.44208669354838709" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2385,8 +2390,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QqS-zn-2TR">
-                                <rect key="frame" x="140" y="82" width="215" height="21"/>
+                                <rect key="frame" x="140" y="70.5" width="215" height="44"/>
                                 <color key="tintColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="AXl-LA-qEO"/>
+                                </constraints>
                                 <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardAppearance="alert" returnKeyType="done" smartDashesType="no"/>
@@ -2413,8 +2421,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5DR-TD-BTg">
-                                <rect key="frame" x="140" y="184" width="215" height="21"/>
+                                <rect key="frame" x="140" y="172.5" width="215" height="44"/>
                                 <color key="tintColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="GxJ-Wm-JYq"/>
+                                </constraints>
                                 <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no"/>
@@ -2423,8 +2434,11 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="터치하세요" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="co3-n8-H6T">
-                                <rect key="frame" x="140" y="133" width="215" height="21"/>
+                                <rect key="frame" x="140" y="121.5" width="215" height="44"/>
                                 <color key="tintColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="wif-dn-CfM"/>
+                                </constraints>
                                 <color key="textColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" smartDashesType="no"/>

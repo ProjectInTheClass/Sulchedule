@@ -25,16 +25,28 @@ class SettingsViewController: UIViewController {
     var showyester = false //
     
     @IBAction func yesterdayButton(_ sender: UIButton) {
+        if(isVibrationOn){
+            AudioServicesPlaySystemSound(vibPeek)
+        }
         showyester.toggle()
         if(showyester){
-            yesterdayButton.titleLabel!.text = "정오까지 전날 날짜가 표시됩니다"
+            yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
         }
         else{
-            yesterdayButton.titleLabel!.text = "자정부터 당시 날짜가 표시됩니다"
+            yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
         }
     }
     @IBAction func resetButton(_ sender: UIButton) {
-        //reset method
+        let alertController = UIAlertController(title: "모든 정보 삭제", message: "음주 기록, 설정을 포함한 모든 정보가 초기화됩니다. 계속하시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
+        let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
+            
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +61,10 @@ class SettingsViewController: UIViewController {
         vibLabel.textColor = colorPoint
         resetButton.tintColor = colorRed
         addSulButton.tintColor = colorPoint
+        yesterdayButton.tintColor = colorPoint
+        resetButton.setTitleColor(colorRed, for: .normal)
+        addSulButton.setTitleColor(colorPoint, for: .normal)
+        yesterdayButton.setTitleColor(colorPoint, for: .normal)
         
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
@@ -63,6 +79,7 @@ class SettingsViewController: UIViewController {
             self.vibContainer.backgroundColor = colorDeepBackground
             self.addSulContainer.backgroundColor = colorDeepBackground
             self.resetContainer.backgroundColor = colorDeepBackground
+            self.yesterdayContainer.backgroundColor = colorDeepBackground
         }
         else{
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
@@ -74,10 +91,12 @@ class SettingsViewController: UIViewController {
             self.vibContainer.backgroundColor = colorLightBackground
             self.addSulContainer.backgroundColor = colorLightBackground
             self.resetContainer.backgroundColor = colorLightBackground
+            self.yesterdayContainer.backgroundColor = colorLightBackground
         }
         self.applyShadow(view: self.resetContainer, enable: isBrightTheme)
         self.applyShadow(view: self.addSulContainer, enable: isBrightTheme)
         self.applyShadow(view: self.themeContainer, enable: isBrightTheme)
+        self.applyShadow(view: self.yesterdayContainer, enable: isBrightTheme)
         if(isVibrationOn){
             self.applyShadow(view: self.vibContainer, enable: isBrightTheme)
         }
@@ -123,6 +142,7 @@ class SettingsViewController: UIViewController {
                 self.vibContainer.backgroundColor = colorDeepBackground
                 self.addSulContainer.backgroundColor = colorDeepBackground
                 self.resetContainer.backgroundColor = colorDeepBackground
+                self.yesterdayContainer.backgroundColor = colorDeepBackground
             }
             else{
                 colorPoint = hexStringToUIColor(hex:"FFDC67")
@@ -134,12 +154,14 @@ class SettingsViewController: UIViewController {
                 self.vibContainer.backgroundColor = colorLightBackground
                 self.addSulContainer.backgroundColor = colorLightBackground
                 self.resetContainer.backgroundColor = colorLightBackground
+                self.yesterdayContainer.backgroundColor = colorLightBackground
             }
             
             self.themeLabel.textColor = colorPoint
             self.vibLabel.textColor = colorPoint
-            self.resetButton.tintColor = colorRed
-            self.addSulButton.tintColor = colorPoint
+            self.resetButton.setTitleColor(colorRed, for: .normal)
+            self.addSulButton.setTitleColor(colorPoint, for: .normal)
+            self.yesterdayButton.setTitleColor(colorPoint, for: .normal)
             
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground

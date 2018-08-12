@@ -124,7 +124,7 @@ func setRecordDayCustomExpense(day: Day, customExpense: Int?){
 // userData 의 초기화 값이 있어야 활성화가 되서
 var userData = UserData(dangerLever: 0, favorites: [], succeededLastMonth: false, goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0, purchased: false)
 
-func getFavoriteSul() -> [Int]?{
+func getFavouriteSul() -> [Int]{
     return userData.favorites
 }
 

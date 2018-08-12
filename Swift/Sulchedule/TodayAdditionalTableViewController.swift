@@ -7,9 +7,16 @@ var star_empty: UIImage?
 
 protocol TodayAdditionalTableDelegate{
     func tableManipulate(_ sender: TodayAdditionalTableViewCell)
+    func starManipulate(_ sender: TodayAdditionalTableViewCell, bool: Bool)
 }
 
-class TodayAdditionalViewController: UITableViewController, TodayAdditionalTableDelegate {
+class TodayAdditionalTableViewController: UITableViewController, TodayAdditionalTableDelegate {
+    func starManipulate(_ sender: TodayAdditionalTableViewCell, bool: Bool) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        let index = indexPath.row
+        //        setFavoriteSul(index: index, isFavorite: bool)
+    }
+    
     func tableManipulate(_ sender: TodayAdditionalTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
@@ -83,7 +90,13 @@ class TodayAdditionalViewController: UITableViewController, TodayAdditionalTable
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
-        
+        for item in getFavouriteSul() {
+            if(item == indexPath.row){
+                customCell.flag = true
+                break
+            }
+            customCell.flag = false
+        }
         if(customCell.flag){
             customCell.starButtonOutlet.setImage(star!, for: UIControlState())
         }
@@ -147,22 +160,22 @@ class TodayAdditionalViewController: UITableViewController, TodayAdditionalTable
 class TodayAdditionalTableViewCell: UITableViewCell {
     
     var delegate: TodayAdditionalTableDelegate?
-    var flag = true
+    var flag = false
     
     @IBOutlet weak var starButtonOutlet: UIButton!
     
     @IBAction func starOnTap(_ sender: UIButton) {
+        flag.toggle()
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
         if(flag){
             starButtonOutlet.setImage(star!, for: UIControlState())
-            flag.toggle()
         }
         else{
             starButtonOutlet.setImage(star_empty!, for: UIControlState())
-            flag.toggle()
         }
+        delegate?.starManipulate(self, bool: flag)
     }
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var bottleLabel: UILabel!

@@ -85,7 +85,7 @@ class RecordMonth {
 
 class UserData {
     var dangerLevel: Int? //0:초록, 1:노랑, 2:빨강
-    var favorites: [Int]? //index
+    var favorites: [Int] = []
     var succeededLastMonth: Bool
     
     var goal_DaysOfMonth: Int? //총 마신 날

@@ -27,12 +27,11 @@
 		30F4C9481E07C3AD00D2EC4D /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F4C9371E07C3AD00D2EC4D /* FSCalendarWeekdayView.m */; };
 		35058F452115B63C002DBF23 /* EmbedStatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35058F442115B63C002DBF23 /* EmbedStatsTableViewController.swift */; };
 		353AA8612113FA5F00FEDDB5 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353AA8602113FA5F00FEDDB5 /* StatsViewController.swift */; };
-		35458DC72113D52B00878206 /* TodayAdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35458DC62113D52B00878206 /* TodayAdditionalViewController.swift */; };
+		35458DC72113D52B00878206 /* TodayAdditionalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35458DC62113D52B00878206 /* TodayAdditionalTableViewController.swift */; };
 		35458DC92113D6D800878206 /* MethodPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35458DC82113D6D700878206 /* MethodPile.swift */; };
 		354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */; };
 		3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */; };
 		356C264A211BE87100678280 /* MoreInfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C2649211BE87100678280 /* MoreInfoInputViewController.swift */; };
-		3580500D211B22AB00157E65 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3580500C211B22AB00157E65 /* SettingsTableViewController.swift */; };
 		3595EFCA2115E9D100F20009 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595EFC92115E9D100F20009 /* GoalsViewController.swift */; };
 		35975CBD21192EE600CDF77E /* MonthlySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */; };
 		35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */; };
@@ -102,12 +101,11 @@
 		30F4C9381E07C3AD00D2EC4D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35058F442115B63C002DBF23 /* EmbedStatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedStatsTableViewController.swift; sourceTree = "<group>"; };
 		353AA8602113FA5F00FEDDB5 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
-		35458DC62113D52B00878206 /* TodayAdditionalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAdditionalViewController.swift; sourceTree = "<group>"; };
+		35458DC62113D52B00878206 /* TodayAdditionalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAdditionalTableViewController.swift; sourceTree = "<group>"; };
 		35458DC82113D6D700878206 /* MethodPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodPile.swift; sourceTree = "<group>"; };
 		354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedGoalsTableViewController.swift; sourceTree = "<group>"; };
 		3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatsViewController.swift; sourceTree = "<group>"; };
 		356C2649211BE87100678280 /* MoreInfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoInputViewController.swift; sourceTree = "<group>"; };
-		3580500C211B22AB00157E65 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3595EFC92115E9D100F20009 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryViewController.swift; sourceTree = "<group>"; };
 		35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryFrameViewController.swift; sourceTree = "<group>"; };
@@ -210,12 +208,12 @@
 		35338385211D31E900171B16 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				35458DC62113D52B00878206 /* TodayAdditionalTableViewController.swift */,
 				35058F442115B63C002DBF23 /* EmbedStatsTableViewController.swift */,
 				35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */,
 				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
 				35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */,
 				35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */,
-				3580500C211B22AB00157E65 /* SettingsTableViewController.swift */,
 			);
 			name = TableViewController;
 			sourceTree = "<group>";
@@ -224,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				305282C81E1608A100CC2877 /* TodayViewController.swift */,
-				35458DC62113D52B00878206 /* TodayAdditionalViewController.swift */,
 				356C2649211BE87100678280 /* MoreInfoInputViewController.swift */,
 				35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */,
 				3599118F211E9B81002A5319 /* SettingsViewController.swift */,
@@ -431,9 +428,8 @@
 				30F4C9461E07C3AD00D2EC4D /* FSCalendarScopeHandle.m in Sources */,
 				30F4C9451E07C3AD00D2EC4D /* FSCalendarHeaderView.m in Sources */,
 				F916F3911E1E57DD00F01811 /* FSCalendarTransitionCoordinator.m in Sources */,
-				35458DC72113D52B00878206 /* TodayAdditionalViewController.swift in Sources */,
+				35458DC72113D52B00878206 /* TodayAdditionalTableViewController.swift in Sources */,
 				3024AF171E164F8C008B6001 /* DelegateAppearanceViewController.swift in Sources */,
-				3580500D211B22AB00157E65 /* SettingsTableViewController.swift in Sources */,
 				30F4C93A1E07C3AD00D2EC4D /* FSCalendar.m in Sources */,
 				305282C91E1608A100CC2877 /* TodayViewController.swift in Sources */,
 				353AA8612113FA5F00FEDDB5 /* StatsViewController.swift in Sources */,
