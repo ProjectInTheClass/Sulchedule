@@ -20,6 +20,7 @@ class EmbedIconSelectTableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         backgroundTable.backgroundColor = colorDeepBackground
+        backgroundTable.separatorColor = colorLightBackground
         cell1.contentView.backgroundColor = colorDeepBackground
         cell2.contentView.backgroundColor = colorDeepBackground
         cell3.contentView.backgroundColor = colorDeepBackground
