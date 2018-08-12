@@ -1,16 +1,5 @@
 import UIKit
 
-//var moreInfoInputFriends: String?
-//var moreInfoInputExpense: String?
-//var moreInfoInputLocation: String?
-//
-//func getTodayMoreInfoPromptLabel() -> String?{
-//    if(){
-//        return nil
-//    }
-//
-//}
-
 class MoreInfoInputViewController: UIViewController {
 
     @IBOutlet weak var expenseField: UITextField!

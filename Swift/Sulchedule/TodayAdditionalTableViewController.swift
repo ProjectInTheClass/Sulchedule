@@ -14,7 +14,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
     func starManipulate(_ sender: TodayAdditionalTableViewCell, bool: Bool) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
-        //        setFavoriteSul(index: index, isFavorite: bool)
+        setFavouriteSul(index: index, set: bool)
     }
     
     func tableManipulate(_ sender: TodayAdditionalTableViewCell) {

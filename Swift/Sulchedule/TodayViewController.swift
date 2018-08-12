@@ -63,8 +63,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
         
-        //        setFavoriteSul(1, true)
-        userData.favorites = [0, 3]//test value
+        setFavouriteSul(index: 0, set: true)
+        setFavouriteSul(index: 2, set: true)
         tempFavourite = getFavouriteSul()
         
         let formatter = DateFormatter()
@@ -281,6 +281,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
+        if(indexPath.row < getFavouriteSul().count){
+            customCell.colorTag.backgroundColor = hexStringToUIColor(hex: "#FFDC67")
+        }
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray

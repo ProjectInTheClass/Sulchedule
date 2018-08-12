@@ -1048,5 +1048,11 @@ func setPurchased(purchased: Bool){
     userData.purchased = purchased
 }
 
-
+func setFavouriteSul(index: Int, set: Bool){
+    userData.favorites = Array(Set(userData.favorites).subtracting(Set([index])))
+    if(set){
+        userData.favorites.append(index)
+    }
+    userData.favorites.reverse()
+}
 
