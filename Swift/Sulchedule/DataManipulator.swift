@@ -1046,29 +1046,37 @@ func addUserSul(newSul : Sul) -> Bool{
     
     for i in 0...sul.count - 1 {
         if newSul.displayName == sul[i].displayName {
-            if sul[i].enabled == true {
+            if sul[i].enabled {
                 return false
-            } else if sul[i].enabled == false {
+            }
+            else {
                 userData.newSul.append(newSul)
                 return true
             }
-        } else if userData.newSul.count != 0 {
-                for j in 0...userData.newSul.count - 1 {
-                    if newSul.displayName == userData.newSul[j].displayName {
-                        if userData.newSul[j].enabled == true {
-                            return false
-                        } else if userData.newSul[j].enabled == false {
-                            userData.newSul.append(newSul)
-                            return true
-                        }
-                    }
-                }
-            } else {
-            userData.newSul.append(newSul)
-            return true
         }
     }
-    return true
+    if userData.newSul.count == 0 {
+        userData.newSul.append(newSul)
+        return true
+    }
+    else {
+        for i in 0...userData.newSul.count - 1 {
+            if newSul.displayName == userData.newSul[i].displayName {
+                if userData.newSul[i].enabled {
+                    return false
+                }
+                else {
+                    userData.newSul.append(newSul)
+                    return true
+                }
+            }
+            else {
+                userData.newSul.append(newSul)
+                return true
+            }
+        }
+    }
+    return false
 }
 
 

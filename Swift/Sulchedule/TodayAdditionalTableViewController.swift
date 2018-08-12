@@ -68,6 +68,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         return sul.count
     }
 
+    //tempSul 만들어서 sul + userSul로 사용
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todayAdditionalIdentifier", for: indexPath)

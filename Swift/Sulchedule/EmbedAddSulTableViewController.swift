@@ -1,11 +1,6 @@
 import UIKit
 import AudioToolbox.AudioServices
 
-struct SulSulSUl{
-    var name: String
-    var calorie: Int
-    var price: Int
-}
 
 extension UITableView {
     func scrollToBottom(animated: Bool = true) {
@@ -21,7 +16,11 @@ extension UITableView {
 
 class EmbedAddSulTableViewController: UITableViewController {
     
+    var i = 0
+    var matchingPairs: [Int: Int] = [:]
     func reload(){
+        i = 0
+        matchingPairs = [:]
         backgroundView.reloadData()
         backgroundView.scrollToBottom()
     }
@@ -64,8 +63,18 @@ class EmbedAddSulTableViewController: UITableViewController {
             return cell
         }
         
-        customCell.titleLabel.text = (getUserSul())[indexPath.row].displayName
-        customCell.valueLabel.text = "\((getUserSul())[indexPath.row].basePrice)\((getUserSul())[indexPath.row].unit), \((getUserSul())[indexPath.row].baseCalorie)kcal"
+        while(true){
+            if userData.newSul[i].enabled {
+                customCell.titleLabel.text = userData.newSul[i].displayName
+                customCell.valueLabel.text = "\(userData.newSul[i].basePrice)\(userData.newSul[i].unit), \(userData.newSul[i].baseCalorie)kcal"
+                matchingPairsㅋ([i:indexPath.row])
+                i += 1
+                break
+            }
+            i += 1
+        }
+//        customCell.titleLabel.text = (getUserSul())[indexPath.row].displayName
+//        customCell.valueLabel.text = "\((getUserSul())[indexPath.row].basePrice)\((getUserSul())[indexPath.row].unit), \((getUserSul())[indexPath.row].baseCalorie)kcal"
         customCell.backgroundColor = colorLightBackground
         
         if(isBrightTheme){
@@ -100,15 +109,17 @@ class EmbedAddSulTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            userData.newSul.remove(at: indexPath.row)
-            let originalSulCount = sul.count - userData.newSul.count
+//            userData.newSul.remove(at: indexPath.row)
+//            let originalSulCount = sul.count - userData.newSul.count
 //            setRecordDayForSul(day: selectedDay, index: indexPath.row + originalSulCount - 1, bottles: 0)
 //            해당 인덱스에 대한 모든 날의 기록을 삭제하는 메소드가 필요!
 //            removeSulFromEveryRecordDay(index: indexPath.row + originalSulCount - 1)
-            sul.remove(at: indexPath.row + originalSulCount - 1)
             
+            setSulDisabled(index: i)
+            
+            print(getUserSul().count)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            backgroundView.reloadData()
         }
     }
  

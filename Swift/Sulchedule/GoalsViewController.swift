@@ -24,8 +24,14 @@ class GoalsViewController: UIViewController {
         formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
         
-//        var goalStatList = getCurrentGoalStatusList(month: dateToMonthConverter(date: Date()))
-//        print(goalStatList)
+        
+        
+        setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 31)
+        setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 10)
+        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 1200)
+        setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: 30000)
+        
+        
         
         //currentGoalStatList 받아오기
         //isEnabled 모두 호출
@@ -51,6 +57,17 @@ class GoalsViewController: UIViewController {
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        
+        setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 31)
+        setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 10)
+        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 1200)
+        setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: 30000)
+        
+        let data1 = Double(getDaysOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getDaysOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
+        let data2 = Double(getStreakOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getStreakOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
+        let data3 = Double(getCurrentExpenseStatus(month: dateToMonthConverter(date: Date()))) / Double(getCurrentExpenseLimit(month: dateToMonthConverter(date: Date()))!)
+        let data4 = Double(getCaloriesOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)

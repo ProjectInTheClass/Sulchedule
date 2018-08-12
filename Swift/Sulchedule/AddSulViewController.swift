@@ -15,7 +15,10 @@ class AddSulViewController: UIViewController {
     }
     @IBAction func saveButton(_ sender: Any) {
         if(nameField.text != "" && calorieField.text != "" && priceField.text != "" && unitField.text != "" && nameField.text != nil && calorieField.text != nil && priceField.text != nil && unitField.text != nil){
-            addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))
+            if(!addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))){
+                print("cannot add new sul")
+            }
+            
             nameField.text = ""
             calorieField.text = ""
             unitField.text = ""
