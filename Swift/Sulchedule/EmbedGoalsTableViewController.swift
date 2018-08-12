@@ -69,6 +69,13 @@ class EmbedGoalsTableViewController: UITableViewController {
                 print("wtf")
             }
         }
+        
+        for i in 0...goalLimit.count - 1 {
+            if(goalLimit[i] == 0 && goalStat[i] == 0){
+                goalValue[i] = 0
+            }
+        }
+        
         var dangerLevel = 0
         for item in goalValue {
             if(item > 0.8){
@@ -78,8 +85,8 @@ class EmbedGoalsTableViewController: UITableViewController {
                 dangerLevel = 2
             }
         }
-        goalViewDelegate?.manipulateCircle(value: dangerLevel)
         
+        goalViewDelegate?.manipulateCircle(value: dangerLevel)
         backgroundView.reloadData()
     }
 

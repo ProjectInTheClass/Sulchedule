@@ -28,9 +28,6 @@ class SettingsViewController: UIViewController {
     
     @IBAction func yesterdayButton(_ sender: UIButton) {
         setShowYesterdayFirst(yesterday: !getShowYesterdayFirst())
-        if(userData.isVibrationEnabled){
-            AudioServicesPlaySystemSound(vibPeek)
-        }
         if(getShowYesterdayFirst()){
             userData.showYesterdayFirst = true
             yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
@@ -132,9 +129,6 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func darkThemeSwitch(_ sender: UITapGestureRecognizer) {
-        if(userData.isVibrationEnabled){
-            AudioServicesPlaySystemSound(vibPeek)
-        }
         userData.isThemeBright.toggle()
         
         self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
