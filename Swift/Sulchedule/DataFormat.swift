@@ -151,6 +151,7 @@ class Sul {
     var basePrice: Int
     var colorTag: String //컬러 코드에 # 포함 (예: "#FFFFFF")
     var unit: String
+    var enabled: Bool = true
     
     init(displayName: String, baseCalorie: Int, basePrice: Int, colorTag: String, unit: String) {
         self.displayName = displayName
@@ -160,3 +161,4 @@ class Sul {
         self.unit = unit
     }
 }
+

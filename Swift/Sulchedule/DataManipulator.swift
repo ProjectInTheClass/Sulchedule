@@ -758,10 +758,16 @@ func addNewGoalStatusList(newGoalStatus: CurrentGoalStatus){
 
 func getCurrentGoalStatusList(month: Day) -> CurrentGoalStatus?{
     
+    if currentGoalStatusList.count == 0 {
+        let defaultGoal = CurrentGoalStatus(thisMonth: dateToMonthConverter(date: Date()), daysOfMonth: 0, streakOfMonth: 0, caloriesOfMonth: 0, currentExpense: 0)
+        addNewGoalStatusList(newGoalStatus: defaultGoal)
+        return defaultGoal
+    } else {
     for i in 0...currentGoalStatusList.count - 1 {
         if currentGoalStatusList[i].thisMonth.year == month.year
             ,currentGoalStatusList[i].thisMonth.month == month.month{
             return currentGoalStatusList[i]
+        }
         }
     }
     return nil
@@ -1016,7 +1022,7 @@ func setCurrentExpenseLimit(month: Day, value: Int) {
 }
 
 func getSulIndexByName(sulName: String) -> Int?{
-    var count = sul.count - 1
+    let count = sul.count - 1
     for i in 0...count {
         if sul[i].displayName == sulName {
             return i
@@ -1056,3 +1062,6 @@ func setFavouriteSul(index: Int, set: Bool){
     userData.favorites.reverse()
 }
 
+func setSulDisabled(index : Int){
+    sul[index].enabled = false
+}
