@@ -759,9 +759,9 @@ func addNewGoalStatusList(newGoalStatus: CurrentGoalStatus){
 func getCurrentGoalStatusList(month: Day) -> CurrentGoalStatus?{
     
     if currentGoalStatusList.count == 0 {
-        let defaultGoal = CurrentGoalStatus(thisMonth: dateToMonthConverter(date: Date()), daysOfMonth: 0, streakOfMonth: 0, caloriesOfMonth: 0, currentExpense: 0)
-        addNewGoalStatusList(newGoalStatus: defaultGoal)
-        return defaultGoal
+        let todayGoal = CurrentGoalStatus(thisMonth: dateToMonthConverter(date: Date()), daysOfMonth: 0, streakOfMonth: 0, caloriesOfMonth: 0, currentExpense: 0)
+        addNewGoalStatusList(newGoalStatus: todayGoal)
+        return todayGoal
     } else {
     for i in 0...currentGoalStatusList.count - 1 {
         if currentGoalStatusList[i].thisMonth.year == month.year
@@ -769,8 +769,10 @@ func getCurrentGoalStatusList(month: Day) -> CurrentGoalStatus?{
             return currentGoalStatusList[i]
         }
         }
+        let defaultGoal:CurrentGoalStatus = CurrentGoalStatus(thisMonth: month, daysOfMonth: 0, streakOfMonth: 0, caloriesOfMonth: 0, currentExpense: 0)
+        addNewGoalStatusList(newGoalStatus: defaultGoal)
+        return defaultGoal
     }
-    return nil
 }
 
 
@@ -990,8 +992,8 @@ func isCurrentExpense(month: Day) -> Bool {
 //setDaysOfMonthLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 마신 일 수 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setDaysOfMonthLimit(month: Day, value: Int) {
-    if var insert = getCurrentGoalStatusList(month: month)?.daysOfMonth {
-        insert = value
+    if let insert = getCurrentGoalStatusList(month: month) {
+        insert.daysOfMonth = value
     }
 }
 
@@ -999,16 +1001,16 @@ func setDaysOfMonthLimit(month: Day, value: Int) {
 //setStreakOfMonthLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 연속으로 마신 일 수 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setStreakOfMonthLimit(month: Day, value: Int) {
-    if var insert = getCurrentGoalStatusList(month: month)?.streakOfMonth {
-        insert = value
+    if let insert = getCurrentGoalStatusList(month: month) {
+        insert.streakOfMonth = value
     }
 }
 
 //setCaloriesOfMonthLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 칼로리 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setCaloriesOfMonthLimit(month: Day, value: Int) {
-    if var insert = getCurrentGoalStatusList(month: month)?.caloriesOfMonth {
-        insert = value
+    if let insert = getCurrentGoalStatusList(month: month) {
+        insert.caloriesOfMonth = value
     }
 }
 
@@ -1016,8 +1018,8 @@ func setCaloriesOfMonthLimit(month: Day, value: Int) {
 //setCurrentExpenseLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 지출액 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setCurrentExpenseLimit(month: Day, value: Int) {
-    if var insert = getCurrentGoalStatusList(month: month)?.currentExpense {
-        insert = value
+    if var insert = getCurrentGoalStatusList(month: month) {
+        insert.currentExpense = value
     }
 }
 
@@ -1040,13 +1042,46 @@ func setSulUnit(index : Int, unit : String){
     sul[index].unit = unit
 }
 
-func addUserSul(newSul : Sul) {
-    userData.newSul.append(newSul) //아카이빙과 전용 배열을 위한 데이터
-    sul.append(newSul) //통합 데이터에도 추가해서 사용 가능하게 하기
+func addUserSul(newSul : Sul) -> Bool{
+    
+    for i in 0...sul.count - 1 {
+        if newSul.displayName == sul[i].displayName {
+            if sul[i].enabled == true {
+                return false
+            } else if sul[i].enabled == false {
+                userData.newSul.append(newSul)
+                return true
+            }
+        } else if userData.newSul.count != 0 {
+                for j in 0...userData.newSul.count - 1 {
+                    if newSul.displayName == userData.newSul[j].displayName {
+                        if userData.newSul[j].enabled == true {
+                            return false
+                        } else if userData.newSul[j].enabled == false {
+                            userData.newSul.append(newSul)
+                            return true
+                        }
+                    }
+                }
+            } else {
+            userData.newSul.append(newSul)
+            return true
+        }
+    }
+    return true
 }
 
+
 func getUserSul() ->[Sul]{
-    let userSul = userData.newSul
+    var userSul:[Sul] = []
+
+    if userData.newSul.count != 0 {
+        for i in 0...userData.newSul.count - 1{
+            if userData.newSul[i].enabled == true {
+                userSul.append(userData.newSul[i])
+                }
+            }
+        }
     return userSul
 }
 
@@ -1064,4 +1099,27 @@ func setFavouriteSul(index: Int, set: Bool){
 
 func setSulDisabled(index : Int){
     sul[index].enabled = false
+}
+
+func setFirstLaunch(){
+    userData.firstLaunchToday = false
+}
+
+func setShowYesterdayFirst(yesterday : Bool) {
+    userData.showYesterdayFirst = yesterday
+}
+
+func getShowYesterdayFirst() -> Bool{
+    let yesterday = userData.showYesterdayFirst
+    return yesterday
+}
+
+func getSulList() -> [Sul]{
+    var enabledSul:[Sul] = []
+    for i in 0...sul.count - 1 {
+        if sul[i].enabled == true {
+            enabledSul.append(sul[i])
+        }
+    }
+    return enabledSul
 }
