@@ -7,33 +7,68 @@ protocol GoalsEditTableDelegate {
     func tableManipulateValue(_ sender: GoalsEditTableCell)
 }
 
-struct UserGoalOrder{
+struct UserGoal{
     var name: String
     var checked: Bool
     var value: Int
 }
-var goals: [UserGoalOrder] = [UserGoalOrder(name: "First Dummy", checked: false, value: 1000), UserGoalOrder(name: "Second Dummy", checked: true, value: 1500), UserGoalOrder(name: "Third Dummy", checked: false, value: 2000)]
-
-var goalOrder = [0,1,2,3]
+var goals: [UserGoal] = []
 
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
     
     @IBOutlet var backgroundView: UITableView!
     
+    func reload(){
+        goals = [
+            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: dateToMonthConverter(date: Date())), value: getDaysOfMonthLimit(month: dateToMonthConverter(date: Date()))!),
+            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: dateToMonthConverter(date: Date())), value: getStreakOfMonthLimit(month: dateToMonthConverter(date: Date()))!),
+            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: dateToMonthConverter(date: Date())), value: getCurrentExpenseLimit(month: dateToMonthConverter(date: Date()))!),
+            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Date())), value: getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
+        ]
+        
+        backgroundView.reloadData()
+    }
+    
     func tableManipulateSwitch(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         
-        goals[indexPath.row].checked.toggle()
-        sender.uiSwitch.setOn(goals[indexPath.row].checked, animated: true)
+        switch indexPath.row {
+        case 0:
+            sender.uiSwitch.setOn(!isDaysOfMonthEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            setDaysOfMonthEnabled(enabled: sender.uiSwitch.isOn)
+        case 1:
+            sender.uiSwitch.setOn(!isStreakOfMonthEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            setStreakOfMonthEnabled(enabled: sender.uiSwitch.isOn)
+        case 2:
+            sender.uiSwitch.setOn(!isCurrentExpenseEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            setCurrentExpenseEnabled(enabled: sender.uiSwitch.isOn)
+        case 3:
+            sender.uiSwitch.setOn(!isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            setCaloriesOfMonthEnabled(enabled: sender.uiSwitch.isOn)
+        default:
+            print("wtf")
+        }
     }
     
     func tableManipulateValue(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         
 //        apply to array here
-        let k: NSString = sender.editField.text! as NSString
-        goals[indexPath.row].value = Int(k.integerValue)
-        tableView.reloadData()
+        let k = Int((sender.editField.text! as NSString).integerValue)
+        switch indexPath.row {
+        case 0:
+            setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: k)
+        case 1:
+            setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: k)
+        case 2:
+            setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: k)
+        case 3:
+            setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: k)
+        default:
+            print("wtf")
+        }
+        
+        reload()
     }
     
     let formatter = DateFormatter()
@@ -55,13 +90,14 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
-        backgroundView.reloadData()
+
+        reload()
     }
 
     // MARK: - Table view data source
@@ -105,7 +141,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
 //            }
 //        }
         
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             customCell.editField.keyboardAppearance = .light
         }
         else{
@@ -128,7 +164,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     
     // Override to support rearranging the table view.
 //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//        if(isVibrationOn){
+//        if(userData.isVibrationEnabled){
 //            AudioServicesPlaySystemSound(vibPeek)
 //        }
 //        let v = goals[fromIndexPath.row]
@@ -156,7 +192,7 @@ class GoalsEditTableCell: UITableViewCell {
     }
     @IBOutlet weak var uiSwitch: UISwitch!
     @IBAction func switchChanged(_ sender: UISwitch) {
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         delegate?.tableManipulateSwitch(self)
@@ -172,7 +208,7 @@ class GoalsEditTableCell: UITableViewCell {
         uiSwitch.onTintColor = colorPoint
         editField.textColor = colorPoint
         
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             editField.tintColor = .black
         }
         else{

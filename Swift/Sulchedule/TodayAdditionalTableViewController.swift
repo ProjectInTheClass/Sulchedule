@@ -64,7 +64,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.backgroundColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
             star = star_blue!
             star_empty = star_blue_empty!
@@ -106,7 +106,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: actualIndexArray[indexPath.row]) ?? 0)
         customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: actualIndexArray[indexPath.row]))"
         customCell.titleLabel.text = sulArray[indexPath.row].displayName
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -193,7 +193,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     @IBAction func starOnTap(_ sender: UIButton) {
         flag.toggle()
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         if(flag){
@@ -209,7 +209,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         bottleLabel.text = "\(Int(bottleStepper.value))\(getSulUnit(index: getSulIndexByName(sulName: titleLabel.text!)!))"
@@ -219,7 +219,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             bottleStepper.tintColor = colorPoint
             bottleLabel.textColor = .black
             titleLabel.textColor = .gray

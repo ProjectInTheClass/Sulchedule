@@ -54,7 +54,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -86,7 +86,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         
         
         customCell.backgroundColor = colorLightBackground
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             customCell.valueLabel.textColor = .gray
             customCell.titleLabel.textColor = .black
         }
@@ -130,7 +130,7 @@ class EmbedAddSulTableViewController: UITableViewController {
     }
  
 //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//        if(isVibrationOn){
+//        if(userData.isVibrationEnabled){
 //            AudioServicesPlaySystemSound(vibPeek)
 //        }
 //        let v = arr[fromIndexPath.row]

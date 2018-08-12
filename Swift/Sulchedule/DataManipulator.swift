@@ -1,6 +1,4 @@
-
 //데이터의 연산 - 함수
-
 import Foundation
 
 var sul = dataCentre.sul
@@ -42,18 +40,20 @@ func addNewRecordMonth(newRecordMonth: RecordMonth){
     recordMonthList.append(newRecordMonth)
 }
 
-func getRecordMonth(day: Day) -> RecordMonth?{
+func getRecordMonth(month: Day) -> RecordMonth?{
     if recordMonthList.count == 0 {
-        return nil
+        let firstRecordMonth:RecordMonth = RecordMonth(thisMonth: month, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
+        addNewRecordMonth(newRecordMonth: firstRecordMonth)
+        return firstRecordMonth
     } else {
         for i in 0...recordMonthList.count - 1 {
-            if recordMonthList[i].thisMonth.year == day.year
-                ,recordMonthList[i].thisMonth.month == day.month{
+            if recordMonthList[i].thisMonth.year == month.year
+                ,recordMonthList[i].thisMonth.month == month.month{
                 return recordMonthList[i]
             }
             
         }
-        let defaultRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
+        let defaultRecordMonth:RecordMonth = RecordMonth(thisMonth: month, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
         return defaultRecordMonth
     }
 }
@@ -122,7 +122,7 @@ func setRecordDayCustomExpense(day: Day, customExpense: Int?){
  //getFavoriteSul() -> [Int]        [Int](즐겨찾기한 술 인덱스의 배열)    즐겨찾기로 설정된 술 인덱스의 배열을 반환(UserData - favorites)
  */
 // userData 의 초기화 값이 있어야 활성화가 되서
-var userData = UserData(dangerLever: 0, favorites: [], succeededLastMonth: false, goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0, purchased: false)
+var userData = UserData(dangerLevel: 0, favorites: [], goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0, purchased: false)
 
 func getFavouriteSulIndex() -> [Int]{
     return userData.favorites
@@ -150,6 +150,10 @@ let setLocation = setRecordDayLocation(day: Day(year: 2018, month: 08, day: 05),
 func setRecordDayFriends(day:Day, friends: [String]?){
     let recordDay = getRecordDay(day: day)
     recordDay?.friends = friends
+}
+
+func firstLaunchExecution(){
+    print("first launch")
 }
 
 
@@ -943,9 +947,8 @@ func isDaysOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.daysOfMonth == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(day: month)?.isDaysOfMonthEnabled
+        var monthEnabled = getRecordMonth(month: month)?.isDaysOfMonthEnabled
         monthEnabled = true
-        
         return true
     }
 }
@@ -957,7 +960,7 @@ func isStreakOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.streakOfMonth == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(day: month)?.isStreakOfMonth
+        var monthEnabled =  getRecordMonth(month: month)?.isStreakOfMonthEnabled
         monthEnabled = true
         return true
     }
@@ -970,7 +973,7 @@ func isCaloriesOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.caloriesOfMonth == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(day: month)?.isCaloriesOfMonth
+        var monthEnabled =  getRecordMonth(month: month)?.isCaloriesOfMonthEnabled
         monthEnabled = true
         return true
     }
@@ -983,7 +986,7 @@ func isCurrentExpenseEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.currentExpense == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(day: month)?.isCurrentExpense
+        var monthEnabled =  getRecordMonth(month: month)?.isCurrentExpenseEnabled
         monthEnabled = true
         return true
     }
@@ -1119,8 +1122,16 @@ func setSulDisabled(index : Int){
     }
 }
 
-func setFirstLaunch(){
-    userData.firstLaunchToday = false
+func setFirstLaunchTodayFalse(){
+    getRecordDay(day: dateToDayConverter(date: Date()))!.firstLaunchToday = false
+}
+
+func isFirstLaunchToday() -> Bool{
+    return getRecordDay(day: dateToDayConverter(date: Date()))!.firstLaunchToday
+}
+
+func setFirstLaunchFalse(){
+    userData.firstLaunch = false
 }
 
 func setShowYesterdayFirst(yesterday : Bool) {
@@ -1140,4 +1151,20 @@ func getSulDictionary() -> [Int:Sul]{
         }
     }
     return enabledSul
+}
+
+func setDaysOfMonthEnabled(enabled: Bool){
+    getRecordMonth(month: dateToDayConverter(date: Date()))?.isDaysOfMonthEnabled = enabled
+}
+
+func setStreakOfMonthEnabled(enabled: Bool){
+    getRecordMonth(month: dateToDayConverter(date: Date()))?.isStreakOfMonthEnabled = enabled
+}
+
+func setCaloriesOfMonthEnabled(enabled: Bool){
+    getRecordMonth(month: dateToDayConverter(date: Date()))?.isCaloriesOfMonthEnabled = enabled
+}
+
+func setCurrentExpenseEnabled(enabled: Bool){
+    getRecordMonth(month: dateToDayConverter(date: Date()))?.isCurrentExpenseEnabled = enabled
 }

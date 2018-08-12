@@ -71,7 +71,7 @@ class MonthlyStatsViewController: UIViewController {
         leaderboardView.backgroundColor = colorLightBackground
         picktargetView.backgroundColor = colorDeepBackground
         firstPlaceLabel.backgroundColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             firstPlaceText.textColor = .white
             secondPlaceLabel.textColor = .black
             thirdPlaceLabel.textColor = .black
@@ -134,7 +134,7 @@ class MonthlyStatsViewController: UIViewController {
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -281,7 +281,7 @@ class MonthlyStatsViewController: UIViewController {
     
     func cycleCircleBorder(cursor: Int){
         //Dev on Main first, than transfer here
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         switch (cursor){

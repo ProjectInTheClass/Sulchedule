@@ -16,18 +16,25 @@ class AddSulViewController: UIViewController {
     @IBAction func saveButton(_ sender: Any) {
         if(nameField.text != "" && calorieField.text != "" && priceField.text != "" && unitField.text != "" && nameField.text != nil && calorieField.text != nil && priceField.text != nil && unitField.text != nil){
             if(!addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))){
-                print("cannot add new sul")
+                let alertController = UIAlertController(title: "같은 이름의 주류가 있습니다", message: "이름을 바꾼 뒤 다시 시도해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                let cancelAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("ok")
+                }
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
             }
             else{
                 vc?.loadArray()
                 vc?.reload()
+                
+                nameField.text = ""
+                calorieField.text = ""
+                unitField.text = ""
+                priceField.text = ""
+                dismissKeyboard()
             }
             
-            nameField.text = ""
-            calorieField.text = ""
-            unitField.text = ""
-            priceField.text = ""
-            dismissKeyboard()
+            
             
             
             nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
@@ -117,7 +124,7 @@ class AddSulViewController: UIViewController {
         foreground.backgroundColor = colorDeepBackground
         saveButton.tintColor = colorPoint
         dismissButton.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
             nameField.keyboardAppearance = .light
             calorieField.keyboardAppearance = .light

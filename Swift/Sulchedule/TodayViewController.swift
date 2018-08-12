@@ -93,6 +93,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if(userData.firstLaunch){
+            firstLaunchExecution()
+            setFirstLaunchFalse()
+        }
         self.calendar.select(Date())
         
         self.view.addGestureRecognizer(self.scopeGesture)
@@ -124,7 +128,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadArray()
         
         topInfoLabel.textColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             textColor2.textColor = .gray
             disclosureIcon.image = UIImage(named:"Chevron_blue")
@@ -164,7 +168,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -196,7 +200,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }()
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             return .black
         }
         else{
@@ -204,7 +208,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             return .white
         }
         else{
@@ -234,14 +238,17 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     
     func shouldViewMonthlyStats(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            let formatterFirstDayOfMonth = DateFormatter()
-            formatterFirstDayOfMonth.dateFormat = "dd"
-            if(self.firstRunForMonthlySummary && formatterFirstDayOfMonth.string(from: Date()) == "01"){
-                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
-                self.present(viewController, animated: true, completion: {self.firstRunForMonthlySummary = false})
-            }
-        })
+        if(isFirstLaunchToday() && !userData.firstLaunch){
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                let formatterFirstDayOfMonth = DateFormatter()
+                formatterFirstDayOfMonth.dateFormat = "dd"
+                if(self.firstRunForMonthlySummary && formatterFirstDayOfMonth.string(from: Date()) == "01"){
+                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
+                    self.present(viewController, animated: true, completion: {self.firstRunForMonthlySummary = false})
+                }
+            })
+            setFirstLaunchTodayFalse()
+        }
     }
     
     // MARK:- UIGestureRecognizerDelegate
@@ -309,7 +316,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if(indexPath.row < getFavouriteSulIndex().count){
             customCell.colorTag.backgroundColor = colorPoint
         }
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -330,7 +337,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             firstRunForHaptic = false
         }
         else{
-            if(isVibrationOn){
+            if(userData.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibPeek)
             }
         }
@@ -420,7 +427,7 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var bottleLabel: UILabel!
     @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         
@@ -432,7 +439,7 @@ class TodayTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             titleLabel.textColor = .gray
         }
         else{

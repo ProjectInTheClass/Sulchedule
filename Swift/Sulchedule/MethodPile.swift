@@ -12,11 +12,8 @@ let vibTryAgain = SystemSoundID(1102)
 // 'Failed' feedback (three sequential strong booms)
 let vibFailed = SystemSoundID(1107)
 
-var isBrightTheme = false
-var isVibrationOn = true
-
 let colorYellow = hexStringToUIColor(hex:"FFC400")
-let colorGreen = hexStringToUIColor(hex:"72FF7D")
+let colorGreen = hexStringToUIColor(hex:"4AD863")
 let colorRed = hexStringToUIColor(hex:"FF6060")
 let colorGray = hexStringToUIColor(hex:"A4A4A4")
 var colorPoint = hexStringToUIColor(hex:"FFDC67")

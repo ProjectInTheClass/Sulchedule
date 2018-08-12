@@ -45,16 +45,12 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
         
-        //test value
-        setDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
-        setStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
-        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
-        setCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
         }
         else{
@@ -62,19 +58,12 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         }
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
-        
-        
-        //test value
-        setDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
-        setStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
-        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
-        setCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,8 +82,6 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         yellowCircle.fillColor = colorYellow.cgColor
         greenCircle.path = circlePath.cgPath
         greenCircle.fillColor = colorGreen.cgColor
-        
-        cycleCircleBorder(cursor: 2)
     }
     
     func cycleCircleBorder(cursor: Int){
@@ -110,11 +97,17 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
             yellowView.alpha = 1.0
             greenView.alpha = alpha
             howYouDoingLabel.text = "아슬아슬해요!!!"
+            if(isLastMonth == -1){
+                userData.succeededLastMonth = true
+            }
         case 0:
             redView.alpha = alpha
             yellowView.alpha = alpha
             greenView.alpha = 1.0
             howYouDoingLabel.text = "목표한 대로 잘하고 있어요!"
+            if(isLastMonth == -1){
+                userData.succeededLastMonth = true
+            }
         default:
             print("wtf")
         }

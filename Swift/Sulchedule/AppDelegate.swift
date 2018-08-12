@@ -16,13 +16,13 @@ import UIKit
 //        addNewRecordDay(newRecordDay: dummyH)
         
         
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
             colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
         }
         
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             UINavigationBar.appearance().tintColor = UIColor.black
             UIApplication.shared.statusBarStyle = .default
             UITabBar.appearance().unselectedItemTintColor = .black

@@ -24,6 +24,7 @@ class RecordDay {
     var expense: Int? //값을 입력하지 않은 경우 사용
     var customExpense: Int? //값을 입력한 경우 사용
     var calories: Int?
+    var firstLaunchToday = true
     
     var drinks:[Int:Int]? //index : bottles
     
@@ -58,9 +59,9 @@ class RecordMonth {
     var totalExpense: Int?
     var totalCalories: Int?
     var isDaysOfMonthEnabled: Bool
-    var isStreakOfMonth: Bool
-    var isCaloriesOfMonth: Bool
-    var isCurrentExpense: Bool
+    var isStreakOfMonthEnabled: Bool
+    var isCaloriesOfMonthEnabled: Bool
+    var isCurrentExpenseEnabled: Bool
     
     init(thisMonth : Day, bestLocation: String?, bestFriend: String?, totalExpense: Int?, totalCalories: Int?, isDaysOfMonthEnabled: Bool, isStreakOfMonthEnabled: Bool, isCaloriesOfMonthEnabled: Bool, isCurrentExpenseEnabled: Bool) {
         self.thisMonth = thisMonth
@@ -77,16 +78,16 @@ class RecordMonth {
             self.totalCalories = totalCal
         }
         self.isDaysOfMonthEnabled = isDaysOfMonthEnabled
-        self.isStreakOfMonth = isStreakOfMonthEnabled
-        self.isCurrentExpense = isCurrentExpenseEnabled
-        self.isCaloriesOfMonth = isCaloriesOfMonthEnabled
+        self.isStreakOfMonthEnabled = isStreakOfMonthEnabled
+        self.isCurrentExpenseEnabled = isCurrentExpenseEnabled
+        self.isCaloriesOfMonthEnabled = isCaloriesOfMonthEnabled
     }
 }
 
 class UserData {
     var dangerLevel: Int? //0:초록, 1:노랑, 2:빨강
     var favorites: [Int] = []
-    var succeededLastMonth: Bool
+    var succeededLastMonth = false
     
     var goal_DaysOfMonth: Int? //총 마신 날
     var goal_MaxStreakOfMonth: Int? //연속으로 마신 날
@@ -94,18 +95,19 @@ class UserData {
     var goal_TotalExpense: Int? //총 지출액
     var purchased: Bool
     var newSul: [Sul] = []
-    var firstLaunchToday: Bool = true
-    var showYesterdayFirst: Bool = true
+    var firstLaunch: Bool = true
+    var showYesterdayFirst = true
+    var isVibrationEnabled = true
+    var isThemeBright = false
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
-    init(dangerLever : Int?, favorites: [Int]?, succeededLastMonth: Bool, goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?, purchased: Bool) {
-        if let dangerLev = dangerLever {
+    init(dangerLevel : Int?, favorites: [Int]?,  goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?, purchased: Bool) {
+        if let dangerLev = dangerLevel {
             self.dangerLevel = dangerLev
         }
         if let favo = favorites {
             self.favorites = favo
         }
-        self.succeededLastMonth = succeededLastMonth
         
         if let goal = goal_maxDaysOfMonth {
             self.goal_DaysOfMonth = goal

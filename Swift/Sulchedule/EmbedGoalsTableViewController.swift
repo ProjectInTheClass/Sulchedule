@@ -23,7 +23,7 @@ class EmbedGoalsTableViewController: UITableViewController {
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -129,7 +129,7 @@ class EmbedGoalsTableViewController: UITableViewController {
             
         }
         
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             customCell.leftValueLabel.textColor = .black
             customCell.rightValueLabel.textColor = .black
             customCell.leftTitleLabel.textColor = .gray

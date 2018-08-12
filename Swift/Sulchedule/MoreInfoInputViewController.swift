@@ -100,7 +100,7 @@ class MoreInfoInputViewController: UIViewController {
         }
         
         
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             expenseField.tintColor = .black
             locationField.tintColor = .black
             friendsField.tintColor = .black

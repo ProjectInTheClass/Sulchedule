@@ -72,7 +72,7 @@ class StatsViewController: UIViewController {
         firstPlaceLabel.backgroundColor = colorPoint
         topSegmentOutlet.tintColor = colorPoint
         topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             firstPlaceText.textColor = .white
             secondPlaceLabel.textColor = .black
             thirdPlaceLabel.textColor = .black
@@ -136,7 +136,7 @@ class StatsViewController: UIViewController {
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -152,7 +152,7 @@ class StatsViewController: UIViewController {
     
     
     @objc func sulClicked(){
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 0
@@ -160,7 +160,7 @@ class StatsViewController: UIViewController {
         showPlatform(cursor: currentCursor)
     }
     @objc func friendClicked(){
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 1
@@ -168,7 +168,7 @@ class StatsViewController: UIViewController {
         showPlatform(cursor: currentCursor)
     }
     @objc func locationClicked(){
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 2
@@ -287,7 +287,7 @@ class StatsViewController: UIViewController {
                 firstAppearance = false
             }
             else{
-                if(isVibrationOn){
+                if(userData.isVibrationEnabled){
                     AudioServicesPlaySystemSound(vibCancelled)
                 }
                 animator(isLeft: true)
@@ -297,7 +297,7 @@ class StatsViewController: UIViewController {
             vc?.showWeeklyFunc(showWeekly: false)
         }
         else{
-            if(isVibrationOn){
+            if(userData.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibCancelled)
             }
             animator(isLeft: false)

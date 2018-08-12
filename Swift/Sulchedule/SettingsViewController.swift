@@ -22,15 +22,21 @@ class SettingsViewController: UIViewController {
     var vibOn: UIImage?
     var vibOff: UIImage?
     
+//    var showYesterdayFirst = true
+//    var isVibrationEnabled = true
+//    var isThemeBright = false
+    
     @IBAction func yesterdayButton(_ sender: UIButton) {
         setShowYesterdayFirst(yesterday: !getShowYesterdayFirst())
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         if(getShowYesterdayFirst()){
+            userData.showYesterdayFirst = true
             yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
         }
         else{
+            userData.showYesterdayFirst = false
             yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
         }
     }
@@ -53,6 +59,29 @@ class SettingsViewController: UIViewController {
         themeContainer.addGestureRecognizer(tap)
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.vibrationSwitch(_:)))
         vibContainer.addGestureRecognizer(tap2)
+        
+        if(userData.isThemeBright){
+            vibOn = UIImage(named: "vib_bright_on")
+            vibOff = UIImage(named: "vib_bright_off")
+        }
+        else{
+            vibOn = UIImage(named: "vib_on")
+            vibOff = UIImage(named: "vib_off")
+        }
+        if(userData.isVibrationEnabled){
+            vibLabel.text = "진동 켜짐"
+            self.vibrationImageView.image = self.vibOn
+        }
+        else{
+            vibLabel.text = "진동 꺼짐"
+            self.vibrationImageView.image = self.vibOff
+        }
+        if(getShowYesterdayFirst()){
+            yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
+        }
+        else{
+            yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         themeLabel.textColor = colorPoint
@@ -67,7 +96,7 @@ class SettingsViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
             
@@ -91,53 +120,32 @@ class SettingsViewController: UIViewController {
             self.resetContainer.backgroundColor = colorLightBackground
             self.yesterdayContainer.backgroundColor = colorLightBackground
         }
-        self.applyShadow(view: self.resetContainer, enable: isBrightTheme)
-        self.applyShadow(view: self.addSulContainer, enable: isBrightTheme)
-        self.applyShadow(view: self.themeContainer, enable: isBrightTheme)
-        self.applyShadow(view: self.yesterdayContainer, enable: isBrightTheme)
+        self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.addSulContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.themeContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.yesterdayContainer, enable: userData.isThemeBright)
         
-        if(isVibrationOn){
-            self.applyShadow(view: self.vibContainer, enable: isBrightTheme)
+        if(userData.isVibrationEnabled){
+            self.applyShadow(view: self.vibContainer, enable: userData.isThemeBright)
         }
-        if(isBrightTheme){
-            vibOn = UIImage(named: "vib_bright_on")
-            vibOff = UIImage(named: "vib_bright_off")
-        }
-        else{
-            vibOn = UIImage(named: "vib_on")
-            vibOff = UIImage(named: "vib_off")
-        }
-        if(isVibrationOn){
-            vibLabel.text = "진동 켜짐"
-            self.vibrationImageView.image = self.vibOn
-        }
-        else{
-            vibLabel.text = "진동 꺼짐"
-            self.vibrationImageView.image = self.vibOff
-        }
-        if(getShowYesterdayFirst()){
-            yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
-        }
-        else{
-            yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
-        }
+        
     }
     
     @objc func darkThemeSwitch(_ sender: UITapGestureRecognizer) {
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        isBrightTheme.toggle()
+        userData.isThemeBright.toggle()
         
-        self.applyShadow(view: self.resetContainer, enable: isBrightTheme)
-        self.applyShadow(view: self.addSulContainer, enable: isBrightTheme)
-        self.applyShadow(view: self.themeContainer, enable: isBrightTheme)
-        if(isVibrationOn){
-            self.applyShadow(view: self.vibContainer, enable: isBrightTheme)
+        self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.addSulContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.themeContainer, enable: userData.isThemeBright)
+        if(userData.isVibrationEnabled){
+            self.applyShadow(view: self.vibContainer, enable: userData.isThemeBright)
         }
         
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
-            if(isBrightTheme){
+            if(userData.isThemeBright){
                 colorPoint = hexStringToUIColor(hex: "#0067B2")
                 colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
                 colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
@@ -171,7 +179,7 @@ class SettingsViewController: UIViewController {
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground
         }, completion: nil)
-        if(isBrightTheme){
+        if(userData.isThemeBright){
             vibOn = UIImage(named: "vib_bright_on")
             vibOff = UIImage(named: "vib_bright_off")
             
@@ -199,7 +207,7 @@ class SettingsViewController: UIViewController {
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
             self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         }
-        if(isVibrationOn){
+        if(userData.isVibrationEnabled){
             vibLabel.text = "진동 켜짐"
             self.vibrationImageView.image = self.vibOn
         }
@@ -216,8 +224,8 @@ class SettingsViewController: UIViewController {
         self.tabBarController?.tabBar.tintColor = colorPoint
     }
     @objc func vibrationSwitch(_ sender: UITapGestureRecognizer) {
-        isVibrationOn.toggle()
-        if(isVibrationOn){
+        userData.isVibrationEnabled.toggle()
+        if(userData.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibTryAgain)
             vibLabel.text = "진동 켜짐"
             self.vibContainer.layer.shadowColor = UIColor.black.cgColor
