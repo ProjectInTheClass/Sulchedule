@@ -206,7 +206,6 @@
 				35650618211FDAF900412E25 /* App Icon */,
 				EE0954B01B97DDE0007F6964 /* Main.storyboard */,
 				EE0954B51B97DDE0007F6964 /* LaunchScreen.xib */,
-				35458DC82113D6D700878206 /* MethodPile.swift */,
 				35338386211D31F500171B16 /* ViewController */,
 				35338385211D31E900171B16 /* TableViewController */,
 			);
@@ -298,6 +297,7 @@
 			children = (
 				35991191211EBE23002A5319 /* Images.xcassets */,
 				EE0954AC1B97DDE0007F6964 /* AppDelegate.swift */,
+				35458DC82113D6D700878206 /* MethodPile.swift */,
 				35338387211D321000171B16 /* FSCalendar */,
 				35338384211D31C000171B16 /* UI */,
 				35338389211D325A00171B16 /* DataCentre */,

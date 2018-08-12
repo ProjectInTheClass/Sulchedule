@@ -1,6 +1,14 @@
 import UIKit
 
-class GoalsViewController: UIViewController {
+protocol CycleBorderDelegate{
+    func manipulateCircle(value: Int)
+}
+
+class GoalsViewController: UIViewController, CycleBorderDelegate {
+    func manipulateCircle(value: Int) {
+        cycleCircleBorder(cursor: value)
+    }
+    
     @IBOutlet weak var greenView: UIView!
     @IBOutlet weak var yellowView: UIView!
     @IBOutlet weak var redView: UIView!
@@ -30,6 +38,8 @@ class GoalsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        goalViewDelegate = self
     
         initCircle()
         formatter.dateFormat = "M월의 목표"

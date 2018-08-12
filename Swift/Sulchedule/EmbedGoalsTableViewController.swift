@@ -1,11 +1,15 @@
 import UIKit
 
+var goalViewDelegate: CycleBorderDelegate?
+
 class EmbedGoalsTableViewController: UITableViewController {
     
     var goalValue: [Float] = []
     var goalLimit: [Int] = []
     var goalStat: [Int] = []
     var isEnabled: [Int] = []
+    
+    
     
 //    var isLastMonth: Int = -1
 
@@ -65,6 +69,17 @@ class EmbedGoalsTableViewController: UITableViewController {
                 print("wtf")
             }
         }
+        var dangerLevel = 0
+        for item in goalValue {
+            if(item > 0.8){
+                dangerLevel = 1
+            }
+            if(item > 1){
+                dangerLevel = 2
+            }
+        }
+        goalViewDelegate?.manipulateCircle(value: dangerLevel)
+        
         backgroundView.reloadData()
     }
 
@@ -128,7 +143,7 @@ class EmbedGoalsTableViewController: UITableViewController {
         }
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bgGraph.layer.backgroundColor = colorLightBackground.cgColor
-
+        
         return customCell
     }
 
@@ -185,15 +200,12 @@ class EmbedGoalsTableCell: UITableViewCell {
     func setGraphValue(value: Float){
         if(0 <= value && value < 0.7){
             drawRect(color: colorGreen, value: value)
-            actualGraph.layer.backgroundColor = colorGreen.cgColor
         }
         else if(value < 1){
             drawRect(color: colorYellow, value: value)
-            actualGraph.layer.backgroundColor = colorYellow.cgColor
         }
         else{
-            drawRect(color: colorGreen, value: 1)
-            actualGraph.layer.backgroundColor = colorRed.cgColor
+            drawRect(color: colorRed, value: 1)
         }
     }
 
