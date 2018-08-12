@@ -828,7 +828,7 @@ func getDaysOfMonthStatus(month:Day) -> Int {
         //        print(newday.day)
         let recordMonth = getRecordDay(day: newday)
         //       print(recordMonth)
-        if recordMonth != nil{
+        if recordMonth?.drinks != [:]{
             monthDayCount += 1
         }else {
             monthDayCount += 0
@@ -862,7 +862,7 @@ func getStreakOfMonthStatus(month:Day) -> Int {
     var steakArray:Array<Int> = []
     
     for i in 0...countMonThRecordList{
-        if monthRecordList[i] != nil {
+        if monthRecordList[i]?.drinks != [:] {
             counting1 += 1
         }else{
             counting1 = 0
