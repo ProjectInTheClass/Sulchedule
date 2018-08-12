@@ -22,6 +22,31 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         let index = indexPath.row
         setRecordDayForSul(day: selectedDay, index: index, bottles: Int(sender.bottleStepper.value))
     }
+    
+    var actualIndexArray: [Int] = []
+    var sulArray: [Sul] = []
+    var currentDictionary: [Int: Sul] = [:]
+    func loadArray(){
+        //adds sul and userSul into currentDictionary
+        //than puts each into sulArray and actualIndexArray
+        sulArray = []
+        actualIndexArray = []
+        currentDictionary = [:]
+        currentDictionary = getSulDictionary()
+//        getSulDictionary().forEach { (k,v) in currentDictionary[k] = v }
+//        getUserSulDictionary().forEach { (k,v) in currentDictionary[k + getSulDictionary().count] = v }
+        
+        var cnt = 0
+        var i = -1
+        while(cnt < currentDictionary.count){
+            i += 1
+            if(currentDictionary[i] != nil){
+                sulArray.append(currentDictionary[i]!)
+                actualIndexArray.append(i)
+                cnt += 1
+            }
+        }
+    }
 
     let star_yellow = UIImage(named: "star")
     let star_yellow_empty = UIImage(named: "star_empty")
@@ -50,6 +75,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
             star_empty = star_yellow_empty!
 
         }
+        loadArray()
         backgroundView.reloadData()
     }
     
@@ -65,7 +91,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return sul.count
+        return currentDictionary.count
     }
 
     //tempSul 만들어서 sul + userSul로 사용
@@ -77,9 +103,9 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
             return cell
         }
         
-        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: indexPath.row) ?? 0)
-        customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: indexPath.row))"
-        customCell.titleLabel.text = sul[indexPath.row].displayName
+        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: actualIndexArray[indexPath.row]) ?? 0)
+        customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: actualIndexArray[indexPath.row]))"
+        customCell.titleLabel.text = sulArray[indexPath.row].displayName
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
@@ -91,8 +117,8 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
-        for item in getFavouriteSul() {
-            if(item == indexPath.row){
+        for item in getFavouriteSulIndex() {
+            if(item == actualIndexArray[indexPath.row]){
                 customCell.flag = true
                 break
             }

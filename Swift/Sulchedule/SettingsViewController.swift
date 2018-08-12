@@ -22,14 +22,12 @@ class SettingsViewController: UIViewController {
     var vibOn: UIImage?
     var vibOff: UIImage?
     
-    var showyester = false //
-    
     @IBAction func yesterdayButton(_ sender: UIButton) {
+        setShowYesterdayFirst(yesterday: !getShowYesterdayFirst())
         if(isVibrationOn){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        showyester.toggle()
-        if(showyester){
+        if(getShowYesterdayFirst()){
             yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
         }
         else{
@@ -97,6 +95,7 @@ class SettingsViewController: UIViewController {
         self.applyShadow(view: self.addSulContainer, enable: isBrightTheme)
         self.applyShadow(view: self.themeContainer, enable: isBrightTheme)
         self.applyShadow(view: self.yesterdayContainer, enable: isBrightTheme)
+        
         if(isVibrationOn){
             self.applyShadow(view: self.vibContainer, enable: isBrightTheme)
         }
@@ -115,6 +114,12 @@ class SettingsViewController: UIViewController {
         else{
             vibLabel.text = "진동 꺼짐"
             self.vibrationImageView.image = self.vibOff
+        }
+        if(getShowYesterdayFirst()){
+            yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
+        }
+        else{
+            yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
         }
     }
     

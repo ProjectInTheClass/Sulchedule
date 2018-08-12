@@ -4,6 +4,7 @@ import AudioToolbox.AudioServices
 
 var selectedDay: Day = dateToDayConverter(date: Date())
 var gotDay: RecordDay?
+//var tempSul = getSulDictionary()
 
 
 protocol TodayTableDelegate {
@@ -19,14 +20,50 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         setBottomInfoLabelString()
     }
     
+    var actualIndexArray: [Int] = []
+    var sulArray: [Sul] = []
+    var currentDictionary: [Int: Sul] = [:]
+    var tempFavourite = getFavouriteSulIndex()
+    
+    func loadArray(){
+        //adds sul and userSul into currentDictionary
+        //than puts each into sulArray and actualIndexArray
+        sulArray = []
+        actualIndexArray = []
+        currentDictionary = [:]
+        currentDictionary = getSulDictionary()
+//        getSulDictionary().forEach { (k,v) in currentDictionary[k] = v }
+//        getUserSulDictionary().forEach { (k,v) in currentDictionary[k + getSulDictionary().count] = v }
+        
+        var cnt = 0
+        var i = -1
+        while(cnt < currentDictionary.count){
+            i += 1
+            if(currentDictionary[i] != nil){
+                sulArray.append(currentDictionary[i]!)
+                actualIndexArray.append(i)
+                cnt += 1
+            }
+        }
+        
+        initTempFavourite()
+    }
+    
+    func initTempFavourite(){
+        tempFavourite = []
+        for i in 0...currentDictionary.count - 1{
+            if(getRecordDayBottles(day: selectedDay, index: actualIndexArray[i]) != 0 && getRecordDayBottles(day: selectedDay, index: actualIndexArray[i]) != nil){
+                tempFavourite.append(actualIndexArray[i])
+            }
+        }
+        tempFavourite = Array(Set(tempFavourite).subtracting(getFavouriteSulIndex()))
+        tempFavourite.insert(contentsOf: getFavouriteSulIndex().reversed(), at: 0)
+    }
+    
     @IBOutlet weak var loadAdditionalView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
-    
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
-    
-    var favorite: [Int] = [] // temporary value -> remove when setFavoriteSul implemented
-    var tempFavourite = getFavouriteSul()
     
     @IBOutlet weak var navigationTitle: UINavigationItem!
     @IBAction func calendarView(_ sender: Any) {
@@ -65,7 +102,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         setFavouriteSul(index: 0, set: true)
         setFavouriteSul(index: 2, set: true)
-        tempFavourite = getFavouriteSul()
         
         let formatter = DateFormatter()
         formatter.dateFormat = "h"
@@ -82,21 +118,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
-    func initTempFavourite(){
-        tempFavourite = []
-        for i in 0...sul.count - 1{
-            if(getRecordDayBottles(day: selectedDay, index: i) != 0 && getRecordDayBottles(day: selectedDay, index: i) != nil){
-                tempFavourite.append(i)
-            }
-        }
-        tempFavourite = Array(Set(tempFavourite).subtracting(getFavouriteSul()))
-        tempFavourite.insert(contentsOf: getFavouriteSul(), at: 0)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         shouldViewMonthlyStats()
         
-        initTempFavourite()
+        loadArray()
         
         topInfoLabel.textColor = colorPoint
         if(isBrightTheme){
@@ -281,8 +306,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
-        if(indexPath.row < getFavouriteSul().count){
-            customCell.colorTag.backgroundColor = hexStringToUIColor(hex: "#FFDC67")
+        if(indexPath.row < getFavouriteSulIndex().count){
+            customCell.colorTag.backgroundColor = colorPoint
         }
         if(isBrightTheme){
             customCell.bottleLabel.textColor = .black
@@ -317,17 +342,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         gotDay = getRecordDay(day: selectedDay)!
         
-        initTempFavourite()
-        
-//        for item in favorite!{
-//            setRecordDayForSul(day: selectedDay, index: item, bottles: 0)
-//        }
-        
-        //load data into tableView
-        //set new array
-        //reload table
         setTopInfoLabelString()
         setBottomInfoLabelString()
+        loadArray()
         tableView.reloadData()
     }
     

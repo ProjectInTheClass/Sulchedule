@@ -29,10 +29,10 @@ class EmbedAddSulTableViewController: UITableViewController {
         
         sulArray = []
         actualIndexArray = []
-        let currentDictionary: [Int: Sul] = getUserSul()
+        let currentDictionary: [Int: Sul] = getUserSulDictionary()
         var cnt = 0
         var i = -1
-        while(cnt < getUserSul().count){
+        while(cnt < getUserSulDictionary().count){
             i += 1
             if(currentDictionary[i] != nil){
                 sulArray.append(currentDictionary[i]!)
@@ -70,7 +70,7 @@ class EmbedAddSulTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return getUserSul().count
+        return getUserSulDictionary().count
     }
 
     

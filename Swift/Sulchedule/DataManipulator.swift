@@ -124,7 +124,7 @@ func setRecordDayCustomExpense(day: Day, customExpense: Int?){
 // userData 의 초기화 값이 있어야 활성화가 되서
 var userData = UserData(dangerLever: 0, favorites: [], succeededLastMonth: false, goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0, purchased: false)
 
-func getFavouriteSul() -> [Int]{
+func getFavouriteSulIndex() -> [Int]{
     return userData.favorites
 }
 
@@ -1051,12 +1051,14 @@ func addUserSul(newSul : Sul) -> Bool{
             }
             else {
                 userData.newSul.append(newSul)
+                sul.append(newSul)
                 return true
             }
         }
     }
     if userData.newSul.count == 0 {
         userData.newSul.append(newSul)
+        sul.append(newSul)
         return true
     }
     else {
@@ -1075,6 +1077,7 @@ func addUserSul(newSul : Sul) -> Bool{
         }
         if(flag){
             userData.newSul.append(newSul)
+            sul.append(newSul)
             return true
         }
         else{
@@ -1084,7 +1087,7 @@ func addUserSul(newSul : Sul) -> Bool{
 }
 
 
-func getUserSul() ->[Int:Sul]{
+func getUserSulDictionary() ->[Int:Sul]{
     var userSul: [Int:Sul] = [:]
     //[actual index:Sul
 
@@ -1129,11 +1132,11 @@ func getShowYesterdayFirst() -> Bool{
     return yesterday
 }
 
-func getSulList() -> [Sul]{
-    var enabledSul:[Sul] = []
+func getSulDictionary() -> [Int:Sul]{
+    var enabledSul:[Int:Sul] = [:]
     for i in 0...sul.count - 1 {
         if sul[i].enabled == true {
-            enabledSul.append(sul[i])
+            enabledSul[i] = sul[i]
         }
     }
     return enabledSul
