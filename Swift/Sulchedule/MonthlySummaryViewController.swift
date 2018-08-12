@@ -1,5 +1,7 @@
 import UIKit
 
+var isLastMonth = 0
+
 class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, Control2VCDelegate {
     func sendData(data: Int) {
         setViewControllers([pages[data]], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
@@ -9,6 +11,7 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
     var pages = [UIViewController]()
     var pageControlSelectedPage: Int = 0
     var delegate2: VC2ControlDelegate? = nil
+    var vc:GoalsViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,22 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
         pages.append(p3)
         
         setViewControllers([p1], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M"
+        var lastMonth = Int(formatter.string(from: Date())) ?? 1
+        formatter.dateFormat = "yyyy"
+        var year = Int(formatter.string(from: Date())) ?? 2000
+        lastMonth -= 1
+        if(lastMonth == 0){
+            year -= 1
+            lastMonth = 12
+        }
+        
+        isLastMonth = -1
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        isLastMonth = 0
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController)-> UIViewController? {
@@ -63,5 +82,7 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let viewController: MonthlySummaryFrameViewController = segue.destination as! MonthlySummaryFrameViewController
         viewController.delegate = self
+        
+        vc = segue.destination as? GoalsViewController
     }
 }

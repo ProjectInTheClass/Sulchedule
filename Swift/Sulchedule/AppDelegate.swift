@@ -8,7 +8,7 @@ import UIKit
         // Override point for customization after application launch.
         addNewRecordDay(newRecordDay: dummyA)
         addNewRecordDay(newRecordDay: dummyB)
-//        addNewRecordDay(newRecordDay: dummyC)
+        addNewRecordDay(newRecordDay: dummyC)
 //        addNewRecordDay(newRecordDay: dummyD)
 //        addNewRecordDay(newRecordDay: dummyE)
 //        addNewRecordDay(newRecordDay: dummyF)

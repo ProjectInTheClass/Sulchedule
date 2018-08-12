@@ -53,7 +53,7 @@ func getRecordMonth(day: Day) -> RecordMonth?{
             }
             
         }
-        let defaultRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonth: false, isCaloriesOfMonth: false, isCurrentExpense: false)
+        let defaultRecordMonth:RecordMonth = RecordMonth(thisMonth: day, bestLocation: "", bestFriend: "", totalExpense: 0, totalCalories: 0, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
         return defaultRecordMonth
     }
 }
@@ -953,7 +953,7 @@ func isDaysOfMonthEnabled(month: Day) -> Bool {
 //isStreakOfMonth(month: Day) -> Bool    month: Day(day가 nil)    Bool(이번 달 목표로 '오늘까지 마신 연속 일 수 최고기록'이 활성화돼있으면 true, 비활이면 false)    isStreakOfMonth: Bool를 RecordMonth에 추가해주세요!
 //이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
-func isStreakOfMonth(month: Day) -> Bool {
+func isStreakOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.streakOfMonth == nil {
         return false
     } else {
@@ -966,7 +966,7 @@ func isStreakOfMonth(month: Day) -> Bool {
 //isCaloriesOfMonth(month: Day) -> Bool    month: Day(day가 nil)    Bool(이번 달 목표로 '오늘까지의 칼로리'가 활성화돼있으면 true, 비활이면 false)    isCaloriesOfMonth: Bool를 RecordMonth에 추가해주세요!
 //이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
-func isCaloriesOfMonth(month: Day) -> Bool {
+func isCaloriesOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.caloriesOfMonth == nil {
         return false
     } else {
@@ -979,7 +979,7 @@ func isCaloriesOfMonth(month: Day) -> Bool {
 //isCurrentExpense(month: Day) -> Bool    month: Day(day가 nil)    Bool(이번 달 목표로 '오늘까지 쓴 돈'이 활성화돼있으면 true, 비활이면 false)    isCurrentExpense: Bool를 RecordMonth에 추가해주세요!
 //이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
-func isCurrentExpense(month: Day) -> Bool {
+func isCurrentExpenseEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.currentExpense == nil {
         return false
     } else {

@@ -62,7 +62,7 @@ class RecordMonth {
     var isCaloriesOfMonth: Bool
     var isCurrentExpense: Bool
     
-    init(thisMonth : Day, bestLocation: String?, bestFriend: String?, totalExpense: Int?, totalCalories: Int?, isDaysOfMonthEnabled: Bool, isStreakOfMonth: Bool, isCaloriesOfMonth: Bool, isCurrentExpense: Bool) {
+    init(thisMonth : Day, bestLocation: String?, bestFriend: String?, totalExpense: Int?, totalCalories: Int?, isDaysOfMonthEnabled: Bool, isStreakOfMonthEnabled: Bool, isCaloriesOfMonthEnabled: Bool, isCurrentExpenseEnabled: Bool) {
         self.thisMonth = thisMonth
         if let bestLoca = bestLocation {
             self.bestLocation = bestLoca
@@ -77,9 +77,9 @@ class RecordMonth {
             self.totalCalories = totalCal
         }
         self.isDaysOfMonthEnabled = isDaysOfMonthEnabled
-        self.isStreakOfMonth = isStreakOfMonth
-        self.isCurrentExpense = isCurrentExpense
-        self.isCaloriesOfMonth = isCaloriesOfMonth
+        self.isStreakOfMonth = isStreakOfMonthEnabled
+        self.isCurrentExpense = isCurrentExpenseEnabled
+        self.isCaloriesOfMonth = isCaloriesOfMonthEnabled
     }
 }
 

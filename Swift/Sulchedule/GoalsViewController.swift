@@ -7,6 +7,13 @@ class GoalsViewController: UIViewController {
     @IBOutlet weak var howYouDoingLabel: UILabel!
     @IBOutlet weak var topBackgroundView: UIView!
     
+    var viewController:EmbedGoalsTableViewController? = nil
+//    var isLastMonth: Int = -1
+//    func setIsLastMonth(isLastMonth: Int){
+//        print(isLastMonth)
+//        self.isLastMonth = isLastMonth
+//        viewController?.isLastMonth = isLastMonth
+//    }
     
     let circlePath = UIBezierPath(arcCenter: CGPoint(x: 18,y: 18), radius: CGFloat(18), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
     
@@ -16,6 +23,10 @@ class GoalsViewController: UIViewController {
     
     let date = Date()
     let formatter = DateFormatter()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        viewController = segue.destination as? EmbedGoalsTableViewController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,21 +35,11 @@ class GoalsViewController: UIViewController {
         formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
         
-        
-        
-        setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 31)
-        setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 10)
-        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 1200)
-        setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: 30000)
-        
-        
-        
-        //currentGoalStatList 받아오기
-        //isEnabled 모두 호출
-        //배열에 표시할 항목 정하고 current/goal_... 연산
-        //바 길이 설정
-        //바 길이 0.8 이상이면 노란색 -> 설정하면서 dangerLevel 세팅
-        //바 길이 1 이상이면 빨간색 -> 설정하면서 dangerLevel 세팅
+        //test value
+        setDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
+        setStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
+        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
+        setCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
     }
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground
@@ -58,20 +59,12 @@ class GoalsViewController: UIViewController {
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
         
-        setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 31)
-        setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 10)
-        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: 1200)
-        setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: 30000)
         
-        let data1 = Double(getDaysOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getDaysOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
-        let data2 = Double(getStreakOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getStreakOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
-        let data3 = Double(getCurrentExpenseStatus(month: dateToMonthConverter(date: Date()))) / Double(getCurrentExpenseLimit(month: dateToMonthConverter(date: Date()))!)
-        let data4 = Double(getCaloriesOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
-        
-        print(data1)
-        print(data2)
-        print(data3)
-        print(data4)
+        //test value
+        setDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
+        setStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 31)
+        setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
+        setCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!), value: 10000)
         
     }
     override func viewWillDisappear(_ animated: Bool) {

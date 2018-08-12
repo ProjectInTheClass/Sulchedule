@@ -1,6 +1,13 @@
 import UIKit
 
 class EmbedGoalsTableViewController: UITableViewController {
+    
+    var goalValue: [Float] = []
+    var goalLimit: [Int] = []
+    var goalStat: [Int] = []
+    var isEnabled: [Int] = []
+    
+//    var isLastMonth: Int = -1
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
@@ -18,6 +25,47 @@ class EmbedGoalsTableViewController: UITableViewController {
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        
+        goalValue = []
+        goalLimit = []
+        goalStat = []
+        isEnabled = []
+        
+        for i in 0...3{
+            switch i {
+            case 0 :
+                if(isDaysOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+                    isEnabled.append(i)
+                    goalStat.append(getDaysOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
+                    goalLimit.append(getDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                    goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
+                }
+            case 1 :
+                if(isStreakOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+                    isEnabled.append(i)
+                    goalStat.append(getStreakOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
+                    goalLimit.append(getStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                    goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
+                }
+            case 2 :
+                if(isCurrentExpenseEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+                    isEnabled.append(i)
+                    goalStat.append(getCurrentExpenseStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
+                    goalLimit.append(getCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                    goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
+                }
+            case 3 :
+                if(isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+                    isEnabled.append(i)
+                    goalStat.append(getCaloriesOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
+                    goalLimit.append(getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                    goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
+                }
+            default :
+                print("wtf")
+            }
+        }
+        backgroundView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -29,7 +77,7 @@ class EmbedGoalsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return isEnabled.count
     }
 
     
@@ -40,9 +88,31 @@ class EmbedGoalsTableViewController: UITableViewController {
             return cell
         }
         
-        customCell.leftTitleLabel.text = "Dummy Data"
-        customCell.leftValueLabel.text = "100000원"
-        customCell.rightValueLabel.text = String(110000)
+        switch (isEnabled[indexPath.row]){
+        case 0:
+            customCell.leftTitleLabel.text = "음주 일수"
+            customCell.leftValueLabel.text = "\(String(goalStat[indexPath.row]))일"
+            customCell.rightValueLabel.text = String(goalLimit[indexPath.row])
+            customCell.setGraphValue(value: goalValue[indexPath.row])
+        case 1:
+            customCell.leftTitleLabel.text = "연이어 음주한 일수"
+            customCell.leftValueLabel.text = "\(String(goalStat[indexPath.row]))일"
+            customCell.rightValueLabel.text = String(goalLimit[indexPath.row])
+            customCell.setGraphValue(value: goalValue[indexPath.row])
+        case 2:
+            customCell.leftTitleLabel.text = "총 지출액"
+            customCell.leftValueLabel.text = "\(String(goalStat[indexPath.row]))원"
+            customCell.rightValueLabel.text = String(goalLimit[indexPath.row])
+            customCell.setGraphValue(value: goalValue[indexPath.row])
+        case 3:
+            customCell.leftTitleLabel.text = "총 열량"
+            customCell.leftValueLabel.text = "\(String(goalStat[indexPath.row]))kcal"
+            customCell.rightValueLabel.text = String(goalLimit[indexPath.row])
+            customCell.setGraphValue(value: goalValue[indexPath.row])
+        default:
+            print("wtf")
+            
+        }
         
         if(isBrightTheme){
             customCell.leftValueLabel.textColor = .black
@@ -112,28 +182,32 @@ class EmbedGoalsTableCell: UITableViewCell {
     
     @IBOutlet weak var graphWidth: NSLayoutConstraint!
     @IBOutlet weak var actualGraph: UIView!
-    
-    func drawRect(color: String, value: Float)
+    func setGraphValue(value: Float){
+        if(0 <= value && value < 0.7){
+            drawRect(color: colorGreen, value: value)
+            actualGraph.layer.backgroundColor = colorGreen.cgColor
+        }
+        else if(value < 1){
+            drawRect(color: colorYellow, value: value)
+            actualGraph.layer.backgroundColor = colorYellow.cgColor
+        }
+        else{
+            drawRect(color: colorGreen, value: 1)
+            actualGraph.layer.backgroundColor = colorRed.cgColor
+        }
+    }
+
+    func drawRect(color: UIColor, value: Float)
     {
         bgGraph.layer.cornerRadius = bgGraph.bounds.height/2
         actualGraph.layer.cornerRadius = bgGraph.bounds.height/2
         bgGraph.layer.backgroundColor = colorLightBackground.cgColor
+        actualGraph.layer.backgroundColor = color.cgColor
         graphWidth.constant = CGFloat(value * Float(bgGraph.bounds.width))
-        if(color == "green"){
-            actualGraph.layer.backgroundColor = colorGreen.cgColor
-        }
-        else if(color == "yellow"){
-            actualGraph.layer.backgroundColor = colorYellow.cgColor
-        }
-        else{
-            actualGraph.layer.backgroundColor = colorRed.cgColor
-        }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        drawRect(color: "red", value: 0.55)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
