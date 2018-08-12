@@ -84,6 +84,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var moreInfoInput: UIView!
     @IBOutlet weak var topInfoLabel: UILabel!
     
+    fileprivate let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     var scope: FSCalendarScope = .week
     var upFlag = false
@@ -199,11 +204,19 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return panGesture
     }()
     
+    var testDay = [Day(year: 2018, month: 8, day: 15),Day(year: 2018, month: 8, day: 16)]
+//        getAllDrunkDays()
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         if(userData.isThemeBright){
             return .black
         }
         else{
+            for item in testDay {
+                if(item.year == dateToDayConverter(date: date).year && item.month == dateToDayConverter(date: date).month && item.day == dateToDayConverter(date: date).day){
+                    return .black
+                }
+            }
             return .white
         }
     }
@@ -217,6 +230,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         return colorPoint
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        for item in testDay {
+            if(item.year == dateToDayConverter(date: date).year && item.month == dateToDayConverter(date: date).month && item.day == dateToDayConverter(date: date).day){
+                return colorRed
+            }
+        }
+        return nil
     }
 
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
