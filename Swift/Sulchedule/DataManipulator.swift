@@ -1060,33 +1060,38 @@ func addUserSul(newSul : Sul) -> Bool{
         return true
     }
     else {
-        for i in 0...userData.newSul.count - 1 {
+        var flag = true
+        for j in 0...userData.newSul.count - 1 {
+            let i = userData.newSul.count - j - 1
             if newSul.displayName == userData.newSul[i].displayName {
                 if userData.newSul[i].enabled {
-                    return false
+                    flag = false
+                    break
                 }
                 else {
-                    userData.newSul.append(newSul)
-                    return true
+                    flag = true
                 }
             }
-            else {
-                userData.newSul.append(newSul)
-                return true
-            }
+        }
+        if(flag){
+            userData.newSul.append(newSul)
+            return true
+        }
+        else{
+            return false
         }
     }
-    return false
 }
 
 
-func getUserSul() ->[Sul]{
-    var userSul:[Sul] = []
+func getUserSul() ->[Int:Sul]{
+    var userSul: [Int:Sul] = [:]
+    //[actual index:Sul
 
     if userData.newSul.count != 0 {
         for i in 0...userData.newSul.count - 1{
             if userData.newSul[i].enabled == true {
-                userSul.append(userData.newSul[i])
+                userSul[i] = userData.newSul[i]
                 }
             }
         }

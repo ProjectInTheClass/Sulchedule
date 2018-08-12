@@ -16,13 +16,30 @@ extension UITableView {
 
 class EmbedAddSulTableViewController: UITableViewController {
     
-    var i = 0
-    var matchingPairs: [Int: Int] = [:]
+    var sulArray: [Sul] = []
+    var actualIndexArray: [Int] = []
+    var hook: [Sul] = []
+    
     func reload(){
-        i = 0
-        matchingPairs = [:]
         backgroundView.reloadData()
         backgroundView.scrollToBottom()
+    }
+    func loadArray(){
+        hook = userData.newSul
+        
+        sulArray = []
+        actualIndexArray = []
+        let currentDictionary: [Int: Sul] = getUserSul()
+        var cnt = 0
+        var i = -1
+        while(cnt < getUserSul().count){
+            i += 1
+            if(currentDictionary[i] != nil){
+                sulArray.append(currentDictionary[i]!)
+                actualIndexArray.append(i)
+                cnt += 1
+            }
+        }
     }
 
     @IBOutlet var backgroundView: UITableView!
@@ -43,6 +60,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
+        loadArray()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,20 +81,11 @@ class EmbedAddSulTableViewController: UITableViewController {
             return cell
         }
         
-        while(true){
-            if userData.newSul[i].enabled {
-                customCell.titleLabel.text = userData.newSul[i].displayName
-                customCell.valueLabel.text = "\(userData.newSul[i].basePrice)\(userData.newSul[i].unit), \(userData.newSul[i].baseCalorie)kcal"
-                matchingPairsㅋ([i:indexPath.row])
-                i += 1
-                break
-            }
-            i += 1
-        }
-//        customCell.titleLabel.text = (getUserSul())[indexPath.row].displayName
-//        customCell.valueLabel.text = "\((getUserSul())[indexPath.row].basePrice)\((getUserSul())[indexPath.row].unit), \((getUserSul())[indexPath.row].baseCalorie)kcal"
-        customCell.backgroundColor = colorLightBackground
+        customCell.titleLabel.text = sulArray[indexPath.row].displayName
+        customCell.valueLabel.text = "\(sulArray[indexPath.row].unit)당 \(sulArray[indexPath.row].basePrice)원, \(sulArray[indexPath.row].baseCalorie)kcal"
         
+        
+        customCell.backgroundColor = colorLightBackground
         if(isBrightTheme){
             customCell.valueLabel.textColor = .gray
             customCell.titleLabel.textColor = .black
@@ -85,14 +94,12 @@ class EmbedAddSulTableViewController: UITableViewController {
             customCell.valueLabel.textColor = colorGray
             customCell.titleLabel.textColor = .white
         }
-        
 //        for view in customCell.subviews {
 //            if(view.description.lowercased().contains("reorder")){
 //                print(view)
 //                view.superview?.backgroundColor = colorLightBackground
 //            }
 //        }
-        
         return customCell
     }
  
@@ -115,11 +122,10 @@ class EmbedAddSulTableViewController: UITableViewController {
 //            해당 인덱스에 대한 모든 날의 기록을 삭제하는 메소드가 필요!
 //            removeSulFromEveryRecordDay(index: indexPath.row + originalSulCount - 1)
             
-            setSulDisabled(index: i)
+            setSulDisabled(index: actualIndexArray[indexPath.row])
             
-            print(getUserSul().count)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            backgroundView.reloadData()
+            loadArray()
         }
     }
  

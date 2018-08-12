@@ -111,6 +111,7 @@
 		35650612211FDAF200412E25 /* yellowTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTeaser.png; sourceTree = "<group>"; };
 		35650613211FDAF200412E25 /* greenTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenTeaser.png; sourceTree = "<group>"; };
 		35650614211FDAF400412E25 /* redTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redTeaser.png; sourceTree = "<group>"; };
+		3565061921200FAE00412E25 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = ../../MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		356C2649211BE87100678280 /* MoreInfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoInputViewController.swift; sourceTree = "<group>"; };
 		3595EFC92115E9D100F20009 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +276,7 @@
 		EE09549E1B97DDE0007F6964 = {
 			isa = PBXGroup;
 			children = (
+				3565061921200FAE00412E25 /* MyPlayground.playground */,
 				30F4C9171E07C3AD00D2EC4D /* FSCalendar */,
 				EE0954A91B97DDE0007F6964 /* Sulchedule */,
 				F9CB483E1E406A9200C92065 /* SulcheduleUITests */,

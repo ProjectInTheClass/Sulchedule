@@ -68,6 +68,11 @@ class GoalsViewController: UIViewController {
         let data3 = Double(getCurrentExpenseStatus(month: dateToMonthConverter(date: Date()))) / Double(getCurrentExpenseLimit(month: dateToMonthConverter(date: Date()))!)
         let data4 = Double(getCaloriesOfMonthStatus(month: dateToMonthConverter(date: Date()))) / Double(getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
         
+        print(data1)
+        print(data2)
+        print(data3)
+        print(data4)
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)

@@ -18,14 +18,17 @@ class AddSulViewController: UIViewController {
             if(!addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))){
                 print("cannot add new sul")
             }
+            else{
+                vc?.loadArray()
+                vc?.reload()
+            }
             
             nameField.text = ""
             calorieField.text = ""
             unitField.text = ""
             priceField.text = ""
-            
-            vc?.reload()
             dismissKeyboard()
+            
             
             nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
