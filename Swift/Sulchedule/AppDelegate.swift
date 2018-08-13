@@ -18,6 +18,8 @@ import UIKit
         loadRecordMonthList()
         loadUserData()
         
+        sul.append(contentsOf: userData.newSul)
+        
         if(userData.isThemeBright){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")

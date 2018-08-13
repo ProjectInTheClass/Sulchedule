@@ -14,13 +14,13 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
     func starManipulate(_ sender: TodayAdditionalTableViewCell, bool: Bool) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
-        setFavouriteSul(index: index, set: bool)
+        setFavouriteSul(index: actualIndexArray[index], set: bool)
     }
     
     func tableManipulate(_ sender: TodayAdditionalTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
-        setRecordDayForSul(day: selectedDay, index: index, bottles: Int(sender.bottleStepper.value))
+        setRecordDayForSul(day: selectedDay, index: actualIndexArray[index], bottles: Int(sender.bottleStepper.value))
     }
     
     var actualIndexArray: [Int] = []

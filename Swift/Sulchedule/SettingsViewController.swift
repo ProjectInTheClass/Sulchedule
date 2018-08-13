@@ -52,6 +52,9 @@ class SettingsViewController: UIViewController {
         let alertController = UIAlertController(title: "모든 정보 삭제", message: "음주 기록, 설정을 포함한 모든 정보가 초기화됩니다. 계속하시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
         let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             resetApp()
+            currentGoalStatusList = []
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showToday"), object: nil)
+            self.tabBarController?.selectedIndex = 0
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: true, completion: nil)

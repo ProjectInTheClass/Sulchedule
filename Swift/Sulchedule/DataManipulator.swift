@@ -493,7 +493,7 @@ func getRecordMonthExpense(month: Day) -> Int?{
     let count = recordDayList.count - 1
     
     var thisMonth:[Int] = []
-    
+
     for i in 0...count {
         if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
             if recordDayList[i].customExpense == nil {
@@ -508,6 +508,7 @@ func getRecordMonthExpense(month: Day) -> Int?{
             }
         }
     }
+
     let sum = thisMonth.reduce(0, {x, y in x+y})
     return sum
 }
@@ -518,7 +519,7 @@ func getRecordMonthCalorie(month: Day) -> Int?{
     let count = recordDayList.count - 1
     
     var thisMonth:[Int] = []
-    
+
     for i in 0...count {
         if recordDayList[i].today.year == month.year, recordDayList[i].today.month == month.month {
             // force unwrapping을 하긴 햇는데 불안함.
@@ -1083,11 +1084,11 @@ func addUserSul(newSul : Sul) -> Bool{
 
 func getUserSulDictionary() ->[Int:Sul]{
     var userSul: [Int:Sul] = [:]
-    //[actual index:Sul
+    //[actual index:Sul]
 
     if userData.newSul.count != 0 {
         for i in 0...userData.newSul.count - 1{
-            if userData.newSul[i].enabled == true {
+            if userData.newSul[i].enabled {
                 userSul[i] = userData.newSul[i]
                 }
             }
@@ -1104,7 +1105,6 @@ func setFavouriteSul(index: Int, set: Bool){
     if(set){
         userData.favorites.append(index)
     }
-    userData.favorites.reverse()
 }
 
 func setSulDisabled(index : Int){

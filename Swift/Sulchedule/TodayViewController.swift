@@ -12,6 +12,11 @@ protocol TodayTableDelegate {
 }
 
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, TodayTableDelegate {
+    @objc func showToday(_ notification: Notification) {
+        newDaySelected(date: Date())
+        self.calendar.select(Date())
+    }
+    
     func tableManipulate(_ sender: TodayTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
@@ -19,6 +24,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         setTopInfoLabelString()
         setBottomInfoLabelString()
     }
+    
+    
     
     var actualIndexArray: [Int] = []
     var sulArray: [Sul] = []
@@ -57,7 +64,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
         tempFavourite = Array(Set(tempFavourite).subtracting(getFavouriteSulIndex()))
-        tempFavourite.insert(contentsOf: getFavouriteSulIndex().reversed(), at: 0)
+        tempFavourite.insert(contentsOf: getFavouriteSulIndex(), at: 0)
     }
     
     @IBOutlet weak var loadAdditionalView: UIView!
@@ -103,6 +110,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             setFirstLaunchFalse()
         }
         self.calendar.select(Date())
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showToday(_:)), name: Notification.Name(rawValue: "showToday"), object: nil)
         
         self.view.addGestureRecognizer(self.scopeGesture)
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)

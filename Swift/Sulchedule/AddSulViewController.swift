@@ -113,7 +113,6 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         self.hideKeyboardWhenTappedAround()
-        print(self)
         
         nameField.delegate = self
         calorieField.delegate = self
