@@ -78,11 +78,11 @@ class SettingsViewController: UIViewController {
         }
         if(deviceCategory != 0){
             if(userData.isVibrationEnabled){
-                vibLabel.text = "햅틱 켜짐"
+                vibLabel.text = "진동 켜짐"
                 self.vibrationImageView.image = self.vibOn
             }
             else{
-                vibLabel.text = "햅틱 꺼짐"
+                vibLabel.text = "진동 꺼짐"
                 self.vibrationImageView.image = self.vibOff
             }
         }
@@ -241,11 +241,11 @@ class SettingsViewController: UIViewController {
         }
         if(deviceCategory != 0){
             if(userData.isVibrationEnabled){
-                vibLabel.text = "햅틱 켜짐"
+                vibLabel.text = "진동 켜짐"
                 self.vibrationImageView.image = self.vibOn
             }
             else{
-                vibLabel.text = "햅틱 꺼짐"
+                vibLabel.text = "진동 꺼짐"
                 self.vibrationImageView.image = self.vibOff
             }
         }
@@ -266,11 +266,11 @@ class SettingsViewController: UIViewController {
         if(deviceCategory != 0){
             if(userData.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibTryAgain)
-                vibLabel.text = "햅틱 켜짐"
+                vibLabel.text = "진동 켜짐"
                 self.vibrationImageView.image = self.vibOn
             }
             else{
-                vibLabel.text = "햅틱 꺼짐"
+                vibLabel.text = "진동 꺼짐"
                 self.vibrationImageView.image = self.vibOff
             }
         }

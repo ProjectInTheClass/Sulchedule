@@ -109,6 +109,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
         
+        setFavouriteSul(index: 0, set: true)
+        setFavouriteSul(index: 2, set: true)
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "h"
         if(Int(formatter.string(from: Date()))! < 12) { //getShowYesterdayFirst 추가
@@ -200,24 +203,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         panGesture.maximumNumberOfTouches = 2
         return panGesture
     }()
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        if(isShowDrunkDaysEnabled()){
-            let temp = dateToDayConverter(date: date)
-            for item in getAllDrunkDays() {
-                if(item.year == temp.year && item.month == temp.month && item.day == temp.day){
-                    return 1
-                }
-            }
-            return 0
-        }
-        return 0
-    }
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return [colorRed]
-    }
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return [colorLightBackground]
-    }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         if(userData.isThemeBright){
@@ -239,20 +224,20 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return colorPoint
     }
     
-//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-//        if(isShowDrunkDaysEnabled()){
-//            let temp = dateToDayConverter(date: date)
-//            for item in getAllDrunkDays() {
-//                if(item.year == temp.year && item.month == temp.month && item.day == temp.day){
-//                    return colorRed
-//                }
-//            }
-//            return nil
-//        }
-//        else{
-//            return nil
-//        }
-//    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        if(isShowDrunkDaysEnabled()){
+            let temp = dateToDayConverter(date: date)
+            for item in getAllDrunkDays() {
+                if(item.year == temp.year && item.month == temp.month && item.day == temp.day){
+                    return colorRed
+                }
+            }
+            return nil
+        }
+        else{
+            return nil
+        }
+    }
 
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -378,7 +363,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         selectedDay = dateToDayConverter(date: date)
         
         scope = .week
-        self.calendar.setScope(.week, animated: true)
+        self.calendar.setScope(scope, animated: true)
         
         gotDay = getRecordDay(day: selectedDay)!
         
@@ -386,7 +371,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         setBottomInfoLabelString()
         loadArray()
         tableView.reloadData()
-//        calendar.cell(for: <#T##Date#>, at: <#T##FSCalendarMonthPosition#>).configureAppearance()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
