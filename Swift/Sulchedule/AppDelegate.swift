@@ -14,7 +14,6 @@ import UIKit
 //        addNewRecordDay(newRecordDay: dummyF)
 //        addNewRecordDay(newRecordDay: dummyG)
 //        addNewRecordDay(newRecordDay: dummyH)
-        
         loadRecordDayList()
         loadRecordMonthList()
         loadUserData()

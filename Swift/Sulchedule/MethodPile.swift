@@ -29,6 +29,11 @@ protocol VC2ControlDelegate {
     func sendData(data:Int)
 }
 
+func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return false
+}
+
 //func reloadTabBarColor(){
 //    self.tabBarController?.tabBar.backgroundColor = colorLightBackground
 //    self.tabBarController?.tabBar.tintColor = colorPoint

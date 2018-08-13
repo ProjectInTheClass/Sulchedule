@@ -299,7 +299,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
-        
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -312,9 +311,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let temp = tempFavourite.count
-        
-        return temp
+        return tempFavourite.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -355,6 +352,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func newDaySelected(date: Date){
         if(firstRunForHaptic){
             firstRunForHaptic = false
+            self.calendar.setScope(.week, animated: true)
         }
         else{
             if(userData.isVibrationEnabled){

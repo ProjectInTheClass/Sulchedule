@@ -1,6 +1,6 @@
 import UIKit
 
-class MoreInfoInputViewController: UIViewController {
+class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var expenseField: UITextField!
     @IBOutlet weak var locationField: UITextField!
@@ -80,6 +80,15 @@ class MoreInfoInputViewController: UIViewController {
         
         self.navigationItem.title = "추가 정보 입력"
         self.hideKeyboardWhenTappedAround()
+        
+        expenseField.delegate = self
+        friendsField.delegate = self
+        locationField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -224,11 +233,6 @@ class MoreInfoInputViewController: UIViewController {
                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
     }
     
 

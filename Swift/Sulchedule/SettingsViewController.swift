@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController {
     @IBAction func resetButton(_ sender: UIButton) {
         let alertController = UIAlertController(title: "모든 정보 삭제", message: "음주 기록, 설정을 포함한 모든 정보가 초기화됩니다. 계속하시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
         let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
-            
+            resetApp()
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: true, completion: nil)
@@ -95,6 +95,12 @@ class SettingsViewController: UIViewController {
         }
         else{
             yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
+        }
+        if(isShowDrunkDaysEnabled()){
+            showDrunkButton.setTitle("달력에 음주한 날짜를 표시합니다", for: .normal)
+        }
+        else{
+            showDrunkButton.setTitle("달력에서 음주한 날짜를 숨깁니다", for: .normal)
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -159,6 +165,7 @@ class SettingsViewController: UIViewController {
         self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
         self.applyShadow(view: self.addSulContainer, enable: userData.isThemeBright)
         self.applyShadow(view: self.themeContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.showDrunkContainer, enable: userData.isThemeBright)
         if(userData.isVibrationEnabled){
             self.applyShadow(view: self.vibContainer, enable: userData.isThemeBright)
         }

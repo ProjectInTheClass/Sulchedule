@@ -1,6 +1,6 @@
 import UIKit
 
-class AddSulViewController: UIViewController {
+class AddSulViewController: UIViewController, UITextFieldDelegate {
     
     var vc: EmbedAddSulTableViewController?
 
@@ -114,7 +114,18 @@ class AddSulViewController: UIViewController {
 
         self.hideKeyboardWhenTappedAround()
         print(self)
+        
+        nameField.delegate = self
+        calorieField.delegate = self
+        unitField.delegate = self
+        priceField.delegate = self
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
     
         tableDescriptionLabel.backgroundColor = colorLightBackground
