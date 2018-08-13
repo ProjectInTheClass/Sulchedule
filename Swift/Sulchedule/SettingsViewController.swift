@@ -18,6 +18,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var yesterdayButton: UIButton!
     @IBOutlet weak var yesterdayContainer: UIView!
+    @IBOutlet weak var showDrunkButton: UIButton!
+    @IBOutlet weak var showDrunkContainer: UIView!
     
     var vibOn: UIImage?
     var vibOff: UIImage?
@@ -26,14 +28,21 @@ class SettingsViewController: UIViewController {
 //    var isVibrationEnabled = true
 //    var isThemeBright = false
     
+    @IBAction func showDrunkButton(_ sender: UIButton) {
+        setIsShowDrunkDays(enabled: !isShowDrunkDaysEnabled())
+        if(isShowDrunkDaysEnabled()){
+            showDrunkButton.setTitle("달력에 음주한 날짜를 표시합니다", for: .normal)
+        }
+        else{
+            showDrunkButton.setTitle("달력에서 음주한 날짜를 숨깁니다", for: .normal)
+        }
+    }
     @IBAction func yesterdayButton(_ sender: UIButton) {
         setShowYesterdayFirst(yesterday: !getShowYesterdayFirst())
         if(getShowYesterdayFirst()){
-            userData.showYesterdayFirst = true
             yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
         }
         else{
-            userData.showYesterdayFirst = false
             yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
         }
     }
@@ -86,9 +95,11 @@ class SettingsViewController: UIViewController {
         resetButton.tintColor = colorRed
         addSulButton.tintColor = colorPoint
         yesterdayButton.tintColor = colorPoint
+        showDrunkButton.tintColor = colorPoint
         resetButton.setTitleColor(colorRed, for: .normal)
         addSulButton.setTitleColor(colorPoint, for: .normal)
         yesterdayButton.setTitleColor(colorPoint, for: .normal)
+        showDrunkButton.setTitleColor(colorPoint, for: .normal)
         
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
@@ -104,6 +115,7 @@ class SettingsViewController: UIViewController {
             self.addSulContainer.backgroundColor = colorDeepBackground
             self.resetContainer.backgroundColor = colorDeepBackground
             self.yesterdayContainer.backgroundColor = colorDeepBackground
+            self.showDrunkContainer.backgroundColor = colorDeepBackground
         }
         else{
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
@@ -116,6 +128,7 @@ class SettingsViewController: UIViewController {
             self.addSulContainer.backgroundColor = colorLightBackground
             self.resetContainer.backgroundColor = colorLightBackground
             self.yesterdayContainer.backgroundColor = colorLightBackground
+            self.showDrunkContainer.backgroundColor = colorLightBackground
         }
         self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
         self.applyShadow(view: self.addSulContainer, enable: userData.isThemeBright)
@@ -150,6 +163,7 @@ class SettingsViewController: UIViewController {
                 self.addSulContainer.backgroundColor = colorDeepBackground
                 self.resetContainer.backgroundColor = colorDeepBackground
                 self.yesterdayContainer.backgroundColor = colorDeepBackground
+                self.showDrunkContainer.backgroundColor = colorDeepBackground
             }
             else{
                 colorPoint = hexStringToUIColor(hex:"FFDC67")
@@ -162,6 +176,7 @@ class SettingsViewController: UIViewController {
                 self.addSulContainer.backgroundColor = colorLightBackground
                 self.resetContainer.backgroundColor = colorLightBackground
                 self.yesterdayContainer.backgroundColor = colorLightBackground
+                self.showDrunkContainer.backgroundColor = colorLightBackground
             }
             
             self.themeLabel.textColor = colorPoint
@@ -169,6 +184,7 @@ class SettingsViewController: UIViewController {
             self.resetButton.setTitleColor(colorRed, for: .normal)
             self.addSulButton.setTitleColor(colorPoint, for: .normal)
             self.yesterdayButton.setTitleColor(colorPoint, for: .normal)
+            self.showDrunkButton.setTitleColor(colorPoint, for: .normal)
             
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground
