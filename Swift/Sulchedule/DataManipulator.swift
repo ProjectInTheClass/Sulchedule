@@ -947,9 +947,7 @@ func isDaysOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.daysOfMonth == nil {
         return false
     } else {
-        var monthEnabled = getRecordMonth(month: month)?.isDaysOfMonthEnabled
-        monthEnabled = true
-        return true
+        return monthEnabled = (getRecordMonth(month: month)?.isDaysOfMonthEnabled)!
     }
 }
 
@@ -960,9 +958,7 @@ func isStreakOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.streakOfMonth == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(month: month)?.isStreakOfMonthEnabled
-        monthEnabled = true
-        return true
+        return (getRecordMonth(month: month)?.isStreakOfMonthEnabled)!
     }
 }
 
@@ -973,9 +969,8 @@ func isCaloriesOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.caloriesOfMonth == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(month: month)?.isCaloriesOfMonthEnabled
-        monthEnabled = true
-        return true
+        return (getRecordMonth(month: month)?.isCaloriesOfMonthEnabled)!
+        
     }
 }
 
@@ -986,9 +981,7 @@ func isCurrentExpenseEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.currentExpense == nil {
         return false
     } else {
-        var monthEnabled =  getRecordMonth(month: month)?.isCurrentExpenseEnabled
-        monthEnabled = true
-        return true
+        return (getRecordMonth(month: month)?.isCurrentExpenseEnabled)!
     }
 }
 
