@@ -130,11 +130,41 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         customCell.delegate = self
         customCell.uiSwitch.setOn(goals[indexPath.row].checked, animated: false)
         customCell.editField.text = String(goals[indexPath.row].value)
-        if(goals[indexPath.row].value != 0){
-            customCell.editField.text = String(goals[indexPath.row].value)
+
+        
+        let numDays = Calendar.current.range(of: .day, in: .month, for: Date())!.count
+        let month = Calendar.current.component(.month, from: Date())
+        
+        if(goals[indexPath.row].value == 0){
+            customCell.editField.text = ""
+        }
+        else if((indexPath.row == 0 || indexPath.row == 1) && goals[indexPath.row].value > numDays){
+            let alertController = UIAlertController(title: "며칠이요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                customCell.editField.text = String(numDays)
+            }
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
         }
         else{
-            customCell.editField.text = ""
+            customCell.editField.text = String(goals[indexPath.row].value)
+            customCell.uiSwitch.setOn(true, animated: true)
+            switch indexPath.row {
+            case 0:
+                setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
+                setDaysOfMonthEnabled(enabled: true)
+            case 1:
+                setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
+                setStreakOfMonthEnabled(enabled: true)
+            case 2:
+                setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
+                setCurrentExpenseEnabled(enabled: true)
+            case 3:
+                setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
+                setCaloriesOfMonthEnabled(enabled: true)
+            default:
+                print("wtf")
+            }
         }
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.tintColor = colorDeepBackground

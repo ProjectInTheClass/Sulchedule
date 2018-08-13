@@ -119,9 +119,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h"
-        if(Int(formatter.string(from: Date()))! < 12) { //getShowYesterdayFirst 추가
+        if(Calendar.current.component(.hour, from: Date()) < 12 && getShowYesterdayFirst()) {
             newDaySelected(date: Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)
             gotDay = getRecordDay(day: selectedDay)
             calendar.select(Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)
