@@ -1171,12 +1171,10 @@ func setIsShowDrunkDays(enabled: Bool){
 func getAllDrunkDays() -> [Day] {
     var getAllDrunkDaysArray:[Day] = []
     
-    let recordDayListCount = recordDayList.count - 1
-    print(recordDayList)
-    print(recordDayList[0].today.day)
-    
-    for i in 0...recordDayListCount  {
-        getAllDrunkDaysArray += [recordDayList[i].today]
+    if(recordDayList.count != 0){
+        for i in 0...recordDayList.count - 1  {
+            getAllDrunkDaysArray += [recordDayList[i].today]
+        }
     }
     return getAllDrunkDaysArray
 }

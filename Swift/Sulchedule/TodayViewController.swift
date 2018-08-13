@@ -204,9 +204,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return panGesture
     }()
     
-    var testDay = [Day(year: 2018, month: 8, day: 15),Day(year: 2018, month: 8, day: 16)]
-//        getAllDrunkDays()
-    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         if(userData.isThemeBright){
             return .black
@@ -230,7 +227,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         if(isShowDrunkDaysEnabled()){
             let temp = dateToDayConverter(date: date)
-            for item in testDay {
+            for item in getAllDrunkDays() {
                 if(item.year == temp.year && item.month == temp.month && item.day == temp.day){
                     return colorRed
                 }
