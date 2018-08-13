@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Day {
+class Day : NSObject, NSCoding {
     var year: Int
     var month: Int
     var day: Int?
@@ -14,9 +14,33 @@ class Day {
             self.day = date
         }
     }
+    
+    public func encode(with aCoder:NSCoder) {
+        aCoder.encode(self.year, forKey: "year")
+        aCoder.encode(self.month, forKey: "month")
+        aCoder.encode(self.day, forKey: "day")
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        if let year = aDecoder.decodeObject(forKey: "year") as? Int{
+            self.year = year
+        } else {
+            self.year = 0
+        }
+        if let month = aDecoder.decodeObject(forKey: "month") as? Int{
+            self.month = month
+        } else {
+            self.month = 0
+        }
+        if let day = aDecoder.decodeObject(forKey: "friends") as? Int{
+            self.day = day
+        } else {
+            self.day = 0
+        }
+    }
 }
 
-class RecordDay {
+class RecordDay : NSObject, NSCoding {
     var today: Day
     
     var location: [String]?
@@ -48,11 +72,64 @@ class RecordDay {
         if let dri = drinks {
             self.drinks = dri
         }
-        
+    }
+    
+    public func encode(with aCoder:NSCoder) {
+        aCoder.encode(self.today, forKey: "today")
+        aCoder.encode(self.location, forKey: "location")
+        aCoder.encode(self.friends, forKey: "friends")
+        aCoder.encode(self.expense, forKey: "expense")
+        aCoder.encode(self.customExpense, forKey: "customExpense")
+        aCoder.encode(self.calories, forKey: "calories")
+        aCoder.encode(self.drinks, forKey: "drinks")
+        aCoder.encode(self.firstLaunchToday, forKey: "firstLaunchToday")
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        if let today = aDecoder.decodeObject(forKey: "today") as? Day{
+            self.today = today
+        } else {
+            self.today = Day(year: 0, month: 0, day: nil)
+        }
+        if let location = aDecoder.decodeObject(forKey: "location") as? [String]{
+            self.location = location
+        } else {
+            self.location = []
+        }
+        if let friends = aDecoder.decodeObject(forKey: "friends") as? [String]{
+            self.friends = friends
+        } else {
+            self.friends = []
+        }
+        if let expense = aDecoder.decodeObject(forKey: "expense") as? Int{
+            self.expense = expense
+        } else {
+            self.expense = 0
+        }
+        if let customExpense = aDecoder.decodeObject(forKey: "customExpense") as? Int{
+            self.customExpense = customExpense
+        } else {
+            self.customExpense = 0
+        }
+        if let calories = aDecoder.decodeObject(forKey: "calories") as? Int{
+            self.calories = calories
+        } else {
+            self.calories = 0
+        }
+        if let drinks = aDecoder.decodeObject(forKey: "drinks") as? [Int:Int]{
+            self.drinks = drinks
+        } else {
+            self.drinks = [:]
+        }
+        if let firstLaunchToday = aDecoder.decodeObject(forKey: "firstLaunchToday") as? Bool{
+            self.firstLaunchToday = firstLaunchToday
+        } else {
+            self.firstLaunchToday = false
+        }
     }
 }
 
-class RecordMonth {
+class RecordMonth : NSObject, NSCoding {
     var thisMonth: Day
     var bestLocation: String?
     var bestFriend: String?
@@ -82,9 +159,69 @@ class RecordMonth {
         self.isCurrentExpenseEnabled = isCurrentExpenseEnabled
         self.isCaloriesOfMonthEnabled = isCaloriesOfMonthEnabled
     }
+    
+    public func encode(with aCoder:NSCoder) {
+        aCoder.encode(self.thisMonth, forKey: "thisMonth")
+        aCoder.encode(self.bestLocation, forKey: "bestLocation")
+        aCoder.encode(self.bestFriend, forKey: "bestFriend")
+        aCoder.encode(self.totalExpense, forKey: "totalExpense")
+        aCoder.encode(self.totalCalories, forKey: "totalCalories")
+        aCoder.encode(self.isDaysOfMonthEnabled, forKey: "isDaysOfMonthEnabled")
+        aCoder.encode(self.isStreakOfMonthEnabled, forKey: "isStreakOfMonthEnabled")
+        aCoder.encode(self.isCaloriesOfMonthEnabled, forKey: "isCaloriesOfMonthEnabled")
+        aCoder.encode(self.isCurrentExpenseEnabled, forKey: "isCurrentExpenseEnabled")
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        if let thisMonth = aDecoder.decodeObject(forKey: "today") as? Day{
+            self.thisMonth = thisMonth
+        } else {
+            self.thisMonth = Day(year: 0, month: 0, day: nil)
+        }
+        if let bestLocation = aDecoder.decodeObject(forKey: "location") as? String{
+            self.bestLocation = bestLocation
+        } else {
+            self.bestLocation = " "
+        }
+        if let bestFriend = aDecoder.decodeObject(forKey: "friends") as? String{
+            self.bestFriend = bestFriend
+        } else {
+            self.bestFriend = " "
+        }
+        if let totalExpense = aDecoder.decodeObject(forKey: "expense") as? Int{
+            self.totalExpense = totalExpense
+        } else {
+            self.totalExpense = 0
+        }
+        if let totalCalories = aDecoder.decodeObject(forKey: "customExpense") as? Int{
+            self.totalCalories = totalCalories
+        } else {
+            self.totalCalories = 0
+        }
+        if let isDaysOfMonthEnabled = aDecoder.decodeObject(forKey: "calories") as? Bool{
+            self.isDaysOfMonthEnabled = isDaysOfMonthEnabled
+        } else {
+            self.isDaysOfMonthEnabled = false
+        }
+        if let isStreakOfMonthEnabled = aDecoder.decodeObject(forKey: "drinks") as? Bool{
+            self.isStreakOfMonthEnabled = isStreakOfMonthEnabled
+        } else {
+            self.isStreakOfMonthEnabled = false
+        }
+        if let isCaloriesOfMonthEnabled = aDecoder.decodeObject(forKey: "drinks") as? Bool{
+            self.isCaloriesOfMonthEnabled = isCaloriesOfMonthEnabled
+        } else {
+            self.isCaloriesOfMonthEnabled = false
+        }
+        if let isCurrentExpenseEnabled = aDecoder.decodeObject(forKey: "drinks") as? Bool{
+            self.isCurrentExpenseEnabled = isCurrentExpenseEnabled
+        } else {
+            self.isCurrentExpenseEnabled = false
+        }
+    }
 }
 
-class UserData {
+class UserData : NSObject, NSCoding {
     var dangerLevel: Int? //0:초록, 1:노랑, 2:빨강
     var favorites: [Int] = []
     var succeededLastMonth = false
@@ -123,6 +260,96 @@ class UserData {
             self.goal_TotalExpense = totalExp
         }
     }
+    
+    public func encode(with aCoder:NSCoder) {
+        aCoder.encode(self.dangerLevel, forKey: "dangerLevel")
+        aCoder.encode(self.favorites, forKey: "favorites")
+        aCoder.encode(self.succeededLastMonth, forKey: "succeededLastMonth")
+        aCoder.encode(self.goal_DaysOfMonth, forKey: "goal_DaysOfMonth")
+        aCoder.encode(self.goal_MaxStreakOfMonth, forKey: "goal_MaxStreakOfMonth")
+        aCoder.encode(self.goal_CaloriesOfMonth, forKey: "goal_CaloriesOfMonth")
+        aCoder.encode(self.goal_TotalExpense, forKey: "goal_TotalExpense")
+        aCoder.encode(self.purchased, forKey: "purchased")
+        aCoder.encode(self.newSul, forKey: "newSul")
+        aCoder.encode(self.firstLaunch, forKey: "firstLaunch")
+        aCoder.encode(self.showYesterdayFirst, forKey: "showYesterdayFirst")
+        aCoder.encode(self.isVibrationEnabled, forKey: "isVibrationEnabled")
+        aCoder.encode(self.isThemeBright, forKey: "isThemeBright")
+        aCoder.encode(self.isShowDrunkDaysEnabled, forKey: "isShowDrunkDaysEnabled")
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        if let dangerLevel = aDecoder.decodeObject(forKey: "dangerLevel") as? Int{
+            self.dangerLevel = dangerLevel
+        } else {
+            self.dangerLevel = 0
+        }
+        if let favorites = aDecoder.decodeObject(forKey: "favorites") as? [Int]{
+            self.favorites = favorites
+        } else {
+            self.favorites = []
+        }
+        if let succeededLastMonth = aDecoder.decodeObject(forKey: "succeededLastMonth") as? Bool{
+            self.succeededLastMonth = succeededLastMonth
+        } else {
+            self.succeededLastMonth = false
+        }
+        if let goal_DaysOfMonth = aDecoder.decodeObject(forKey: "goal_DaysOfMonth") as? Int{
+            self.goal_DaysOfMonth = goal_DaysOfMonth
+        } else {
+            self.goal_DaysOfMonth = 0
+        }
+        if let goal_MaxStreakOfMonth = aDecoder.decodeObject(forKey: "goal_MaxStreakOfMonth") as? Int{
+            self.goal_MaxStreakOfMonth = goal_MaxStreakOfMonth
+        } else {
+            self.goal_MaxStreakOfMonth = 0
+        }
+        if let goal_CaloriesOfMonth = aDecoder.decodeObject(forKey: "goal_CaloriesOfMonth") as? Int{
+            self.goal_CaloriesOfMonth = goal_CaloriesOfMonth
+        } else {
+            self.goal_CaloriesOfMonth = 0
+        }
+        if let goal_TotalExpense = aDecoder.decodeObject(forKey: "goal_TotalExpense") as? Int{
+            self.goal_TotalExpense = goal_TotalExpense
+        } else {
+            self.goal_TotalExpense = 0
+        }
+        if let purchased = aDecoder.decodeObject(forKey: "purchased") as? Bool{
+            self.purchased = purchased
+        } else {
+            self.purchased = false
+        }
+        if let newSul = aDecoder.decodeObject(forKey: "newSul") as? [Sul]{
+            self.newSul = newSul
+        } else {
+            self.newSul = []
+        }
+        if let firstLaunch = aDecoder.decodeObject(forKey: "firstLaunch") as? Bool{
+            self.firstLaunch = firstLaunch
+        } else {
+            self.firstLaunch = false
+        }
+        if let showYesterdayFirst = aDecoder.decodeObject(forKey: "showYesterdayFirst") as? Bool{
+            self.showYesterdayFirst = showYesterdayFirst
+        } else {
+            self.showYesterdayFirst = false
+        }
+        if let isVibrationEnabled = aDecoder.decodeObject(forKey: "isVibrationEnabled") as? Bool{
+            self.isVibrationEnabled = isVibrationEnabled
+        } else {
+            self.isVibrationEnabled = false
+        }
+        if let isThemeBright = aDecoder.decodeObject(forKey: "isThemeBright") as? Bool{
+            self.isThemeBright = isThemeBright
+        } else {
+            self.isThemeBright = false
+        }
+        if let isShowDrunkDaysEnabled = aDecoder.decodeObject(forKey: "isShowDrunkDaysEnabled") as? Bool{
+            self.isShowDrunkDaysEnabled = isShowDrunkDaysEnabled
+        } else {
+            self.isShowDrunkDaysEnabled = false
+        }
+    }
 }
 
 class CurrentGoalStatus {
@@ -149,7 +376,7 @@ class CurrentGoalStatus {
     }
 }
 
-class Sul {
+class Sul : NSObject, NSCoding  {
     var displayName: String
     var baseCalorie: Int //단위 당 kcal (예 : 소주 = 300)
     var basePrice: Int
@@ -163,6 +390,48 @@ class Sul {
         self.basePrice = basePrice
         self.colorTag = colorTag
         self.unit = unit
+    }
+    
+    public func encode(with aCoder:NSCoder) {
+        aCoder.encode(self.displayName, forKey: "displayName")
+        aCoder.encode(self.baseCalorie, forKey: "baseCalorie")
+        aCoder.encode(self.basePrice, forKey: "basePrice")
+        aCoder.encode(self.colorTag, forKey: "colorTag")
+        aCoder.encode(self.unit, forKey: "unit")
+        aCoder.encode(self.enabled, forKey: "enabled")
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        if let displayName = aDecoder.decodeObject(forKey: "displayName") as? String{
+            self.displayName = displayName
+        } else {
+            self.displayName = " "
+        }
+        if let baseCalorie = aDecoder.decodeObject(forKey: "baseCalorie") as? Int{
+            self.baseCalorie = baseCalorie
+        } else {
+            self.baseCalorie = 0
+        }
+        if let basePrice = aDecoder.decodeObject(forKey: "basePrice") as? Int{
+            self.basePrice = basePrice
+        } else {
+            self.basePrice = 0
+        }
+        if let colorTag = aDecoder.decodeObject(forKey: "colorTag") as? String{
+            self.colorTag = colorTag
+        } else {
+            self.colorTag = " "
+        }
+        if let unit = aDecoder.decodeObject(forKey: "unit") as? String{
+            self.unit = unit
+        } else {
+            self.unit = " "
+        }
+        if let enabled = aDecoder.decodeObject(forKey: "enabled") as? Bool{
+            self.enabled = enabled
+        } else {
+            self.enabled = false
+        }
     }
 }
 

@@ -1180,3 +1180,60 @@ func getAllDrunkDays() -> [Day] {
     }
     return getAllDrunkDaysArray
 }
+
+
+/////// 아카이빙 함수
+
+func saveRecordDayList() {
+    let filePath = getFilePath(withFileName: "RecordDay.dat")
+    NSKeyedArchiver.archiveRootObject(recordDayList, toFile: filePath)
+}
+
+func saveRecordMonthList() {
+    let filePath = getFilePath(withFileName: "RecordMonth.dat")
+    NSKeyedArchiver.archiveRootObject(recordDayList, toFile: filePath)
+}
+
+func saveUserData() {
+    let filePath = getFilePath(withFileName: "UserData.dat")
+    NSKeyedArchiver.archiveRootObject(recordDayList, toFile: filePath)
+}
+
+func loadRecordDayList() {
+    let filePath = getFilePath(withFileName: "RecordDay.dat")
+    let fileManager = FileManager.default
+    if fileManager.fileExists(atPath: filePath) {
+        if let savedRecordDayList = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? [RecordDay] {
+            recordDayList = savedRecordDayList
+        }
+    }
+}
+
+func loadRecordMonthList() {
+    let filePath = getFilePath(withFileName: "RecordMonth.dat")
+    let fileManager = FileManager.default
+    if fileManager.fileExists(atPath: filePath) {
+        if let savedRecordMonthList = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? [RecordMonth] {
+            recordMonthList = savedRecordMonthList
+        }
+    }
+}
+
+func loadUserData() {
+    let filePath = getFilePath(withFileName: "UserData.dat")
+    let fileManager = FileManager.default
+    if fileManager.fileExists(atPath: filePath) {
+        if let savedUserData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? UserData {
+            userData = savedUserData
+        }
+    }
+}
+
+func getFilePath(withFileName fileName:String) -> String{
+    let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+    
+    let docDir = dirPath[0] as NSString
+    
+    let filePath = docDir.appendingPathComponent(fileName)
+    return filePath
+}
