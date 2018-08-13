@@ -122,7 +122,7 @@ func setRecordDayCustomExpense(day: Day, customExpense: Int?){
  //getFavoriteSul() -> [Int]        [Int](즐겨찾기한 술 인덱스의 배열)    즐겨찾기로 설정된 술 인덱스의 배열을 반환(UserData - favorites)
  */
 // userData 의 초기화 값이 있어야 활성화가 되서
-var userData = UserData(dangerLevel: 0, favorites: [], goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0, purchased: false)
+var userData = UserData(dangerLevel: 0, favorites: [], goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0)
 
 func getFavouriteSulIndex() -> [Int]{
     return userData.favorites

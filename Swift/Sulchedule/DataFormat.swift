@@ -93,7 +93,7 @@ class UserData {
     var goal_MaxStreakOfMonth: Int? //연속으로 마신 날
     var goal_CaloriesOfMonth: Int? //칼로리 목표
     var goal_TotalExpense: Int? //총 지출액
-    var purchased: Bool
+    var purchased = false
     var newSul: [Sul] = []
     var firstLaunch: Bool = true
     var showYesterdayFirst = true
@@ -102,7 +102,7 @@ class UserData {
     var isShowDrunkDaysEnabled = true
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
-    init(dangerLevel : Int?, favorites: [Int]?,  goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?, purchased: Bool) {
+    init(dangerLevel : Int?, favorites: [Int]?,  goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?) {
         if let dangerLev = dangerLevel {
             self.dangerLevel = dangerLev
         }
@@ -122,7 +122,6 @@ class UserData {
         if let totalExp = totalExpense {
             self.goal_TotalExpense = totalExp
         }
-        self.purchased = purchased
     }
 }
 

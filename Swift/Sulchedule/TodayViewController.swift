@@ -237,6 +237,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             return nil
         }
+        else{
+            return nil
+        }
     }
 
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
