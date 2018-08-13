@@ -947,7 +947,7 @@ func isDaysOfMonthEnabled(month: Day) -> Bool {
     if getCurrentGoalStatusList(month: month)?.daysOfMonth == nil {
         return false
     } else {
-        return monthEnabled = (getRecordMonth(month: month)?.isDaysOfMonthEnabled)!
+        return (getRecordMonth(month: month)?.isDaysOfMonthEnabled)!
     }
 }
 
