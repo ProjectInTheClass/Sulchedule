@@ -1237,3 +1237,9 @@ func getFilePath(withFileName fileName:String) -> String{
     let filePath = docDir.appendingPathComponent(fileName)
     return filePath
 }
+
+func resetApp(){
+    recordDayList.removeAll()
+    recordMonthList.removeAll()
+    userData = UserData(dangerLevel: 0, favorites: [], goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0)
+}
