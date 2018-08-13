@@ -1191,12 +1191,12 @@ func saveRecordDayList() {
 
 func saveRecordMonthList() {
     let filePath = getFilePath(withFileName: "RecordMonth.dat")
-    NSKeyedArchiver.archiveRootObject(recordDayList, toFile: filePath)
+    NSKeyedArchiver.archiveRootObject(recordMonthList, toFile: filePath)
 }
 
 func saveUserData() {
     let filePath = getFilePath(withFileName: "UserData.dat")
-    NSKeyedArchiver.archiveRootObject(recordDayList, toFile: filePath)
+    NSKeyedArchiver.archiveRootObject(userData, toFile: filePath)
 }
 
 func loadRecordDayList() {
