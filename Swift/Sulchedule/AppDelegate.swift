@@ -55,11 +55,7 @@ import UIKit
         UINavigationBar.appearance().backgroundColor = colorLightBackground
         UITabBar.appearance().tintColor = colorPoint
         UITabBar.appearance().barTintColor = colorLightBackground
-        
-            UINavigationBar.appearance().titleTextAttributes = [
-                NSAttributedStringKey.font: UIFont(name: "Helvetica Neue", size: 17)!,
-                NSAttributedStringKey.foregroundColor: UIColor.white
-        ]
+
         
         
         UITabBar.appearance().layer.borderWidth = 0.10

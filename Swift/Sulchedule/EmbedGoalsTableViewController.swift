@@ -8,10 +8,6 @@ class EmbedGoalsTableViewController: UITableViewController {
     var goalLimit: [Int] = []
     var goalStat: [Int] = []
     var isEnabled: [Int] = []
-    
-    
-    
-//    var isLastMonth: Int = -1
 
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
@@ -20,7 +16,6 @@ class EmbedGoalsTableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         backgroundView.backgroundColor = colorDeepBackground
-        backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         if(userData.isThemeBright){
@@ -30,48 +25,51 @@ class EmbedGoalsTableViewController: UITableViewController {
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
         
+        let k = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         goalValue = []
         goalLimit = []
         goalStat = []
         isEnabled = []
-        if(isDaysOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+        if(isDaysOfMonthEnabled(month: k)){
             isEnabled.append(0)
         }
-        if(isStreakOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+        if(isStreakOfMonthEnabled(month: k)){
             isEnabled.append(1)
         }
-        if(isCurrentExpenseEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+        if(isCurrentExpenseEnabled(month: k)){
             isEnabled.append(2)
         }
-        if(isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+        if(isCaloriesOfMonthEnabled(month: k)){
             isEnabled.append(3)
         }
         
         var i = 0
         for item in isEnabled{
+            let k = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
+            print(isLastMonth)
             switch item {
             case 0 :
-                if(isDaysOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    goalStat.append(getDaysOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
-                    goalLimit.append(getDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                if(isDaysOfMonthEnabled(month: k)){
+                    goalStat.append(getDaysOfMonthStatus(month: k))
+                    goalLimit.append(getDaysOfMonthLimit(month: k)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 1 :
-                if(isStreakOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    goalStat.append(getStreakOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
-                    goalLimit.append(getStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                if(isStreakOfMonthEnabled(month: k)){
+                    goalStat.append(getStreakOfMonthStatus(month: k))
+                    goalLimit.append(getStreakOfMonthLimit(month: k)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 2 :
-                if(isCurrentExpenseEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    goalStat.append(getCurrentExpenseStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
-                    goalLimit.append(getCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                if(isCurrentExpenseEnabled(month: k)){
+                    goalStat.append(getCurrentExpenseStatus(month: k))
+                    goalLimit.append(getCurrentExpenseLimit(month: k)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 3 :
-                if(isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    goalStat.append(getCaloriesOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
-                    goalLimit.append(getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
+                if(isCaloriesOfMonthEnabled(month: k)){
+                    goalStat.append(getCaloriesOfMonthStatus(month: k))
+                    goalLimit.append(getCaloriesOfMonthLimit(month: k)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             default :

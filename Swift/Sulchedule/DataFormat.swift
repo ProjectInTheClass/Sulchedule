@@ -302,22 +302,22 @@ class UserData : NSObject, NSCoding {
         if let goal_DaysOfMonth = aDecoder.decodeObject(forKey: "goal_DaysOfMonth") as? Int{
             self.goal_DaysOfMonth = goal_DaysOfMonth
         } else {
-            self.goal_DaysOfMonth = 0
+            self.goal_DaysOfMonth = 8
         }
         if let goal_MaxStreakOfMonth = aDecoder.decodeObject(forKey: "goal_MaxStreakOfMonth") as? Int{
             self.goal_MaxStreakOfMonth = goal_MaxStreakOfMonth
         } else {
-            self.goal_MaxStreakOfMonth = 0
+            self.goal_MaxStreakOfMonth = 8
         }
         if let goal_CaloriesOfMonth = aDecoder.decodeObject(forKey: "goal_CaloriesOfMonth") as? Int{
             self.goal_CaloriesOfMonth = goal_CaloriesOfMonth
         } else {
-            self.goal_CaloriesOfMonth = 0
+            self.goal_CaloriesOfMonth = 8
         }
         if let goal_TotalExpense = aDecoder.decodeObject(forKey: "goal_TotalExpense") as? Int{
             self.goal_TotalExpense = goal_TotalExpense
         } else {
-            self.goal_TotalExpense = 0
+            self.goal_TotalExpense = 8
         }
         if let purchased = aDecoder.decodeBool(forKey: "purchased") as? Bool{
             self.purchased = purchased

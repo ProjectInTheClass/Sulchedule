@@ -54,7 +54,23 @@ class SettingsViewController: UIViewController {
             resetApp()
             currentGoalStatusList = []
             NotificationCenter.default.post(name: Notification.Name(rawValue: "showToday"), object: nil)
+            
+            colorPoint = hexStringToUIColor(hex:"FFDC67")
+            colorLightBackground = hexStringToUIColor(hex:"252B53")
+            colorDeepBackground = hexStringToUIColor(hex:"0B102F")
+            UINavigationBar.appearance().barTintColor = colorLightBackground
+            UINavigationBar.appearance().backgroundColor = colorLightBackground
+            UILabel.appearance().textColor = UIColor.white
+            UITabBar.appearance().tintColor = colorPoint
+            UITabBar.appearance().barTintColor = colorLightBackground
+            self.tabBarController?.tabBar.barTintColor = colorLightBackground
+            self.tabBarController?.tabBar.tintColor = colorPoint
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+            UIApplication.shared.statusBarStyle = .lightContent
+            
             self.tabBarController?.selectedIndex = 0
+            
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: true, completion: nil)

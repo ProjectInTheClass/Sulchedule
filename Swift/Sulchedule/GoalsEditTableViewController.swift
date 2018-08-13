@@ -19,31 +19,33 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     @IBOutlet var backgroundView: UITableView!
     
     func reload(){
+        let k = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         goals = [
-            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: dateToMonthConverter(date: Date())), value: getDaysOfMonthLimit(month: dateToMonthConverter(date: Date()))!),
-            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: dateToMonthConverter(date: Date())), value: getStreakOfMonthLimit(month: dateToMonthConverter(date: Date()))!),
-            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: dateToMonthConverter(date: Date())), value: getCurrentExpenseLimit(month: dateToMonthConverter(date: Date()))!),
-            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Date())), value: getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()))!)
+            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: k), value: getDaysOfMonthLimit(month: k)!),
+            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: k), value: getStreakOfMonthLimit(month: k)!),
+            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: k), value: getCurrentExpenseLimit(month: k)!),
+            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: k), value: getCaloriesOfMonthLimit(month: k)!)
         ]
         
         backgroundView.reloadData()
     }
     
     func tableManipulateSwitch(_ sender: GoalsEditTableCell) {
+        let k = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         
         switch indexPath.row {
         case 0:
-            sender.uiSwitch.setOn(!isDaysOfMonthEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            sender.uiSwitch.setOn(!isDaysOfMonthEnabled(month: k), animated: true)
             setDaysOfMonthEnabled(enabled: sender.uiSwitch.isOn)
         case 1:
-            sender.uiSwitch.setOn(!isStreakOfMonthEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            sender.uiSwitch.setOn(!isStreakOfMonthEnabled(month: k), animated: true)
             setStreakOfMonthEnabled(enabled: sender.uiSwitch.isOn)
         case 2:
-            sender.uiSwitch.setOn(!isCurrentExpenseEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            sender.uiSwitch.setOn(!isCurrentExpenseEnabled(month: k), animated: true)
             setCurrentExpenseEnabled(enabled: sender.uiSwitch.isOn)
         case 3:
-            sender.uiSwitch.setOn(!isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Date())), animated: true)
+            sender.uiSwitch.setOn(!isCaloriesOfMonthEnabled(month: k), animated: true)
             setCaloriesOfMonthEnabled(enabled: sender.uiSwitch.isOn)
         default:
             print("wtf")
