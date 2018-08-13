@@ -832,7 +832,7 @@ func getDaysOfMonthStatus(month:Day) -> Int {
         //        print(newday.day)
         let recordMonth = getRecordDay(day: newday)
         //       print(recordMonth)
-        if recordMonth?.expense != 0 || recordMonth?.customExpense != nil {
+        if recordMonth?.expense != 0 || recordMonth?.customExpense != nil || recordMonth?.location != [] || recordMonth?.friends != [] {
             monthDayCount += 1
         }else {
             monthDayCount += 0
@@ -864,7 +864,7 @@ func getStreakOfMonthStatus(month:Day) -> Int {
     var steakArray:Array<Int> = []
     
     for i in 0...countMonThRecordList{
-        if monthRecordList[i]?.expense != 0 || monthRecordList[i]?.customExpense != nil {
+        if monthRecordList[i]?.expense != 0 || monthRecordList[i]?.customExpense != nil || monthRecordList[i]?.location != [] || monthRecordList[i]?.friends != [] {
             counting1 += 1
         }else{
             counting1 = 0
@@ -1173,7 +1173,9 @@ func getAllDrunkDays() -> [Day] {
     
     if(recordDayList.count != 0){
         for i in 0...recordDayList.count - 1  {
-            getAllDrunkDaysArray += [recordDayList[i].today]
+            if recordDayList[i].customExpense != nil || recordDayList[i].expense != 0 || recordDayList[i].location != [] || recordDayList[i].friends != [] {
+                getAllDrunkDaysArray += [recordDayList[i].today]
+            }
         }
     }
     return getAllDrunkDaysArray
