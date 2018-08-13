@@ -99,6 +99,7 @@ class UserData {
     var showYesterdayFirst = true
     var isVibrationEnabled = true
     var isThemeBright = false
+    var isShowDrunkDaysEnabled = true
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
     init(dangerLevel : Int?, favorites: [Int]?,  goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?, purchased: Bool) {

@@ -212,11 +212,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             return .black
         }
         else{
-            for item in testDay {
-                if(item.year == dateToDayConverter(date: date).year && item.month == dateToDayConverter(date: date).month && item.day == dateToDayConverter(date: date).day){
-                    return .black
-                }
-            }
             return .white
         }
     }
@@ -233,12 +228,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        for item in testDay {
-            if(item.year == dateToDayConverter(date: date).year && item.month == dateToDayConverter(date: date).month && item.day == dateToDayConverter(date: date).day){
-                return colorRed
+        if(isShowDrunkDaysEnabled()){
+            let temp = dateToDayConverter(date: date)
+            for item in testDay {
+                if(item.year == temp.year && item.month == temp.month && item.day == temp.day){
+                    return colorRed
+                }
             }
+            return nil
         }
-        return nil
     }
 
     @objc func handleTap(_ sender: UITapGestureRecognizer) {

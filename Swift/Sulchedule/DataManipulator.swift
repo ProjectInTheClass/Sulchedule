@@ -1159,3 +1159,10 @@ func setCaloriesOfMonthEnabled(enabled: Bool){
 func setCurrentExpenseEnabled(enabled: Bool){
     getRecordMonth(month: dateToDayConverter(date: Date()))?.isCurrentExpenseEnabled = enabled
 }
+
+func isShowDrunkDaysEnabled() -> Bool{
+    return userData.isShowDrunkDaysEnabled
+}
+func setIsShowDrunkDays(enabled: Bool){
+    userData.isShowDrunkDaysEnabled = enabled
+}
