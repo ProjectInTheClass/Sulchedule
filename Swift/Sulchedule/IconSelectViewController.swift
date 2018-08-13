@@ -19,7 +19,7 @@ class IconSelectViewController: UIViewController {
         backgroundView.backgroundColor = colorLightBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{

@@ -27,7 +27,7 @@ class EmbedIconSelectTableViewController: UITableViewController {
         backgroundTable.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{

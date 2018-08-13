@@ -50,7 +50,7 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
         }
         else{
@@ -58,7 +58,7 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         }
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -97,17 +97,11 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
             yellowView.alpha = 1.0
             greenView.alpha = alpha
             howYouDoingLabel.text = "아슬아슬해요!!!"
-            if(isLastMonth == -1){
-                userData.succeededLastMonth = true
-            }
         case 0:
             redView.alpha = alpha
             yellowView.alpha = alpha
             greenView.alpha = 1.0
             howYouDoingLabel.text = "목표한 대로 잘하고 있어요!"
-            if(isLastMonth == -1){
-                userData.succeededLastMonth = true
-            }
         default:
             print("wtf")
         }

@@ -18,58 +18,55 @@ class EmbedGoalsTableViewController: UITableViewController {
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
         }
         
-        let k = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         goalValue = []
         goalLimit = []
         goalStat = []
         isEnabled = []
-        if(isDaysOfMonthEnabled(month: k)){
+        if(isDaysOfMonthEnabled(month: monthmonth)){
             isEnabled.append(0)
         }
-        if(isStreakOfMonthEnabled(month: k)){
+        if(isStreakOfMonthEnabled(month: monthmonth)){
             isEnabled.append(1)
         }
-        if(isCurrentExpenseEnabled(month: k)){
+        if(isCurrentExpenseEnabled(month: monthmonth)){
             isEnabled.append(2)
         }
-        if(isCaloriesOfMonthEnabled(month: k)){
+        if(isCaloriesOfMonthEnabled(month: monthmonth)){
             isEnabled.append(3)
         }
         
         var i = 0
         for item in isEnabled{
-            let k = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
-            print(isLastMonth)
             switch item {
             case 0 :
-                if(isDaysOfMonthEnabled(month: k)){
-                    goalStat.append(getDaysOfMonthStatus(month: k))
-                    goalLimit.append(getDaysOfMonthLimit(month: k)!)
+                if(isDaysOfMonthEnabled(month: monthmonth)){
+                    goalStat.append(getDaysOfMonthStatus(month: monthmonth))
+                    goalLimit.append(getDaysOfMonthLimit(month: monthmonth)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 1 :
-                if(isStreakOfMonthEnabled(month: k)){
-                    goalStat.append(getStreakOfMonthStatus(month: k))
-                    goalLimit.append(getStreakOfMonthLimit(month: k)!)
+                if(isStreakOfMonthEnabled(month: monthmonth)){
+                    goalStat.append(getStreakOfMonthStatus(month: monthmonth))
+                    goalLimit.append(getStreakOfMonthLimit(month: monthmonth)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 2 :
-                if(isCurrentExpenseEnabled(month: k)){
-                    goalStat.append(getCurrentExpenseStatus(month: k))
-                    goalLimit.append(getCurrentExpenseLimit(month: k)!)
+                if(isCurrentExpenseEnabled(month: monthmonth)){
+                    goalStat.append(getCurrentExpenseStatus(month: monthmonth))
+                    goalLimit.append(getCurrentExpenseLimit(month: monthmonth)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 3 :
-                if(isCaloriesOfMonthEnabled(month: k)){
-                    goalStat.append(getCaloriesOfMonthStatus(month: k))
-                    goalLimit.append(getCaloriesOfMonthLimit(month: k)!)
+                if(isCaloriesOfMonthEnabled(month: monthmonth)){
+                    goalStat.append(getCaloriesOfMonthStatus(month: monthmonth))
+                    goalLimit.append(getCaloriesOfMonthLimit(month: monthmonth)!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             default :
@@ -146,7 +143,7 @@ class EmbedGoalsTableViewController: UITableViewController {
             
         }
         
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             customCell.leftValueLabel.textColor = .black
             customCell.rightValueLabel.textColor = .black
             customCell.leftTitleLabel.textColor = .gray

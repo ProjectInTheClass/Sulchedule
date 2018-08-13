@@ -46,7 +46,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
             tmpText.removeFirst()
             sender.text = tmpText
         }
-        print(returnArray)
         setRecordDayLocation(day: selectedDay, location: returnArray)
     }
     @IBAction func friendsField(_ sender: UITextField) {
@@ -109,7 +108,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
         }
         
         
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             expenseField.tintColor = .black
             locationField.tintColor = .black
             friendsField.tintColor = .black

@@ -5,28 +5,19 @@ import UIKit
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        addNewRecordDay(newRecordDay: dummyA)
-//        addNewRecordDay(newRecordDay: dummyB)
-//        addNewRecordDay(newRecordDay: dummyC)
-//        addNewRecordDay(newRecordDay: dummyD)
-//        addNewRecordDay(newRecordDay: dummyE)
-//        addNewRecordDay(newRecordDay: dummyF)
-//        addNewRecordDay(newRecordDay: dummyG)
-//        addNewRecordDay(newRecordDay: dummyH)
         loadRecordDayList()
         loadRecordMonthList()
         loadUserData()
         
-        sul.append(contentsOf: userData.newSul)
+        sul.append(contentsOf: userSetting.newSul)
         
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
             colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
         }
         
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             UINavigationBar.appearance().tintColor = UIColor.black
             UIApplication.shared.statusBarStyle = .default
             UITabBar.appearance().unselectedItemTintColor = .black

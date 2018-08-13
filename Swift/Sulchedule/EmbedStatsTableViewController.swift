@@ -4,7 +4,6 @@ class EmbedStatsTableViewController: UITableViewController {
     var showWeekly = false
     var tableValues: [String] = []
     var tableTitles: [String] = []
-    var month = dateToMonthConverter(date: Date())
     func showWeeklyFunc(showWeekly: Bool){
         tableValues = []
         tableTitles = []
@@ -131,20 +130,20 @@ class EmbedStatsTableViewController: UITableViewController {
         else{
             tableTitles.append("총 지출액")
             tableTitles.append("총 열량")
-            tableValues.append("\(getRecordMonthExpense(month: month)!)원")
-            tableValues.append("\(getRecordMonthCalorie(month: month)!)kcal")
+            tableValues.append("\(getRecordMonthExpense(month: monthmonth)!)원")
+            tableValues.append("\(getRecordMonthCalorie(month: monthmonth)!)kcal")
 
-            for item in getRecordMonthAllSul(month: month)! {
+            for item in getRecordMonthAllSul(month: monthmonth)! {
                 tableTitles.append(sul[Array(item.keys)[0]].displayName)
                 tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)\(getSulUnit(index: Array(item.keys)[0]))")
             }
             
-            for item in getRecordMonthAllFriends(month: month)! {
+            for item in getRecordMonthAllFriends(month: monthmonth)! {
                 tableTitles.append(Array(item!.keys)[0])
                 tableValues.append("\(item![Array(item!.keys)[0]]!)회 합석")
             }
             
-            for item in getRecordMonthAllLocation(month: month)! {
+            for item in getRecordMonthAllLocation(month: monthmonth)! {
                 tableTitles.append(Array(item.keys)[0])
                 tableValues.append("\(item[Array(item.keys)[0]]!)회 방문")
             }
@@ -169,7 +168,7 @@ class EmbedStatsTableViewController: UITableViewController {
         showWeeklyFunc(showWeekly: showWeekly)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -200,7 +199,7 @@ class EmbedStatsTableViewController: UITableViewController {
         customCell.titleLabel.text = tableTitles[indexPath.row]
         
         customCell.backgroundColor = colorDeepBackground
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             customCell.valueLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -266,7 +265,7 @@ class EmbedStatsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             titleLabel.textColor = .gray
         }
     }

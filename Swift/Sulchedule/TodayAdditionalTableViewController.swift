@@ -64,7 +64,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.backgroundColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
             star = star_blue!
             star_empty = star_blue_empty!
@@ -106,7 +106,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: actualIndexArray[indexPath.row]) ?? 0)
         customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: actualIndexArray[indexPath.row]))"
         customCell.titleLabel.text = sulArray[indexPath.row].displayName
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -193,7 +193,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     @IBAction func starOnTap(_ sender: UIButton) {
         flag.toggle()
-        if(userData.isVibrationEnabled){
+        if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         if(flag){
@@ -216,7 +216,7 @@ class TodayAdditionalTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             bottleStepper.tintColor = colorPoint
             bottleLabel.textColor = .black
             titleLabel.textColor = .gray

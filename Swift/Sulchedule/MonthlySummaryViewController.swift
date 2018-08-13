@@ -1,12 +1,11 @@
 import UIKit
 
-var isLastMonth = 0
+
 
 class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, Control2VCDelegate {
     func sendData(data: Int) {
         setViewControllers([pages[data]], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
     }
-    
 
     var pages = [UIViewController]()
     var pageControlSelectedPage: Int = 0
@@ -15,6 +14,9 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        isLastMonth = -1
+        monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         
         self.delegate = self
         self.dataSource = self
@@ -27,23 +29,61 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
         pages.append(p2)
         pages.append(p3)
         
-        setViewControllers([p1], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "M"
-        var lastMonth = Int(formatter.string(from: Date())) ?? 1
-        formatter.dateFormat = "yyyy"
-        var year = Int(formatter.string(from: Date())) ?? 2000
-        lastMonth -= 1
-        if(lastMonth == 0){
-            year -= 1
-            lastMonth = 12
+        var goalValue:[Float] = []
+        var isEnabled:[Int] = []
+        if(isDaysOfMonthEnabled(month: monthmonth)){
+            isEnabled.append(0)
+        }
+        if(isStreakOfMonthEnabled(month: monthmonth)){
+            isEnabled.append(1)
+        }
+        if(isCurrentExpenseEnabled(month: monthmonth)){
+            isEnabled.append(2)
+        }
+        if(isCaloriesOfMonthEnabled(month: monthmonth)){
+            isEnabled.append(3)
         }
         
-        isLastMonth = -1
+        var i = 0
+        for item in isEnabled{
+            switch item {
+            case 0 :
+                if(isDaysOfMonthEnabled(month: monthmonth)){
+                    goalValue.append(Float(getDaysOfMonthStatus(month: monthmonth)) / Float(getDaysOfMonthLimit(month: monthmonth)!))
+                }
+            case 1 :
+                if(isStreakOfMonthEnabled(month: monthmonth)){
+                    goalValue.append(Float(getStreakOfMonthStatus(month: monthmonth)) / Float(getStreakOfMonthLimit(month: monthmonth)!))
+                }
+            case 2 :
+                if(isCurrentExpenseEnabled(month: monthmonth)){
+                    goalValue.append(Float(getCurrentExpenseStatus(month: monthmonth)) / Float(getCurrentExpenseLimit(month: monthmonth)!))
+                }
+            case 3 :
+                if(isCaloriesOfMonthEnabled(month: monthmonth)){
+                    goalValue.append(Float(getCaloriesOfMonthStatus(month: monthmonth)) / Float(getCaloriesOfMonthLimit(month: monthmonth)!))
+                }
+            default :
+                print("wtf")
+            }
+            i += 1
+        }
+        for item in goalValue{
+            if item >= 1.0{
+                userSetting.succeededLastMonth = false
+                break
+            }
+            else{
+                userSetting.succeededLastMonth = true
+            }
+        }
+        
+        
+        setViewControllers([p1], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
         isLastMonth = 0
+        monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController)-> UIViewController? {

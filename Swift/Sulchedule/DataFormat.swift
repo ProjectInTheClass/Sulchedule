@@ -135,29 +135,17 @@ class RecordDay : NSObject, NSCoding {
 
 class RecordMonth : NSObject, NSCoding {
     var thisMonth: Day
-    var bestLocation: String?
-    var bestFriend: String?
-    var totalExpense: Int?
-    var totalCalories: Int?
     var isDaysOfMonthEnabled: Bool
     var isStreakOfMonthEnabled: Bool
     var isCaloriesOfMonthEnabled: Bool
     var isCurrentExpenseEnabled: Bool
+    var goal_DaysOfMonth: Int? //총 마신 날
+    var goal_StreakOfMonth: Int? //연속으로 마신 날
+    var goal_CaloriesOfMonth: Int? //칼로리 목표
+    var goal_TotalExpense: Int? //총 지출액
     
-    init(thisMonth : Day, bestLocation: String?, bestFriend: String?, totalExpense: Int?, totalCalories: Int?, isDaysOfMonthEnabled: Bool, isStreakOfMonthEnabled: Bool, isCaloriesOfMonthEnabled: Bool, isCurrentExpenseEnabled: Bool) {
+    init(thisMonth : Day, isDaysOfMonthEnabled: Bool, isStreakOfMonthEnabled: Bool, isCaloriesOfMonthEnabled: Bool, isCurrentExpenseEnabled: Bool) {
         self.thisMonth = thisMonth
-        if let bestLoca = bestLocation {
-            self.bestLocation = bestLoca
-        }
-        if let bestFri = bestFriend {
-            self.bestFriend = bestFri
-        }
-        if let totalExp = totalExpense {
-            self.totalExpense = totalExp
-        }
-        if let totalCal = totalCalories {
-            self.totalCalories = totalCal
-        }
         self.isDaysOfMonthEnabled = isDaysOfMonthEnabled
         self.isStreakOfMonthEnabled = isStreakOfMonthEnabled
         self.isCurrentExpenseEnabled = isCurrentExpenseEnabled
@@ -166,14 +154,14 @@ class RecordMonth : NSObject, NSCoding {
     
     public func encode(with aCoder:NSCoder) {
         aCoder.encode(self.thisMonth, forKey: "thisMonth")
-        aCoder.encode(self.bestLocation, forKey: "bestLocation")
-        aCoder.encode(self.bestFriend, forKey: "bestFriend")
-        aCoder.encode(self.totalExpense, forKey: "totalExpense")
-        aCoder.encode(self.totalCalories, forKey: "totalCalories")
         aCoder.encode(self.isDaysOfMonthEnabled, forKey: "isDaysOfMonthEnabled")
         aCoder.encode(self.isStreakOfMonthEnabled, forKey: "isStreakOfMonthEnabled")
         aCoder.encode(self.isCaloriesOfMonthEnabled, forKey: "isCaloriesOfMonthEnabled")
         aCoder.encode(self.isCurrentExpenseEnabled, forKey: "isCurrentExpenseEnabled")
+        aCoder.encode(self.goal_DaysOfMonth, forKey: "goal_DaysOfMonth")
+        aCoder.encode(self.goal_StreakOfMonth, forKey: "goal_MaxStreakOfMonth")
+        aCoder.encode(self.goal_CaloriesOfMonth, forKey: "goal_CaloriesOfMonth")
+        aCoder.encode(self.goal_TotalExpense, forKey: "goal_TotalExpense")
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -181,26 +169,6 @@ class RecordMonth : NSObject, NSCoding {
             self.thisMonth = thisMonth
         } else {
             self.thisMonth = Day(year: 0, month: 0, day: nil)
-        }
-        if let bestLocation = aDecoder.decodeObject(forKey: "bestLocation") as? String{
-            self.bestLocation = bestLocation
-        } else {
-            self.bestLocation = " "
-        }
-        if let bestFriend = aDecoder.decodeObject(forKey: "bestFriend") as? String{
-            self.bestFriend = bestFriend
-        } else {
-            self.bestFriend = " "
-        }
-        if let totalExpense = aDecoder.decodeObject(forKey: "totalExpense") as? Int{
-            self.totalExpense = totalExpense
-        } else {
-            self.totalExpense = 0
-        }
-        if let totalCalories = aDecoder.decodeObject(forKey: "totalCalories") as? Int{
-            self.totalCalories = totalCalories
-        } else {
-            self.totalCalories = 0
         }
         if let isDaysOfMonthEnabled = aDecoder.decodeBool(forKey: "isDaysOfMonthEnabled") as? Bool{
             self.isDaysOfMonthEnabled = isDaysOfMonthEnabled
@@ -222,19 +190,34 @@ class RecordMonth : NSObject, NSCoding {
         } else {
             self.isCurrentExpenseEnabled = false
         }
+        if let goal_DaysOfMonth = aDecoder.decodeObject(forKey: "goal_DaysOfMonth") as? Int{
+            self.goal_DaysOfMonth = goal_DaysOfMonth
+        } else {
+            self.goal_DaysOfMonth = 0
+        }
+        if let goal_StreakOfMonth = aDecoder.decodeObject(forKey: "goal_MaxStreakOfMonth") as? Int{
+            self.goal_StreakOfMonth = goal_StreakOfMonth
+        } else {
+            self.goal_StreakOfMonth = 0
+        }
+        if let goal_CaloriesOfMonth = aDecoder.decodeObject(forKey: "goal_CaloriesOfMonth") as? Int{
+            self.goal_CaloriesOfMonth = goal_CaloriesOfMonth
+        } else {
+            self.goal_CaloriesOfMonth = 0
+        }
+        if let goal_TotalExpense = aDecoder.decodeObject(forKey: "goal_TotalExpense") as? Int{
+            self.goal_TotalExpense = goal_TotalExpense
+        } else {
+            self.goal_TotalExpense = 0
+        }
         super.init()
     }
 }
 
-class UserData : NSObject, NSCoding {
-    var dangerLevel: Int? //0:초록, 1:노랑, 2:빨강
+class UserSetting : NSObject, NSCoding {
     var favorites: [Int] = []
     var succeededLastMonth = false
     
-    var goal_DaysOfMonth: Int? //총 마신 날
-    var goal_MaxStreakOfMonth: Int? //연속으로 마신 날
-    var goal_CaloriesOfMonth: Int? //칼로리 목표
-    var goal_TotalExpense: Int? //총 지출액
     var purchased = false
     var newSul: [Sul] = []
     var firstLaunch: Bool = true
@@ -244,36 +227,13 @@ class UserData : NSObject, NSCoding {
     var isShowDrunkDaysEnabled = true
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
-    init(dangerLevel : Int?, favorites: [Int]?,  goal_maxDaysOfMonth: Int?, maxStreakOfMonth: Int?, maxCaloriesOfMonth: Int?, totalExpense: Int?) {
-        if let dangerLev = dangerLevel {
-            self.dangerLevel = dangerLev
-        }
-        if let favo = favorites {
-            self.favorites = favo
-        }
-        
-        if let goal = goal_maxDaysOfMonth {
-            self.goal_DaysOfMonth = goal
-        }
-        if let maxStreak = maxStreakOfMonth {
-            self.goal_MaxStreakOfMonth = maxStreak
-        }
-        if let maxKcal = maxCaloriesOfMonth {
-            self.goal_CaloriesOfMonth = maxKcal
-        }
-        if let totalExp = totalExpense {
-            self.goal_TotalExpense = totalExp
-        }
+    override init() {
     }
     
     public func encode(with aCoder:NSCoder) {
-        aCoder.encode(self.dangerLevel, forKey: "dangerLevel")
         aCoder.encode(self.favorites, forKey: "favorites")
         aCoder.encode(self.succeededLastMonth, forKey: "succeededLastMonth")
-        aCoder.encode(self.goal_DaysOfMonth, forKey: "goal_DaysOfMonth")
-        aCoder.encode(self.goal_MaxStreakOfMonth, forKey: "goal_MaxStreakOfMonth")
-        aCoder.encode(self.goal_CaloriesOfMonth, forKey: "goal_CaloriesOfMonth")
-        aCoder.encode(self.goal_TotalExpense, forKey: "goal_TotalExpense")
+        
         aCoder.encode(self.purchased, forKey: "purchased")
         aCoder.encode(self.newSul, forKey: "newSul")
         aCoder.encode(self.firstLaunch, forKey: "firstLaunch")
@@ -284,11 +244,6 @@ class UserData : NSObject, NSCoding {
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        if let dangerLevel = aDecoder.decodeObject(forKey: "dangerLevel") as? Int{
-            self.dangerLevel = dangerLevel
-        } else {
-            self.dangerLevel = 0
-        }
         if let favorites = aDecoder.decodeObject(forKey: "favorites") as? [Int]{
             self.favorites = favorites
         } else {
@@ -299,26 +254,7 @@ class UserData : NSObject, NSCoding {
         } else {
             self.succeededLastMonth = false
         }
-        if let goal_DaysOfMonth = aDecoder.decodeObject(forKey: "goal_DaysOfMonth") as? Int{
-            self.goal_DaysOfMonth = goal_DaysOfMonth
-        } else {
-            self.goal_DaysOfMonth = 8
-        }
-        if let goal_MaxStreakOfMonth = aDecoder.decodeObject(forKey: "goal_MaxStreakOfMonth") as? Int{
-            self.goal_MaxStreakOfMonth = goal_MaxStreakOfMonth
-        } else {
-            self.goal_MaxStreakOfMonth = 8
-        }
-        if let goal_CaloriesOfMonth = aDecoder.decodeObject(forKey: "goal_CaloriesOfMonth") as? Int{
-            self.goal_CaloriesOfMonth = goal_CaloriesOfMonth
-        } else {
-            self.goal_CaloriesOfMonth = 8
-        }
-        if let goal_TotalExpense = aDecoder.decodeObject(forKey: "goal_TotalExpense") as? Int{
-            self.goal_TotalExpense = goal_TotalExpense
-        } else {
-            self.goal_TotalExpense = 8
-        }
+        
         if let purchased = aDecoder.decodeBool(forKey: "purchased") as? Bool{
             self.purchased = purchased
         } else {
@@ -358,29 +294,29 @@ class UserData : NSObject, NSCoding {
     }
 }
 
-class CurrentGoalStatus {
-    var thisMonth: Day
-    var daysOfMonth: Int? //총 마신 날
-    var streakOfMonth: Int? //연속으로 마신 날
-    var caloriesOfMonth: Int? //칼로리 목표
-    var currentExpense: Int? //총 지출액
-    //    var BottlePerSul: [Int:Int]? //술 종류당 한도 병 수
-    init(thisMonth: Day, daysOfMonth: Int?, streakOfMonth: Int?, caloriesOfMonth: Int?, currentExpense: Int?) {
-        self.thisMonth = thisMonth
-        if let daysOfMon = daysOfMonth {
-            self.daysOfMonth = daysOfMon
-        }
-        if let streakOfMon = streakOfMonth {
-            self.streakOfMonth = streakOfMon
-        }
-        if let caloriesOfMon = caloriesOfMonth {
-            self.caloriesOfMonth = caloriesOfMon
-        }
-        if let currentExp = currentExpense {
-            self.currentExpense = currentExp
-        }
-    }
-}
+//class CurrentGoalStatus {
+//    var thisMonth: Day
+//    var daysOfMonth: Int? //총 마신 날
+//    var streakOfMonth: Int? //연속으로 마신 날
+//    var caloriesOfMonth: Int? //칼로리 목표
+//    var currentExpense: Int? //총 지출액
+//    //    var BottlePerSul: [Int:Int]? //술 종류당 한도 병 수
+//    init(thisMonth: Day, daysOfMonth: Int?, streakOfMonth: Int?, caloriesOfMonth: Int?, currentExpense: Int?) {
+//        self.thisMonth = thisMonth
+//        if let daysOfMon = daysOfMonth {
+//            self.daysOfMonth = daysOfMon
+//        }
+//        if let streakOfMon = streakOfMonth {
+//            self.streakOfMonth = streakOfMon
+//        }
+//        if let caloriesOfMon = caloriesOfMonth {
+//            self.caloriesOfMonth = caloriesOfMon
+//        }
+//        if let currentExp = currentExpense {
+//            self.currentExpense = currentExp
+//        }
+//    }
+//}
 
 class Sul : NSObject, NSCoding  {
     var displayName: String

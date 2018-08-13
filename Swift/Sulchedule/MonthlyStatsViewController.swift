@@ -8,12 +8,10 @@ class MonthlyStatsViewController: UIViewController {
     let friendCircle = CAShapeLayer()
     let sulCircle = CAShapeLayer()
     let locationCircle = CAShapeLayer()
-    var lastMonth: Int = 0
-    var lastYear: Int = 2000
     var radOfCircle: CGFloat = 0
     var circlePath: UIBezierPath? = nil
+    var currentCursor: Int = 0
     
-    var vc:EmbedStatsTableViewController? = nil
     
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UILabel!
@@ -39,11 +37,7 @@ class MonthlyStatsViewController: UIViewController {
     @IBOutlet weak var desc3: UILabel!
     @IBOutlet weak var desc2: UILabel!
     
-    var selectedMonth: Day?
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        vc = segue.destination as! EmbedStatsTableViewController
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,25 +47,13 @@ class MonthlyStatsViewController: UIViewController {
         sulLabel.numberOfLines = 2
         friendLabel.numberOfLines = 2
         locationLabel.numberOfLines = 2
-        
-        let initFormatter = DateFormatter()
-        initFormatter.dateFormat = "M"
-        var month = NumberFormatter().number(from: initFormatter.string(from: Date()))!.intValue
-        initFormatter.dateFormat = "yyyy"
-        var year = NumberFormatter().number(from: initFormatter.string(from: Date()))!.intValue
-        month -= 1
-        if(month == 0){
-            month += 12
-            year -= 1
-        }
-        selectedMonth = Day(year: year, month: month, day:nil)
-        vc?.month = selectedMonth!
+
     }
     override func viewWillAppear(_ animated: Bool) {
         leaderboardView.backgroundColor = colorLightBackground
         picktargetView.backgroundColor = colorDeepBackground
         firstPlaceLabel.backgroundColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             firstPlaceText.textColor = .white
             secondPlaceLabel.textColor = .black
             thirdPlaceLabel.textColor = .black
@@ -103,6 +85,14 @@ class MonthlyStatsViewController: UIViewController {
             title3.textColor = .black
             desc3.textColor = .black
         }
+        self.tabBarController?.tabBar.barTintColor = colorLightBackground
+        self.tabBarController?.tabBar.tintColor = colorPoint
+        if(userSetting.isThemeBright){
+            self.tabBarController?.tabBar.unselectedItemTintColor = .black
+        }
+        else{
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+        }
         
         radOfCircle = sulView.bounds.height/2
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
@@ -132,18 +122,11 @@ class MonthlyStatsViewController: UIViewController {
         sulView.layer.addSublayer(sulCircle)
         sulView.bringSubview(toFront: sulLabel)
         
-        self.tabBarController?.tabBar.barTintColor = colorLightBackground
-        self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
-        showPlatform(cursor: 2)
-        showPlatform(cursor: 1)
         showPlatform(cursor: 0)
-        cycleCircleBorder(cursor: 0)
+        showPlatform(cursor: 1)
+        showPlatform(cursor: 2)
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     func showPlatform(cursor: Int){
         title1.text = "정보 부족"
@@ -154,7 +137,7 @@ class MonthlyStatsViewController: UIViewController {
         desc3.text = ""
         switch cursor {
         case 0:
-            let suls = getRecordMonthBestSul(month: selectedMonth!)
+            let suls = getRecordMonthBestSul(month: monthmonth)
             let k = suls!
             sulLabel.text = "음주 기록이\n없습니다"
             if(1 <= k.count){
@@ -162,7 +145,7 @@ class MonthlyStatsViewController: UIViewController {
                 title1.text = sul[Array(temp.keys)[0]].displayName
                 sulLabel.text = sul[Array(temp.keys)[0]].displayName
                 let temp2 = temp[Array(temp.keys)[0]]!
-                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원"
+                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
                 title2.text = "정보 부족"
                 desc2.text = ""
                 title3.text = "정보 부족"
@@ -185,7 +168,7 @@ class MonthlyStatsViewController: UIViewController {
             }
             
         case 1:
-            let friends = getRecordMonthBestFriends(month: selectedMonth!)
+            let friends = getRecordMonthBestFriends(month: monthmonth)
             let k = friends!
             friendLabel.text = "술친구가\n없습니다"
             if(1 <= k.count){
@@ -215,7 +198,7 @@ class MonthlyStatsViewController: UIViewController {
             }
             
         case 2:
-            let locations = getRecordMonthBestLocation(month: selectedMonth!)
+            let locations = getRecordMonthBestLocation(month: monthmonth)
             let k = locations!
             locationLabel.text = "자주 가는 곳이\n없습니다"
             if(1 <= k.count){
@@ -249,19 +232,28 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     @objc func sulClicked(){
-        //Dev on Main first, than transfer here
-        cycleCircleBorder(cursor: 0)
-        showPlatform(cursor: 0)
+        if(userSetting.isVibrationEnabled){
+            AudioServicesPlaySystemSound(vibPeek)
+        }
+        currentCursor = 0
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     @objc func friendClicked(){
-        //Dev on Main first, than transfer here
-        cycleCircleBorder(cursor: 1)
-        showPlatform(cursor: 1)
+        if(userSetting.isVibrationEnabled){
+            AudioServicesPlaySystemSound(vibPeek)
+        }
+        currentCursor = 1
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
     @objc func locationClicked(){
-        //Dev on Main first, than transfer here
-        cycleCircleBorder(cursor: 2)
-        showPlatform(cursor: 2)
+        if(userSetting.isVibrationEnabled){
+            AudioServicesPlaySystemSound(vibPeek)
+        }
+        currentCursor = 2
+        cycleCircleBorder(cursor: currentCursor)
+        showPlatform(cursor: currentCursor)
     }
 
     func initCircle(){
@@ -281,7 +273,7 @@ class MonthlyStatsViewController: UIViewController {
     
     func cycleCircleBorder(cursor: Int){
         //Dev on Main first, than transfer here
-        if(userData.isVibrationEnabled){
+        if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         switch (cursor){

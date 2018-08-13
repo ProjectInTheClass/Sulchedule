@@ -25,7 +25,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         backgroundView.scrollToBottom()
     }
     func loadArray(){
-        hook = userData.newSul
+        hook = userSetting.newSul
         
         sulArray = []
         actualIndexArray = []
@@ -54,7 +54,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -86,7 +86,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         
         
         customCell.backgroundColor = colorLightBackground
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             customCell.valueLabel.textColor = .gray
             customCell.titleLabel.textColor = .black
         }
@@ -116,12 +116,12 @@ class EmbedAddSulTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-//            userData.newSul.remove(at: indexPath.row)
-//            let originalSulCount = sul.count - userData.newSul.count
+//            userSetting.newSul.remove(at: indexPath.row)
+//            let originalSulCount = sul.count - userSetting.newSul.count
 //            setRecordDayForSul(day: selectedDay, index: indexPath.row + originalSulCount - 1, bottles: 0)
 //            해당 인덱스에 대한 모든 날의 기록을 삭제하는 메소드가 필요!
 //            removeSulFromEveryRecordDay(index: indexPath.row + originalSulCount - 1)
-            let alertController = UIAlertController(title: "삭제할까요?", message: "\(userData.newSul[self.actualIndexArray[indexPath.row]].displayName)로 추가된 칼로리와 지출액은 사라지지 않습니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "삭제할까요?", message: "\(userSetting.newSul[self.actualIndexArray[indexPath.row]].displayName)로 추가된 칼로리와 지출액은 사라지지 않습니다.", preferredStyle: UIAlertControllerStyle.alert)
             let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
                 setSulDisabled(index: self.actualIndexArray[indexPath.row])
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -135,7 +135,7 @@ class EmbedAddSulTableViewController: UITableViewController {
     }
  
 //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//        if(userData.isVibrationEnabled){
+//        if(userSetting.isVibrationEnabled){
 //            AudioServicesPlaySystemSound(vibPeek)
 //        }
 //        let v = arr[fromIndexPath.row]

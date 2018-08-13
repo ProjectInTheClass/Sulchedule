@@ -82,3 +82,6 @@ func dateToMonthConverter(date: Date) -> Day{
     
     return Day(year: NumberFormatter().number(from: year)!.intValue, month: NumberFormatter().number(from: month)!.intValue, day:nil)
 }
+
+var isLastMonth = 0
+var monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)

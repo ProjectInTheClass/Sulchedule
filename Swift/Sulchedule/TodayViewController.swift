@@ -106,7 +106,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(userData.firstLaunch){
+        if(userSetting.firstLaunch){
             firstLaunchExecution()
             setFirstLaunchFalse()
         }
@@ -138,7 +138,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadArray()
         
         topInfoLabel.textColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             textColor2.textColor = .gray
             disclosureIcon.image = UIImage(named:"Chevron_blue")
@@ -178,7 +178,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -228,7 +228,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             return .black
         }
         else{
@@ -236,7 +236,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             return .white
         }
         else{
@@ -281,7 +281,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     
     func shouldViewMonthlyStats(){
-        if(isFirstLaunchToday() && !userData.firstLaunch){
+        if(isFirstLaunchToday() && !userSetting.firstLaunch){
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                 let formatterFirstDayOfMonth = DateFormatter()
                 formatterFirstDayOfMonth.dateFormat = "dd"
@@ -356,7 +356,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if(indexPath.row < getFavouriteSulIndex().count){
             customCell.colorTag.backgroundColor = colorPoint
         }
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             customCell.bottleLabel.textColor = .black
             customCell.titleLabel.textColor = .gray
         }
@@ -378,7 +378,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.calendar.setScope(.week, animated: true)
         }
         else{
-            if(userData.isVibrationEnabled){
+            if(userSetting.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibPeek)
             }
         }
@@ -487,7 +487,7 @@ class TodayTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             titleLabel.textColor = .gray
         }
         else{

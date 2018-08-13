@@ -18,7 +18,6 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
             if(!addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))){
                 let alertController = UIAlertController(title: "같은 이름의 주류가 있습니다", message: "이름을 바꾼 뒤 다시 시도해주세요.", preferredStyle: UIAlertControllerStyle.alert)
                 let cancelAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("ok")
                 }
                 alertController.addAction(cancelAction)
                 self.present(alertController, animated: true, completion: nil)
@@ -134,7 +133,7 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
         foreground.backgroundColor = colorDeepBackground
         saveButton.tintColor = colorPoint
         dismissButton.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
             nameField.keyboardAppearance = .light
             calorieField.keyboardAppearance = .light

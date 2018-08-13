@@ -72,7 +72,7 @@ class StatsViewController: UIViewController {
         firstPlaceLabel.backgroundColor = colorPoint
         topSegmentOutlet.tintColor = colorPoint
         topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             firstPlaceText.textColor = .white
             secondPlaceLabel.textColor = .black
             thirdPlaceLabel.textColor = .black
@@ -136,7 +136,7 @@ class StatsViewController: UIViewController {
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
         }
         else{
@@ -152,7 +152,7 @@ class StatsViewController: UIViewController {
     
     
     @objc func sulClicked(){
-        if(userData.isVibrationEnabled){
+        if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 0
@@ -160,7 +160,7 @@ class StatsViewController: UIViewController {
         showPlatform(cursor: currentCursor)
     }
     @objc func friendClicked(){
-        if(userData.isVibrationEnabled){
+        if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 1
@@ -168,7 +168,7 @@ class StatsViewController: UIViewController {
         showPlatform(cursor: currentCursor)
     }
     @objc func locationClicked(){
-        if(userData.isVibrationEnabled){
+        if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 2
@@ -185,7 +185,7 @@ class StatsViewController: UIViewController {
         desc3.text = ""
         switch cursor {
         case 0:
-            let suls = getRecordMonthBestSul(month: dateToMonthConverter(date: Date()))
+            let suls = getRecordMonthBestSul(month: monthmonth)
             let k = suls!
             sulLabel.numberOfLines = 2
             sulLabel.text = "음주 기록이\n없습니다"
@@ -216,7 +216,7 @@ class StatsViewController: UIViewController {
             }
 
         case 1:
-            let friends = getRecordMonthBestFriends(month: dateToMonthConverter(date: Date()))
+            let friends = getRecordMonthBestFriends(month: monthmonth)
             let k = friends!
             friendLabel.numberOfLines = 2
             friendLabel.text = "술친구가\n없습니다"
@@ -247,7 +247,7 @@ class StatsViewController: UIViewController {
             }
 
         case 2:
-            let locations = getRecordMonthBestLocation(month: dateToMonthConverter(date: Date()))
+            let locations = getRecordMonthBestLocation(month: monthmonth)
             let k = locations!
             locationLabel.numberOfLines = 2
             locationLabel.text = "자주 가는 곳이\n없습니다"
@@ -287,7 +287,7 @@ class StatsViewController: UIViewController {
                 firstAppearance = false
             }
             else{
-                if(userData.isVibrationEnabled){
+                if(userSetting.isVibrationEnabled){
                     AudioServicesPlaySystemSound(vibCancelled)
                 }
                 animator(isLeft: true)
@@ -297,7 +297,7 @@ class StatsViewController: UIViewController {
             vc?.showWeeklyFunc(showWeekly: false)
         }
         else{
-            if(userData.isVibrationEnabled){
+            if(userSetting.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibCancelled)
             }
             animator(isLeft: false)

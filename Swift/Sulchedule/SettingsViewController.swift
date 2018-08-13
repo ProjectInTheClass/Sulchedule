@@ -52,7 +52,6 @@ class SettingsViewController: UIViewController {
         let alertController = UIAlertController(title: "모든 정보 삭제", message: "음주 기록, 설정을 포함한 모든 정보가 초기화됩니다. 계속하시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
         let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             resetApp()
-            currentGoalStatusList = []
             NotificationCenter.default.post(name: Notification.Name(rawValue: "showToday"), object: nil)
             
             colorPoint = hexStringToUIColor(hex:"FFDC67")
@@ -87,7 +86,7 @@ class SettingsViewController: UIViewController {
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.vibrationSwitch(_:)))
         vibContainer.addGestureRecognizer(tap2)
         
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             vibOn = UIImage(named: "vib_bright_on")
             vibOff = UIImage(named: "vib_bright_off")
         }
@@ -96,7 +95,7 @@ class SettingsViewController: UIViewController {
             vibOff = UIImage(named: "vib_off")
         }
         if(deviceCategory != 0){
-            if(userData.isVibrationEnabled){
+            if(userSetting.isVibrationEnabled){
                 vibLabel.text = "햅틱 켜짐"
                 self.vibrationImageView.image = self.vibOn
             }
@@ -137,7 +136,7 @@ class SettingsViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             self.tabBarController?.tabBar.unselectedItemTintColor = .black
             
@@ -163,13 +162,14 @@ class SettingsViewController: UIViewController {
             self.yesterdayContainer.backgroundColor = colorLightBackground
             self.showDrunkContainer.backgroundColor = colorLightBackground
         }
-        self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
-        self.applyShadow(view: self.addSulContainer, enable: userData.isThemeBright)
-        self.applyShadow(view: self.themeContainer, enable: userData.isThemeBright)
-        self.applyShadow(view: self.yesterdayContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.resetContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.addSulContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.themeContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.showDrunkContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.yesterdayContainer, enable: userSetting.isThemeBright)
         
-        if(userData.isVibrationEnabled){
-            self.applyShadow(view: self.vibContainer, enable: userData.isThemeBright)
+        if(userSetting.isVibrationEnabled){
+            self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
         }
         
         if(deviceCategory == 0){
@@ -179,18 +179,18 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func darkThemeSwitch(_ sender: UITapGestureRecognizer) {
-        userData.isThemeBright.toggle()
+        userSetting.isThemeBright.toggle()
         
-        self.applyShadow(view: self.resetContainer, enable: userData.isThemeBright)
-        self.applyShadow(view: self.addSulContainer, enable: userData.isThemeBright)
-        self.applyShadow(view: self.themeContainer, enable: userData.isThemeBright)
-        self.applyShadow(view: self.showDrunkContainer, enable: userData.isThemeBright)
-        if(userData.isVibrationEnabled){
-            self.applyShadow(view: self.vibContainer, enable: userData.isThemeBright)
+        self.applyShadow(view: self.resetContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.addSulContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.themeContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.showDrunkContainer, enable: userSetting.isThemeBright)
+        if(userSetting.isVibrationEnabled){
+            self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
         }
         
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
-            if(userData.isThemeBright){
+            if(userSetting.isThemeBright){
                 colorPoint = hexStringToUIColor(hex: "#0067B2")
                 colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
                 colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
@@ -230,7 +230,7 @@ class SettingsViewController: UIViewController {
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground
         }, completion: nil)
-        if(userData.isThemeBright){
+        if(userSetting.isThemeBright){
             vibOn = UIImage(named: "vib_bright_on")
             vibOff = UIImage(named: "vib_bright_off")
             
@@ -259,7 +259,7 @@ class SettingsViewController: UIViewController {
             self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         }
         if(deviceCategory != 0){
-            if(userData.isVibrationEnabled){
+            if(userSetting.isVibrationEnabled){
                 vibLabel.text = "햅틱 켜짐"
                 self.vibrationImageView.image = self.vibOn
             }
@@ -281,28 +281,31 @@ class SettingsViewController: UIViewController {
         self.tabBarController?.tabBar.tintColor = colorPoint
     }
     @objc func vibrationSwitch(_ sender: UITapGestureRecognizer) {
-        userData.isVibrationEnabled.toggle()
+        userSetting.isVibrationEnabled.toggle()
         if(deviceCategory != 0){
-            if(userData.isVibrationEnabled){
+            if(userSetting.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibTryAgain)
                 vibLabel.text = "햅틱 켜짐"
                 self.vibrationImageView.image = self.vibOn
+                self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
             }
             else{
                 vibLabel.text = "햅틱 꺼짐"
                 self.vibrationImageView.image = self.vibOff
+                self.applyShadow(view: self.vibContainer, enable: false)
             }
         }
         else{
             vibLabel.text = "햅틱 미지원 기기"
             vibLabel.textColor = .gray
             self.vibrationImageView.image = self.vibOff
+            self.applyShadow(view: self.vibContainer, enable: false)
         }
     }
     
     func applyShadow(view: UIView, enable: Bool){
-        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: view.frame.width + 8, height: view.frame.height + 8))
-        view.layer.shadowOffset = CGSize(width: -4, height: -4)
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: view.frame.width + 4, height: view.frame.height + 4))
+        view.layer.shadowOffset = CGSize(width: -2, height: -2)
         view.layer.shadowOpacity = 0.06
         view.layer.shadowRadius = 3.0
         view.layer.masksToBounds =  false
