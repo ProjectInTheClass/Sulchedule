@@ -42,7 +42,7 @@ class SettingsViewController: UIViewController {
     @IBAction func yesterdayButton(_ sender: UIButton) {
         setShowYesterdayFirst(yesterday: !getShowYesterdayFirst())
         if(getShowYesterdayFirst()){
-            yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
+            yesterdayButton.setTitle("정오까지 전날이 먼저 표시됩니다", for: .normal)
         }
         else{
             yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)
@@ -94,7 +94,7 @@ class SettingsViewController: UIViewController {
             self.vibrationImageView.image = self.vibOff
         }
         if(getShowYesterdayFirst()){
-            yesterdayButton.setTitle("정오까지 전날 날짜가 표시됩니다", for: .normal)
+            yesterdayButton.setTitle("정오까지 전날이 먼저 표시됩니다", for: .normal)
         }
         else{
             yesterdayButton.setTitle("자정부터 당시 날짜가 표시됩니다", for: .normal)

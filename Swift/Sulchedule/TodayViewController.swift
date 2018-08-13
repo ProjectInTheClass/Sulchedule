@@ -59,7 +59,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func initTempFavourite(){
         tempFavourite = []
         for i in 0...currentDictionary.count - 1{
-            if(getRecordDayBottles(day: selectedDay, index: actualIndexArray[i]) != 0 && getRecordDayBottles(day: selectedDay, index: actualIndexArray[i]) != nil){
+            let t = getRecordDayBottles(day: selectedDay, index: actualIndexArray[i])
+            if(t != 0 && t != nil && sul[actualIndexArray[i]].enabled){
                 tempFavourite.append(actualIndexArray[i])
             }
         }
@@ -435,12 +436,21 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func setBottomInfoLabelString(){
-        if (gotDay?.customExpense == nil){
-            bottomInfoLabel.text = "약 \((gotDay?.expense)!)원, 약 \((gotDay?.calories)!)kcal"
+        var temp: String = ""
+        if((gotDay?.customExpense == nil || gotDay?.customExpense == 0) && gotDay?.calories == 0){
+            temp = "0원, 0kcal"
+        }
+        else if (gotDay?.customExpense == nil || gotDay?.customExpense == 0){
+            temp = "약 \((gotDay?.expense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
         else{
-            bottomInfoLabel.text = "\((gotDay?.customExpense)!)원, 약 \((gotDay?.calories)!)kcal"
+            temp = "\((gotDay?.customExpense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
+        
+        if(getDeletedSulTotalCalorieForDay(day: selectedDay) != 0){
+            temp.append("(지워진 주류 포함)")
+        }
+        bottomInfoLabel.text = temp
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

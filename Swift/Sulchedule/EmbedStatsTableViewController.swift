@@ -54,7 +54,7 @@ class EmbedStatsTableViewController: UITableViewController {
     @IBOutlet var backgroundView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-9
+
         showWeeklyFunc(showWeekly: showWeekly)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

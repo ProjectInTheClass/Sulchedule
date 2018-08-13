@@ -121,11 +121,16 @@ class EmbedAddSulTableViewController: UITableViewController {
 //            setRecordDayForSul(day: selectedDay, index: indexPath.row + originalSulCount - 1, bottles: 0)
 //            해당 인덱스에 대한 모든 날의 기록을 삭제하는 메소드가 필요!
 //            removeSulFromEveryRecordDay(index: indexPath.row + originalSulCount - 1)
-            
-            setSulDisabled(index: actualIndexArray[indexPath.row])
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            loadArray()
+            let alertController = UIAlertController(title: "삭제할까요?", message: "\(sul[self.actualIndexArray[indexPath.row]])로 추가된 칼로리와 지출액은 사라지지 않습니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
+                setSulDisabled(index: self.actualIndexArray[indexPath.row])
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                self.loadArray()
+            }
+            let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default)
+            alertController.addAction(cancelAction)
+            alertController.addAction(deleteAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
  

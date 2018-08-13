@@ -129,6 +129,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         customCell.titleLabel.text = "\(goals[indexPath.row].name)"
         customCell.delegate = self
         customCell.uiSwitch.setOn(goals[indexPath.row].checked, animated: false)
+        customCell.editField.text = String(goals[indexPath.row].value)
         if(goals[indexPath.row].value != 0){
             customCell.editField.text = String(goals[indexPath.row].value)
         }

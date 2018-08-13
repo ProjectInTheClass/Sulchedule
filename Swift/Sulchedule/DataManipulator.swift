@@ -125,9 +125,33 @@ func setRecordDayCustomExpense(day: Day, customExpense: Int?){
 var userData = UserData(dangerLevel: 0, favorites: [], goal_maxDaysOfMonth: 0, maxStreakOfMonth: 0, maxCaloriesOfMonth: 0, totalExpense: 0)
 
 func getFavouriteSulIndex() -> [Int]{
-    return userData.favorites
+    var returnArray: [Int] = []
+    for index in userData.favorites{
+        if(sul[index].enabled){
+            returnArray.append(index)
+        }
+    }
+    return returnArray
 }
 
+func getDeletedSulIndex() -> [Int]{
+    var returnArray: [Int] = []
+    for i in 0...sul.count - 1{
+        if(!sul[i].enabled){
+            returnArray.append(i)
+        }
+    }
+    return returnArray
+}
+
+func getDeletedSulTotalCalorieForDay(day: Day) -> Int{
+    let k = getDeletedSulIndex()
+    var returnValue = 0
+    for i in k{
+        returnValue += getRecordDayBottles(day: day, index: i) ?? 0
+    }
+    return returnValue
+}
 //setRecordDayLocation(day: Day, location: String)    day: 지정한 날짜, location: 장소 문자열        location을 해당 RecordDay에 저장해주세요!
 
 func setRecordDayLocation(day: Day, location: [String]?){
