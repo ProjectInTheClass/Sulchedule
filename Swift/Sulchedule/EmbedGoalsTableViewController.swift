@@ -34,33 +34,42 @@ class EmbedGoalsTableViewController: UITableViewController {
         goalLimit = []
         goalStat = []
         isEnabled = []
+        if(isDaysOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+            isEnabled.append(0)
+        }
+        if(isStreakOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+            isEnabled.append(1)
+        }
+        if(isCurrentExpenseEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+            isEnabled.append(2)
+        }
+        if(isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
+            isEnabled.append(3)
+        }
         
-        for i in 0...3{
-            switch i {
+        var i = 0
+        for item in isEnabled{
+            switch item {
             case 0 :
                 if(isDaysOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    isEnabled.append(i)
                     goalStat.append(getDaysOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
                     goalLimit.append(getDaysOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 1 :
                 if(isStreakOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    isEnabled.append(i)
                     goalStat.append(getStreakOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
                     goalLimit.append(getStreakOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 2 :
                 if(isCurrentExpenseEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    isEnabled.append(i)
                     goalStat.append(getCurrentExpenseStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
                     goalLimit.append(getCurrentExpenseLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             case 3 :
                 if(isCaloriesOfMonthEnabled(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))){
-                    isEnabled.append(i)
                     goalStat.append(getCaloriesOfMonthStatus(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)))
                     goalLimit.append(getCaloriesOfMonthLimit(month: dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!))!)
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
@@ -68,17 +77,20 @@ class EmbedGoalsTableViewController: UITableViewController {
             default :
                 print("wtf")
             }
+            i += 1
         }
         
-        for i in 0...goalLimit.count - 1 {
-            if(goalLimit[i] == 0 && goalStat[i] == 0){
-                goalValue[i] = 0
+        if(goalLimit.count > 0){
+            for i in 0...goalLimit.count - 1 {
+                if(goalLimit[i] == 0 && goalStat[i] == 0){
+                    goalValue[i] = 0
+                }
             }
         }
         
         var dangerLevel = 0
         for item in goalValue {
-            if(item > 0.8){
+            if(item > 0.7){
                 dangerLevel = 1
             }
             if(item > 1){
