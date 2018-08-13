@@ -1173,7 +1173,7 @@ func getAllDrunkDays() -> [Day] {
     
     if(recordDayList.count != 0){
         for i in 0...recordDayList.count - 1  {
-            if recordDayList[i].customExpense != nil || recordDayList[i].expense != 0 || recordDayList[i].location != [] || recordDayList[i].friends != [] {
+            if (recordDayList[i].customExpense != 0 && recordDayList[i].customExpense != nil) || recordDayList[i].expense != 0 || (recordDayList[i].location!.count != 0 && recordDayList[i].location != nil) || (recordDayList[i].friends!.count != 0 && recordDayList[i].friends!.count != nil) {
                 getAllDrunkDaysArray += [recordDayList[i].today]
             }
         }
