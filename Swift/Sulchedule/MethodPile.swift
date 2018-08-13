@@ -20,6 +20,8 @@ var colorPoint = hexStringToUIColor(hex:"FFDC67")
 var colorLightBackground = hexStringToUIColor(hex:"252B53")
 var colorDeepBackground = hexStringToUIColor(hex:"0B102F")
 
+let deviceCategory: Int = UIDevice.current.value(forKey: "_feedbackSupportLevel")! as! Int
+
 protocol Control2VCDelegate {
     func sendData(data:Int)
 }

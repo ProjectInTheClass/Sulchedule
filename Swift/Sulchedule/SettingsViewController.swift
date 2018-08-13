@@ -1,6 +1,7 @@
 import UIKit
 import AudioToolbox.AudioServices
 
+
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var navigationBar_changeColor: UINavigationBar!
@@ -23,6 +24,7 @@ class SettingsViewController: UIViewController {
     
     var vibOn: UIImage?
     var vibOff: UIImage?
+    
     
 //    var showYesterdayFirst = true
 //    var isVibrationEnabled = true
@@ -74,12 +76,18 @@ class SettingsViewController: UIViewController {
             vibOn = UIImage(named: "vib_on")
             vibOff = UIImage(named: "vib_off")
         }
-        if(userData.isVibrationEnabled){
-            vibLabel.text = "진동 켜짐"
-            self.vibrationImageView.image = self.vibOn
+        if(deviceCategory != 0){
+            if(userData.isVibrationEnabled){
+                vibLabel.text = "진동 켜짐"
+                self.vibrationImageView.image = self.vibOn
+            }
+            else{
+                vibLabel.text = "진동 꺼짐"
+                self.vibrationImageView.image = self.vibOff
+            }
         }
         else{
-            vibLabel.text = "진동 꺼짐"
+            vibLabel.text = "햅틱 미지원 기기"
             self.vibrationImageView.image = self.vibOff
         }
         if(getShowYesterdayFirst()){
@@ -139,6 +147,10 @@ class SettingsViewController: UIViewController {
             self.applyShadow(view: self.vibContainer, enable: userData.isThemeBright)
         }
         
+        if(deviceCategory == 0){
+            self.applyShadow(view: self.vibContainer, enable: false)
+            self.vibLabel.textColor = .gray
+        }
     }
     
     @objc func darkThemeSwitch(_ sender: UITapGestureRecognizer) {
@@ -185,6 +197,9 @@ class SettingsViewController: UIViewController {
             self.addSulButton.setTitleColor(colorPoint, for: .normal)
             self.yesterdayButton.setTitleColor(colorPoint, for: .normal)
             self.showDrunkButton.setTitleColor(colorPoint, for: .normal)
+            if(deviceCategory == 0){
+                self.vibLabel.textColor = .gray
+            }
             
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground
@@ -217,12 +232,18 @@ class SettingsViewController: UIViewController {
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
             self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         }
-        if(userData.isVibrationEnabled){
-            vibLabel.text = "진동 켜짐"
-            self.vibrationImageView.image = self.vibOn
+        if(deviceCategory != 0){
+            if(userData.isVibrationEnabled){
+                vibLabel.text = "진동 켜짐"
+                self.vibrationImageView.image = self.vibOn
+            }
+            else{
+                vibLabel.text = "진동 꺼짐"
+                self.vibrationImageView.image = self.vibOff
+            }
         }
         else{
-            vibLabel.text = "진동 꺼짐"
+            vibLabel.text = "햅틱 미지원 기기"
             self.vibrationImageView.image = self.vibOff
         }
         UINavigationBar.appearance().barTintColor = colorLightBackground
@@ -235,15 +256,20 @@ class SettingsViewController: UIViewController {
     }
     @objc func vibrationSwitch(_ sender: UITapGestureRecognizer) {
         userData.isVibrationEnabled.toggle()
-        if(userData.isVibrationEnabled){
-            AudioServicesPlaySystemSound(vibTryAgain)
-            vibLabel.text = "진동 켜짐"
-            self.vibContainer.layer.shadowColor = UIColor.black.cgColor
-            self.vibrationImageView.image = self.vibOn
+        if(deviceCategory != 0){
+            if(userData.isVibrationEnabled){
+                AudioServicesPlaySystemSound(vibTryAgain)
+                vibLabel.text = "진동 켜짐"
+                self.vibrationImageView.image = self.vibOn
+            }
+            else{
+                vibLabel.text = "진동 꺼짐"
+                self.vibrationImageView.image = self.vibOff
+            }
         }
         else{
-            vibLabel.text = "진동 꺼짐"
-            self.vibContainer.layer.shadowColor = UIColor.clear.cgColor
+            vibLabel.text = "햅틱 미지원 기기"
+            vibLabel.textColor = .gray
             self.vibrationImageView.image = self.vibOff
         }
     }

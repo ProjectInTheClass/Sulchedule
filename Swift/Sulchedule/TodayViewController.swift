@@ -450,10 +450,7 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var bottleLabel: UILabel!
     @IBOutlet weak var bottleStepper: UIStepper!
     @IBAction func bottleStepper(_ sender: UIStepper) {
-        if(userData.isVibrationEnabled){
-            AudioServicesPlaySystemSound(vibPeek)
-        }
-        
+
         bottleLabel.text = "\(String(Int(sender.value)))\(getSulUnit(index: getSulIndexByName(sulName: titleLabel.text!)!))"
         delegate?.tableManipulate(self)
         
