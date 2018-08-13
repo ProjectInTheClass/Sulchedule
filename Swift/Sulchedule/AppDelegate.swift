@@ -18,7 +18,6 @@ import UIKit
         loadRecordMonthList()
         loadUserData()
         
-        
         if(userData.isThemeBright){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
             colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
@@ -69,15 +68,14 @@ import UIKit
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
+        
         saveUserData()
         saveRecordMonthList()
         saveRecordDayList()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        saveUserData()
-        saveRecordMonthList()
-        saveRecordDayList()
+       
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -89,9 +87,7 @@ import UIKit
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        saveUserData()
-        saveRecordMonthList()
-        saveRecordDayList()
+
     }
 
 
