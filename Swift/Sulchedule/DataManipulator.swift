@@ -1166,3 +1166,17 @@ func isShowDrunkDaysEnabled() -> Bool{
 func setIsShowDrunkDays(enabled: Bool){
     userData.isShowDrunkDaysEnabled = enabled
 }
+
+
+func getAllDrunkDays() -> [Day] {
+    var getAllDrunkDaysArray:[Day] = []
+    
+    let recordDayListCount = recordDayList.count - 1
+    print(recordDayList)
+    print(recordDayList[0].today.day)
+    
+    for i in 0...recordDayListCount  {
+        getAllDrunkDaysArray += [recordDayList[i].today]
+    }
+    return getAllDrunkDaysArray
+}
