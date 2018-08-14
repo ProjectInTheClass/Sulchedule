@@ -1197,7 +1197,7 @@ func saveRecordMonthList() {
 }
 
 func saveUserData() {
-    let filePath = getFilePath(withFileName: "UserData.dat")
+    let filePath = getFilePath(withFileName: "UserSetting.dat")
     NSKeyedArchiver.archiveRootObject(userSetting, toFile: filePath)
 }
 
@@ -1222,7 +1222,7 @@ func loadRecordMonthList() {
 }
 
 func loadUserData() {
-    let filePath = getFilePath(withFileName: "UserData.dat")
+    let filePath = getFilePath(withFileName: "UserSetting.dat")
     let fileManager = FileManager.default
     if fileManager.fileExists(atPath: filePath) {
         if let savedUserData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? UserSetting {
