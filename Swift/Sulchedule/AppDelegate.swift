@@ -73,9 +73,6 @@ let request = GADRequest()
         monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         selectedDay = dateToDayConverter(date: Date())
         gotDay = getRecordDay(day: selectedDay)
-//        calendar.select(Date(), scrollToDate: true)
-//        newDaySelected(date: Date())
-//        calendar.reloadData()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -98,7 +95,9 @@ let request = GADRequest()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-
+        saveUserData()
+        saveRecordMonthList()
+        saveRecordDayList()
     }
 
 

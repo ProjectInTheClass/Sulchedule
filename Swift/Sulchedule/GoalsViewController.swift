@@ -17,12 +17,6 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
     @IBOutlet weak var topBackgroundView: UIView!
     
     var viewController:EmbedGoalsTableViewController? = nil
-//    var isLastMonth: Int = -1
-//    func setIsLastMonth(isLastMonth: Int){
-//        print(isLastMonth)
-//        self.isLastMonth = isLastMonth
-//        viewController?.isLastMonth = isLastMonth
-//    }
     
     let circlePath = UIBezierPath(arcCenter: CGPoint(x: 18,y: 18), radius: CGFloat(18), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
     

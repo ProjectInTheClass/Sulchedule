@@ -34,10 +34,6 @@ func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     return false
 }
 
-//func reloadTabBarColor(){
-//    self.tabBarController?.tabBar.backgroundColor = colorLightBackground
-//    self.tabBarController?.tabBar.tintColor = colorPoint
-//}
 
 func hexStringToUIColor (hex:String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

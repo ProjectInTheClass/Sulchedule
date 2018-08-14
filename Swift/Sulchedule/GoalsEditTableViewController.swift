@@ -49,8 +49,6 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     
     func tableManipulateValue(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
-        getRecordDay(day: dateToMonthConverter(date: Date()))
-        getRecordMonth(month: dateToMonthConverter(date: Date()))
         
 //        apply to array here
         let temp = Int((sender.editField.text! as NSString).integerValue)

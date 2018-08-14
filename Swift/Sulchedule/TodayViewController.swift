@@ -4,7 +4,6 @@ import AudioToolbox.AudioServices
 
 var selectedDay: Day = dateToDayConverter(date: Date())
 var gotDay: RecordDay?
-//var tempSul = getSulDictionary()
 
 
 protocol TodayTableDelegate {
@@ -37,8 +36,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         actualIndexArray = []
         currentDictionary = [:]
         currentDictionary = getSulDictionary()
-//        getSulDictionary().forEach { (k,v) in currentDictionary[k] = v }
-//        getUserSulDictionary().forEach { (k,v) in currentDictionary[k + getSulDictionary().count] = v }
         
         var cnt = 0
         var i = -1
@@ -243,21 +240,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         return colorPoint
     }
-    
-//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-//        if(isShowDrunkDaysEnabled()){
-//            let temp = dateToDayConverter(date: date)
-//            for item in getAllDrunkDays() {
-//                if(item.year == temp.year && item.month == temp.month && item.day == temp.day){
-//                    return colorRed
-//                }
-//            }
-//            return nil
-//        }
-//        else{
-//            return nil
-//        }
-//    }
 
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -343,7 +325,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         //Value
         customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: tempFavourite[indexPath.row]) ?? 0)
         customCell.bottleLabel.text = "\(getRecordDayBottles(day: selectedDay, index: tempFavourite[indexPath.row]) ?? 0)\(getSulUnit(index: tempFavourite[indexPath.row]))"
-        customCell.titleLabel.text = sul[tempFavourite[indexPath.row]].displayName ?? "undefined"
+        customCell.titleLabel.text = sul[tempFavourite[indexPath.row]].displayName
         
         //UI
         customCell.backgroundColor = .clear

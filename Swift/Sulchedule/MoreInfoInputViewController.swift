@@ -18,7 +18,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
             if let myNumber = NumberFormatter().number(from: input) {
                 returnValue = myNumber.intValue
                 sender.text = String(myNumber.intValue)
-                // do what you need to do with myInt
             } else {
                 sender.text = ""
             }
@@ -174,7 +173,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
             if let myNumber = NumberFormatter().number(from: input) {
                 returnValue = myNumber.intValue
                 expenseField.text = String(myNumber.intValue)
-                // do what you need to do with myInt
             } else {
                 expenseField.text = ""
             }

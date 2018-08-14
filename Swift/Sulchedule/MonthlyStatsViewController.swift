@@ -109,9 +109,9 @@ class MonthlyStatsViewController: UIViewController {
         let radius: CGFloat = firstPlaceView.frame.width / 2.0
         let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: firstPlaceView.frame.height))
         firstPlaceView.layer.shadowColor = UIColor.black.cgColor
-        firstPlaceView.layer.shadowOffset = CGSize(width: 0, height: 0)  //Here you control x and y
+        firstPlaceView.layer.shadowOffset = CGSize(width: 0, height: 0)
         firstPlaceView.layer.shadowOpacity = 0.2
-        firstPlaceView.layer.shadowRadius = 5.0 //Here your control your blur
+        firstPlaceView.layer.shadowRadius = 5.0
         firstPlaceView.layer.masksToBounds =  false
         firstPlaceView.layer.shadowPath = shadowPath.cgPath
         
@@ -150,7 +150,6 @@ class MonthlyStatsViewController: UIViewController {
                 desc2.text = ""
                 title3.text = "정보 부족"
                 desc3.text = ""
-                //\n\(temp2[2]!)\(sul[Array(temp.keys)[0]].unit)
             }
             if(2 <= k.count){
                 let temp = k[1]
@@ -272,7 +271,6 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     func cycleCircleBorder(cursor: Int){
-        //Dev on Main first, than transfer here
         if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }

@@ -77,14 +77,11 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func calorieField(_ sender: UITextField) {
         var input: String
-        var returnValue: Int? = nil
         if(sender.text != "" || sender.text != nil){
             input = sender.text!
             
             if let myNumber = NumberFormatter().number(from: input) {
-                returnValue = myNumber.intValue
                 sender.text = String(myNumber.intValue)
-                // do what you need to do with myInt
             } else {
                 sender.text = ""
             }
@@ -92,14 +89,11 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func priceField(_ sender: UITextField) {
         var input: String
-        var returnValue: Int? = nil
         if(sender.text != "" || sender.text != nil){
             input = sender.text!
             
             if let myNumber = NumberFormatter().number(from: input) {
-                returnValue = myNumber.intValue
                 sender.text = String(myNumber.intValue)
-                // do what you need to do with myInt
             } else {
                 sender.text = ""
             }
@@ -107,7 +101,7 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        vc = segue.destination as! EmbedAddSulTableViewController
+        vc = segue.destination as? EmbedAddSulTableViewController
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,16 +172,6 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
         unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                               attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
