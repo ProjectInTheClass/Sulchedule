@@ -84,12 +84,17 @@ class EmbedGoalsTableViewController: UITableViewController {
         }
         
         var dangerLevel = 0
-        for item in goalValue {
-            if(item > 0.7){
-                dangerLevel = 1
-            }
-            if(item > 1){
-                dangerLevel = 2
+        if(goalValue.count == 0){
+            dangerLevel = 3
+        }
+        else{
+            for item in goalValue {
+                if(item > 0.7){
+                    dangerLevel = 1
+                }
+                if(item > 1){
+                    dangerLevel = 2
+                }
             }
         }
         

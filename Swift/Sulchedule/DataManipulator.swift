@@ -54,6 +54,7 @@ func getRecordMonth(month: Day) -> RecordMonth?{
             
         }
         let defaultRecordMonth:RecordMonth = RecordMonth(thisMonth: month, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
+        addNewRecordMonth(newRecordMonth: defaultRecordMonth)
         return defaultRecordMonth
     }
 }

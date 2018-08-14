@@ -59,12 +59,17 @@ let request = GADRequest()
         UITabBar.appearance().clipsToBounds = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
+        
+        getRecordDay(day: dateToMonthConverter(date: Date()))
+        getRecordMonth(month: dateToMonthConverter(date: Date()))
 
         return true
     }
     
     @objc func calendarDayDidChange(_ notification : Notification)
     {
+        getRecordDay(day: dateToMonthConverter(date: Date()))
+        getRecordMonth(month: dateToMonthConverter(date: Date()))
         monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
         selectedDay = dateToDayConverter(date: Date())
         gotDay = getRecordDay(day: selectedDay)

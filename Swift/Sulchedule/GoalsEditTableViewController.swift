@@ -49,6 +49,8 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     
     func tableManipulateValue(_ sender: GoalsEditTableCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
+        getRecordDay(day: dateToMonthConverter(date: Date()))
+        getRecordMonth(month: dateToMonthConverter(date: Date()))
         
 //        apply to array here
         let temp = Int((sender.editField.text! as NSString).integerValue)
@@ -170,10 +172,6 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         customCell.delegate = self
         customCell.uiSwitch.setOn(goals[indexPath.row].checked, animated: false)
         customCell.editField.text = String(goals[indexPath.row].value)
-
-        
-        let numDays = Calendar.current.range(of: .day, in: .month, for: Date())!.count
-        let month = Calendar.current.component(.month, from: Date())
         
         if(goals[indexPath.row].value == 0){
             customCell.editField.text = ""

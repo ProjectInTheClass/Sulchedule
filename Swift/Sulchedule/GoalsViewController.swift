@@ -87,6 +87,11 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
     func cycleCircleBorder(cursor: Int){
         let alpha: CGFloat = 0.2
         switch (cursor){
+        case 3:
+            redView.alpha = alpha
+            yellowView.alpha = alpha
+            greenView.alpha = alpha
+            howYouDoingLabel.text = "목표를 설정하세요!"
         case 2:
             redView.alpha = 1.0
             yellowView.alpha = alpha
