@@ -29,11 +29,14 @@
 		35458DC92113D6D800878206 /* MethodPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35458DC82113D6D700878206 /* MethodPile.swift */; };
 		354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */; };
 		3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */; };
-		355D17BC2122B00400698DFD /* redTeaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 355D17B92122B00200698DFD /* redTeaser.png */; };
-		355D17BD2122B00400698DFD /* yellowTeaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 355D17BA2122B00200698DFD /* yellowTeaser.png */; };
-		355D17BE2122B00400698DFD /* greenTeaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 355D17BB2122B00300698DFD /* greenTeaser.png */; };
 		355D17C32122C14A00698DFD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 355D17C22122C14A00698DFD /* GoogleMobileAds.framework */; };
 		356C264A211BE87100678280 /* MoreInfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C2649211BE87100678280 /* MoreInfoInputViewController.swift */; };
+		3591EA9F2122F8BB004EF1B2 /* thrilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA992122F8B9004EF1B2 /* thrilled.png */; };
+		3591EAA02122F8BB004EF1B2 /* straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9A2122F8B9004EF1B2 /* straight.png */; };
+		3591EAA12122F8BB004EF1B2 /* happy.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9B2122F8B9004EF1B2 /* happy.png */; };
+		3591EAA22122F8BB004EF1B2 /* original.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9C2122F8BA004EF1B2 /* original.png */; };
+		3591EAA32122F8BB004EF1B2 /* depressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9D2122F8BA004EF1B2 /* depressed.png */; };
+		3591EAA42122F8BB004EF1B2 /* koala.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9E2122F8BA004EF1B2 /* koala.png */; };
 		3595EFCA2115E9D100F20009 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595EFC92115E9D100F20009 /* GoalsViewController.swift */; };
 		35975CBD21192EE600CDF77E /* MonthlySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */; };
 		35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */; };
@@ -103,11 +106,14 @@
 		35458DC82113D6D700878206 /* MethodPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodPile.swift; sourceTree = "<group>"; };
 		354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedGoalsTableViewController.swift; sourceTree = "<group>"; };
 		3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatsViewController.swift; sourceTree = "<group>"; };
-		355D17B92122B00200698DFD /* redTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redTeaser.png; sourceTree = "<group>"; };
-		355D17BA2122B00200698DFD /* yellowTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTeaser.png; sourceTree = "<group>"; };
-		355D17BB2122B00300698DFD /* greenTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenTeaser.png; sourceTree = "<group>"; };
 		355D17C22122C14A00698DFD /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		356C2649211BE87100678280 /* MoreInfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoInputViewController.swift; sourceTree = "<group>"; };
+		3591EA992122F8B9004EF1B2 /* thrilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thrilled.png; sourceTree = "<group>"; };
+		3591EA9A2122F8B9004EF1B2 /* straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = straight.png; sourceTree = "<group>"; };
+		3591EA9B2122F8B9004EF1B2 /* happy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = happy.png; sourceTree = "<group>"; };
+		3591EA9C2122F8BA004EF1B2 /* original.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = original.png; sourceTree = "<group>"; };
+		3591EA9D2122F8BA004EF1B2 /* depressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = depressed.png; sourceTree = "<group>"; };
+		3591EA9E2122F8BA004EF1B2 /* koala.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = koala.png; sourceTree = "<group>"; };
 		3595EFC92115E9D100F20009 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryViewController.swift; sourceTree = "<group>"; };
 		35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryFrameViewController.swift; sourceTree = "<group>"; };
@@ -248,9 +254,12 @@
 		355D17BF2122B00800698DFD /* IconImages */ = {
 			isa = PBXGroup;
 			children = (
-				355D17BB2122B00300698DFD /* greenTeaser.png */,
-				355D17B92122B00200698DFD /* redTeaser.png */,
-				355D17BA2122B00200698DFD /* yellowTeaser.png */,
+				3591EA9D2122F8BA004EF1B2 /* depressed.png */,
+				3591EA992122F8B9004EF1B2 /* thrilled.png */,
+				3591EA9B2122F8B9004EF1B2 /* happy.png */,
+				3591EA9E2122F8BA004EF1B2 /* koala.png */,
+				3591EA9C2122F8BA004EF1B2 /* original.png */,
+				3591EA9A2122F8B9004EF1B2 /* straight.png */,
 			);
 			name = IconImages;
 			sourceTree = "<group>";
@@ -393,12 +402,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3591EA9F2122F8BB004EF1B2 /* thrilled.png in Resources */,
+				3591EAA02122F8BB004EF1B2 /* straight.png in Resources */,
+				3591EAA12122F8BB004EF1B2 /* happy.png in Resources */,
 				35991192211EBE25002A5319 /* Images.xcassets in Resources */,
+				3591EAA42122F8BB004EF1B2 /* koala.png in Resources */,
 				EE0954B21B97DDE0007F6964 /* Main.storyboard in Resources */,
 				EE0954B71B97DDE0007F6964 /* LaunchScreen.xib in Resources */,
-				355D17BD2122B00400698DFD /* yellowTeaser.png in Resources */,
-				355D17BC2122B00400698DFD /* redTeaser.png in Resources */,
-				355D17BE2122B00400698DFD /* greenTeaser.png in Resources */,
+				3591EAA22122F8BB004EF1B2 /* original.png in Resources */,
+				3591EAA32122F8BB004EF1B2 /* depressed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

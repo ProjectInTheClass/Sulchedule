@@ -1253,6 +1253,8 @@ func getPurchased() -> Bool{
     }
     else{
         print("purchased : \(userSetting.purchased!)")
-        return userSetting.purchased!
+//        return userSetting.purchased!
+        return false
     }
+    
 }

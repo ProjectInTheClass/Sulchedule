@@ -8,9 +8,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var topBackgroundView: UIView!
     @IBOutlet var mainBackgroundView: UIView!
     @IBOutlet weak var themeImageView: UIImageView!
-    @IBOutlet weak var vibrationImageView: UIImageView!
     @IBOutlet weak var themeLabel: UILabel!
-    @IBOutlet weak var vibLabel: UILabel!
     @IBOutlet weak var themeContainer: UIView!
     @IBOutlet weak var vibContainer: UIView!
     @IBOutlet weak var addSulContainer: UIView!
@@ -21,15 +19,35 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var yesterdayContainer: UIView!
     @IBOutlet weak var showDrunkButton: UIButton!
     @IBOutlet weak var showDrunkContainer: UIView!
+    @IBOutlet weak var changeIconContainer: UIView!
+    @IBOutlet weak var removeAdContainer: UIView!
+    @IBOutlet weak var vibButton: UIButton!
+    @IBOutlet weak var changeIconButton: UIButton!
+    @IBOutlet weak var removeAdButton: UIButton!
     
-    var vibOn: UIImage?
-    var vibOff: UIImage?
     
-    
-//    var showYesterdayFirst = true
-//    var isVibrationEnabled = true
-//    var isThemeBright = false
-    
+    @IBAction func removeAdButton(_ sender: Any) {
+        userSetting.purchased = true
+    }
+    @IBAction func vibButton(_ sender: Any) {
+        userSetting.isVibrationEnabled.toggle()
+        if(deviceCategory != 0){
+            if(userSetting.isVibrationEnabled){
+                AudioServicesPlaySystemSound(vibTryAgain)
+                vibButton.setTitle("햅틱 켜짐", for: .normal)
+                self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
+            }
+            else{
+                vibButton.setTitle("햅틱 꺼짐", for: .normal)
+                self.applyShadow(view: self.vibContainer, enable: false)
+            }
+        }
+        else{
+            vibButton.setTitle("햅틱 미지원 기기", for: .normal)
+            vibButton.setTitleColor(.gray, for: .normal)
+            self.applyShadow(view: self.vibContainer, enable: false)
+        }
+    }
     @IBAction func showDrunkButton(_ sender: UIButton) {
         setIsShowDrunkDays(enabled: !isShowDrunkDaysEnabled())
         if(isShowDrunkDaysEnabled()){
@@ -83,30 +101,17 @@ class SettingsViewController: UIViewController {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.darkThemeSwitch(_:)))
         themeContainer.addGestureRecognizer(tap)
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.vibrationSwitch(_:)))
-        vibContainer.addGestureRecognizer(tap2)
         
-        if(userSetting.isThemeBright){
-            vibOn = UIImage(named: "vib_bright_on")
-            vibOff = UIImage(named: "vib_bright_off")
-        }
-        else{
-            vibOn = UIImage(named: "vib_on")
-            vibOff = UIImage(named: "vib_off")
-        }
         if(deviceCategory != 0){
             if(userSetting.isVibrationEnabled){
-                vibLabel.text = "햅틱 켜짐"
-                self.vibrationImageView.image = self.vibOn
+                vibButton.setTitle("햅틱 켜짐", for: .normal)
             }
             else{
-                vibLabel.text = "햅틱 꺼짐"
-                self.vibrationImageView.image = self.vibOff
+                vibButton.setTitle("햅틱 꺼짐", for: .normal)
             }
         }
         else{
-            vibLabel.text = "햅틱 미지원 기기"
-            self.vibrationImageView.image = self.vibOff
+            vibButton.setTitle("햅틱 미지원 기기", for: .normal)
         }
         if(getShowYesterdayFirst()){
             yesterdayButton.setTitle("정오까지 전날이 먼저 표시됩니다", for: .normal)
@@ -123,7 +128,7 @@ class SettingsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         themeLabel.textColor = colorPoint
-        vibLabel.textColor = colorPoint
+        vibButton.setTitleColor(colorPoint, for: .normal)
         resetButton.tintColor = colorRed
         addSulButton.tintColor = colorPoint
         yesterdayButton.tintColor = colorPoint
@@ -174,7 +179,7 @@ class SettingsViewController: UIViewController {
         
         if(deviceCategory == 0){
             self.applyShadow(view: self.vibContainer, enable: false)
-            self.vibLabel.textColor = .gray
+            self.vibButton.setTitleColor(.gray, for: .normal)
         }
     }
     
@@ -218,21 +223,19 @@ class SettingsViewController: UIViewController {
             }
             
             self.themeLabel.textColor = colorPoint
-            self.vibLabel.textColor = colorPoint
+            self.vibButton.setTitleColor(colorPoint, for: .normal)
             self.resetButton.setTitleColor(colorRed, for: .normal)
             self.addSulButton.setTitleColor(colorPoint, for: .normal)
             self.yesterdayButton.setTitleColor(colorPoint, for: .normal)
             self.showDrunkButton.setTitleColor(colorPoint, for: .normal)
             if(deviceCategory == 0){
-                self.vibLabel.textColor = .gray
+                self.vibButton.setTitleColor(.gray, for: .normal)
             }
             
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground
         }, completion: nil)
         if(userSetting.isThemeBright){
-            vibOn = UIImage(named: "vib_bright_on")
-            vibOff = UIImage(named: "vib_bright_off")
             
             self.topBackgroundView.backgroundColor = colorLightBackground
             UINavigationBar.appearance().tintColor = UIColor.black
@@ -245,8 +248,6 @@ class SettingsViewController: UIViewController {
             self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
         }
         else{
-            vibOn = UIImage(named: "vib_on")
-            vibOff = UIImage(named: "vib_off")
             
             self.topBackgroundView.backgroundColor = colorLightBackground
             UINavigationBar.appearance().tintColor = UIColor.white
@@ -260,17 +261,14 @@ class SettingsViewController: UIViewController {
         }
         if(deviceCategory != 0){
             if(userSetting.isVibrationEnabled){
-                vibLabel.text = "햅틱 켜짐"
-                self.vibrationImageView.image = self.vibOn
+                vibButton.setTitle("햅틱 켜짐", for: .normal)
             }
             else{
-                vibLabel.text = "햅틱 꺼짐"
-                self.vibrationImageView.image = self.vibOff
+                vibButton.setTitle("햅틱 꺼짐", for: .normal)
             }
         }
         else{
-            vibLabel.text = "햅틱 미지원 기기"
-            self.vibrationImageView.image = self.vibOff
+            vibButton.setTitle("햅틱 미지원 기기", for: .normal)
         }
         UINavigationBar.appearance().barTintColor = colorLightBackground
         UINavigationBar.appearance().backgroundColor = colorLightBackground
@@ -279,28 +277,6 @@ class SettingsViewController: UIViewController {
         UITabBar.appearance().barTintColor = colorLightBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-    }
-    @objc func vibrationSwitch(_ sender: UITapGestureRecognizer) {
-        userSetting.isVibrationEnabled.toggle()
-        if(deviceCategory != 0){
-            if(userSetting.isVibrationEnabled){
-                AudioServicesPlaySystemSound(vibTryAgain)
-                vibLabel.text = "햅틱 켜짐"
-                self.vibrationImageView.image = self.vibOn
-                self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
-            }
-            else{
-                vibLabel.text = "햅틱 꺼짐"
-                self.vibrationImageView.image = self.vibOff
-                self.applyShadow(view: self.vibContainer, enable: false)
-            }
-        }
-        else{
-            vibLabel.text = "햅틱 미지원 기기"
-            vibLabel.textColor = .gray
-            self.vibrationImageView.image = self.vibOff
-            self.applyShadow(view: self.vibContainer, enable: false)
-        }
     }
     
     func applyShadow(view: UIView, enable: Bool){
