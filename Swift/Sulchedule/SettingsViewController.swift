@@ -28,6 +28,9 @@ class SettingsViewController: UIViewController {
     
     @IBAction func removeAdButton(_ sender: Any) {
         userSetting.purchased = true
+        self.applyShadow(view: self.vibContainer, enable: false)
+        removeAdButton.setTitleColor(.gray, for: .normal)
+        removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
     }
     @IBAction func vibButton(_ sender: Any) {
         userSetting.isVibrationEnabled.toggle()
@@ -137,6 +140,14 @@ class SettingsViewController: UIViewController {
         addSulButton.setTitleColor(colorPoint, for: .normal)
         yesterdayButton.setTitleColor(colorPoint, for: .normal)
         showDrunkButton.setTitleColor(colorPoint, for: .normal)
+        changeIconButton.setTitleColor(colorPoint, for: .normal)
+        if(getPurchased()){
+            removeAdButton.isUserInteractionEnabled = false
+            removeAdButton.setTitleColor(.gray, for: .normal)
+        }
+        else{
+            removeAdButton.setTitleColor(colorPoint, for: .normal)
+        }
         
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
@@ -153,6 +164,8 @@ class SettingsViewController: UIViewController {
             self.resetContainer.backgroundColor = colorDeepBackground
             self.yesterdayContainer.backgroundColor = colorDeepBackground
             self.showDrunkContainer.backgroundColor = colorDeepBackground
+            self.changeIconContainer.backgroundColor = colorDeepBackground
+            self.removeAdContainer.backgroundColor = colorDeepBackground
         }
         else{
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
@@ -166,16 +179,27 @@ class SettingsViewController: UIViewController {
             self.resetContainer.backgroundColor = colorLightBackground
             self.yesterdayContainer.backgroundColor = colorLightBackground
             self.showDrunkContainer.backgroundColor = colorLightBackground
+            self.changeIconContainer.backgroundColor = colorLightBackground
+            self.removeAdContainer.backgroundColor = colorLightBackground
         }
         self.applyShadow(view: self.resetContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.addSulContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.themeContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.showDrunkContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.yesterdayContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.changeIconContainer, enable: userSetting.isThemeBright)
         
         if(userSetting.isVibrationEnabled){
             self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
         }
+        
+        if(getPurchased()){
+            self.applyShadow(view: self.vibContainer, enable: false)
+            removeAdButton.setTitleColor(.gray, for: .normal)
+            removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
+            removeAdButton.isUserInteractionEnabled = false
+        }
+        self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
         
         if(deviceCategory == 0){
             self.applyShadow(view: self.vibContainer, enable: false)
@@ -190,9 +214,10 @@ class SettingsViewController: UIViewController {
         self.applyShadow(view: self.addSulContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.themeContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.showDrunkContainer, enable: userSetting.isThemeBright)
-        if(userSetting.isVibrationEnabled){
-            self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
-        }
+        self.applyShadow(view: self.changeIconContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.yesterdayContainer, enable: userSetting.isThemeBright)
+        self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
+        self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright && userSetting.isVibrationEnabled)
         
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
             if(userSetting.isThemeBright){
@@ -207,6 +232,8 @@ class SettingsViewController: UIViewController {
                 self.resetContainer.backgroundColor = colorDeepBackground
                 self.yesterdayContainer.backgroundColor = colorDeepBackground
                 self.showDrunkContainer.backgroundColor = colorDeepBackground
+                self.changeIconContainer.backgroundColor = colorDeepBackground
+                self.removeAdContainer.backgroundColor = colorDeepBackground
             }
             else{
                 colorPoint = hexStringToUIColor(hex:"FFDC67")
@@ -220,6 +247,8 @@ class SettingsViewController: UIViewController {
                 self.resetContainer.backgroundColor = colorLightBackground
                 self.yesterdayContainer.backgroundColor = colorLightBackground
                 self.showDrunkContainer.backgroundColor = colorLightBackground
+                self.changeIconContainer.backgroundColor = colorLightBackground
+                self.removeAdContainer.backgroundColor = colorLightBackground
             }
             
             self.themeLabel.textColor = colorPoint
@@ -228,6 +257,8 @@ class SettingsViewController: UIViewController {
             self.addSulButton.setTitleColor(colorPoint, for: .normal)
             self.yesterdayButton.setTitleColor(colorPoint, for: .normal)
             self.showDrunkButton.setTitleColor(colorPoint, for: .normal)
+            self.changeIconButton.setTitleColor(colorPoint, for: .normal)
+            self.removeAdButton.setTitleColor(colorPoint, for: .normal)
             if(deviceCategory == 0){
                 self.vibButton.setTitleColor(.gray, for: .normal)
             }

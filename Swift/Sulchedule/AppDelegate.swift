@@ -58,9 +58,21 @@ let request = GADRequest()
         UITabBar.appearance().layer.borderColor = UIColor.clear.cgColor
         UITabBar.appearance().clipsToBounds = true
         
+        NotificationCenter.default.addObserver(self, selector: #selector(calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
+
         return true
     }
-
+    
+    @objc func calendarDayDidChange(_ notification : Notification)
+    {
+        monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
+        selectedDay = dateToDayConverter(date: Date())
+        gotDay = getRecordDay(day: selectedDay)
+//        calendar.select(Date(), scrollToDate: true)
+//        newDaySelected(date: Date())
+//        calendar.reloadData()
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         
         saveUserData()

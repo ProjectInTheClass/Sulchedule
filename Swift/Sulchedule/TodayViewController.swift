@@ -25,8 +25,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         setBottomInfoLabelString()
     }
     
-    
-    
     var actualIndexArray: [Int] = []
     var sulArray: [Sul] = []
     var currentDictionary: [Int: Sul] = [:]
@@ -79,9 +77,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.setScope(scope, animated: true)
     }
     @IBAction func calendarToday(_ sender: Any) {
-        let date: Date = Date.init()
-        calendar.select(date, scrollToDate: true)
-        newDaySelected(date: calendar.today!)
+        calendar.select(Date(), scrollToDate: true)
+        newDaySelected(date: Date())
     }
     @IBOutlet weak var bottomInfoLabel: UILabel!
     @IBOutlet weak var bottomContainer: UIView!
@@ -102,7 +99,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     var upFlag = false
     var firstRunForHaptic: Bool = true
     var firstRunForMonthlySummary: Bool = true
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -394,7 +391,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         setBottomInfoLabelString()
         loadArray()
         tableView.reloadData()
-//        calendar.cell(for: <#T##Date#>, at: <#T##FSCalendarMonthPosition#>).configureAppearance()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

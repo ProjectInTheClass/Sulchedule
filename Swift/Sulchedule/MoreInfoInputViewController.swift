@@ -76,7 +76,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, GADBan
         setRecordDayFriends(day: selectedDay, friends: returnArray)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

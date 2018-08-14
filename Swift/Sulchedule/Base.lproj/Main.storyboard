@@ -1428,7 +1428,7 @@
                                             <constraint firstAttribute="height" priority="500" constant="50" id="u03-IO-I6z"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="광고 제거">
+                                        <state key="normal" title="광고 제거 / 구매 목록 복원">
                                             <color key="titleColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -2311,7 +2311,6 @@
         <!--Navigation Controller-->
         <scene sceneID="eXx-FG-HqB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iov-gd-aBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="1tK-IN-Dxc" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x47-Kl-vpT">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -2321,6 +2320,7 @@
                         <segue destination="5gZ-Q4-r8X" kind="relationship" relationship="rootViewController" id="Nr9-KJ-BBO"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iov-gd-aBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1132" y="4009"/>
         </scene>
