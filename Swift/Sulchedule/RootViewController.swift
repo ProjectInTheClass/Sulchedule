@@ -40,10 +40,11 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RemoveAdDeleg
         
         if(!getPurchased()){
             bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-            //actual unit id
-//            bannerView.adUnitID = "ca-app-pub-4587910042719801/7836975613"
             //test unit id
-            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            //actual unit id
+            bannerView.adUnitID = "ca-app-pub-4587910042719801/7836975613"
+            
             bannerView.rootViewController = self
             bannerView.delegate = self
             
