@@ -29,12 +29,15 @@
 		35458DC92113D6D800878206 /* MethodPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35458DC82113D6D700878206 /* MethodPile.swift */; };
 		354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */; };
 		3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */; };
+		355D17BC2122B00400698DFD /* redTeaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 355D17B92122B00200698DFD /* redTeaser.png */; };
+		355D17BD2122B00400698DFD /* yellowTeaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 355D17BA2122B00200698DFD /* yellowTeaser.png */; };
+		355D17BE2122B00400698DFD /* greenTeaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 355D17BB2122B00300698DFD /* greenTeaser.png */; };
+		355D17C32122C14A00698DFD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 355D17C22122C14A00698DFD /* GoogleMobileAds.framework */; };
 		356C264A211BE87100678280 /* MoreInfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C2649211BE87100678280 /* MoreInfoInputViewController.swift */; };
 		3595EFCA2115E9D100F20009 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595EFC92115E9D100F20009 /* GoalsViewController.swift */; };
 		35975CBD21192EE600CDF77E /* MonthlySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */; };
 		35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */; };
 		35975CC5211947E400CDF77E /* IconSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC4211947E400CDF77E /* IconSelectViewController.swift */; };
-		35975CC7211950DC00CDF77E /* EmbedIconSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */; };
 		35991190211E9B81002A5319 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3599118F211E9B81002A5319 /* SettingsViewController.swift */; };
 		35991192211EBE25002A5319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35991191211EBE23002A5319 /* Images.xcassets */; };
 		35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */; };
@@ -100,12 +103,15 @@
 		35458DC82113D6D700878206 /* MethodPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodPile.swift; sourceTree = "<group>"; };
 		354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedGoalsTableViewController.swift; sourceTree = "<group>"; };
 		3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatsViewController.swift; sourceTree = "<group>"; };
+		355D17B92122B00200698DFD /* redTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redTeaser.png; sourceTree = "<group>"; };
+		355D17BA2122B00200698DFD /* yellowTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTeaser.png; sourceTree = "<group>"; };
+		355D17BB2122B00300698DFD /* greenTeaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenTeaser.png; sourceTree = "<group>"; };
+		355D17C22122C14A00698DFD /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		356C2649211BE87100678280 /* MoreInfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoInputViewController.swift; sourceTree = "<group>"; };
 		3595EFC92115E9D100F20009 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		35975CBC21192EE600CDF77E /* MonthlySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryViewController.swift; sourceTree = "<group>"; };
 		35975CC02119327200CDF77E /* MonthlySummaryFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySummaryFrameViewController.swift; sourceTree = "<group>"; };
 		35975CC4211947E400CDF77E /* IconSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectViewController.swift; sourceTree = "<group>"; };
-		35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedIconSelectTableViewController.swift; sourceTree = "<group>"; };
 		3599118F211E9B81002A5319 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		35991191211EBE23002A5319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsEditTableViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				355D17C32122C14A00698DFD /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +197,7 @@
 		35338384211D31C000171B16 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				355D17BF2122B00800698DFD /* IconImages */,
 				EE0954B01B97DDE0007F6964 /* Main.storyboard */,
 				EE0954B51B97DDE0007F6964 /* LaunchScreen.xib */,
 				35338386211D31F500171B16 /* ViewController */,
@@ -206,7 +214,6 @@
 				35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */,
 				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
 				35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */,
-				35975CC6211950DC00CDF77E /* EmbedIconSelectTableViewController.swift */,
 			);
 			name = TableViewController;
 			sourceTree = "<group>";
@@ -236,6 +243,16 @@
 				D2D756F1211D7031008051F2 /* DataManipulator.swift */,
 			);
 			name = DataCentre;
+			sourceTree = "<group>";
+		};
+		355D17BF2122B00800698DFD /* IconImages */ = {
+			isa = PBXGroup;
+			children = (
+				355D17BB2122B00300698DFD /* greenTeaser.png */,
+				355D17B92122B00200698DFD /* redTeaser.png */,
+				355D17BA2122B00200698DFD /* yellowTeaser.png */,
+			);
+			name = IconImages;
 			sourceTree = "<group>";
 		};
 		EE09549E1B97DDE0007F6964 = {
@@ -273,6 +290,7 @@
 		EE0954AA1B97DDE0007F6964 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				355D17C22122C14A00698DFD /* GoogleMobileAds.framework */,
 				EE0954AB1B97DDE0007F6964 /* Info.plist */,
 				EE0954EE1B97DE08007F6964 /* Objc-Bridge-Header.h */,
 			);
@@ -378,6 +396,9 @@
 				35991192211EBE25002A5319 /* Images.xcassets in Resources */,
 				EE0954B21B97DDE0007F6964 /* Main.storyboard in Resources */,
 				EE0954B71B97DDE0007F6964 /* LaunchScreen.xib in Resources */,
+				355D17BD2122B00400698DFD /* yellowTeaser.png in Resources */,
+				355D17BC2122B00400698DFD /* redTeaser.png in Resources */,
+				355D17BE2122B00400698DFD /* greenTeaser.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +441,6 @@
 				35058F452115B63C002DBF23 /* EmbedStatsTableViewController.swift in Sources */,
 				30F4C9431E07C3AD00D2EC4D /* FSCalendarDelegationProxy.m in Sources */,
 				35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */,
-				35975CC7211950DC00CDF77E /* EmbedIconSelectTableViewController.swift in Sources */,
 				30F4C93C1E07C3AD00D2EC4D /* FSCalendarAppearance.m in Sources */,
 				356C264A211BE87100678280 /* MoreInfoInputViewController.swift in Sources */,
 				30F4C9481E07C3AD00D2EC4D /* FSCalendarWeekdayView.m in Sources */,
@@ -582,10 +602,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 45339DQ884;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sulchedule",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sulchedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.herojeff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sulchedule.sulchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sulchedule/Objc-Bridge-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -599,10 +623,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 45339DQ884;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sulchedule",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sulchedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.herojeff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sulchedule.sulchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sulchedule/Objc-Bridge-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

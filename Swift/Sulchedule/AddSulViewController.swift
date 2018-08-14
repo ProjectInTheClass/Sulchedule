@@ -1,8 +1,11 @@
 import UIKit
+import GoogleMobileAds
 
 class AddSulViewController: UIViewController, UITextFieldDelegate {
     
     var vc: EmbedAddSulTableViewController?
+    
+    var bannerView: GADBannerView!
 
     @IBOutlet weak var tableDescriptionLabel: UILabel!
     @IBOutlet var background: UIView!
@@ -117,6 +120,35 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
         calorieField.delegate = self
         unitField.delegate = self
         priceField.delegate = self
+        
+        if(!getPurchased()){
+            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+            bannerView.adUnitID = "ca-app-pub-4587910042719801/5071427072"
+            bannerView.rootViewController = self
+            bannerView.load(request)
+            addBannerViewToView(bannerView)
+        }
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

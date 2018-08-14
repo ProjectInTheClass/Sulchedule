@@ -1,6 +1,7 @@
 //table view input
 import UIKit
 import AudioToolbox.AudioServices
+import GoogleMobileAds
 
 protocol GoalsEditTableDelegate {
     func tableManipulateSwitch(_ sender: GoalsEditTableCell)
@@ -15,6 +16,8 @@ struct UserGoal{
 var goals: [UserGoal] = []
 
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
+    
+    var bannerView: GADBannerView!
     
     @IBOutlet var backgroundView: UITableView!
     
@@ -123,6 +126,35 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GoalsEditTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        if(!getPurchased()){
+            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+            bannerView.adUnitID = "ca-app-pub-4587910042719801/3227862361"
+            bannerView.rootViewController = self
+            bannerView.load(request)
+            addBannerViewToView(bannerView)
+        }
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = colorPoint

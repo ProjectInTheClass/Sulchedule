@@ -218,7 +218,7 @@ class UserSetting : NSObject, NSCoding {
     var favorites: [Int] = []
     var succeededLastMonth = false
     
-    var purchased = false
+    var purchased: Bool?
     var newSul: [Sul] = []
     var firstLaunch: Bool = true
     var showYesterdayFirst = true
@@ -227,7 +227,8 @@ class UserSetting : NSObject, NSCoding {
     var isShowDrunkDaysEnabled = true
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
-    override init() {
+    init(purchased: Bool) {
+        self.purchased = purchased
     }
     
     public func encode(with aCoder:NSCoder) {
@@ -255,7 +256,7 @@ class UserSetting : NSObject, NSCoding {
             self.succeededLastMonth = false
         }
         
-        if let purchased = aDecoder.decodeBool(forKey: "purchased") as? Bool{
+        if let purchased = aDecoder.decodeObject(forKey: "purchased") as? Bool{
             self.purchased = purchased
         } else {
             self.purchased = false

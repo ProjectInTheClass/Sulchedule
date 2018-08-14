@@ -1,6 +1,7 @@
 //table view input
 import UIKit
 import AudioToolbox.AudioServices
+import GoogleMobileAds
 
 var star: UIImage?
 var star_empty: UIImage?
@@ -16,6 +17,8 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         let index = indexPath.row
         setFavouriteSul(index: actualIndexArray[index], set: bool)
     }
+    
+    var bannerView: GADBannerView!
     
     func tableManipulate(_ sender: TodayAdditionalTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
@@ -57,6 +60,35 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "직접 추가", style: .done, target: self, action: #selector(loadAddSul))
+        
+        if(!getPurchased()){
+            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+            bannerView.adUnitID = "ca-app-pub-4587910042719801/2233101626"
+            bannerView.rootViewController = self
+            bannerView.load(request)
+            addBannerViewToView(bannerView)
+        }
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -1243,5 +1243,16 @@ func getFilePath(withFileName fileName:String) -> String{
 func resetApp(){
     recordDayList.removeAll()
     recordMonthList.removeAll()
-    userSetting = UserSetting()
+    userSetting = UserSetting(purchased: getPurchased())
+}
+
+func getPurchased() -> Bool{
+    if(userSetting.purchased == nil){
+        print("forced false")
+        return false
+    }
+    else{
+        print("purchased : \(userSetting.purchased!)")
+        return userSetting.purchased!
+    }
 }

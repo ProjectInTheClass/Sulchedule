@@ -6,6 +6,59 @@
 	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>greenTeaser</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>greenTeaser</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<string>No</string>
+			</dict>
+			<key>redTeaser</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>redTeaser</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<string>No</string>
+			</dict>
+			<key>yellowTeaser</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>yellowTeaser</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<string>No</string>
+			</dict>
+		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>yellowTeaser</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
+		<key>UINewsstandIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string></string>
+			</array>
+			<key>UINewsstandBindingEdge</key>
+			<string>UINewsstandBindingEdgeLeft</string>
+			<key>UINewsstandBindingType</key>
+			<string>UINewsstandBindingTypeMagazine</string>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -22,6 +75,11 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

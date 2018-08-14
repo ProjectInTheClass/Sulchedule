@@ -1,12 +1,15 @@
 import UIKit
+import GoogleMobileAds
 
-class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
+class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
 
     @IBOutlet weak var expenseField: UITextField!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var friendsField: UITextField!
     @IBOutlet var background: UIView!
     @IBOutlet weak var promptLabel: UILabel!
+    
+    var bannerView: GADBannerView!
     
     @IBAction func expenseField(_ sender: UITextField) {
         var input: String
@@ -83,8 +86,38 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
         expenseField.delegate = self
         friendsField.delegate = self
         locationField.delegate = self
+        
+        if(!getPurchased()){
+            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+            bannerView.adUnitID = "ca-app-pub-4587910042719801/3924623097"
+            bannerView.rootViewController = self
+            
+            bannerView.load(request)
+            addBannerViewToView(bannerView)
+        }
     }
     
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
@@ -233,16 +266,5 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
         friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

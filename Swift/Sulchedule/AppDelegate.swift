@@ -1,4 +1,7 @@
 import UIKit
+import GoogleMobileAds
+
+let request = GADRequest()
 
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -8,8 +11,10 @@ import UIKit
         loadRecordDayList()
         loadRecordMonthList()
         loadUserData()
-        
         sul.append(contentsOf: userSetting.newSul)
+        
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-4587910042719801~6894810485")
+        request.testDevices = [ "f02b5d64da4ded542745d20af9cbbfcd" ]
         
         if(userSetting.isThemeBright){
             colorPoint = hexStringToUIColor(hex: "#0067B2")
