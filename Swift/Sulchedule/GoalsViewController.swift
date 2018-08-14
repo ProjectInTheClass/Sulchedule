@@ -1,5 +1,4 @@
 import UIKit
-import GoogleMobileAds
 
 protocol CycleBorderDelegate{
     func manipulateCircle(value: Int)
@@ -10,7 +9,6 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         cycleCircleBorder(cursor: value)
     }
     
-    var bannerView: GADBannerView!
     
     @IBOutlet weak var greenView: UIView!
     @IBOutlet weak var yellowView: UIView!
@@ -48,34 +46,6 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
         
-        if(!getPurchased()){
-            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-            bannerView.adUnitID = "ca-app-pub-4587910042719801/3207696973"
-            bannerView.rootViewController = self
-            bannerView.load(request)
-            addBannerViewToView(bannerView)
-        }
-    }
-    
-    func addBannerViewToView(_ bannerView: GADBannerView) {
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
-        view.addConstraints(
-            [NSLayoutConstraint(item: bannerView,
-                                attribute: .bottom,
-                                relatedBy: .equal,
-                                toItem: bottomLayoutGuide,
-                                attribute: .top,
-                                multiplier: 1,
-                                constant: 0),
-             NSLayoutConstraint(item: bannerView,
-                                attribute: .centerX,
-                                relatedBy: .equal,
-                                toItem: view,
-                                attribute: .centerX,
-                                multiplier: 1,
-                                constant: 0)
-            ])
     }
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground

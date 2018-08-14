@@ -31,6 +31,8 @@ class SettingsViewController: UIViewController {
         self.applyShadow(view: self.vibContainer, enable: false)
         removeAdButton.setTitleColor(.gray, for: .normal)
         removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
+        removeAdDelegate?.removeAd()
+        removeAdDelegate?.setAdBackgroundColor()
     }
     @IBAction func vibButton(_ sender: Any) {
         userSetting.isVibrationEnabled.toggle()
@@ -149,6 +151,7 @@ class SettingsViewController: UIViewController {
             removeAdButton.setTitleColor(colorPoint, for: .normal)
         }
         
+        removeAdDelegate?.setAdBackgroundColor()
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
@@ -308,6 +311,7 @@ class SettingsViewController: UIViewController {
         UITabBar.appearance().barTintColor = colorLightBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
+        removeAdDelegate?.setAdBackgroundColor()
     }
     
     func applyShadow(view: UIView, enable: Bool){

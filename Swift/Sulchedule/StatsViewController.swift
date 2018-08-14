@@ -150,6 +150,15 @@ class StatsViewController: UIViewController {
         showPlatform(cursor: currentCursor)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        showPlatform(cursor: 0)
+        removeAdDelegate?.removeAd()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeAdDelegate?.showAd()
+    }
+    
     
     @objc func sulClicked(){
         if(userSetting.isVibrationEnabled){
@@ -283,6 +292,7 @@ class StatsViewController: UIViewController {
     
     func loadSegment(whichSegment: Int){
         if(whichSegment == 0){
+            removeAdDelegate?.removeAd()
             if(firstAppearance){
                 firstAppearance = false
             }
@@ -297,6 +307,7 @@ class StatsViewController: UIViewController {
             vc?.showWeeklyFunc(showWeekly: false)
         }
         else{
+            removeAdDelegate?.showAd()
             if(userSetting.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibCancelled)
             }

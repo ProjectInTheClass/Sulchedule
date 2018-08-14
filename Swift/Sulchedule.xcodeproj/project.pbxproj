@@ -31,6 +31,7 @@
 		3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */; };
 		355D17C32122C14A00698DFD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 355D17C22122C14A00698DFD /* GoogleMobileAds.framework */; };
 		356C264A211BE87100678280 /* MoreInfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C2649211BE87100678280 /* MoreInfoInputViewController.swift */; };
+		356C4C22212343060073A694 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C4C21212343060073A694 /* RootViewController.swift */; };
 		3591EA9F2122F8BB004EF1B2 /* thrilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA992122F8B9004EF1B2 /* thrilled.png */; };
 		3591EAA02122F8BB004EF1B2 /* straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9A2122F8B9004EF1B2 /* straight.png */; };
 		3591EAA12122F8BB004EF1B2 /* happy.png in Resources */ = {isa = PBXBuildFile; fileRef = 3591EA9B2122F8B9004EF1B2 /* happy.png */; };
@@ -108,6 +109,7 @@
 		3555AA7F21187C2700716178 /* MonthlyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatsViewController.swift; sourceTree = "<group>"; };
 		355D17C22122C14A00698DFD /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		356C2649211BE87100678280 /* MoreInfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoInputViewController.swift; sourceTree = "<group>"; };
+		356C4C21212343060073A694 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		3591EA992122F8B9004EF1B2 /* thrilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thrilled.png; sourceTree = "<group>"; };
 		3591EA9A2122F8B9004EF1B2 /* straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = straight.png; sourceTree = "<group>"; };
 		3591EA9B2122F8B9004EF1B2 /* happy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = happy.png; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		35338386211D31F500171B16 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				356C4C21212343060073A694 /* RootViewController.swift */,
 				305282C81E1608A100CC2877 /* TodayViewController.swift */,
 				356C2649211BE87100678280 /* MoreInfoInputViewController.swift */,
 				35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */,
@@ -436,6 +439,7 @@
 				354AA90B211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift in Sources */,
 				30F4C9401E07C3AD00D2EC4D /* FSCalendarCollectionViewLayout.m in Sources */,
 				35991190211E9B81002A5319 /* SettingsViewController.swift in Sources */,
+				356C4C22212343060073A694 /* RootViewController.swift in Sources */,
 				35975CC12119327200CDF77E /* MonthlySummaryFrameViewController.swift in Sources */,
 				D2D756F5211D7032008051F2 /* DataCentre.swift in Sources */,
 				30F4C93F1E07C3AD00D2EC4D /* FSCalendarCollectionView.m in Sources */,

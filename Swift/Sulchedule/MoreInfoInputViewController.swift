@@ -1,7 +1,6 @@
 import UIKit
-import GoogleMobileAds
 
-class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
+class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var expenseField: UITextField!
     @IBOutlet weak var locationField: UITextField!
@@ -9,7 +8,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, GADBan
     @IBOutlet var background: UIView!
     @IBOutlet weak var promptLabel: UILabel!
     
-    var bannerView: GADBannerView!
     
     @IBAction func expenseField(_ sender: UITextField) {
         var input: String
@@ -86,36 +84,9 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, GADBan
         friendsField.delegate = self
         locationField.delegate = self
         
-        if(!getPurchased()){
-            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-            bannerView.adUnitID = "ca-app-pub-4587910042719801/3924623097"
-            bannerView.rootViewController = self
-            
-            bannerView.load(request)
-            addBannerViewToView(bannerView)
-        }
+    
     }
     
-    func addBannerViewToView(_ bannerView: GADBannerView) {
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
-        view.addConstraints(
-            [NSLayoutConstraint(item: bannerView,
-                                attribute: .bottom,
-                                relatedBy: .equal,
-                                toItem: bottomLayoutGuide,
-                                attribute: .top,
-                                multiplier: 1,
-                                constant: 0),
-             NSLayoutConstraint(item: bannerView,
-                                attribute: .centerX,
-                                relatedBy: .equal,
-                                toItem: view,
-                                attribute: .centerX,
-                                multiplier: 1,
-                                constant: 0)
-            ])
-    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
