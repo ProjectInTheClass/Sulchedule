@@ -284,9 +284,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.043137254899999998" green="0.062745098040000002" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="0.86274509799999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="8w6-Dr-SCv">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <searchBar contentMode="redraw" barStyle="black" searchBarStyle="prominent" placeholder="술 이름 검색" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qs-hq-de0">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="b7d-hC-eBy"/>
+                                    </constraints>
+                                    <color key="tintColor" name="selectedTextColor" catalog="System" colorSpace="catalog"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="9qs-hq-de0" secondAttribute="trailing" id="DPW-KC-lCP"/>
+                                <constraint firstItem="9qs-hq-de0" firstAttribute="leading" secondItem="8w6-Dr-SCv" secondAttribute="leading" id="bEM-zb-Prw"/>
+                                <constraint firstAttribute="bottom" secondItem="9qs-hq-de0" secondAttribute="bottom" id="joa-cT-YdZ"/>
+                                <constraint firstItem="9qs-hq-de0" firstAttribute="top" secondItem="8w6-Dr-SCv" secondAttribute="top" id="rnD-kd-F0i"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="todayAdditionalIdentifier" rowHeight="75" id="iN0-jj-jH2" customClass="TodayAdditionalTableViewCell" customModule="Sulchedule" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="75"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iN0-jj-jH2" id="Zr3-Tl-QpW">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
@@ -368,11 +389,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundView" destination="Iy6-AB-JH0" id="9AP-pK-8eS"/>
+                        <outlet property="searchBackground" destination="8w6-Dr-SCv" id="nGm-HC-I0r"/>
+                        <outlet property="searchBar" destination="9qs-hq-de0" id="9dZ-QM-xkS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cXd-jd-2nE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2940" y="-251"/>
+            <point key="canvasLocation" x="2940" y="-251.42428785607197"/>
         </scene>
         <!--Add Sul View Controller-->
         <scene sceneID="OfP-zQ-r3A">

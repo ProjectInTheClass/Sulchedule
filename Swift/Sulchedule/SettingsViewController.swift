@@ -261,9 +261,15 @@ class SettingsViewController: UIViewController {
             self.yesterdayButton.setTitleColor(colorPoint, for: .normal)
             self.showDrunkButton.setTitleColor(colorPoint, for: .normal)
             self.changeIconButton.setTitleColor(colorPoint, for: .normal)
-            self.removeAdButton.setTitleColor(colorPoint, for: .normal)
+            
             if(deviceCategory == 0){
                 self.vibButton.setTitleColor(.gray, for: .normal)
+            }
+            if(getPurchased()){
+                self.removeAdButton.setTitleColor(.gray, for: .normal)
+            }
+            else{
+                self.removeAdButton.setTitleColor(colorPoint, for: .normal)
             }
             
             self.navigationBar_changeColor.barTintColor = colorLightBackground
