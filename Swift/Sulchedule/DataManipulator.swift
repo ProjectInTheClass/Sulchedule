@@ -1037,47 +1037,57 @@ func setSulUnit(index : Int, unit : String){
 }
 
 func addUserSul(newSul : Sul) -> Bool{
-    
+    var flag = true
     for i in 0...sul.count - 1 {
         if newSul.displayName == sul[i].displayName {
             if sul[i].enabled {
-                return false
+                flag = false
+                break
             }
             else {
                 userSetting.newSul.append(newSul)
                 sul.append(newSul)
-                return true
+                flag = true
             }
         }
     }
-    if userSetting.newSul.count == 0 {
+    if(flag){
         userSetting.newSul.append(newSul)
         sul.append(newSul)
         return true
-    }
-    else {
-        var flag = true
-        for j in 0...userSetting.newSul.count - 1 {
-            let i = userSetting.newSul.count - j - 1
-            if newSul.displayName == userSetting.newSul[i].displayName {
-                if userSetting.newSul[i].enabled {
-                    flag = false
-                    break
-                }
-                else {
-                    flag = true
-                }
-            }
-        }
-        if(flag){
-            userSetting.newSul.append(newSul)
-            sul.append(newSul)
-            return true
         }
         else{
             return false
         }
-    }
+}
+    
+//    if userSetting.newSul.count == 0 {
+//        userSetting.newSul.append(newSul)
+//        sul.append(newSul)
+//        return true
+//    }
+//    else {
+//        var flag = true
+//        for i in 0...userSetting.newSul.count - 1 {
+//            if newSul.displayName == userSetting.newSul[i].displayName {
+//                if userSetting.newSul[i].enabled {
+//                    flag = false
+//                    break
+//                }
+//                else {
+//                    flag = true
+//                }
+//            }
+//        }
+//        if(flag){
+//            userSetting.newSul.append(newSul)
+//            sul.append(newSul)
+//            return true
+//        }
+//        else{
+//            return false
+//        }
+//    }
 }
 
 

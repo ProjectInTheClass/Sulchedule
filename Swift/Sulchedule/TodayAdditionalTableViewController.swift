@@ -43,6 +43,8 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         sulArray = []
         actualIndexArray = []
         currentDictionary = getSulDictionary()
+        filteredSulArray = []
+        filteredIndexArray = []
         
         var cnt = 0
         var i = -1
@@ -98,12 +100,12 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         
         searchBar.delegate = self
         searchBar.text = ""
-        
-        loadArray()
-        filteredIndexArray = actualIndexArray
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        loadArray()
+        filteredIndexArray = actualIndexArray
+        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.backgroundColor = colorLightBackground
         textFieldInsideSearchBar?.textColor = colorText
@@ -148,10 +150,7 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if isFiltering() {
-            return filteredIndexArray.count
-//        }
-//        return actualIndexArray.count
+        return filteredIndexArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -167,30 +166,17 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
         
-//        if !isFiltering() {
-//            customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: actualIndexArray[indexPath.row]) ?? 0)
-//            customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: actualIndexArray[indexPath.row]))"
-//            customCell.titleLabel.text = sulArray[indexPath.row].displayName
-//            for item in getFavouriteSulIndex() {
-//                if(item == actualIndexArray[indexPath.row]){
-//                    customCell.flag = true
-//                    break
-//                }
-//                customCell.flag = false
-//            }
-//        }
-//        else{
-            customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: filteredIndexArray[indexPath.row]) ?? 0)
-            customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: filteredIndexArray[indexPath.row]))"
-            customCell.titleLabel.text = sulArray[filteredIndexArray[indexPath.row]].displayName
-            for item in getFavouriteSulIndex() {
-                if(item == filteredIndexArray[indexPath.row]){
-                    customCell.flag = true
-                    break
-                }
-                customCell.flag = false
+
+        customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: filteredIndexArray[indexPath.row]) ?? 0)
+        customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: filteredIndexArray[indexPath.row]))"
+        customCell.titleLabel.text = sul[filteredIndexArray[indexPath.row]].displayName
+        for item in getFavouriteSulIndex() {
+            if(item == filteredIndexArray[indexPath.row]){
+                customCell.flag = true
+                break
             }
-//        }
+            customCell.flag = false
+        }
         
         if(customCell.flag){
             customCell.starButtonOutlet.setImage(star!, for: UIControlState())
