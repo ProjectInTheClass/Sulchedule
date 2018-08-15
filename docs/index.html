@@ -71,7 +71,9 @@
             -webkit-filter: drop-shadow(1px 1px 6px rgba(0,0,0,0.3));
         }
         @media only screen 
-        and (max-width : 600px) {
+        and (min-device-width : 375px)
+        and (width : 375px)
+        and (orientation : portrait) {
             .sideNav{
                 right: 0;
                 height: 60px;
@@ -91,11 +93,6 @@
                 margin-right: 20px;
                 margin-bottom: 0px;
             }
-            .sideNav {
-                overflow: auto;
-                white-space: nowrap;
-            }
-
             a {
                 padding: 20px 15px 20px 15px;
                 display: inline-block;
