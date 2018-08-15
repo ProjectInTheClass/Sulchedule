@@ -19,6 +19,8 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
             if(!addUserSul(newSul: Sul(displayName: nameField.text!, baseCalorie: Int(calorieField.text!)!, basePrice: Int(priceField.text!)!, colorTag: "#FFFFFF", unit: unitField.text!))){
                 let alertController = UIAlertController(title: "같은 이름의 주류가 있습니다", message: "이름을 바꾼 뒤 다시 시도해주세요.", preferredStyle: UIAlertControllerStyle.alert)
                 let cancelAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    self.nameField.text = ""
+                    self.nameField.becomeFirstResponder()
                 }
                 alertController.addAction(cancelAction)
                 self.present(alertController, animated: true, completion: nil)
@@ -32,25 +34,18 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
                 unitField.text = ""
                 priceField.text = ""
                 dismissKeyboard()
-            }
-            
-            
-            
-            
-            nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-            priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                  attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-            calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                    attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-            unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+                
+                nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                     attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+                priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                      attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+                calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                        attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+                unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                     attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+            } 
         }
         else{
-            if(nameField.text == "" || nameField.text == nil){
-                nameField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
-                                                                     attributes: [NSAttributedStringKey.foregroundColor: colorRed])
-            }
             if(priceField.text == "" || priceField.text == nil){
                 priceField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
                                                                       attributes: [NSAttributedStringKey.foregroundColor: colorRed])
@@ -62,6 +57,23 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
             if(unitField.text == "" || unitField.text == nil){
                 unitField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
                                                                      attributes: [NSAttributedStringKey.foregroundColor: colorRed])
+            }
+            if(nameField.text == "" || nameField.text == nil){
+                nameField.attributedPlaceholder = NSAttributedString(string: "모두 입력해주세요",
+                                                                     attributes: [NSAttributedStringKey.foregroundColor: colorRed])
+            }
+            
+            if(nameField.text == "" || nameField.text == nil){
+                nameField.becomeFirstResponder()
+            }
+            else if(unitField.text == "" || unitField.text == nil){
+                unitField.becomeFirstResponder()
+            }
+            else if(calorieField.text == "" || calorieField.text == nil){
+                calorieField.becomeFirstResponder()
+            }
+            else if(priceField.text == "" || priceField.text == nil){
+                priceField.becomeFirstResponder()
             }
         }
     }
@@ -117,6 +129,14 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                             attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+                                                             attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         return false
     }
     
@@ -150,15 +170,6 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
         calorieField.textColor = colorPoint
         priceField.textColor = colorPoint
         unitField.textColor = colorPoint
-
-        nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                             attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        calorieField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        priceField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        unitField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                              attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
     override func viewDidAppear(_ animated: Bool) {
         nameField.attributedPlaceholder = NSAttributedString(string: "터치하세요",

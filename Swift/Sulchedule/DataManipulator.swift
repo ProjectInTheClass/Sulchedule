@@ -1045,8 +1045,6 @@ func addUserSul(newSul : Sul) -> Bool{
                 break
             }
             else {
-                userSetting.newSul.append(newSul)
-                sul.append(newSul)
                 flag = true
             }
         }
@@ -1055,10 +1053,10 @@ func addUserSul(newSul : Sul) -> Bool{
         userSetting.newSul.append(newSul)
         sul.append(newSul)
         return true
-        }
-        else{
-            return false
-        }
+    }
+    else{
+        return false
+    }
 }
     
 //    if userSetting.newSul.count == 0 {

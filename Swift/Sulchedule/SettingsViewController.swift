@@ -92,6 +92,7 @@ class SettingsViewController: UIViewController {
             colorLightBackground = hexStringToUIColor(hex:"252B53")
             colorDeepBackground = hexStringToUIColor(hex:"0B102F")
             colorGray = hexStringToUIColor(hex:"A4A4A4")
+            colorText = .white
             UINavigationBar.appearance().barTintColor = colorLightBackground
             UINavigationBar.appearance().backgroundColor = colorLightBackground
             UILabel.appearance().textColor = UIColor.white
@@ -102,8 +103,11 @@ class SettingsViewController: UIViewController {
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
             UIApplication.shared.statusBarStyle = .lightContent
-            
+            rootViewDelegate?.setBackgroundColor(light: true)
+            self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+            self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.tabBarController?.selectedIndex = 0
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : colorText]
             
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in

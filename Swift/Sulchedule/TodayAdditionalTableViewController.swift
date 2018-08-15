@@ -7,31 +7,29 @@ var star_empty: UIImage?
 
 protocol TodayAdditionalTableDelegate{
     func tableManipulate(_ sender: TodayAdditionalTableViewCell)
-    func starManipulate(_ sender: TodayAdditionalTableViewCell, bool: Bool)
+    func starManipulate(_ sender: TodayAdditionalTableViewCell)
 }
 
 class TodayAdditionalTableViewController: UITableViewController, TodayAdditionalTableDelegate, UISearchBarDelegate {
-    func starManipulate(_ sender: TodayAdditionalTableViewCell, bool: Bool) {
+    func starManipulate(_ sender: TodayAdditionalTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
-//        if(!isFiltering()){
-//            setFavouriteSul(index: actualIndexArray[index], set: bool)
-//        }
-//        else{
-            setFavouriteSul(index: filteredIndexArray[index], set: bool)
-//        }
+        if userSetting.favorites.contains(filteredIndexArray[index]){
+            setFavouriteSul(index: filteredIndexArray[index], set: false)
+            sender.starButtonOutlet.setImage(star_empty!, for: UIControlState())
+        }
+        else{
+            setFavouriteSul(index: filteredIndexArray[index], set: true)
+            sender.starButtonOutlet.setImage(star!, for: UIControlState())
+        }
     }
     
     
     func tableManipulate(_ sender: TodayAdditionalTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let index = indexPath.row
-//        if(!isFiltering()){
-//            setRecordDayForSul(day: selectedDay, index: actualIndexArray[index], bottles: Int(sender.bottleStepper.value))
-//        }
-//        else{
-            setRecordDayForSul(day: selectedDay, index: filteredIndexArray[index], bottles: Int(sender.bottleStepper.value))
-//        }
+
+        setRecordDayForSul(day: selectedDay, index: filteredIndexArray[index], bottles: Int(sender.bottleStepper.value))
     }
     
     var actualIndexArray: [Int] = []
@@ -99,12 +97,13 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "직접 추가", style: .done, target: self, action: #selector(loadAddSul))
         
         searchBar.delegate = self
-        searchBar.text = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {
         loadArray()
         filteredIndexArray = actualIndexArray
+        
+        searchBar.text = ""
         
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.backgroundColor = colorLightBackground
@@ -170,15 +169,8 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         customCell.bottleStepper.value = Double(getRecordDayBottles(day: selectedDay, index: filteredIndexArray[indexPath.row]) ?? 0)
         customCell.bottleLabel.text = "\(Int(customCell.bottleStepper.value))\(getSulUnit(index: filteredIndexArray[indexPath.row]))"
         customCell.titleLabel.text = sul[filteredIndexArray[indexPath.row]].displayName
-        for item in getFavouriteSulIndex() {
-            if(item == filteredIndexArray[indexPath.row]){
-                customCell.flag = true
-                break
-            }
-            customCell.flag = false
-        }
         
-        if(customCell.flag){
+        if userSetting.favorites.contains(filteredIndexArray[indexPath.row]){
             customCell.starButtonOutlet.setImage(star!, for: UIControlState())
         }
         else{
@@ -195,22 +187,14 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
 class TodayAdditionalTableViewCell: UITableViewCell {
     
     var delegate: TodayAdditionalTableDelegate?
-    var flag = false
     
     @IBOutlet weak var starButtonOutlet: UIButton!
     
     @IBAction func starOnTap(_ sender: UIButton) {
-        flag.toggle()
         if(userSetting.isVibrationEnabled){
             AudioServicesPlaySystemSound(vibPeek)
         }
-        if(flag){
-            starButtonOutlet.setImage(star!, for: UIControlState())
-        }
-        else{
-            starButtonOutlet.setImage(star_empty!, for: UIControlState())
-        }
-        delegate?.starManipulate(self, bool: flag)
+        delegate?.starManipulate(self)
     }
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var bottleLabel: UILabel!
