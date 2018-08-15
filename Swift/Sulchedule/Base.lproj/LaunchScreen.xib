@@ -1,47 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14306.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="336" height="583"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3m-m2-eV3">
-                    <rect key="frame" x="0.0" y="534" width="336" height="49"/>
-                    <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="49" id="hVA-yc-9NT"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzo-BJ-gE2">
-                    <rect key="frame" x="0.0" y="0.0" width="336" height="209"/>
-                    <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="209" id="NgH-dX-g3H"/>
-                    </constraints>
-                </view>
-            </subviews>
-            <color key="backgroundColor" red="0.042121171950000001" green="0.049208171670000002" blue="0.13812841479999999" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="tzo-BJ-gE2" secondAttribute="trailing" id="8mc-dt-oYy"/>
-                <constraint firstItem="J3m-m2-eV3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="frt-X6-tW1"/>
-                <constraint firstAttribute="bottom" secondItem="J3m-m2-eV3" secondAttribute="bottom" id="iqJ-4I-c8k"/>
-                <constraint firstAttribute="trailing" secondItem="J3m-m2-eV3" secondAttribute="trailing" id="pmN-qX-3rM"/>
-                <constraint firstItem="tzo-BJ-gE2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xg0-h3-Owq"/>
-                <constraint firstItem="tzo-BJ-gE2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yZw-QX-uLg"/>
-            </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="476" y="403.5"/>
-        </view>
+        <tabBarController id="7ff-W4-bBd">
+            <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="tfb-Uf-zCk">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="barTintColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="selectedImageTintColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            </tabBar>
+            <viewControllers>
+                <viewController id="8JD-WM-KIw">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="38x-kS-B4Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="OAw-2t-uqO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dWu-A3-Gns">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tzo-BJ-gE2">
+                                <rect key="frame" x="0.0" y="-84" width="375" height="330"/>
+                                <color key="backgroundColor" red="0.1450980392" green="0.16862745100000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="309" id="NgH-dX-g3H"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.043137254899999998" green="0.062745098040000002" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tzo-BJ-gE2" firstAttribute="leading" secondItem="dWu-A3-Gns" secondAttribute="leading" id="DiX-Mo-lkd"/>
+                            <constraint firstAttribute="trailing" secondItem="tzo-BJ-gE2" secondAttribute="trailing" id="WL1-LN-B2M"/>
+                            <constraint firstItem="tzo-BJ-gE2" firstAttribute="top" secondItem="38x-kS-B4Z" secondAttribute="bottom" constant="-100" id="eqF-Sy-wX3"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" id="UkG-yD-gjd">
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
+                </viewController>
+            </viewControllers>
+            <point key="canvasLocation" x="-204" y="394.45277361319341"/>
+        </tabBarController>
     </objects>
 </document>

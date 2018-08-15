@@ -2,11 +2,11 @@ import UIKit
 
 class IconSelectViewController: UIViewController {
     
+    var dismissFlag = false
 
     @IBOutlet var backgroundView: UIView!
     @IBAction func button1(_ sender: UIButton) {
         changeIcon(to: "original")
-        self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var label1: UILabel!
     @IBAction func button2(_ sender: Any) {
