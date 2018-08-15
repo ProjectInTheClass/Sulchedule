@@ -20,7 +20,7 @@
             display : block;
             border :0 ;
             margin-left:auto;
-            margin-right:auto
+            margin-right:auto;
         }
 
         a{
@@ -31,6 +31,7 @@
             text-decoration: none;
             font: "Lucida Grande";
             font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-size:18px;
 
             -webkit-transition: all .2s ease-in-out;
        -moz-transition: all .2s ease-in-out;
@@ -63,6 +64,7 @@
             left: 0;
             background-color: #252B53;/* Black */
             overflow-x: hidden; /* Disable horizontal scroll */
+            scroll-direction: vertical;
         }
         .main {
             margin-left: 160px;
@@ -71,7 +73,6 @@
             -webkit-filter: drop-shadow(1px 1px 6px rgba(0,0,0,0.3));
         }
         @media only screen 
-        and (min-device-width : 375px)
         and (orientation : portrait) {
             .sideNav{
                 right: 0;
@@ -79,6 +80,7 @@
                 width: 100%;
                 overflow-x: scroll;
                 overflow-y: hidden;
+                white-space: nowrap;
             }
             .main {
                 margin-left: 0px;
@@ -86,7 +88,7 @@
             }
             a:first-child{
                 margin-left: 20px;
-                margin-top: 0px
+                margin-top: 0px;
             }
             a:last-child{
                 margin-right: 20px;
@@ -96,7 +98,7 @@
                 padding: 20px 15px 20px 15px;
                 display: inline-block;
                 text-align: center;
-                height: 100%
+                font-size:18px;
             }
             #shadowed{
                 width: 60px;
