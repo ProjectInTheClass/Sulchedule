@@ -59,31 +59,20 @@ class IconSelectViewController: UIViewController {
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         if(!userSetting.succeededLastMonth){
-            label4.textColor = .gray
-            label5.textColor = .gray
-            label6.textColor = .gray
+            label4.textColor = colorGray
+            label5.textColor = colorGray
+            label6.textColor = colorGray
             button4.alpha = 0.5
             button5.alpha = 0.5
             button6.alpha = 0.5
         }
         
-        if(userSetting.isThemeBright){
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-            topTitle.textColor = .black
-            bottomExplanation.textColor = .black
-        }
-        else{
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-            topTitle.textColor = .white
-            bottomExplanation.textColor = .white
-        }
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:colorText]
+        topTitle.textColor = colorText
+        bottomExplanation.textColor = colorText
+
         navigationController?.navigationItem.rightBarButtonItem?.title = "닫기"
         navigationController?.navigationItem.rightBarButtonItem?.tintColor = colorPoint
         

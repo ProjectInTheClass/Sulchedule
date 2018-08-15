@@ -130,16 +130,14 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
 
         reload()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        reload()
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -174,44 +172,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         if(goals[indexPath.row].value == 0){
             customCell.editField.text = ""
         }
-//        else if(indexPath.row == 0 && goals[indexPath.row].value > numDays){
-//            let alertController = UIAlertController(title: "며칠이라고요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
-//            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-//                customCell.editField.text = String(numDays)
-//                setDaysOfMonthLimit(month: monthmonth, value: numDays)
-//            }
-//            alertController.addAction(cancelAction)
-//            self.present(alertController, animated: true, completion: nil)
-//        }
-//        else if(indexPath.row == 1 && goals[indexPath.row].value > numDays){
-//            let alertController = UIAlertController(title: "며칠이라고요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
-//            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-//                customCell.editField.text = String(numDays)
-//                setStreakOfMonthLimit(month: monthmonth, value: numDays)
-//            }
-//            alertController.addAction(cancelAction)
-//            self.present(alertController, animated: true, completion: nil)
-//        }
-//        else{
-//            customCell.editField.text = String(goals[indexPath.row].value)
-//            customCell.uiSwitch.setOn(true, animated: true)
-//            switch indexPath.row {
-//            case 0:
-//                setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
-//                setDaysOfMonthEnabled(enabled: true)
-//            case 1:
-//                setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
-//                setStreakOfMonthEnabled(enabled: true)
-//            case 2:
-//                setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
-//                setCurrentExpenseEnabled(enabled: true)
-//            case 3:
-//                setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: Int(customCell.editField!.text!)!)
-//                setCaloriesOfMonthEnabled(enabled: true)
-//            default:
-//                print("wtf")
-//            }
-//        }
+
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.tintColor = colorDeepBackground
         customCell.backgroundColor = colorDeepBackground
@@ -235,28 +196,6 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
 
         return customCell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-    
-    // Override to support rearranging the table view.
-//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//        if(userSetting.isVibrationEnabled){
-//            AudioServicesPlaySystemSound(vibPeek)
-//        }
-//        let v = goals[fromIndexPath.row]
-//        let order = goalOrder[fromIndexPath.row]
-//        goals.remove(at: fromIndexPath.row)
-//        goalOrder.remove(at: fromIndexPath.row)
-//        goals.insert(v, at: to.row)
-//        goalOrder.insert(order, at: to.row)
-//        print(goalOrder)
-//    }
     
     override func dismissKeyboard() {
         view.endEditing(true)
@@ -290,12 +229,8 @@ class GoalsEditTableCell: UITableViewCell {
         uiSwitch.onTintColor = colorPoint
         editField.textColor = colorPoint
         
-        if(userSetting.isThemeBright){
-            editField.tintColor = .black
-        }
-        else{
-            editField.tintColor = .white
-        }
+        editField.tintColor = colorText
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

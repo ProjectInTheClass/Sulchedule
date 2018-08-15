@@ -129,23 +129,21 @@ class AddSulViewController: UIViewController, UITextFieldDelegate {
         foreground.backgroundColor = colorDeepBackground
         saveButton.tintColor = colorPoint
         dismissButton.tintColor = colorPoint
+        
+        tableDescriptionLabel.textColor = colorText
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
+        
         if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
             nameField.keyboardAppearance = .light
             calorieField.keyboardAppearance = .light
             priceField.keyboardAppearance = .light
             unitField.keyboardAppearance = .light
-            
-            tableDescriptionLabel.textColor = .black
         }
         else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
             nameField.keyboardAppearance = .dark
             calorieField.keyboardAppearance = .dark
             priceField.keyboardAppearance = .dark
             unitField.keyboardAppearance = .dark
-            
-            tableDescriptionLabel.textColor = .white
         }
         
         nameField.textColor = colorPoint

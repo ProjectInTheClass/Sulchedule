@@ -72,37 +72,23 @@ class StatsViewController: UIViewController {
         firstPlaceLabel.backgroundColor = colorPoint
         topSegmentOutlet.tintColor = colorPoint
         topSegmentOutlet.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: colorPoint], for: UIControlState.normal)
+        
+        secondPlaceLabel.textColor = .black
+        thirdPlaceLabel.textColor = .black
+        title1.textColor = .black
+        desc1.textColor = .black
+        title2.textColor = .black
+        desc2.textColor = .black
+        title3.textColor = .black
+        desc3.textColor = .black
+        sulLabel.textColor = colorText
+        friendLabel.textColor = colorText
+        locationLabel.textColor = colorText
         if(userSetting.isThemeBright){
             firstPlaceText.textColor = .white
-            secondPlaceLabel.textColor = .black
-            thirdPlaceLabel.textColor = .black
-            
-            sulLabel.textColor = .black
-            friendLabel.textColor = .black
-            locationLabel.textColor = .black
-            
-            title1.textColor = .black
-            desc1.textColor = .black
-            title2.textColor = .black
-            desc2.textColor = .black
-            title3.textColor = .black
-            desc3.textColor = .black
         }
         else{
             firstPlaceText.textColor = .black
-            secondPlaceLabel.textColor = .black
-            thirdPlaceLabel.textColor = .black
-            
-            sulLabel.textColor = .white
-            friendLabel.textColor = .white
-            locationLabel.textColor = .white
-            
-            title1.textColor = .black
-            desc1.textColor = .black
-            title2.textColor = .black
-            desc2.textColor = .black
-            title3.textColor = .black
-            desc3.textColor = .black
         }
         
         radOfCircle = sulView.bounds.height/2
@@ -136,16 +122,18 @@ class StatsViewController: UIViewController {
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
-        
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
+
         showPlatform(cursor: 0)
         showPlatform(cursor: 1)
         showPlatform(cursor: 2)
+        
+        if(topSegmentOutlet.selectedSegmentIndex == 0){
+            rootViewDelegate?.setBackgroundColor(light: true)
+        }
+        else{
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -154,6 +142,7 @@ class StatsViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        rootViewDelegate?.setBackgroundColor(light: true)
     }
     
     
@@ -289,6 +278,18 @@ class StatsViewController: UIViewController {
     
     func loadSegment(whichSegment: Int){
         if(whichSegment == 0){
+            UIView.animate(withDuration: 0.1, delay: 0.05, options: [.curveEaseInOut], animations: {
+                rootViewDelegate?.setBackgroundColor(light: true)
+            }, completion: nil)
+        }
+        else{
+            UIView.animate(withDuration: 0.11, delay: 0.19, options: [.curveEaseInOut], animations: {
+                rootViewDelegate?.setBackgroundColor(light: false)
+            }, completion: nil)
+        }
+        
+        
+        if(whichSegment == 0){
             if(firstAppearance){
                 firstAppearance = false
             }
@@ -318,8 +319,8 @@ class StatsViewController: UIViewController {
         let duration = 0.35
         let delay = -0.15
         if(isLeft){
-            leaderboardTopConstraint.constant = 0
-            picktargetTopConstraint.constant = 268
+            leaderboardTopConstraint.constant = -20
+            picktargetTopConstraint.constant = 248
             
             UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 1
@@ -332,8 +333,8 @@ class StatsViewController: UIViewController {
             self.sulView.isUserInteractionEnabled = true
         }
         else{
-            leaderboardTopConstraint.constant = -100
-            picktargetTopConstraint.constant = -46
+            leaderboardTopConstraint.constant = -120
+            picktargetTopConstraint.constant = -66
             
             UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 0

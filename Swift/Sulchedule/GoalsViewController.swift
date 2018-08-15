@@ -44,20 +44,10 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-        }
-        else{
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-        }
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:colorText]
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         
     }
     override func viewWillDisappear(_ animated: Bool) {

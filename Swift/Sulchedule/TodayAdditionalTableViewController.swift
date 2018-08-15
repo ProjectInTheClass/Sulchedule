@@ -105,34 +105,34 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
 
     override func viewWillAppear(_ animated: Bool) {
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.backgroundColor = colorDeepBackground
-        textFieldInsideSearchBar?.textColor = UIColor.white
+        textFieldInsideSearchBar?.backgroundColor = colorLightBackground
+        textFieldInsideSearchBar?.textColor = colorText
+        textFieldInsideSearchBar?.tintColor = colorPoint
         let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
         textFieldInsideSearchBarLabel?.textColor = colorPoint
         
-        searchBar.barTintColor = colorLightBackground
-        searchBackground.backgroundColor = colorLightBackground
+        searchBar.barTintColor = colorDeepBackground
+        searchBackground.backgroundColor = colorDeepBackground
         searchBar.layer.borderWidth = 1
-        searchBar.layer.borderColor = colorLightBackground.cgColor
+        searchBar.layer.borderColor = colorDeepBackground.cgColor
         
         self.navigationController?.navigationBar.tintColor = colorPoint
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.backgroundColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorText]
+        textFieldInsideSearchBar?.textColor = colorText
+        
         if(userSetting.isThemeBright){
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
             star = star_blue!
             star_empty = star_blue_empty!
             searchBar.keyboardAppearance = .light
-            textFieldInsideSearchBar?.textColor = UIColor.black
         }
         else{
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
             star = star_yellow!
             star_empty = star_yellow_empty!
             searchBar.keyboardAppearance = .dark
-            textFieldInsideSearchBar?.textColor = UIColor.white
         }
         backgroundView.reloadData()
         
@@ -161,14 +161,8 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
             return cell
         }
         
-        if(userSetting.isThemeBright){
-            customCell.bottleLabel.textColor = .black
-            customCell.titleLabel.textColor = .gray
-        }
-        else{
-            customCell.bottleLabel.textColor = .white
-            customCell.titleLabel.textColor = colorGray
-        }
+        customCell.bottleLabel.textColor = colorText
+        customCell.titleLabel.textColor = colorGray
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
@@ -246,8 +240,8 @@ class TodayAdditionalTableViewCell: UITableViewCell {
         super.awakeFromNib()
         if(userSetting.isThemeBright){
             bottleStepper.tintColor = colorPoint
-            bottleLabel.textColor = .black
-            titleLabel.textColor = .gray
+            bottleLabel.textColor = colorText
+            titleLabel.textColor = colorGray
         }
     }
     

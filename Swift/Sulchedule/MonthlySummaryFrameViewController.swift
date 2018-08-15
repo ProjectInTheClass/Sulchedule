@@ -38,20 +38,15 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
         if(userSetting.isThemeBright){
             navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
             pageOutlet.backgroundColor = colorDeepBackground
-            pageOutlet.pageIndicatorTintColor = .gray
+            pageOutlet.pageIndicatorTintColor = colorGray
             backgroundView.backgroundColor = colorLightBackground
-            navigationBar.tintColor = .black
-            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+            navigationBar.tintColor = colorText
+            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorText]
         }
         pageOutlet.currentPageIndicatorTintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

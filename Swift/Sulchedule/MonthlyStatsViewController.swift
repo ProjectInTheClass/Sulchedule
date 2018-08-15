@@ -53,47 +53,29 @@ class MonthlyStatsViewController: UIViewController {
         leaderboardView.backgroundColor = colorLightBackground
         picktargetView.backgroundColor = colorDeepBackground
         firstPlaceLabel.backgroundColor = colorPoint
+        
+        secondPlaceLabel.textColor = .black
+        thirdPlaceLabel.textColor = .black
+        
+        title1.textColor = .black
+        desc1.textColor = .black
+        title2.textColor = .black
+        desc2.textColor = .black
+        title3.textColor = .black
+        desc3.textColor = .black
+        
+        sulLabel.textColor = colorText
+        friendLabel.textColor = colorText
+        locationLabel.textColor = colorText
         if(userSetting.isThemeBright){
             firstPlaceText.textColor = .white
-            secondPlaceLabel.textColor = .black
-            thirdPlaceLabel.textColor = .black
-            
-            sulLabel.textColor = .black
-            friendLabel.textColor = .black
-            locationLabel.textColor = .black
-            
-            title1.textColor = .black
-            desc1.textColor = .black
-            title2.textColor = .black
-            desc2.textColor = .black
-            title3.textColor = .black
-            desc3.textColor = .black
         }
         else{
             firstPlaceText.textColor = .black
-            secondPlaceLabel.textColor = .black
-            thirdPlaceLabel.textColor = .black
-            
-            sulLabel.textColor = .white
-            friendLabel.textColor = .white
-            locationLabel.textColor = .white
-            
-            title1.textColor = .black
-            desc1.textColor = .black
-            title2.textColor = .black
-            desc2.textColor = .black
-            title3.textColor = .black
-            desc3.textColor = .black
         }
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
-        
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         radOfCircle = sulView.bounds.height/2
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
         

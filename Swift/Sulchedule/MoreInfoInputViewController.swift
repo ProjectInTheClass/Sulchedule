@@ -109,19 +109,16 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
             return allowedCharacters.isSuperset(of: characterSet)
         }
         
+        expenseField.tintColor = colorText
+        locationField.tintColor = colorText
+        friendsField.tintColor = colorText
         
         if(userSetting.isThemeBright){
-            expenseField.tintColor = .black
-            locationField.tintColor = .black
-            friendsField.tintColor = .black
             expenseField.keyboardAppearance = .light
             locationField.keyboardAppearance = .light
             friendsField.keyboardAppearance = .light
         }
         else{
-            expenseField.tintColor = .white
-            locationField.tintColor = .white
-            friendsField.tintColor = .white
             expenseField.keyboardAppearance = .dark
             locationField.keyboardAppearance = .dark
             friendsField.keyboardAppearance = .dark

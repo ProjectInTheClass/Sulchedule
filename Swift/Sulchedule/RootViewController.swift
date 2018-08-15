@@ -1,17 +1,31 @@
 import UIKit
 import GoogleMobileAds
 
-protocol RemoveAdDelegate{
+protocol RootViewDelegate{
     func removeAd()
     func showAd()
     func setAdBackgroundColor()
+    func setBackgroundColor(light: Bool)
 }
 
-var removeAdDelegate: RemoveAdDelegate?
+var rootViewDelegate: RootViewDelegate?
 
-class RootViewController: UIViewController, GADBannerViewDelegate, RemoveAdDelegate {
+class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDelegate {
+    
+    var adReceived = false
+    
+    func setBackgroundColor(light: Bool) {
+        if(light){
+            backgroundView.backgroundColor = colorLightBackground
+        }
+        else{
+            backgroundView.backgroundColor = colorDeepBackground
+        }
+    }
+    
     func showAd() {
-        if(!getPurchased()){
+        if(!getPurchased() && adReceived){
+            addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
@@ -20,37 +34,40 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RemoveAdDeleg
     }
     
     func setAdBackgroundColor() {
+        backgroundView.backgroundColor = colorLightBackground
         adArea.backgroundColor = colorLightBackground
     }
     
     func removeAd() {
-        self.adAreaLoc.constant = -60
-        UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+        if(adReceived){
+            self.adAreaLoc.constant = -60
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+                self.view.layoutIfNeeded()
+            }, completion:{ (finished: Bool) in for view in self.adArea.subviews {
+                view.removeFromSuperview()
+                }})
+        }
     }
     
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var adAreaLoc: NSLayoutConstraint!
     @IBOutlet weak var adArea: UIView!
     var bannerView: GADBannerView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        removeAdDelegate = self
+        rootViewDelegate = self
         
-        if(!getPurchased()){
-            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-            //test unit id
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        //test unit id
 //            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-            //actual unit id
-            bannerView.adUnitID = "ca-app-pub-4587910042719801/7836975613"
-            
-            bannerView.rootViewController = self
-            bannerView.delegate = self
-            
-            bannerView.load(request)
-            addBannerViewToView(bannerView)
-        }
+        //actual unit id
+        bannerView.adUnitID = "ca-app-pub-4587910042719801/7836975613"
+        
+        bannerView.rootViewController = self
+        bannerView.delegate = self
+        
+        bannerView.load(request)
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -59,7 +76,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RemoveAdDeleg
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("Banner loaded successfully")
-    
+        adReceived = true
         showAd()
     }
     

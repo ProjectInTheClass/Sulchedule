@@ -132,18 +132,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadArray()
         
         topInfoLabel.textColor = colorPoint
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:colorText]
+        textColor2.textColor = colorGray
+        self.calendar.appearance.weekdayTextColor = colorText
         if(userSetting.isThemeBright){
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-            textColor2.textColor = .gray
             disclosureIcon.image = UIImage(named:"Chevron_blue")
-            self.calendar.appearance.weekdayTextColor = .black
             self.calendar.appearance.titleDefaultColor = .white
         }
         else{
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-            textColor2.textColor = colorGray
             disclosureIcon.image = UIImage(named:"Chevron")
-            self.calendar.appearance.weekdayTextColor = .white
             self.calendar.appearance.titleDefaultColor = .black
         }
         navigationTitle.leftBarButtonItem?.tintColor = colorPoint
@@ -222,12 +219,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        if(userSetting.isThemeBright){
-            return .black
-        }
-        else{
-            return .white
-        }
+        return colorText
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
         if(userSetting.isThemeBright){
@@ -335,14 +327,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if(indexPath.row < getFavouriteSulIndex().count){
             customCell.colorTag.backgroundColor = colorPoint
         }
-        if(userSetting.isThemeBright){
-            customCell.bottleLabel.textColor = .black
-            customCell.titleLabel.textColor = .gray
-        }
-        else{
-            customCell.bottleLabel.textColor = .white
-            customCell.titleLabel.textColor = colorGray
-        }
+        customCell.bottleLabel.textColor = colorText
+        customCell.titleLabel.textColor = colorGray
         
         customCell.delegate = self
         
@@ -466,7 +452,7 @@ class TodayTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         if(userSetting.isThemeBright){
-            titleLabel.textColor = .gray
+            titleLabel.textColor = colorGray
         }
         else{
             titleLabel.textColor = colorGray

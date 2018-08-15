@@ -159,12 +159,7 @@ class EmbedStatsTableViewController: UITableViewController {
         showWeeklyFunc(showWeekly: showWeekly)
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
     }
 
     // MARK: - Table view data source
@@ -188,14 +183,8 @@ class EmbedStatsTableViewController: UITableViewController {
         customCell.titleLabel.text = tableTitles[indexPath.row]
         
         customCell.backgroundColor = colorDeepBackground
-        if(userSetting.isThemeBright){
-            customCell.valueLabel.textColor = .black
-            customCell.titleLabel.textColor = .gray
-        }
-        else{
-            customCell.valueLabel.textColor = .white
-            customCell.titleLabel.textColor = colorGray
-        }
+        customCell.valueLabel.textColor = colorText
+        customCell.titleLabel.textColor = colorGray
         
         return customCell
     }
@@ -255,7 +244,7 @@ class EmbedStatsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         if(userSetting.isThemeBright){
-            titleLabel.textColor = .gray
+            titleLabel.textColor = colorGray
         }
     }
     

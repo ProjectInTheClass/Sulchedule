@@ -27,12 +27,22 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func removeAdButton(_ sender: Any) {
-        userSetting.purchased = true
-        self.applyShadow(view: self.vibContainer, enable: false)
-        removeAdButton.setTitleColor(.gray, for: .normal)
-        removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
-        removeAdDelegate?.removeAd()
-        removeAdDelegate?.setAdBackgroundColor()
+        userSetting.purchased?.toggle()
+        
+        if(getPurchased()){
+            self.applyShadow(view: self.vibContainer, enable: true)
+            removeAdButton.setTitleColor(colorPoint, for: .normal)
+            removeAdButton.setTitle("광고 켜기", for: .normal)
+            rootViewDelegate?.removeAd()
+        }
+        else{
+            self.applyShadow(view: self.vibContainer, enable: true)
+            removeAdButton.setTitleColor(colorPoint, for: .normal)
+            removeAdButton.setTitle("광고 끄기", for: .normal)
+            rootViewDelegate?.showAd()
+        }
+//        rootViewDelegate?.removeAd()
+        rootViewDelegate?.setAdBackgroundColor()
     }
     @IBAction func vibButton(_ sender: Any) {
         userSetting.isVibrationEnabled.toggle()
@@ -49,7 +59,8 @@ class SettingsViewController: UIViewController {
         }
         else{
             vibButton.setTitle("햅틱 미지원 기기", for: .normal)
-            vibButton.setTitleColor(.gray, for: .normal)
+            vibButton.setTitleColor(colorGray, for: .normal)
+            vibButton.isUserInteractionEnabled = false
             self.applyShadow(view: self.vibContainer, enable: false)
         }
     }
@@ -80,6 +91,7 @@ class SettingsViewController: UIViewController {
             colorPoint = hexStringToUIColor(hex:"FFDC67")
             colorLightBackground = hexStringToUIColor(hex:"252B53")
             colorDeepBackground = hexStringToUIColor(hex:"0B102F")
+            colorGray = hexStringToUIColor(hex:"A4A4A4")
             UINavigationBar.appearance().barTintColor = colorLightBackground
             UINavigationBar.appearance().backgroundColor = colorLightBackground
             UILabel.appearance().textColor = UIColor.white
@@ -117,6 +129,8 @@ class SettingsViewController: UIViewController {
         }
         else{
             vibButton.setTitle("햅틱 미지원 기기", for: .normal)
+            vibButton.isUserInteractionEnabled = false
+            self.applyShadow(view: self.vibContainer, enable: false)
         }
         if(getShowYesterdayFirst()){
             yesterdayButton.setTitle("정오까지 전날이 먼저 표시됩니다", for: .normal)
@@ -144,21 +158,24 @@ class SettingsViewController: UIViewController {
         showDrunkButton.setTitleColor(colorPoint, for: .normal)
         changeIconButton.setTitleColor(colorPoint, for: .normal)
         if(getPurchased()){
-            removeAdButton.isUserInteractionEnabled = false
-            removeAdButton.setTitleColor(.gray, for: .normal)
+//            for future in-app purchase
+//            removeAdButton.isUserInteractionEnabled = false
+//            removeAdButton.setTitleColor(colorGray, for: .normal)
+            
+            removeAdButton.setTitleColor(colorPoint, for: .normal)
         }
         else{
             removeAdButton.setTitleColor(colorPoint, for: .normal)
         }
         
-        removeAdDelegate?.setAdBackgroundColor()
+        rootViewDelegate?.setAdBackgroundColor()
         navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:colorText]
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
+        
         if(userSetting.isThemeBright){
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-            
             self.topBackgroundView.backgroundColor = colorLightBackground
             self.mainBackgroundView.backgroundColor = colorLightBackground
             self.themeContainer.backgroundColor = colorDeepBackground
@@ -171,9 +188,6 @@ class SettingsViewController: UIViewController {
             self.removeAdContainer.backgroundColor = colorDeepBackground
         }
         else{
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-            
             self.topBackgroundView.backgroundColor = colorLightBackground
             self.mainBackgroundView.backgroundColor = colorDeepBackground
             self.themeContainer.backgroundColor = colorLightBackground
@@ -197,16 +211,24 @@ class SettingsViewController: UIViewController {
         }
         
         if(getPurchased()){
-            self.applyShadow(view: self.vibContainer, enable: false)
-            removeAdButton.setTitleColor(.gray, for: .normal)
-            removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
-            removeAdButton.isUserInteractionEnabled = false
+//            for future in-app purchase
+//            self.applyShadow(view: self.vibContainer, enable: false)
+//            removeAdButton.setTitleColor(colorGray, for: .normal)
+//            removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
+//            removeAdButton.isUserInteractionEnabled = false
+            
+            removeAdButton.setTitle("광고 켜기", for: .normal)
+            removeAdButton.setTitleColor(colorPoint, for: .normal)
+        }
+        else{
+            removeAdButton.setTitle("광고 끄기", for: .normal)
+            removeAdButton.setTitleColor(colorPoint, for: .normal)
         }
         self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
         
         if(deviceCategory == 0){
             self.applyShadow(view: self.vibContainer, enable: false)
-            self.vibButton.setTitleColor(.gray, for: .normal)
+            self.vibButton.setTitleColor(colorGray, for: .normal)
         }
     }
     
@@ -227,6 +249,8 @@ class SettingsViewController: UIViewController {
                 colorPoint = hexStringToUIColor(hex: "#0067B2")
                 colorLightBackground = hexStringToUIColor(hex: "#EAEAEA")
                 colorDeepBackground = hexStringToUIColor(hex: "#FFFFFF")
+                colorGray = .gray
+                colorText = .black
                 
                 self.mainBackgroundView.backgroundColor = colorLightBackground
                 self.themeContainer.backgroundColor = colorDeepBackground
@@ -242,6 +266,8 @@ class SettingsViewController: UIViewController {
                 colorPoint = hexStringToUIColor(hex:"FFDC67")
                 colorLightBackground = hexStringToUIColor(hex:"252B53")
                 colorDeepBackground = hexStringToUIColor(hex:"0B102F")
+                colorGray = hexStringToUIColor(hex:"A4A4A4")
+                colorText = .white
                 
                 self.mainBackgroundView.backgroundColor = colorDeepBackground
                 self.themeContainer.backgroundColor = colorLightBackground
@@ -263,10 +289,12 @@ class SettingsViewController: UIViewController {
             self.changeIconButton.setTitleColor(colorPoint, for: .normal)
             
             if(deviceCategory == 0){
-                self.vibButton.setTitleColor(.gray, for: .normal)
+                self.vibButton.setTitleColor(colorGray, for: .normal)
             }
             if(getPurchased()){
-                self.removeAdButton.setTitleColor(.gray, for: .normal)
+//                For future in-app purchase
+//                self.removeAdButton.setTitleColor(colorGray, for: .normal)
+                self.removeAdButton.setTitleColor(colorPoint, for: .normal)
             }
             else{
                 self.removeAdButton.setTitleColor(colorPoint, for: .normal)
@@ -275,29 +303,19 @@ class SettingsViewController: UIViewController {
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.navigationBar_changeColor.backgroundColor = colorLightBackground
         }, completion: nil)
+        self.topBackgroundView.backgroundColor = colorLightBackground
+        UINavigationBar.appearance().tintColor = colorText
+        UITabBar.appearance().unselectedItemTintColor = colorText
+        UILabel.appearance().textColor = colorText
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : colorText]
+        
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
+        self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : colorText]
         if(userSetting.isThemeBright){
-            
-            self.topBackgroundView.backgroundColor = colorLightBackground
-            UINavigationBar.appearance().tintColor = UIColor.black
             UIApplication.shared.statusBarStyle = .default
-            UITabBar.appearance().unselectedItemTintColor = .black
-            UILabel.appearance().textColor = UIColor.black
-            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
-            
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-            self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
         }
         else{
-            
-            self.topBackgroundView.backgroundColor = colorLightBackground
-            UINavigationBar.appearance().tintColor = UIColor.white
             UIApplication.shared.statusBarStyle = .lightContent
-            UITabBar.appearance().unselectedItemTintColor = .white
-            UILabel.appearance().textColor = UIColor.white
-            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-            
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-            self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         }
         if(deviceCategory != 0){
             if(userSetting.isVibrationEnabled){
@@ -308,6 +326,8 @@ class SettingsViewController: UIViewController {
             }
         }
         else{
+            vibButton.isUserInteractionEnabled = false
+            self.applyShadow(view: self.vibContainer, enable: false)
             vibButton.setTitle("햅틱 미지원 기기", for: .normal)
         }
         UINavigationBar.appearance().barTintColor = colorLightBackground
@@ -317,7 +337,7 @@ class SettingsViewController: UIViewController {
         UITabBar.appearance().barTintColor = colorLightBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        removeAdDelegate?.setAdBackgroundColor()
+        rootViewDelegate?.setAdBackgroundColor()
     }
     
     func applyShadow(view: UIView, enable: Bool){

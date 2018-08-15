@@ -18,12 +18,7 @@ class EmbedGoalsTableViewController: UITableViewController {
         backgroundView.backgroundColor = colorDeepBackground
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         
         goalValue = []
         goalLimit = []
@@ -101,6 +96,35 @@ class EmbedGoalsTableViewController: UITableViewController {
         goalViewDelegate?.manipulateCircle(value: dangerLevel)
         backgroundView.reloadData()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        viewWillAppear(true)
+        let numDays = Calendar.current.range(of: .day, in: .month, for: Date())!.count
+        let month = Calendar.current.component(.month, from: Date())
+        if(getDaysOfMonthLimit(month: monthmonth)! > numDays){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "goalsEdit")
+            self.navigationController?.show(vc, sender: nil)
+            
+            let alertController = UIAlertController(title: "며칠이라고요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                setDaysOfMonthLimit(month: monthmonth, value: numDays)
+            }
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)  
+        }
+        if(getStreakOfMonthLimit(month: monthmonth)! > numDays){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "goalsEdit")
+            self.navigationController?.show(vc, sender: nil)
+            
+            let alertController = UIAlertController(title: "며칠이라고요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                setStreakOfMonthLimit(month: monthmonth, value: numDays)
+            }
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -148,18 +172,11 @@ class EmbedGoalsTableViewController: UITableViewController {
             
         }
         
-        if(userSetting.isThemeBright){
-            customCell.leftValueLabel.textColor = .black
-            customCell.rightValueLabel.textColor = .black
-            customCell.leftTitleLabel.textColor = .gray
-            customCell.rightTitleLabel.textColor = .gray
-        }
-        else{
-            customCell.leftValueLabel.textColor = .white
-            customCell.rightValueLabel.textColor = .white
-            customCell.leftTitleLabel.textColor = colorGray
-            customCell.rightTitleLabel.textColor = colorGray
-        }
+        customCell.leftValueLabel.textColor = colorText
+        customCell.rightValueLabel.textColor = colorText
+        customCell.leftTitleLabel.textColor = colorGray
+        customCell.rightTitleLabel.textColor = colorGray
+
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bgGraph.layer.backgroundColor = colorLightBackground.cgColor
         

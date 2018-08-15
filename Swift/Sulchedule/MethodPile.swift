@@ -15,10 +15,11 @@ let vibFailed = SystemSoundID(1107)
 let colorYellow = hexStringToUIColor(hex:"FFC400")
 let colorGreen = hexStringToUIColor(hex:"4AD863")
 let colorRed = hexStringToUIColor(hex:"FF6060")
-let colorGray = hexStringToUIColor(hex:"A4A4A4")
+var colorGray = hexStringToUIColor(hex:"A4A4A4")
 var colorPoint = hexStringToUIColor(hex:"FFDC67")
 var colorLightBackground = hexStringToUIColor(hex:"252B53")
 var colorDeepBackground = hexStringToUIColor(hex:"0B102F")
+var colorText = hexStringToUIColor(hex:"FFFFFF")
 
 let deviceCategory: Int = UIDevice.current.value(forKey: "_feedbackSupportLevel")! as! Int
 

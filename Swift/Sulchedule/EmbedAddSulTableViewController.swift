@@ -54,12 +54,7 @@ class EmbedAddSulTableViewController: UITableViewController {
         backgroundView.reloadData()
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         loadArray()
     }
 
@@ -86,14 +81,8 @@ class EmbedAddSulTableViewController: UITableViewController {
         
         
         customCell.backgroundColor = colorLightBackground
-        if(userSetting.isThemeBright){
-            customCell.valueLabel.textColor = .gray
-            customCell.titleLabel.textColor = .black
-        }
-        else{
-            customCell.valueLabel.textColor = colorGray
-            customCell.titleLabel.textColor = .white
-        }
+        customCell.valueLabel.textColor = colorGray
+        customCell.titleLabel.textColor = colorText
 //        for view in customCell.subviews {
 //            if(view.description.lowercased().contains("reorder")){
 //                print(view)
