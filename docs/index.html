@@ -70,9 +70,42 @@
         #shadowed {
             -webkit-filter: drop-shadow(1px 1px 6px rgba(0,0,0,0.3));
         }
-        @media screen and (max-width: 10px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
+        @media only screen 
+        and (max-width : 600px) {
+            .sideNav{
+                right: 0;
+                height: 60px;
+                width: 100%;
+                overflow-x: scroll;
+                overflow-y: hidden;
+            }
+            .main {
+                margin-left: 0px;
+                margin-top: 60px;
+            }
+            a:first-child{
+                margin-left: 20px;
+                margin-top: 0px
+            }
+            a:last-child{
+                margin-right: 20px;
+                margin-bottom: 0px;
+            }
+            .sideNav {
+                overflow: auto;
+                white-space: nowrap;
+            }
+
+            a {
+                padding: 20px 15px 20px 15px;
+                display: inline-block;
+                text-align: center;
+                height: 100%
+            }
+            #shadowed{
+                width: 60px;
+                height: 60px;
+            }
         }
         </style>
     </head>
