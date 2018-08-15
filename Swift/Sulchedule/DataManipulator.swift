@@ -1109,7 +1109,7 @@ func setPurchased(purchased: Bool){
 func setFavouriteSul(index: Int, set: Bool){
     userSetting.favorites = Array(Set(userSetting.favorites).subtracting(Set([index])))
     if(set){
-        userSetting.favorites.append(index)
+        userSetting.favorites.insert(index, at:0)
     }
 }
 
@@ -1187,6 +1187,18 @@ func getAllDrunkDays() -> [Day] {
     return getAllDrunkDaysArray
 }
 
+func removeEmptyDays(){
+    print("original : \(recordDayList.count)")
+    
+    for item in recordDayList{
+        if (item.customExpense != 0 && item.customExpense != nil) || item.expense != 0 || (item.location!.count != 0 && item.location != nil) || (item.friends!.count != 0 && item.friends != nil) {}
+        else{
+            recordDayList = recordDayList.filter { $0 != item }
+        }
+    }
+    print("result : \(recordDayList.count)")
+}
+
 
 /////// 아카이빙 함수
 
@@ -1260,5 +1272,4 @@ func getPurchased() -> Bool{
         return userSetting.purchased!
 //        return false //remove before release
     }
-    
 }

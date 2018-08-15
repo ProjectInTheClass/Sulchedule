@@ -75,7 +75,8 @@ let request = GADRequest()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        
+        print("///Data saved///")
+        removeEmptyDays()
         saveUserData()
         saveRecordMonthList()
         saveRecordDayList()
