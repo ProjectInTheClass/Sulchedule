@@ -2,7 +2,7 @@
 
 import Foundation
 
-let dataCentre: DataCentre = DataCentre()
+var dataCentre: DataCentre = DataCentre()
 
 class DataCentre{
     //    public var arr = Sul(displayName: "hello", baseCalorie: 300, basePrice: 4000, colorTag: "#FFFFFF")
