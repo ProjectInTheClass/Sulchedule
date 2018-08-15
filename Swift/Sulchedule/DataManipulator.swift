@@ -1088,7 +1088,6 @@ func addUserSul(newSul : Sul) -> Bool{
 //            return false
 //        }
 //    }
-}
 
 
 func getUserSulDictionary() ->[Int:Sul]{

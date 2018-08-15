@@ -32,13 +32,13 @@ class SettingsViewController: UIViewController {
         if(getPurchased()){
             self.applyShadow(view: self.vibContainer, enable: true)
             removeAdButton.setTitleColor(colorPoint, for: .normal)
-            removeAdButton.setTitle("광고 켜기", for: .normal)
+            removeAdButton.setTitle("광고 꺼짐", for: .normal)
             rootViewDelegate?.removeAd()
         }
         else{
             self.applyShadow(view: self.vibContainer, enable: true)
             removeAdButton.setTitleColor(colorPoint, for: .normal)
-            removeAdButton.setTitle("광고 끄기", for: .normal)
+            removeAdButton.setTitle("광고 켜짐", for: .normal)
             rootViewDelegate?.showAd()
         }
 //        rootViewDelegate?.removeAd()
@@ -217,11 +217,11 @@ class SettingsViewController: UIViewController {
 //            removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
 //            removeAdButton.isUserInteractionEnabled = false
             
-            removeAdButton.setTitle("광고 켜기", for: .normal)
+            removeAdButton.setTitle("광고 꺼짐", for: .normal)
             removeAdButton.setTitleColor(colorPoint, for: .normal)
         }
         else{
-            removeAdButton.setTitle("광고 끄기", for: .normal)
+            removeAdButton.setTitle("광고 켜짐", for: .normal)
             removeAdButton.setTitleColor(colorPoint, for: .normal)
         }
         self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
