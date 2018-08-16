@@ -13,7 +13,7 @@ func addNewRecordDay(newRecordDay: RecordDay){
 }
 
 func getRecordDay(day: Day) -> RecordDay?{
-    if recordDayList.count == 0 {
+    if recordDayList.isEmpty {
         let firstRecordDay:RecordDay = RecordDay(today: dateToDayConverter(date: Date()), location: [], friends: [], expense: 0, customExpense: nil, calories: 0, drinks: [:])
         addNewRecordDay(newRecordDay: firstRecordDay)
         return firstRecordDay
@@ -41,7 +41,7 @@ func addNewRecordMonth(newRecordMonth: RecordMonth){
 }
 
 func getRecordMonth(month: Day) -> RecordMonth?{
-    if recordMonthList.count == 0 {
+    if recordMonthList.isEmpty {
         let firstRecordMonth:RecordMonth = RecordMonth(thisMonth: month, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
         addNewRecordMonth(newRecordMonth: firstRecordMonth)
         return firstRecordMonth
@@ -371,7 +371,7 @@ func getRecordMonthBestSul(month: Day) -> [[Int:[Int?]]]? {
     var dictionary:[[Int:[Int?]]] = []
     
     
-    if bottles.count == 0 {
+    if bottles.isEmpty {
         return []
     } else {
         
@@ -396,7 +396,7 @@ func getRecordMonthAllSul(month: Day) -> [[Int:[Int?]]]? {
     
     var dictionary:[[Int:[Int?]]] = []
     
-    if bottles.count == 0 {
+    if bottles.isEmpty {
         return []
     } else {
         let sort = bottles.sorted(by: {$0.1 > $1.1})
@@ -799,7 +799,7 @@ func getWeeklyCalorie() -> Int {
 //
 //func getCurrentGoalStatusList(month: Day) -> CurrentGoalStatus?{
 //
-//    if currentGoalStatusList.count == 0 {
+//    if currentGoalStatusList.isEmpty {
 //        let todayGoal = CurrentGoalStatus(thisMonth: dateToMonthConverter(date: Date()), daysOfMonth: 5, streakOfMonth: 5, caloriesOfMonth: 5, currentExpense: 5)
 //        addNewGoalStatusList(newGoalStatus: todayGoal)
 //        return todayGoal
@@ -1091,7 +1091,7 @@ func addUserSul(newSul : Sul) -> Bool{
     }
 }
     
-//    if userSetting.newSul.count == 0 {
+//    if userSetting.newSul.isEmpty {
 //        userSetting.newSul.append(newSul)
 //        sul.append(newSul)
 //        return true
