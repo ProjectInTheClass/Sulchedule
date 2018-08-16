@@ -653,7 +653,8 @@ func getWeeklySul() -> [Int: Int] {
     if(count != -1){
         for j in 0...count {
             let index = weeklySulDictionary!
-            keyArray += index[j].keys
+            keyArray.append(j)
+//            keyArray += index[j].keys
         }
         
         let sortedkeyArray = keyArray.sorted(by : >)
