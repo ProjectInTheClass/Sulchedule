@@ -10,6 +10,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
 
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet var backgroundView: UIView!
+    @IBOutlet weak var iPhoneXBackgroundView: UIView!
     @IBOutlet weak var pageOutlet: UIPageControl!
     @IBOutlet var navigationBarTitle: UINavigationItem!
     @IBAction func dismissButton(_ sender: UIBarButtonItem) {
@@ -35,14 +36,13 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if(userSetting.isThemeBright){
-            navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
-            pageOutlet.backgroundColor = colorDeepBackground
-            pageOutlet.pageIndicatorTintColor = colorGray
-            backgroundView.backgroundColor = colorLightBackground
-            navigationBar.tintColor = colorText
-            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorText]
-        }
+        navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
+        pageOutlet.backgroundColor = colorDeepBackground
+        pageOutlet.pageIndicatorTintColor = colorGray
+        backgroundView.backgroundColor = colorLightBackground
+        iPhoneXBackgroundView.backgroundColor = colorDeepBackground
+        navigationBar.tintColor = colorText
+        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorText]
         pageOutlet.currentPageIndicatorTintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint

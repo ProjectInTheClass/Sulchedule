@@ -139,7 +139,7 @@ func setSucceededLastMonth(){
         i += 1
     }
     for item in goalValue{
-        if item >= 1.0{
+        if item > 1.0{
             userSetting.succeededLastMonth = false
             userSetting.purchased = false
             break

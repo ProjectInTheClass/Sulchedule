@@ -87,7 +87,7 @@ class EmbedGoalsTableViewController: UITableViewController {
                 if(item >= 0.7){
                     dangerLevel = 1
                 }
-                if(item >= 1.0){
+                if(item > 1.0){
                     dangerLevel = 2
                 }
             }
@@ -237,7 +237,7 @@ class EmbedGoalsTableCell: UITableViewCell {
         if(0 <= value && value < 0.7){
             drawRect(color: colorGreen, value: value)
         }
-        else if(value < 1.0){
+        else if(value <= 1.0){
             drawRect(color: colorYellow, value: value)
         }
         else{

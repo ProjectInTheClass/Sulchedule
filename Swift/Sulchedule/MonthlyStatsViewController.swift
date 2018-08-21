@@ -37,6 +37,8 @@ class MonthlyStatsViewController: UIViewController {
     @IBOutlet weak var desc3: UILabel!
     @IBOutlet weak var desc2: UILabel!
     
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    
 
     
     override func viewDidLoad() {
@@ -76,8 +78,18 @@ class MonthlyStatsViewController: UIViewController {
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         self.tabBarController?.tabBar.unselectedItemTintColor = colorText
-        radOfCircle = sulView.bounds.height/2
+        
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        if(screenWidth == 320){ //야메 코드!
+            radOfCircle = 40
+        }
+        else{
+            radOfCircle = 48.5
+        }
+//        radOfCircle = sulView.bounds.height/2
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+        print(sulView.bounds.height)
         
         initCircle()
         
@@ -90,6 +102,7 @@ class MonthlyStatsViewController: UIViewController {
         
         let radius: CGFloat = firstPlaceView.frame.width / 2.0
         let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: firstPlaceView.frame.height))
+        
         firstPlaceView.layer.shadowColor = UIColor.black.cgColor
         firstPlaceView.layer.shadowOffset = CGSize(width: 0, height: 0)
         firstPlaceView.layer.shadowOpacity = 0.2
@@ -253,9 +266,6 @@ class MonthlyStatsViewController: UIViewController {
     }
     
     func cycleCircleBorder(cursor: Int){
-        if(userSetting.isVibrationEnabled){
-            AudioServicesPlaySystemSound(vibPeek)
-        }
         switch (cursor){
         case 0:
             friendCircle.lineWidth = 0.0
