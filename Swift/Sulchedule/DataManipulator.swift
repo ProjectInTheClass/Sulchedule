@@ -1301,7 +1301,8 @@ func resetApp(){
     sul.append(Sul(displayName: "레드와인 잔", baseCalorie: 84, basePrice: 12000, colorTag: "FFFFFF", unit: "잔"))
     sul.append(Sul(displayName: "화이트와인 잔", baseCalorie: 74, basePrice: 12000, colorTag: "FFFFFF", unit: "잔"))
     sul.append(Sul(displayName: "막걸리", baseCalorie: 345, basePrice: 2000, colorTag: "FFFFFF", unit: "병"))
-    userSetting = UserSetting(purchased: getPurchased())
+    userSetting = UserSetting(purchased: false)
+    rootViewDelegate?.showAd()
 }
 
 func getPurchased() -> Bool{

@@ -97,5 +97,55 @@ func changeIcon(to iconName: String) {
     })
 }
 
-
-
+func setSucceededLastMonth(){
+    let tempMonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: -1, to: Date())!)
+    var isEnabled:[Int] = []
+    if(isDaysOfMonthEnabled(month: tempMonth)){
+        isEnabled.append(0)
+    }
+    if(isStreakOfMonthEnabled(month: tempMonth)){
+        isEnabled.append(1)
+    }
+    if(isCurrentExpenseEnabled(month: tempMonth)){
+        isEnabled.append(2)
+    }
+    if(isCaloriesOfMonthEnabled(month: tempMonth)){
+        isEnabled.append(3)
+    }
+    
+    var i = 0
+    var goalValue:[Float] = []
+    for item in isEnabled{
+        switch item {
+        case 0 :
+            if(isDaysOfMonthEnabled(month: tempMonth)){
+                goalValue.append(Float(getDaysOfMonthStatus(month: tempMonth)) / Float(getDaysOfMonthLimit(month: tempMonth)!))
+            }
+        case 1 :
+            if(isStreakOfMonthEnabled(month: tempMonth)){
+                goalValue.append(Float(getStreakOfMonthStatus(month: tempMonth)) / Float(getStreakOfMonthLimit(month: tempMonth)!))
+            }
+        case 2 :
+            if(isCurrentExpenseEnabled(month: tempMonth)){
+                goalValue.append(Float(getCurrentExpenseStatus(month: tempMonth)) / Float(getCurrentExpenseLimit(month: tempMonth)!))
+            }
+        case 3 :
+            if(isCaloriesOfMonthEnabled(month: tempMonth)){
+                goalValue.append(Float(getCaloriesOfMonthStatus(month: tempMonth)) / Float(getCaloriesOfMonthLimit(month: tempMonth)!))
+            }
+        default :
+            print("wtf")
+        }
+        i += 1
+    }
+    for item in goalValue{
+        if item >= 1.0{
+            userSetting.succeededLastMonth = false
+            userSetting.purchased = false
+            break
+        }
+        else{
+            userSetting.succeededLastMonth = true
+        }
+    }
+}

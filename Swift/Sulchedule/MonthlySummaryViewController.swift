@@ -29,7 +29,6 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
         pages.append(p2)
         pages.append(p3)
         
-        var goalValue:[Float] = []
         var isEnabled:[Int] = []
         if(isDaysOfMonthEnabled(month: monthmonth)){
             isEnabled.append(0)
@@ -45,6 +44,7 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
         }
         
         var i = 0
+        var goalValue:[Float] = []
         for item in isEnabled{
             switch item {
             case 0 :
@@ -71,6 +71,7 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
         for item in goalValue{
             if item >= 1.0{
                 userSetting.succeededLastMonth = false
+                userSetting.purchased = false
                 break
             }
             else{

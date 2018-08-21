@@ -24,9 +24,13 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func showAd() {
+        print("///Show Ad///")
         if(!getPurchased() && adReceived){
             addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+                self.adArea.alpha = 1
+            }, completion:nil)
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
@@ -41,6 +45,9 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     func removeAd() {
         if(adReceived){
             self.adAreaLoc.constant = -60
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+                self.adArea.alpha = 0
+            }, completion:nil)
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
             }, completion:{ (finished: Bool) in for view in self.adArea.subviews {
@@ -69,6 +76,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         
         bannerView.load(request)
         
+        setSucceededLastMonth()
     }
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()

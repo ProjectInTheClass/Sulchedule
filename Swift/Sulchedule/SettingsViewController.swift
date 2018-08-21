@@ -27,22 +27,40 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func removeAdButton(_ sender: Any) {
-        userSetting.purchased?.toggle()
-        
-        if(getPurchased()){
-            self.applyShadow(view: self.vibContainer, enable: true)
-            removeAdButton.setTitleColor(colorPoint, for: .normal)
-            removeAdButton.setTitle("광고 꺼짐", for: .normal)
-            rootViewDelegate?.removeAd()
+        if(userSetting.succeededLastMonth){
+            userSetting.purchased?.toggle()
+            
+            if(getPurchased()){
+                self.applyShadow(view: self.vibContainer, enable: true)
+                removeAdButton.setTitleColor(colorPoint, for: .normal)
+                removeAdButton.setTitle("광고 꺼짐", for: .normal)
+                self.applyShadow(view: self.removeAdContainer, enable: false)
+                rootViewDelegate?.removeAd()
+            }
+            else{
+                self.applyShadow(view: self.vibContainer, enable: true)
+                removeAdButton.setTitleColor(colorPoint, for: .normal)
+                removeAdButton.setTitle("광고 켜짐", for: .normal)
+                self.applyShadow(view: self.removeAdContainer, enable: true)
+                rootViewDelegate?.showAd()
+            }
+            rootViewDelegate?.setAdBackgroundColor()
         }
         else{
-            self.applyShadow(view: self.vibContainer, enable: true)
-            removeAdButton.setTitleColor(colorPoint, for: .normal)
-            removeAdButton.setTitle("광고 켜짐", for: .normal)
-            rootViewDelegate?.showAd()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "M"
+            var lastMonth = Int(formatter.string(from: Date())) ?? 1
+            lastMonth -= 1
+            if(lastMonth == 0){
+                lastMonth = 12
+            }
+            let alertController = UIAlertController(title: "\(lastMonth)월 목표 달성 실패", message: "\(lastMonth)월에 목표를 설정하지 않았거나 달성하지 못했습니다. 목표를 달성하면 광고를 제거할 수 있습니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
         }
-//        rootViewDelegate?.removeAd()
-        rootViewDelegate?.setAdBackgroundColor()
     }
     @IBAction func vibButton(_ sender: Any) {
         userSetting.isVibrationEnabled.toggle()
@@ -104,6 +122,7 @@ class SettingsViewController: UIViewController {
             self.tabBarController?.tabBar.unselectedItemTintColor = .white
             UIApplication.shared.statusBarStyle = .lightContent
             rootViewDelegate?.setBackgroundColor(light: true)
+            rootViewDelegate?.setAdBackgroundColor()
             self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
             self.navigationBar_changeColor.barTintColor = colorLightBackground
             self.tabBarController?.selectedIndex = 0
@@ -122,7 +141,7 @@ class SettingsViewController: UIViewController {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.darkThemeSwitch(_:)))
         themeContainer.addGestureRecognizer(tap)
-        
+    
         if(deviceCategory != 0){
             if(userSetting.isVibrationEnabled){
                 vibButton.setTitle("햅틱 켜짐", for: .normal)
@@ -161,15 +180,30 @@ class SettingsViewController: UIViewController {
         yesterdayButton.setTitleColor(colorPoint, for: .normal)
         showDrunkButton.setTitleColor(colorPoint, for: .normal)
         changeIconButton.setTitleColor(colorPoint, for: .normal)
-        if(getPurchased()){
+        setSucceededLastMonth()
+        if(!userSetting.succeededLastMonth){
+            removeAdButton.setTitle("광고 켜짐", for: .normal)
+            rootViewDelegate?.showAd()
+            setPurchased(purchased: false)
+            removeAdButton.setTitleColor(colorGray, for: .normal)
+            self.applyShadow(view: self.removeAdContainer, enable: false)
+        }
+        else if(getPurchased()){
 //            for future in-app purchase
 //            removeAdButton.isUserInteractionEnabled = false
 //            removeAdButton.setTitleColor(colorGray, for: .normal)
-            
+            removeAdButton.setTitle("광고 꺼짐", for: .normal)
+            removeAdButton.isUserInteractionEnabled = true
+            self.applyShadow(view: self.removeAdContainer, enable: false)
             removeAdButton.setTitleColor(colorPoint, for: .normal)
+            rootViewDelegate?.removeAd()
         }
         else{
+            removeAdButton.setTitle("광고 켜짐", for: .normal)
+            removeAdButton.isUserInteractionEnabled = true
+            self.applyShadow(view: self.removeAdContainer, enable: true)
             removeAdButton.setTitleColor(colorPoint, for: .normal)
+            rootViewDelegate?.showAd()
         }
         
         rootViewDelegate?.setAdBackgroundColor()
@@ -214,20 +248,6 @@ class SettingsViewController: UIViewController {
             self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
         }
         
-        if(getPurchased()){
-//            for future in-app purchase
-//            self.applyShadow(view: self.vibContainer, enable: false)
-//            removeAdButton.setTitleColor(colorGray, for: .normal)
-//            removeAdButton.setTitle("구매해주셔서 감사합니다!", for: .normal)
-//            removeAdButton.isUserInteractionEnabled = false
-            
-            removeAdButton.setTitle("광고 꺼짐", for: .normal)
-            removeAdButton.setTitleColor(colorPoint, for: .normal)
-        }
-        else{
-            removeAdButton.setTitle("광고 켜짐", for: .normal)
-            removeAdButton.setTitleColor(colorPoint, for: .normal)
-        }
         self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
         
         if(deviceCategory == 0){
@@ -295,7 +315,11 @@ class SettingsViewController: UIViewController {
             if(deviceCategory == 0){
                 self.vibButton.setTitleColor(colorGray, for: .normal)
             }
-            if(getPurchased()){
+            
+            if(!userSetting.succeededLastMonth){
+                self.removeAdButton.setTitleColor(colorGray, for: .normal)
+            }
+            else if(getPurchased()){
 //                For future in-app purchase
 //                self.removeAdButton.setTitleColor(colorGray, for: .normal)
                 self.removeAdButton.setTitleColor(colorPoint, for: .normal)
