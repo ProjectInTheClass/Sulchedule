@@ -37,7 +37,7 @@ class MonthlyStatsViewController: UIViewController {
     @IBOutlet weak var desc3: UILabel!
     @IBOutlet weak var desc2: UILabel!
     
-    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
 
     
@@ -83,9 +83,11 @@ class MonthlyStatsViewController: UIViewController {
         let screenWidth = screenSize.width
         if(screenWidth == 320){ //야메 코드!
             radOfCircle = 40
+            heightConstraint.constant = 120
         }
         else{
             radOfCircle = 48.5
+            heightConstraint.constant = 134
         }
 //        radOfCircle = sulView.bounds.height/2
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)

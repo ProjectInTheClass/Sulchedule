@@ -30,12 +30,15 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var secondPlaceView: UIView!
     @IBOutlet weak var thirdPlaceView: UIView!
     
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var title1: UILabel!
-    @IBOutlet weak var desc1: UITextView!
     @IBOutlet weak var title2: UILabel!
-    @IBOutlet weak var desc2: UITextView!
     @IBOutlet weak var title3: UILabel!
-    @IBOutlet weak var desc3: UITextView!
+    @IBOutlet weak var desc1: UILabel!
+    @IBOutlet weak var desc2: UILabel!
+    @IBOutlet weak var desc3: UILabel!
     
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
@@ -60,7 +63,12 @@ class StatsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        desc1.numberOfLines = 3
+        desc2.numberOfLines = 3
+        desc3.numberOfLines = 3
+        sulLabel.numberOfLines = 2
+        friendLabel.numberOfLines = 2
+        locationLabel.numberOfLines = 2
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         vc = segue.destination as? EmbedStatsTableViewController
@@ -91,7 +99,16 @@ class StatsViewController: UIViewController {
             firstPlaceText.textColor = .black
         }
         
-        radOfCircle = sulView.bounds.height/2
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        if(screenWidth == 320){ //야메 코드!
+            radOfCircle = 40
+            heightConstraint.constant = 120
+        }
+        else{
+            radOfCircle = 48.5
+            heightConstraint.constant = 134
+        }
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
         print(sulView.bounds.height)
         
@@ -183,7 +200,6 @@ class StatsViewController: UIViewController {
         case 0:
             let suls = getRecordMonthBestSul(month: monthmonth)
             let k = suls!
-            sulLabel.numberOfLines = 2
             sulLabel.text = "음주 기록이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
@@ -214,7 +230,6 @@ class StatsViewController: UIViewController {
         case 1:
             let friends = getRecordMonthBestFriends(month: monthmonth)
             let k = friends!
-            friendLabel.numberOfLines = 2
             friendLabel.text = "술친구가\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]!
@@ -245,7 +260,6 @@ class StatsViewController: UIViewController {
         case 2:
             let locations = getRecordMonthBestLocation(month: monthmonth)
             let k = locations!
-            locationLabel.numberOfLines = 2
             locationLabel.text = "자주 가는 곳이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
