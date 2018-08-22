@@ -149,7 +149,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         // #warning Incomplete implementation, return the number of rows
         return goals.count
     }
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
     
