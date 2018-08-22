@@ -28,7 +28,8 @@ class SettingsViewController: UIViewController {
     
     @IBAction func removeAdButton(_ sender: Any) {
         if(userSetting.succeededLastMonth){
-            userSetting.purchased?.toggle()
+            let tempBool = userSetting.purchased ?? true
+            userSetting.purchased? = !tempBool
             
             if(getPurchased()){
                 self.applyShadow(view: self.vibContainer, enable: true)
@@ -63,7 +64,7 @@ class SettingsViewController: UIViewController {
         }
     }
     @IBAction func vibButton(_ sender: Any) {
-        userSetting.isVibrationEnabled.toggle()
+        userSetting.isVibrationEnabled = !userSetting.isVibrationEnabled
         if(deviceCategory != 0){
             if(userSetting.isVibrationEnabled){
                 AudioServicesPlaySystemSound(vibTryAgain)
@@ -257,7 +258,7 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func darkThemeSwitch(_ sender: UITapGestureRecognizer) {
-        userSetting.isThemeBright.toggle()
+        userSetting.isThemeBright = !userSetting.isThemeBright
         
         self.applyShadow(view: self.resetContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.addSulContainer, enable: userSetting.isThemeBright)
