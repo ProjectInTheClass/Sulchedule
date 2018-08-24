@@ -2,17 +2,7 @@ import UIKit
 import AudioToolbox.AudioServices
 
 
-extension UITableView {
-    func scrollToBottom(animated: Bool = true) {
-        let section = self.numberOfSections
-        if section > 0 {
-            let row = self.numberOfRows(inSection: section - 1)
-            if row > 0 {
-                self.scrollToRow(at: NSIndexPath(row: row - 1, section: section - 1) as IndexPath, at: .bottom, animated: animated)
-            }
-        }
-    }
-}
+
 
 class EmbedAddSulTableViewController: UITableViewController {
     

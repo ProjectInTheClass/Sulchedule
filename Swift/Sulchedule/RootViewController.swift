@@ -6,13 +6,20 @@ protocol RootViewDelegate{
     func showAd()
     func setAdBackgroundColor()
     func setBackgroundColor(light: Bool)
+    func showSnackBar(string: String, buttonPlaced: Bool)
+    func refreshXLowerColor()
+    func hideSnackBar()
+    
+    func isSnackBarOpen() -> Bool
 }
 
 var rootViewDelegate: RootViewDelegate?
 
 class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDelegate {
-    
     var adReceived = false
+    var positionConstraintValue = -80
+    
+    var workItem: DispatchWorkItem? = nil
     
     func setBackgroundColor(light: Bool) {
         if(light){
@@ -37,9 +44,31 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
+    func isSnackBarOpen() -> Bool{
+        if(snackBarPositionConstraint.constant == 0){
+            return false
+        }
+        else{
+            return true
+        }
+    }
+    
+    func refreshSnackBarColor(){
+        snackBarView.backgroundColor = colorLightBackground
+        snackBarCloseButton.titleLabel?.textColor = colorPoint
+        snackBarText.textColor = colorText
+    }
+    
     func setAdBackgroundColor() {
         backgroundView.backgroundColor = colorLightBackground
         adArea.backgroundColor = colorLightBackground
+        
+        //and snackbar background also (squeezing it in)
+        refreshSnackBarColor()
+    }
+    
+    func refreshXLowerColor(){
+        iPhoneXLowerBackground.backgroundColor = colorLightBackground
     }
     
     func removeAd() {
@@ -56,6 +85,54 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
+    func showSnackBar(string: String, buttonPlaced: Bool) {
+        let radius: CGFloat = snackBarView.frame.width / 2.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: snackBarView.frame.height))
+        snackBarView.layer.shadowColor = UIColor.black.cgColor
+        snackBarView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        snackBarView.layer.shadowOpacity = 0.4
+        snackBarView.layer.shadowRadius = 7.0
+        snackBarView.layer.masksToBounds =  false
+        snackBarView.layer.shadowPath = shadowPath.cgPath
+        refreshSnackBarColor()
+        snackBarText.text = string
+        snackBarPositionConstraint.constant = CGFloat(positionConstraintValue)
+        if(buttonPlaced){
+            snackBarCloseButton.isHidden = false
+            snackBarCloseButton.isUserInteractionEnabled = true
+        }
+        else{
+            snackBarCloseButton.isHidden = true
+            snackBarCloseButton.isUserInteractionEnabled = false
+        }
+        
+        UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
+            self.snackBarView.alpha = 1
+            self.view.layoutIfNeeded()
+        }, completion:nil)
+        workItem = DispatchWorkItem { self.hideSnackBar() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 8.5, execute: workItem!)
+    }
+    
+    func hideSnackBar(){
+        snackBarPositionConstraint.constant = 0
+        workItem!.cancel()
+        UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
+            self.snackBarView.alpha = 0
+            self.view.layoutIfNeeded()
+        }, completion:nil)
+    }
+    
+    @IBAction func snackBarCloseAction(_ sender: UIButton) {
+        hideSnackBar()
+    }
+    @IBOutlet weak var iPhoneXLowerBackground: UIView!
+    @IBOutlet weak var snackBarLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var snackBarRightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var snackBarCloseButton: UIButton!
+    @IBOutlet weak var snackBarText: UILabel!
+    @IBOutlet weak var snackBarView: UIView!
+    @IBOutlet weak var snackBarPositionConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var adAreaLoc: NSLayoutConstraint!
     @IBOutlet weak var adArea: UIView!
@@ -77,7 +154,17 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         bannerView.load(request)
         
         setSucceededLastMonth()
-        self.adArea.alpha = 0
+        adArea.alpha = 0
+        
+        snackBarText.numberOfLines = 2
+        
+        positionConstraintValue = -80
+        if(UIScreen.main.nativeBounds.height == 2436){
+            snackBarLeftConstraint.constant = 10
+            snackBarRightConstraint.constant = 10
+            positionConstraintValue = -110
+        }
+        iPhoneXLowerBackground.backgroundColor = colorLightBackground
     }
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()

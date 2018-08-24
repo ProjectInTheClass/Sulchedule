@@ -102,7 +102,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         if(userSetting.firstLaunch){
             firstLaunchAction()
-            setFirstLaunchFalse()
         }
         
         self.calendar.select(Date())
@@ -124,15 +123,23 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             newDaySelected(date: calendar.today!)
             gotDay = getRecordDay(day: selectedDay)
         }
+        
+        if(userSetting.firstLaunch){
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(9)) {
+                snackBar(string: "우측의 -/+를 눌러 음주량을 기록해주세요.\n다른 주류는 '기타'에서 찾거나 추가할 수 있습니다.", buttonPlaced: false)
+            }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(18)) {
+                snackBar(string: "함께한 사람, 지출액, 장소를 입력하면\n더 자세한 통계를 볼 수 있습니다.", buttonPlaced: false)
+            }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(27)) {
+                snackBar(string: "통계 탭으로 이동해주세요!", buttonPlaced: true)
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadArray()
-        
-        if(userSetting.firstLaunch){
-            setFirstLaunchFalse()
-            print("///firstLaunchFalse")
-        }
     
         self.calendar.today = Date()
         
@@ -374,6 +381,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
             let tempLocation = gotDay?.location ?? []
             let tempFriends = gotDay?.friends ?? []
+            let tempExpense = gotDay?.customExpense ?? 0
             
             if (tempLocation.count != 0){
                 for i in (tempLocation) {
@@ -389,7 +397,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 tempStr.removeLast(2)
                 tempStr.append("와(과) ")
             }
-            tempStr.append("마셨어요")
+            if (tempExpense != 0){
+                tempStr.append("\(tempExpense)원 사용했어요")
+            }
+            else{
+                tempStr.append("마셨어요")
+            }
         }
         topInfoLabel.text = tempStr
     }
@@ -404,7 +417,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             temp = "약 \((gotDay?.expense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
         else{
-            temp = "\((gotDay?.customExpense)!)원, 약 \((gotDay?.calories)!)kcal"
+            temp = "약 \((gotDay?.calories)!)kcal"
         }
         
         if(getDeletedSulTotalCalorieForDay(day: selectedDay) != 0){
@@ -417,18 +430,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return 0.1
     }
     
-}
-
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
 }
 
 class TodayTableViewCell: UITableViewCell {

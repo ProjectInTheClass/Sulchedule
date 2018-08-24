@@ -129,6 +129,8 @@ class SettingsViewController: UIViewController {
             self.tabBarController?.selectedIndex = 0
             UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : colorText]
             
+            snackBar(string: "앱이 성공적으로 초기화되었습니다.", buttonPlaced: true)
+            
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: true, completion: nil)
@@ -167,6 +169,10 @@ class SettingsViewController: UIViewController {
         }
         else{
             showDrunkButton.setTitle("달력에서 음주한 날짜를 숨깁니다", for: .normal)
+        }
+        
+        if(userSetting.firstLaunch){
+            snackBar(string: "이곳은 설정과 정보가 공존하는 곳입니다.\n월간 보고서를 눌러보세요!", buttonPlaced: false)
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -305,6 +311,7 @@ class SettingsViewController: UIViewController {
                 self.removeAdContainer.backgroundColor = colorLightBackground
             }
             
+            rootViewDelegate?.refreshXLowerColor()
             self.themeLabel.textColor = colorPoint
             self.vibButton.setTitleColor(colorPoint, for: .normal)
             self.resetButton.setTitleColor(colorRed, for: .normal)

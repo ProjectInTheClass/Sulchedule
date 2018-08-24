@@ -76,6 +76,7 @@ let request = GADRequest()
     
     func applicationWillResignActive(_ application: UIApplication) {
         print("///Data saved")
+        setFirstLaunchFalse()
         removeEmptyDays()
         getRecordDay(day: dateToDayConverter(date: Date()))
         getRecordMonth(month: dateToMonthConverter(date: Date()))

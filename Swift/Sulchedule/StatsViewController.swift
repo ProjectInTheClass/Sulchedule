@@ -1,7 +1,7 @@
 import UIKit
 import AudioToolbox.AudioServices
 
-class StatsViewController: UIViewController {
+class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
     var lastSegmentChoice: Int = 0
     
     var firstAppearance = true
@@ -16,6 +16,7 @@ class StatsViewController: UIViewController {
     
     var vc:EmbedStatsTableViewController? = nil
     
+    @IBOutlet weak var viewGestureRecognizer: UIView!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UILabel!
@@ -46,22 +47,58 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var embedStatsView: UIView!
     @IBOutlet weak var leaderboardView: UIView!
     @IBOutlet weak var topSegmentOutlet: UISegmentedControl!
+    
+    @IBOutlet weak var leaderboardTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var picktargetTopConstraint: NSLayoutConstraint!
+    
     @IBAction func topSegmentControl(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
             lastSegmentChoice = 0
             loadSegment(whichSegment: 0)
             cycleCircleBorder(cursor: currentCursor)
+            if(shouldComeDown() && constraintLarge){
+                viewGestureRecognizer.isUserInteractionEnabled = true
+            }
         case 1:
             lastSegmentChoice = 1
             loadSegment(whichSegment: 1)
+            viewGestureRecognizer.isUserInteractionEnabled = false
         default:
             print("wtf")
         }
     }
     
-    @IBOutlet weak var leaderboardTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var picktargetTopConstraint: NSLayoutConstraint!
+    @objc func handleSwipeUp(gesture: UISwipeGestureRecognizer) {
+        viewGestureRecognizer.isUserInteractionEnabled = false
+        
+        self.leaderboardTopConstraint.constant = -20
+        self.picktargetTopConstraint.constant = 52
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.leaderboardView.alpha = 0
+            self.view.layoutIfNeeded()
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }, completion: nil)
+        
+        constraintLarge = false
+    }
+    
+    @objc func handleSwipeDown(gesture: UISwipeGestureRecognizer) {
+        if(shouldComeDown() && !constraintLarge){
+            self.leaderboardTopConstraint.constant = -20
+            self.picktargetTopConstraint.constant = 248
+            
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                self.leaderboardView.alpha = 1
+                self.view.layoutIfNeeded()
+                rootViewDelegate?.setBackgroundColor(light: true)
+            }, completion: nil)
+            
+            viewGestureRecognizer.isUserInteractionEnabled = true
+            constraintLarge = true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +110,24 @@ class StatsViewController: UIViewController {
         locationLabel.numberOfLines = 2
         
         initLeaderboard()
+        
+        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeUp))
+        swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.up
+        swipeUpRecognizer.delegate = self
+        viewGestureRecognizer.addGestureRecognizer(swipeUpRecognizer)
+        
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
+        swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.down
+        swipeDownRecognizer.delegate = self
+        picktargetView.addGestureRecognizer(swipeDownRecognizer)
+        
+        
+        if(userSetting.firstLaunch){
+            snackBar(string: "음주 기록이 다양해지면 단상에 순위가 표시됩니다.", buttonPlaced: false)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(9)) {
+                snackBar(string: "목표 탭으로 이동해주세요!", buttonPlaced: true)
+            }
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         vc = segue.destination as? EmbedStatsTableViewController
@@ -118,6 +173,7 @@ class StatsViewController: UIViewController {
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
         
         initCircle()
+        initLeaderboard()
         
         let sulTap = UITapGestureRecognizer(target: self, action: #selector(sulClicked))
         let friendTap = UITapGestureRecognizer(target: self, action: #selector(friendClicked))
@@ -151,6 +207,9 @@ class StatsViewController: UIViewController {
         }
         else{
             rootViewDelegate?.setBackgroundColor(light: false)
+            
+            leaderboardTopConstraint.constant = -120
+            picktargetTopConstraint.constant = -66
         }
     }
     
@@ -170,7 +229,6 @@ class StatsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         rootViewDelegate?.setBackgroundColor(light: true)
     }
-    
     
     @objc func sulClicked(){
         if(userSetting.isVibrationEnabled){
@@ -215,6 +273,7 @@ class StatsViewController: UIViewController {
                     rootViewDelegate?.setBackgroundColor(light: true)
                 }, completion: nil)
                 constraintLarge = true
+                viewGestureRecognizer.isUserInteractionEnabled = constraintLarge
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
@@ -240,6 +299,7 @@ class StatsViewController: UIViewController {
                     rootViewDelegate?.setBackgroundColor(light: false)
                 }, completion: nil)
                 constraintLarge = false
+                viewGestureRecognizer.isUserInteractionEnabled = constraintLarge
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
@@ -261,6 +321,7 @@ class StatsViewController: UIViewController {
                     rootViewDelegate?.setBackgroundColor(light: true)
                 }, completion: nil)
                 constraintLarge = true
+                viewGestureRecognizer.isUserInteractionEnabled = constraintLarge
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
@@ -286,6 +347,7 @@ class StatsViewController: UIViewController {
                     rootViewDelegate?.setBackgroundColor(light: false)
                 }, completion: nil)
                 constraintLarge = false
+                viewGestureRecognizer.isUserInteractionEnabled = constraintLarge
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
@@ -307,6 +369,7 @@ class StatsViewController: UIViewController {
                     rootViewDelegate?.setBackgroundColor(light: true)
                 }, completion: nil)
                 constraintLarge = true
+                viewGestureRecognizer.isUserInteractionEnabled = constraintLarge
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
@@ -332,6 +395,7 @@ class StatsViewController: UIViewController {
                     rootViewDelegate?.setBackgroundColor(light: false)
                 }, completion: nil)
                 constraintLarge = false
+                viewGestureRecognizer.isUserInteractionEnabled = constraintLarge
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
@@ -360,7 +424,7 @@ class StatsViewController: UIViewController {
                 firstAppearance = false
             }
             else{
-                if(userSetting.isVibrationEnabled){
+                if(userSetting.isVibrationEnabled && constraintLarge){
                     AudioServicesPlaySystemSound(vibCancelled)
                 }
                 animator(isLeft: true)
@@ -370,7 +434,7 @@ class StatsViewController: UIViewController {
             vc?.showWeeklyFunc(showWeekly: false)
         }
         else{
-            if(userSetting.isVibrationEnabled){
+            if(userSetting.isVibrationEnabled && constraintLarge){
                 AudioServicesPlaySystemSound(vibCancelled)
             }
             animator(isLeft: false)
@@ -380,7 +444,7 @@ class StatsViewController: UIViewController {
         }
         UIView.animate(withDuration: 0.35, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
-        }, completion: nil)
+        }, completion: {(finished: Bool) in self.vc?.backgroundScrollToTop()})
     }
     
     func animator(isLeft: Bool){
@@ -475,9 +539,11 @@ class StatsViewController: UIViewController {
             sulLabel.text = sul[Array(temp.keys)[0]].displayName
         }
         if(3 <= k.count){
-            self.leaderboardTopConstraint.constant = -20
-            self.picktargetTopConstraint.constant = 248
-            self.leaderboardView.alpha = 1
+            if(currentCursor == 0){
+                self.leaderboardTopConstraint.constant = -20
+                self.picktargetTopConstraint.constant = 248
+                self.leaderboardView.alpha = 1
+            }
             rootViewDelegate?.setBackgroundColor(light: true)
             
             var temp = k[0]
@@ -494,9 +560,11 @@ class StatsViewController: UIViewController {
             desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
         }
         else{
-            self.leaderboardTopConstraint.constant = -20
-            self.leaderboardView.alpha = 0
-            self.picktargetTopConstraint.constant = 52
+            if(currentCursor == 0){
+                self.leaderboardTopConstraint.constant = -20
+                self.leaderboardView.alpha = 0
+                self.picktargetTopConstraint.constant = 52
+            }
             rootViewDelegate?.setBackgroundColor(light: false)
         }
         
@@ -508,6 +576,10 @@ class StatsViewController: UIViewController {
             friendLabel.text = Array(temp.keys)[0]
         }
         if(3 <= j.count){
+            if(currentCursor == 1){
+                self.leaderboardTopConstraint.constant = -20
+                self.picktargetTopConstraint.constant = 248
+            }
             var temp = j[0]!
             title1.text = Array(temp.keys)[0]
             var temp2 = temp[Array(temp.keys)[0]]!
@@ -521,6 +593,14 @@ class StatsViewController: UIViewController {
             temp2 = temp[Array(temp.keys)[0]]!
             desc3.text = "\(temp2)회"
         }
+        else{
+            if(currentCursor == 1){
+                self.leaderboardTopConstraint.constant = -20
+                self.leaderboardView.alpha = 0
+                self.picktargetTopConstraint.constant = 52
+            }
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }
         
         let locations = getRecordMonthBestLocation(month: monthmonth)
         let v = locations!
@@ -530,6 +610,10 @@ class StatsViewController: UIViewController {
             locationLabel.text = Array(temp.keys)[0]
         }
         if(3 <= v.count){
+            if(currentCursor == 2){
+                self.leaderboardTopConstraint.constant = -20
+                self.picktargetTopConstraint.constant = 248
+            }
             var temp = v[0]
             title1.text = Array(temp.keys)[0]
             var temp2 = temp[Array(temp.keys)[0]]!
@@ -543,6 +627,33 @@ class StatsViewController: UIViewController {
             temp2 = temp[Array(temp.keys)[0]]!
             desc3.text = "\(temp2)회"
         }
-
+        else{
+            if(currentCursor == 2){
+                self.leaderboardTopConstraint.constant = -20
+                self.leaderboardView.alpha = 0
+                self.picktargetTopConstraint.constant = 52
+            }
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }
+    }
+    
+    func shouldComeDown() -> Bool{
+        switch currentCursor{
+        case 2:
+            if(getRecordMonthBestLocation(month: monthmonth)!.count < 3){
+                return false
+            }
+        case 1:
+            if(getRecordMonthBestFriends(month: monthmonth)!.count < 3){
+                return false
+            }
+        case 0:
+            if(getRecordMonthBestSul(month: monthmonth)!.count < 3){
+                return false
+            }
+        default:
+            print("wtf")
+        }
+        return true
     }
 }

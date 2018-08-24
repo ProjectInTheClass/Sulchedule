@@ -17,11 +17,14 @@ class TodayAdditionalTableViewController: UITableViewController, TodayAdditional
         if userSetting.favorites.contains(filteredIndexArray[index]){
             setFavouriteSul(index: filteredIndexArray[index], set: false)
             sender.starButtonOutlet.setImage(star_empty!, for: UIControlState())
+            snackBar(string: "즐겨찾기가 해제되었습니다.", buttonPlaced: true)
         }
         else{
             setFavouriteSul(index: filteredIndexArray[index], set: true)
             sender.starButtonOutlet.setImage(star!, for: UIControlState())
+            snackBar(string: "즐겨찾기로 설정되었습니다.", buttonPlaced: true)
         }
+        
     }
     
     

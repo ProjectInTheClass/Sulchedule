@@ -149,3 +149,51 @@ func setSucceededLastMonth(){
         }
     }
 }
+
+func firstLaunchAction(){
+    print("///first launch")
+    setFavouriteSul(index: 2, set: true)
+    setFavouriteSul(index: 0, set: true)
+    
+    snackBar(string: "술케줄에 오신 것을 환영합니다!", buttonPlaced: false)
+}
+
+func snackBar(string: String, buttonPlaced: Bool){
+    if(rootViewDelegate?.isSnackBarOpen() ?? false){
+        rootViewDelegate?.hideSnackBar()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+            rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced)
+        }
+    }
+    else{
+        rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced)
+    }
+}
+
+extension UITableView {
+    func scrollToBottom(animated: Bool = true) {
+        let section = self.numberOfSections
+        if section > 0 {
+            let row = self.numberOfRows(inSection: section - 1)
+            if row > 0 {
+                self.scrollToRow(at: NSIndexPath(row: row - 1, section: section - 1) as IndexPath, at: .bottom, animated: animated)
+            }
+        }
+    }
+    func scrollToTop(animated: Bool = true) {
+        let indexPath = NSIndexPath(row: NSNotFound, section: 0)
+        self.scrollToRow(at: indexPath as IndexPath, at: .top, animated: animated)
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

@@ -134,6 +134,25 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
 
         reload()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        var isEnabled:[Int] = []
+        if(isDaysOfMonthEnabled(month: monthmonth)){
+            isEnabled.append(0)
+        }
+        if(isStreakOfMonthEnabled(month: monthmonth)){
+            isEnabled.append(1)
+        }
+        if(isCurrentExpenseEnabled(month: monthmonth)){
+            isEnabled.append(2)
+        }
+        if(isCaloriesOfMonthEnabled(month: monthmonth)){
+            isEnabled.append(3)
+        }
+        if(isEnabled.count != 0){
+            snackBar(string: "목표가 설정되었습니다.\n파이팅!", buttonPlaced: true)
+        }
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         reload()

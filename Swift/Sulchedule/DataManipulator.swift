@@ -171,13 +171,6 @@ func setRecordDayFriends(day:Day, friends: [String]?){
     recordDay?.friends = friends
 }
 
-func firstLaunchAction(){
-    print("///first launch")
-    setFavouriteSul(index: 2, set: true)
-    setFavouriteSul(index: 0, set: true)
-    
-}
-
 
 //getRecordDayCalorie(day: Day) -> Int    day: Day    Int(오늘의 칼로리)    오늘 칼로리를 반환
 //성공

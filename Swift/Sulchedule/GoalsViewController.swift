@@ -40,6 +40,13 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         formatter.dateFormat = "M월의 목표"
         self.navigationItem.title = formatter.string(from: date)
         
+        
+        if(userSetting.firstLaunch){
+            snackBar(string: "목표를 설정해 건강을 지키세요!\n우측 상단에 목표 수정 버튼이 있습니다.", buttonPlaced: false)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(9)) {
+                snackBar(string: "목표를 달성하면 다음 달에 광고를 제거할 수 있습니다!", buttonPlaced: true)
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         topBackgroundView.backgroundColor = colorLightBackground

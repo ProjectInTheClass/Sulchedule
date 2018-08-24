@@ -81,6 +81,8 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
         
         
         setViewControllers([p1], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
+        
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         isLastMonth = 0
