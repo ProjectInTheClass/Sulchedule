@@ -25,7 +25,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     
     func showAd() {
         print("///Show Ad")
-        if(!getPurchased() && adReceived && !userSetting.firstLaunch){
+        if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
             addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {

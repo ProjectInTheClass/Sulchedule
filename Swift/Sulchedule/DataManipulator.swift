@@ -1137,8 +1137,8 @@ func getUserSulDictionary() ->[Int:Sul]{
     return userSul
 }
 
-func setPurchased(purchased: Bool){
-    userSetting.purchased = purchased
+func setAdIsOff(adIsOff: Bool){
+    userSetting.adIsOff = adIsOff
 }
 
 func setFavouriteSul(index: Int, set: Bool){
@@ -1310,21 +1310,21 @@ func resetApp(){
     sul.append(Sul(displayName: "레드와인 잔", baseCalorie: 84, basePrice: 12000, colorTag: "FFFFFF", unit: "잔"))
     sul.append(Sul(displayName: "화이트와인 잔", baseCalorie: 74, basePrice: 12000, colorTag: "FFFFFF", unit: "잔"))
     sul.append(Sul(displayName: "막걸리", baseCalorie: 345, basePrice: 2000, colorTag: "FFFFFF", unit: "병"))
-    userSetting = UserSetting(purchased: false)
+    userSetting = UserSetting(adIsOff: false)
     rootViewDelegate?.showAd()
     setFirstLaunchMonthFalse()
     setFirstLaunchTodayFalse()
     setFirstLaunchFalse()
 }
 
-func getPurchased() -> Bool{
-    if(userSetting.purchased == nil){
+func getAdIsOff() -> Bool{
+    if(userSetting.adIsOff == nil){
         print("///forced false")
         return false
     }
     else{
-        print("///purchased : \(userSetting.purchased!)")
-        return userSetting.purchased!
+        print("///adIsOff : \(userSetting.adIsOff!)")
+        return userSetting.adIsOff!
 //        return false //remove before release
     }
 }

@@ -28,10 +28,10 @@ class SettingsViewController: UIViewController {
     
     @IBAction func removeAdButton(_ sender: Any) {
         if(userSetting.succeededLastMonth){
-            let tempBool = userSetting.purchased ?? true
-            userSetting.purchased? = !tempBool
+            let tempBool = userSetting.adIsOff ?? true
+            userSetting.adIsOff? = !tempBool
             
-            if(getPurchased()){
+            if(getAdIsOff()){
                 self.applyShadow(view: self.vibContainer, enable: true)
                 removeAdButton.setTitleColor(colorPoint, for: .normal)
                 removeAdButton.setTitle("광고 꺼짐", for: .normal)
@@ -185,11 +185,11 @@ class SettingsViewController: UIViewController {
         if(!userSetting.succeededLastMonth){
             removeAdButton.setTitle("광고 켜짐", for: .normal)
             rootViewDelegate?.showAd()
-            setPurchased(purchased: false)
+            setAdIsOff(adIsOff: false)
             removeAdButton.setTitleColor(colorGray, for: .normal)
             self.applyShadow(view: self.removeAdContainer, enable: false)
         }
-        else if(getPurchased()){
+        else if(getAdIsOff()){
 //            for future in-app purchase
 //            removeAdButton.isUserInteractionEnabled = false
 //            removeAdButton.setTitleColor(colorGray, for: .normal)
@@ -249,7 +249,7 @@ class SettingsViewController: UIViewController {
             self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright)
         }
         
-        self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
+        self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getAdIsOff())
         
         if(deviceCategory == 0){
             self.applyShadow(view: self.vibContainer, enable: false)
@@ -266,7 +266,7 @@ class SettingsViewController: UIViewController {
         self.applyShadow(view: self.showDrunkContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.changeIconContainer, enable: userSetting.isThemeBright)
         self.applyShadow(view: self.yesterdayContainer, enable: userSetting.isThemeBright)
-        self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getPurchased())
+        self.applyShadow(view: self.removeAdContainer, enable: userSetting.isThemeBright && !getAdIsOff())
         self.applyShadow(view: self.vibContainer, enable: userSetting.isThemeBright && userSetting.isVibrationEnabled)
         
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
@@ -320,7 +320,7 @@ class SettingsViewController: UIViewController {
             if(!userSetting.succeededLastMonth){
                 self.removeAdButton.setTitleColor(colorGray, for: .normal)
             }
-            else if(getPurchased()){
+            else if(getAdIsOff()){
 //                For future in-app purchase
 //                self.removeAdButton.setTitleColor(colorGray, for: .normal)
                 self.removeAdButton.setTitleColor(colorPoint, for: .normal)

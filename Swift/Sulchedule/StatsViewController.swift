@@ -12,8 +12,11 @@ class StatsViewController: UIViewController {
     var circlePath: UIBezierPath? = nil
     var currentCursor: Int = 0
     
+    var constraintLarge = false
+    
     var vc:EmbedStatsTableViewController? = nil
     
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var sulLabel: UILabel!
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -48,11 +51,10 @@ class StatsViewController: UIViewController {
         case 0:
             lastSegmentChoice = 0
             loadSegment(whichSegment: 0)
-            
+            cycleCircleBorder(cursor: currentCursor)
         case 1:
             lastSegmentChoice = 1
             loadSegment(whichSegment: 1)
-            
         default:
             print("wtf")
         }
@@ -69,6 +71,8 @@ class StatsViewController: UIViewController {
         sulLabel.numberOfLines = 2
         friendLabel.numberOfLines = 2
         locationLabel.numberOfLines = 2
+        
+        initLeaderboard()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         vc = segue.destination as? EmbedStatsTableViewController
@@ -98,6 +102,8 @@ class StatsViewController: UIViewController {
         else{
             firstPlaceText.textColor = .black
         }
+        
+        backgroundView.backgroundColor = colorDeepBackground
         
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
@@ -136,14 +142,9 @@ class StatsViewController: UIViewController {
         sulView.layer.addSublayer(sulCircle)
         sulView.bringSubview(toFront: sulLabel)
         
-        
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         self.tabBarController?.tabBar.unselectedItemTintColor = colorText
-
-        showPlatform(cursor: 0)
-        showPlatform(cursor: 1)
-        showPlatform(cursor: 2)
         
         if(topSegmentOutlet.selectedSegmentIndex == 0){
             rootViewDelegate?.setBackgroundColor(light: true)
@@ -154,8 +155,16 @@ class StatsViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        cycleCircleBorder(cursor: currentCursor)
-        showPlatform(cursor: currentCursor)
+        if(topSegmentOutlet.selectedSegmentIndex == 0){
+            cycleCircleBorder(cursor: currentCursor)
+            showPlatform(cursor: currentCursor)
+        }
+        if(topSegmentOutlet.selectedSegmentIndex == 0 && constraintLarge){
+            rootViewDelegate?.setBackgroundColor(light: true)
+        }
+        else{
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -189,12 +198,6 @@ class StatsViewController: UIViewController {
     }
     
     func showPlatform(cursor: Int){
-        title1.text = "정보 부족"
-        desc1.text = ""
-        title2.text = "정보 부족"
-        desc2.text = ""
-        title3.text = "정보 부족"
-        desc3.text = ""
         switch cursor {
         case 0:
             let suls = getRecordMonthBestSul(month: monthmonth)
@@ -202,28 +205,44 @@ class StatsViewController: UIViewController {
             sulLabel.text = "음주 기록이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
-                title1.text = sul[Array(temp.keys)[0]].displayName
                 sulLabel.text = sul[Array(temp.keys)[0]].displayName
-                let temp2 = temp[Array(temp.keys)[0]]!
-                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
-                title2.text = "정보 부족"
-                desc2.text = ""
-                title3.text = "정보 부족"
-                desc3.text = ""
-            }
-            if(2 <= k.count){
-                let temp = k[1]
-                title2.text = sul[Array(temp.keys)[0]].displayName
-                let temp2 = temp[Array(temp.keys)[0]]!
-                desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
-                title3.text = "정보 부족"
-                desc3.text = ""
             }
             if(3 <= k.count){
-                let temp = k[2]
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.leaderboardTopConstraint.constant = -20
+                    self.picktargetTopConstraint.constant = 248
+                    self.leaderboardView.alpha = 1
+                    rootViewDelegate?.setBackgroundColor(light: true)
+                }, completion: nil)
+                constraintLarge = true
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+                
+                var temp = k[0]
+                title1.text = sul[Array(temp.keys)[0]].displayName
+                var temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
+                temp = k[1]
+                title2.text = sul[Array(temp.keys)[0]].displayName
+                temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
+                temp = k[2]
                 title3.text = sul[Array(temp.keys)[0]].displayName
-                let temp2 = temp[Array(temp.keys)[0]]!
+                temp2 = temp[Array(temp.keys)[0]]!
                 desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
+            }
+            else{
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.leaderboardTopConstraint.constant = -20
+                    self.leaderboardView.alpha = 0
+                    self.picktargetTopConstraint.constant = 52
+                    rootViewDelegate?.setBackgroundColor(light: false)
+                }, completion: nil)
+                constraintLarge = false
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
             }
 
         case 1:
@@ -232,28 +251,44 @@ class StatsViewController: UIViewController {
             friendLabel.text = "술친구가\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]!
-                title1.text = Array(temp.keys)[0]
                 friendLabel.text = Array(temp.keys)[0]
-                let temp2 = temp[Array(temp.keys)[0]]!
-                desc1.text = "\(temp2)회"
-                title2.text = "정보 부족"
-                desc2.text = ""
-                title3.text = "정보 부족"
-                desc3.text = ""
-            }
-            if(2 <= k.count){
-                let temp = k[1]!
-                title2.text = Array(temp.keys)[0]
-                let temp2 = temp[Array(temp.keys)[0]]!
-                desc2.text = "\(temp2)회"
-                title3.text = "정보 부족"
-                desc3.text = ""
             }
             if(3 <= k.count){
-                let temp = k[2]!
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.leaderboardTopConstraint.constant = -20
+                    self.picktargetTopConstraint.constant = 248
+                    self.leaderboardView.alpha = 1
+                    rootViewDelegate?.setBackgroundColor(light: true)
+                }, completion: nil)
+                constraintLarge = true
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+                
+                var temp = k[0]!
+                title1.text = Array(temp.keys)[0]
+                var temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2)회"
+                temp = k[1]!
+                title2.text = Array(temp.keys)[0]
+                temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2)회"
+                temp = k[2]!
                 title3.text = Array(temp.keys)[0]
-                let temp2 = temp[Array(temp.keys)[0]]!
+                temp2 = temp[Array(temp.keys)[0]]!
                 desc3.text = "\(temp2)회"
+            }
+            else{
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.leaderboardTopConstraint.constant = -20
+                    self.leaderboardView.alpha = 0
+                    self.picktargetTopConstraint.constant = 52
+                    rootViewDelegate?.setBackgroundColor(light: false)
+                }, completion: nil)
+                constraintLarge = false
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
             }
 
         case 2:
@@ -262,36 +297,53 @@ class StatsViewController: UIViewController {
             locationLabel.text = "자주 가는 곳이\n없습니다"
             if(1 <= k.count){
                 let temp = k[0]
-                title1.text = Array(temp.keys)[0]
                 locationLabel.text = Array(temp.keys)[0]
-                let temp2 = temp[Array(temp.keys)[0]]!
-                desc1.text = "\(temp2)회"
-                title2.text = "정보 부족"
-                desc2.text = ""
-                title3.text = "정보 부족"
-                desc3.text = ""
-            }
-            if(2 <= k.count){
-                let temp = k[1]
-                title2.text = Array(temp.keys)[0]
-                let temp2 = temp[Array(temp.keys)[0]]!
-                desc2.text = "\(temp2)회"
-                title3.text = "정보 부족"
-                desc3.text = ""
             }
             if(3 <= k.count){
-                let temp = k[2]
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.leaderboardTopConstraint.constant = -20
+                    self.picktargetTopConstraint.constant = 248
+                    self.leaderboardView.alpha = 1
+                    rootViewDelegate?.setBackgroundColor(light: true)
+                }, completion: nil)
+                constraintLarge = true
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+                
+                var temp = k[0]
+                title1.text = Array(temp.keys)[0]
+                var temp2 = temp[Array(temp.keys)[0]]!
+                desc1.text = "\(temp2)회"
+                temp = k[1]
+                title2.text = Array(temp.keys)[0]
+                temp2 = temp[Array(temp.keys)[0]]!
+                desc2.text = "\(temp2)회"
+                temp = k[2]
                 title3.text = Array(temp.keys)[0]
-                let temp2 = temp[Array(temp.keys)[0]]!
+                temp2 = temp[Array(temp.keys)[0]]!
                 desc3.text = "\(temp2)회"
             }
+            else{
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.leaderboardTopConstraint.constant = -20
+                    self.leaderboardView.alpha = 0
+                    self.picktargetTopConstraint.constant = 52
+                    rootViewDelegate?.setBackgroundColor(light: false)
+                }, completion: nil)
+                constraintLarge = false
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            }
+            
         default:
             print("wtf")
         }
     }
     
     func loadSegment(whichSegment: Int){
-        if(whichSegment == 0){
+        if(whichSegment == 0 && constraintLarge){
             UIView.animate(withDuration: 0.1, delay: 0.05, options: [.curveEaseInOut], animations: {
                 rootViewDelegate?.setBackgroundColor(light: true)
             }, completion: nil)
@@ -326,6 +378,9 @@ class StatsViewController: UIViewController {
             vc?.showWeekly = true
             vc?.showWeeklyFunc(showWeekly: true)
         }
+        UIView.animate(withDuration: 0.35, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     func animator(isLeft: Bool){
@@ -333,13 +388,26 @@ class StatsViewController: UIViewController {
         let duration = 0.35
         let delay = -0.15
         if(isLeft){
-            leaderboardTopConstraint.constant = -20
-            picktargetTopConstraint.constant = 248
+            if(constraintLarge){
+                leaderboardTopConstraint.constant = -20
+                picktargetTopConstraint.constant = 248
+            }
+            else{
+                leaderboardTopConstraint.constant = -20
+                picktargetTopConstraint.constant = 52
+            }
+            
             
             UIView.animate(withDuration: duration + delay, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.friendView.alpha = 1
                 self.locationView.alpha = 1
                 self.sulView.alpha = 1
+                if(self.constraintLarge){
+                    self.leaderboardView.alpha = 1
+                }
+                else{
+                    self.leaderboardView.alpha = 0
+                }
             }, completion: nil)
             
             self.friendView.isUserInteractionEnabled = true
@@ -359,9 +427,6 @@ class StatsViewController: UIViewController {
             self.locationView.isUserInteractionEnabled = false
             self.sulView.isUserInteractionEnabled = false
         }
-        UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseInOut], animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
     }
 
     func initCircle(){
@@ -401,4 +466,83 @@ class StatsViewController: UIViewController {
         }
     }
 
+    func initLeaderboard(){
+        let suls = getRecordMonthBestSul(month: monthmonth)
+        let k = suls!
+        sulLabel.text = "음주 기록이\n없습니다"
+        if(1 <= k.count){
+            let temp = k[0]
+            sulLabel.text = sul[Array(temp.keys)[0]].displayName
+        }
+        if(3 <= k.count){
+            self.leaderboardTopConstraint.constant = -20
+            self.picktargetTopConstraint.constant = 248
+            self.leaderboardView.alpha = 1
+            rootViewDelegate?.setBackgroundColor(light: true)
+            
+            var temp = k[0]
+            title1.text = sul[Array(temp.keys)[0]].displayName
+            var temp2 = temp[Array(temp.keys)[0]]!
+            desc1.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
+            temp = k[1]
+            title2.text = sul[Array(temp.keys)[0]].displayName
+            temp2 = temp[Array(temp.keys)[0]]!
+            desc2.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
+            temp = k[2]
+            title3.text = sul[Array(temp.keys)[0]].displayName
+            temp2 = temp[Array(temp.keys)[0]]!
+            desc3.text = "\(temp2[0]!)kcal\n\(temp2[1]!)원\n\(temp2[2]!)\(getSulUnit(index: Array(temp.keys)[0]))"
+        }
+        else{
+            self.leaderboardTopConstraint.constant = -20
+            self.leaderboardView.alpha = 0
+            self.picktargetTopConstraint.constant = 52
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }
+        
+        let friends = getRecordMonthBestFriends(month: monthmonth)
+        let j = friends!
+        friendLabel.text = "술친구가\n없습니다"
+        if(1 <= j.count){
+            let temp = j[0]!
+            friendLabel.text = Array(temp.keys)[0]
+        }
+        if(3 <= j.count){
+            var temp = j[0]!
+            title1.text = Array(temp.keys)[0]
+            var temp2 = temp[Array(temp.keys)[0]]!
+            desc1.text = "\(temp2)회"
+            temp = j[1]!
+            title2.text = Array(temp.keys)[0]
+            temp2 = temp[Array(temp.keys)[0]]!
+            desc2.text = "\(temp2)회"
+            temp = j[2]!
+            title3.text = Array(temp.keys)[0]
+            temp2 = temp[Array(temp.keys)[0]]!
+            desc3.text = "\(temp2)회"
+        }
+        
+        let locations = getRecordMonthBestLocation(month: monthmonth)
+        let v = locations!
+        locationLabel.text = "자주 가는 곳이\n없습니다"
+        if(1 <= v.count){
+            let temp = v[0]
+            locationLabel.text = Array(temp.keys)[0]
+        }
+        if(3 <= v.count){
+            var temp = v[0]
+            title1.text = Array(temp.keys)[0]
+            var temp2 = temp[Array(temp.keys)[0]]!
+            desc1.text = "\(temp2)회"
+            temp = v[1]
+            title2.text = Array(temp.keys)[0]
+            temp2 = temp[Array(temp.keys)[0]]!
+            desc2.text = "\(temp2)회"
+            temp = v[2]
+            title3.text = Array(temp.keys)[0]
+            temp2 = temp[Array(temp.keys)[0]]!
+            desc3.text = "\(temp2)회"
+        }
+
+    }
 }

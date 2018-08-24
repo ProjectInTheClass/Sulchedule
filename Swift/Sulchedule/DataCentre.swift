@@ -25,5 +25,5 @@ class DataCentre{
     }
 }
 
-var userSetting = UserSetting(purchased: false)
+var userSetting = UserSetting(adIsOff: false)
 

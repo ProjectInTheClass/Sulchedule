@@ -225,7 +225,7 @@ class UserSetting : NSObject, NSCoding {
     var favorites: [Int] = []
     var succeededLastMonth = false
     
-    var purchased: Bool?
+    var adIsOff: Bool?
     var newSul: [Sul] = []
     var firstLaunch: Bool = true
     var showYesterdayFirst = true
@@ -234,15 +234,15 @@ class UserSetting : NSObject, NSCoding {
     var isShowDrunkDaysEnabled = true
     //    var maxBottlesPerSul: [Int:Int]? //술 종류당 한도 병 수
     
-    init(purchased: Bool) {
-        self.purchased = purchased
+    init(adIsOff: Bool) {
+        self.adIsOff = adIsOff
     }
     
     public func encode(with aCoder:NSCoder) {
         aCoder.encode(self.favorites, forKey: "favorites")
         aCoder.encode(self.succeededLastMonth, forKey: "succeededLastMonth")
         
-        aCoder.encode(self.purchased, forKey: "purchased")
+        aCoder.encode(self.adIsOff, forKey: "adIsOff")
         aCoder.encode(self.newSul, forKey: "newSul")
         aCoder.encode(self.firstLaunch, forKey: "firstLaunch")
         aCoder.encode(self.showYesterdayFirst, forKey: "showYesterdayFirst")
@@ -263,10 +263,10 @@ class UserSetting : NSObject, NSCoding {
             self.succeededLastMonth = false
         }
         
-        if let purchased = aDecoder.decodeObject(forKey: "purchased") as? Bool{
-            self.purchased = purchased
+        if let adIsOff = aDecoder.decodeObject(forKey: "adIsOff") as? Bool{
+            self.adIsOff = adIsOff
         } else {
-            self.purchased = false
+            self.adIsOff = false
         }
         if let newSul = aDecoder.decodeObject(forKey: "newSul") as? [Sul]{
             self.newSul = newSul

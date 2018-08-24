@@ -1143,7 +1143,7 @@
                             <constraint firstItem="Zwg-Ue-gFa" firstAttribute="top" secondItem="CtX-Zi-BRC" secondAttribute="top" constant="20" id="KsN-vA-d0T"/>
                             <constraint firstItem="RDO-bg-aVM" firstAttribute="leading" secondItem="CtX-Zi-BRC" secondAttribute="leading" id="NgX-f3-idR"/>
                             <constraint firstItem="PvB-dX-0cE" firstAttribute="top" secondItem="CtX-Zi-BRC" secondAttribute="top" constant="-20" id="RRC-sb-QzG"/>
-                            <constraint firstItem="8fU-Gs-MJE" firstAttribute="top" secondItem="Sc6-et-vAL" secondAttribute="bottom" id="XiW-b8-Rni"/>
+                            <constraint firstItem="8fU-Gs-MJE" firstAttribute="top" secondItem="Sc6-et-vAL" secondAttribute="bottom" id="a0E-Fa-iTx"/>
                             <constraint firstAttribute="trailing" secondItem="Sc6-et-vAL" secondAttribute="trailing" id="jbq-n3-y7A"/>
                             <constraint firstItem="Sc6-et-vAL" firstAttribute="leading" secondItem="CtX-Zi-BRC" secondAttribute="leading" id="jeZ-x8-HOh"/>
                             <constraint firstAttribute="trailing" secondItem="PvB-dX-0cE" secondAttribute="trailing" id="knJ-ab-cX8"/>
@@ -1152,6 +1152,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="통계" image="stats" id="MgJ-oT-2nr"/>
                     <connections>
+                        <outlet property="backgroundView" destination="CtX-Zi-BRC" id="gzi-wX-awG"/>
                         <outlet property="desc1" destination="vMV-N3-Pfa" id="agp-9F-r74"/>
                         <outlet property="desc2" destination="5Vx-0A-unB" id="jxi-W8-n0k"/>
                         <outlet property="desc3" destination="zOH-W0-Yab" id="CUl-Vg-GZf"/>
