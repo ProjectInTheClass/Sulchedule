@@ -171,8 +171,11 @@ func setRecordDayFriends(day:Day, friends: [String]?){
     recordDay?.friends = friends
 }
 
-func firstLaunchExecution(){
-    print("first launch")
+func firstLaunchAction(){
+    print("///first launch")
+    setFavouriteSul(index: 2, set: true)
+    setFavouriteSul(index: 0, set: true)
+    
 }
 
 
@@ -1155,8 +1158,16 @@ func setFirstLaunchTodayFalse(){
     getRecordDay(day: dateToDayConverter(date: Date()))!.firstLaunchToday = false
 }
 
+func setFirstLaunchMonthFalse(){
+    getRecordMonth(month: dateToMonthConverter(date: Date()))!.firstLaunchMonth = false
+}
+
 func isFirstLaunchToday() -> Bool{
     return getRecordDay(day: dateToDayConverter(date: Date()))!.firstLaunchToday
+}
+
+func isFirstLaunchMonth() -> Bool{
+    return getRecordMonth(month: dateToMonthConverter(date: Date()))!.firstLaunchMonth
 }
 
 func setFirstLaunchFalse(){
@@ -1220,7 +1231,6 @@ func getAllDrunkDays() -> [Day] {
 }
 
 func removeEmptyDays(){
-    print("original : \(recordDayList.count)")
     
     for item in recordDayList{
         if (item.customExpense != 0 && item.customExpense != nil) || item.expense != 0 || (item.location!.count != 0 && item.location != nil) || (item.friends!.count != 0 && item.friends != nil) {}
@@ -1228,7 +1238,6 @@ func removeEmptyDays(){
             recordDayList = recordDayList.filter { $0 != item }
         }
     }
-    print("result : \(recordDayList.count)")
 }
 
 
@@ -1303,15 +1312,18 @@ func resetApp(){
     sul.append(Sul(displayName: "막걸리", baseCalorie: 345, basePrice: 2000, colorTag: "FFFFFF", unit: "병"))
     userSetting = UserSetting(purchased: false)
     rootViewDelegate?.showAd()
+    setFirstLaunchMonthFalse()
+    setFirstLaunchTodayFalse()
+    setFirstLaunchFalse()
 }
 
 func getPurchased() -> Bool{
     if(userSetting.purchased == nil){
-        print("forced false")
+        print("///forced false")
         return false
     }
     else{
-        print("purchased : \(userSetting.purchased!)")
+        print("///purchased : \(userSetting.purchased!)")
         return userSetting.purchased!
 //        return false //remove before release
     }

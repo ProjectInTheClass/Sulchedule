@@ -93,17 +93,18 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }()
     
     var scope: FSCalendarScope = .week
-    var upFlag = false
-    var firstRunForHaptic: Bool = true
-    var firstRunForMonthlySummary: Bool = true
+    var shouldDisableHapticForCalendarWhenAppLaunch: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        shouldViewMonthlyStats()
+        
         if(userSetting.firstLaunch){
-            firstLaunchExecution()
+            firstLaunchAction()
             setFirstLaunchFalse()
         }
+        
         self.calendar.select(Date())
         
         NotificationCenter.default.addObserver(self, selector: #selector(showToday(_:)), name: Notification.Name(rawValue: "showToday"), object: nil)
@@ -123,13 +124,17 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             newDaySelected(date: calendar.today!)
             gotDay = getRecordDay(day: selectedDay)
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        shouldViewMonthlyStats()
-        
         loadArray()
+        
+        if(userSetting.firstLaunch){
+            setFirstLaunchFalse()
+            print("///firstLaunchFalse")
+        }
+    
+        self.calendar.today = Date()
         
         topInfoLabel.textColor = colorPoint
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:colorText]
@@ -169,12 +174,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
-        if(userSetting.isThemeBright){
-            self.tabBarController?.tabBar.unselectedItemTintColor = .black
-        }
-        else{
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-        }
+        self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         
         let gradient = CAGradientLayer(layer: bottomContainer.layer)
         gradient.frame = bottomContainer.bounds
@@ -252,17 +252,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     
     func shouldViewMonthlyStats(){
-        if(isFirstLaunchToday() && !userSetting.firstLaunch){
+        if(isFirstLaunchMonth() && !userSetting.firstLaunch){
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                 let formatterFirstDayOfMonth = DateFormatter()
                 formatterFirstDayOfMonth.dateFormat = "dd"
-                if(self.firstRunForMonthlySummary && formatterFirstDayOfMonth.string(from: Date()) == "01"){
-                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
-                    self.present(viewController, animated: true, completion: {self.firstRunForMonthlySummary = false})
-                }
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "monthlyView") as UIViewController
+                self.present(viewController, animated: true, completion: nil)
             })
-            setFirstLaunchTodayFalse()
         }
+        setFirstLaunchMonthFalse()
     }
     
     // MARK:- UIGestureRecognizerDelegate
@@ -338,8 +336,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK:- Target actions
     
     func newDaySelected(date: Date){
-        if(firstRunForHaptic){
-            firstRunForHaptic = false
+        if(shouldDisableHapticForCalendarWhenAppLaunch){
+            shouldDisableHapticForCalendarWhenAppLaunch = false
             self.calendar.setScope(.week, animated: true)
         }
         else{

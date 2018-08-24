@@ -127,7 +127,7 @@ class RecordDay : NSObject, NSCoding {
         if let firstLaunchToday = aDecoder.decodeBool(forKey: "firstLaunchToday") as? Bool{
             self.firstLaunchToday = firstLaunchToday
         } else {
-            self.firstLaunchToday = false
+            self.firstLaunchToday = true
         }
         super.init()
     }
@@ -139,6 +139,7 @@ class RecordMonth : NSObject, NSCoding {
     var isStreakOfMonthEnabled: Bool
     var isCaloriesOfMonthEnabled: Bool
     var isCurrentExpenseEnabled: Bool
+    var firstLaunchMonth: Bool = true
     var goal_DaysOfMonth: Int? //총 마신 날
     var goal_StreakOfMonth: Int? //연속으로 마신 날
     var goal_CaloriesOfMonth: Int? //칼로리 목표
@@ -158,6 +159,7 @@ class RecordMonth : NSObject, NSCoding {
         aCoder.encode(self.isStreakOfMonthEnabled, forKey: "isStreakOfMonthEnabled")
         aCoder.encode(self.isCaloriesOfMonthEnabled, forKey: "isCaloriesOfMonthEnabled")
         aCoder.encode(self.isCurrentExpenseEnabled, forKey: "isCurrentExpenseEnabled")
+        aCoder.encode(self.firstLaunchMonth, forKey: "firstLaunchMonth")
         aCoder.encode(self.goal_DaysOfMonth, forKey: "goal_DaysOfMonth")
         aCoder.encode(self.goal_StreakOfMonth, forKey: "goal_MaxStreakOfMonth")
         aCoder.encode(self.goal_CaloriesOfMonth, forKey: "goal_CaloriesOfMonth")
@@ -189,6 +191,11 @@ class RecordMonth : NSObject, NSCoding {
             self.isCurrentExpenseEnabled = isCurrentExpenseEnabled
         } else {
             self.isCurrentExpenseEnabled = false
+        }
+        if let firstLaunchMonth = aDecoder.decodeBool(forKey: "firstLaunchMonth") as? Bool{
+            self.firstLaunchMonth = firstLaunchMonth
+        } else {
+            self.firstLaunchMonth = true
         }
         if let goal_DaysOfMonth = aDecoder.decodeObject(forKey: "goal_DaysOfMonth") as? Int{
             self.goal_DaysOfMonth = goal_DaysOfMonth
@@ -269,17 +276,17 @@ class UserSetting : NSObject, NSCoding {
         if let firstLaunch = aDecoder.decodeBool(forKey: "firstLaunch") as? Bool{
             self.firstLaunch = firstLaunch
         } else {
-            self.firstLaunch = false
+            self.firstLaunch = true
         }
         if let showYesterdayFirst = aDecoder.decodeBool(forKey: "showYesterdayFirst") as? Bool{
             self.showYesterdayFirst = showYesterdayFirst
         } else {
-            self.showYesterdayFirst = false
+            self.showYesterdayFirst = true
         }
         if let isVibrationEnabled = aDecoder.decodeBool(forKey: "isVibrationEnabled") as? Bool{
             self.isVibrationEnabled = isVibrationEnabled
         } else {
-            self.isVibrationEnabled = false
+            self.isVibrationEnabled = true
         }
         if let isThemeBright = aDecoder.decodeBool(forKey: "isThemeBright") as? Bool{
             self.isThemeBright = isThemeBright
@@ -289,7 +296,7 @@ class UserSetting : NSObject, NSCoding {
         if let isShowDrunkDaysEnabled = aDecoder.decodeBool(forKey: "isShowDrunkDaysEnabled") as? Bool{
             self.isShowDrunkDaysEnabled = isShowDrunkDaysEnabled
         } else {
-            self.isShowDrunkDaysEnabled = false
+            self.isShowDrunkDaysEnabled = true
         }
         super.init()
     }

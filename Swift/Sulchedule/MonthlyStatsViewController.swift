@@ -91,7 +91,6 @@ class MonthlyStatsViewController: UIViewController {
         }
 //        radOfCircle = sulView.bounds.height/2
         circlePath = UIBezierPath(arcCenter: CGPoint(x: radOfCircle,y: radOfCircle), radius: radOfCircle, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
-        print(sulView.bounds.height)
         
         initCircle()
         

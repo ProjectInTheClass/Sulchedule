@@ -24,8 +24,8 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func showAd() {
-        print("///Show Ad///")
-        if(!getPurchased() && adReceived){
+        print("///Show Ad")
+        if(!getPurchased() && adReceived && !userSetting.firstLaunch){
             addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
@@ -77,6 +77,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         bannerView.load(request)
         
         setSucceededLastMonth()
+        self.adArea.alpha = 0
     }
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()

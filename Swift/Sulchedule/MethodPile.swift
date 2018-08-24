@@ -89,10 +89,10 @@ func changeIcon(to iconName: String) {
     }
     UIApplication.shared.setAlternateIconName(iconName, completionHandler: {(error) in
         if let error = error {
-            print("App icon failed to change due to \(error.localizedDescription)")
+            print("///App icon failed to change due to \(error.localizedDescription)")
         }
         else {
-            print("App icon changed successfully")
+            print("///App icon changed successfully")
         }
     })
 }
