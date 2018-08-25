@@ -125,13 +125,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         if(userSetting.firstLaunch){
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(9)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime))) {
                 snackBar(string: "우측의 -/+를 눌러 음주량을 기록해주세요.\n다른 주류는 '기타'에서 찾거나 추가할 수 있습니다.", buttonPlaced: false)
             }
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(18)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime)*2)) {
                 snackBar(string: "함께한 사람, 지출액, 장소를 입력하면\n더 자세한 통계를 볼 수 있습니다.", buttonPlaced: false)
             }
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(27)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime)*3)) {
                 snackBar(string: "통계 탭으로 이동해주세요!", buttonPlaced: true)
             }
         }
@@ -222,7 +222,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return [colorRed]
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return [colorLightBackground]
+        return [colorRed.withAlphaComponent(0.4)]
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
@@ -373,7 +373,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setTopInfoLabelString(){
         var tempStr: String = ""
-        if((gotDay?.friends == nil && gotDay?.location == nil) || (gotDay?.friends?.count == 0 && gotDay?.location?.count == 0)){
+        let a = gotDay?.friends
+        let b = gotDay?.location
+        let c = gotDay?.customExpense
+        if((a == nil || a?.count == 0) && (b == nil || b?.count == 0) && (c == nil || c == 0)){
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
             tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
         }
@@ -398,7 +401,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 tempStr.append("와(과) ")
             }
             if (tempExpense != 0){
-                tempStr.append("\(tempExpense)원 사용했어요")
+                tempStr.append("\(tempExpense)원 지출했어요")
             }
             else{
                 tempStr.append("마셨어요")

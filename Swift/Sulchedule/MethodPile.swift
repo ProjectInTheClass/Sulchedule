@@ -23,6 +23,7 @@ var colorText = hexStringToUIColor(hex:"FFFFFF")
 
 let deviceCategory: Int = UIDevice.current.value(forKey: "_feedbackSupportLevel")! as! Int
 
+let snackBarWaitTime = 6.0
 protocol Control2VCDelegate {
     func sendData(data:Int)
 }

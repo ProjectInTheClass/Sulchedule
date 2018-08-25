@@ -15,7 +15,7 @@ protocol RootViewDelegate{
 
 var rootViewDelegate: RootViewDelegate?
 
-class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDelegate {
+class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDelegate, UIGestureRecognizerDelegate {
     var adReceived = false
     var positionConstraintValue = -80
     
@@ -111,7 +111,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
             self.view.layoutIfNeeded()
         }, completion:nil)
         workItem = DispatchWorkItem { self.hideSnackBar() }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 8.5, execute: workItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + snackBarWaitTime, execute: workItem!)
     }
     
     func hideSnackBar(){
@@ -165,9 +165,20 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
             positionConstraintValue = -110
         }
         iPhoneXLowerBackground.backgroundColor = colorLightBackground
+        
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
+        swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.down
+        swipeDownRecognizer.delegate = self
+        snackBarView.addGestureRecognizer(swipeDownRecognizer)
     }
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()
+    }
+    
+    @objc func handleSwipeDown(gesture: UISwipeGestureRecognizer) {
+        if(!snackBarCloseButton.isHidden){
+            hideSnackBar()
+        }
     }
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {

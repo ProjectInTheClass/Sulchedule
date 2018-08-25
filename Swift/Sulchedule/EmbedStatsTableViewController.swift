@@ -4,7 +4,12 @@ class EmbedStatsTableViewController: UITableViewController {
     var showWeekly = false
     var tableValues: [String] = []
     var tableTitles: [String] = []
+    var currentCursor = 0
     
+    func reloadCurrentCursor(cursor: Int){
+        currentCursor = cursor
+        showWeeklyFunc(showWeekly: false)
+    }
     func backgroundScrollToTop(){
         backgroundView.scrollToTop(animated: true)
     }
@@ -133,19 +138,25 @@ class EmbedStatsTableViewController: UITableViewController {
             tableValues.append("\(getRecordMonthExpense(month: monthmonth)!)원")
             tableValues.append("\(getRecordMonthCalorie(month: monthmonth)!)kcal")
 
-            for item in getRecordMonthAllSul(month: monthmonth)! {
-                tableTitles.append(sul[Array(item.keys)[0]].displayName)
-                tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)\(getSulUnit(index: Array(item.keys)[0]))")
+            if(currentCursor == 0){
+                for item in getRecordMonthAllSul(month: monthmonth)! {
+                    tableTitles.append(sul[Array(item.keys)[0]].displayName)
+                    tableValues.append("\((item[Array(item.keys)[0]]!)[2]!)\(getSulUnit(index: Array(item.keys)[0]))")
+                }
             }
             
-            for item in getRecordMonthAllFriends(month: monthmonth)! {
-                tableTitles.append(Array(item!.keys)[0])
-                tableValues.append("\(item![Array(item!.keys)[0]]!)회 합석")
+            else if(currentCursor == 1){
+                for item in getRecordMonthAllFriends(month: monthmonth)! {
+                    tableTitles.append(Array(item!.keys)[0])
+                    tableValues.append("\(item![Array(item!.keys)[0]]!)회 합석")
+                }
             }
             
-            for item in getRecordMonthAllLocation(month: monthmonth)! {
-                tableTitles.append(Array(item.keys)[0])
-                tableValues.append("\(item[Array(item.keys)[0]]!)회 방문")
+            else if(currentCursor == 2){
+                for item in getRecordMonthAllLocation(month: monthmonth)! {
+                    tableTitles.append(Array(item.keys)[0])
+                    tableValues.append("\(item[Array(item.keys)[0]]!)회 방문")
+                }
             }
         }
         backgroundView.reloadData()

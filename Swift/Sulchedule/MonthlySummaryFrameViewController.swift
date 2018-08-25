@@ -52,7 +52,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
         
         if(userSetting.firstLaunch){
             showSnackBar(string: "지난 달의 통계를 확인하는 화면입니다.\n좌우로 밀어 다른 정보를 확인하세요.")
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(9)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime))) {
                 self.showSnackBar(string: "매달 처음으로 실행할 때마다 보여드릴게요.\n마지막 페이지에서 앱 아이콘도 바꿔보세요!")
             }
         }
@@ -97,7 +97,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
             self.view.layoutIfNeeded()
         }, completion:nil)
         workItem = DispatchWorkItem { self.hideSnackBar() }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 8.5, execute: workItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + snackBarWaitTime, execute: workItem!)
     }
     
     func hideSnackBar(){

@@ -221,8 +221,12 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
             friendsField.text = tmpText
         }
         setRecordDayFriends(day: selectedDay, friends: returnArray)
-        
-        snackBar(string: "추가 정보가 저장되었습니다.", buttonPlaced: true)
+        let a = gotDay?.friends
+        let b = gotDay?.location
+        let c = gotDay?.customExpense
+        if(!((a == nil || a?.count == 0) && (b == nil || b?.count == 0) && (c == nil || c == 0))){
+            snackBar(string: "추가 정보가 저장되었습니다.", buttonPlaced: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

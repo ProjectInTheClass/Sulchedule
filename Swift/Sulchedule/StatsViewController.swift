@@ -99,6 +99,20 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             constraintLarge = true
         }
     }
+    @objc func handleTap(_ sender: UITapGestureRecognizer){
+        viewGestureRecognizer.isUserInteractionEnabled = false
+        
+        self.leaderboardTopConstraint.constant = -20
+        self.picktargetTopConstraint.constant = 52
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.leaderboardView.alpha = 0
+            self.view.layoutIfNeeded()
+            rootViewDelegate?.setBackgroundColor(light: false)
+        }, completion: nil)
+        
+        constraintLarge = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +129,8 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.up
         swipeUpRecognizer.delegate = self
         viewGestureRecognizer.addGestureRecognizer(swipeUpRecognizer)
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        viewGestureRecognizer.addGestureRecognizer(tapRecognizer)
         
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
         swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.down
@@ -124,7 +140,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if(userSetting.firstLaunch){
             snackBar(string: "음주 기록이 다양해지면 단상에 순위가 표시됩니다.", buttonPlaced: false)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(9)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime))) {
                 snackBar(string: "목표 탭으로 이동해주세요!", buttonPlaced: true)
             }
         }
@@ -235,6 +251,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 0
+        vc?.reloadCurrentCursor(cursor: 0)
         cycleCircleBorder(cursor: currentCursor)
         showPlatform(cursor: currentCursor)
     }
@@ -243,6 +260,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 1
+        vc?.reloadCurrentCursor(cursor: 1)
         cycleCircleBorder(cursor: currentCursor)
         showPlatform(cursor: currentCursor)
     }
@@ -251,6 +269,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             AudioServicesPlaySystemSound(vibPeek)
         }
         currentCursor = 2
+        vc?.reloadCurrentCursor(cursor: 2)
         cycleCircleBorder(cursor: currentCursor)
         showPlatform(cursor: currentCursor)
     }
