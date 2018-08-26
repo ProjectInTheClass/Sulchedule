@@ -80,6 +80,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             self.view.layoutIfNeeded()
             rootViewDelegate?.setBackgroundColor(light: false)
         }, completion: nil)
+        vc?.backgroundView.scrollToTop()
         
         constraintLarge = false
     }
@@ -97,6 +98,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             
             viewGestureRecognizer.isUserInteractionEnabled = true
             constraintLarge = true
+            vc?.backgroundView.scrollToTop()
         }
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -112,6 +114,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         }, completion: nil)
         
         constraintLarge = false
+        vc?.backgroundView.scrollToTop()
     }
     
     override func viewDidLoad() {
@@ -131,7 +134,6 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         viewGestureRecognizer.addGestureRecognizer(swipeUpRecognizer)
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         viewGestureRecognizer.addGestureRecognizer(tapRecognizer)
-        
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
         swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.down
         swipeDownRecognizer.delegate = self
