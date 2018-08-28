@@ -59,6 +59,7 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleSelectionColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useVeryShortWeekdaySymbols" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="E9E-eQ-Fo2" id="Vf2-J6-YKs"/>
@@ -117,7 +118,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4x-ZJ-390">
-                                                    <rect key="frame" x="0.0" y="0.0" width="3" height="75"/>
+                                                    <rect key="frame" x="0.0" y="-0.3333333333333357" width="3" height="75.333333333333343"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="75" id="ONx-cY-zd2"/>
@@ -719,7 +720,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-b0-oIz">
-                                            <rect key="frame" x="14.000000000000002" y="47" width="29.666666666666671" height="25"/>
+                                            <rect key="frame" x="13.999999999999998" y="47" width="29.333333333333329" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="EX3-m4-3Ji"/>
                                             </constraints>
@@ -2518,7 +2519,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0d-qU-zOo">
-                                            <rect key="frame" x="14.000000000000002" y="47" width="29.666666666666671" height="25"/>
+                                            <rect key="frame" x="13.999999999999998" y="47" width="29.333333333333329" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="Y80-TD-fCB"/>
                                             </constraints>

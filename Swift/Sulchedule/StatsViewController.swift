@@ -86,7 +86,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func handleSwipeDown(gesture: UISwipeGestureRecognizer) {
-        if(shouldComeDown() && !constraintLarge){
+        if(shouldComeDown()){
             self.leaderboardTopConstraint.constant = -20
             self.picktargetTopConstraint.constant = 248
             
@@ -134,10 +134,14 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         viewGestureRecognizer.addGestureRecognizer(swipeUpRecognizer)
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         viewGestureRecognizer.addGestureRecognizer(tapRecognizer)
-        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
-        swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.down
-        swipeDownRecognizer.delegate = self
-        picktargetView.addGestureRecognizer(swipeDownRecognizer)
+        let swipeDownRecognizerForPickTarget = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
+        swipeDownRecognizerForPickTarget.direction = UISwipeGestureRecognizerDirection.down
+        swipeDownRecognizerForPickTarget.delegate = self
+        picktargetView.addGestureRecognizer(swipeDownRecognizerForPickTarget)
+        let swipeUpRecognizerForPickTarget = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeUp))
+        swipeUpRecognizerForPickTarget.direction = UISwipeGestureRecognizerDirection.up
+        swipeUpRecognizerForPickTarget.delegate = self
+        picktargetView.addGestureRecognizer(swipeUpRecognizerForPickTarget)
         
         
         if(userSetting.firstLaunch){
