@@ -63,7 +63,7 @@ class SettingsViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    @IBAction func vibButton(_ sender: Any) {
+    @IBAction func vibButton(_ sender: UIButton) {
         userSetting.isVibrationEnabled = !userSetting.isVibrationEnabled
         if(deviceCategory != 0){
             if(userSetting.isVibrationEnabled){
