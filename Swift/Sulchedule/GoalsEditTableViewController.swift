@@ -325,10 +325,4 @@ class GoalsEditTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDat
         editField.textColor = colorPoint
         editField.tintColor = colorText
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
 }
