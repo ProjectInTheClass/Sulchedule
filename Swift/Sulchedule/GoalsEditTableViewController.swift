@@ -3,8 +3,7 @@ import UIKit
 import AudioToolbox.AudioServices
 
 protocol GoalsEditTableDelegate {
-    func tableManipulateSwitch(_ sender: GoalsEditTableCell)
-    func tableManipulateValue(_ sender: GoalsEditTableCell)
+    func tableManipulateValue(_ sender: GoalsEditTableCell, enable: Bool, value: Int)
 }
 
 struct UserGoal{
@@ -13,9 +12,12 @@ struct UserGoal{
     var value: Int
 }
 var goals: [UserGoal] = []
+var pickerList: [[Int]] = [[],[],[],[]]
 
 class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegate {
     
+    let numDays = Calendar.current.range(of: .day, in: .month, for: Date())!.count
+    let month = Calendar.current.component(.month, from: Date())
     
     @IBOutlet var backgroundView: UITableView!
     
@@ -30,88 +32,58 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         backgroundView.reloadData()
     }
     
-    func tableManipulateSwitch(_ sender: GoalsEditTableCell) {
+    func tableManipulateValue(_ sender: GoalsEditTableCell, enable: Bool, value: Int) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         
-        switch indexPath.row {
-        case 0:
-            setDaysOfMonthEnabled(enabled: sender.uiSwitch.isOn)
-        case 1:
-            setStreakOfMonthEnabled(enabled: sender.uiSwitch.isOn)
-        case 2:
-            setCurrentExpenseEnabled(enabled: sender.uiSwitch.isOn)
-        case 3:
-            setCaloriesOfMonthEnabled(enabled: sender.uiSwitch.isOn)
-        default:
-            print("wtf")
-        }
-    }
-    
-    func tableManipulateValue(_ sender: GoalsEditTableCell) {
-        guard let indexPath = tableView.indexPath(for: sender) else { return }
-        
-//        apply to array here
-        let temp = Int((sender.editField.text! as NSString).integerValue)
-        switch indexPath.row {
-        case 0:
-            setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: temp)
-            if(temp != 0){
+        if(enable){
+            switch indexPath.row {
+            case 0:
                 setDaysOfMonthEnabled(enabled: true)
-                sender.uiSwitch.setOn(true, animated: true)
-            }
-        case 1:
-            setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: temp)
-            if(temp != 0){
+                setDaysOfMonthLimit(month: dateToMonthConverter(date: Date()), value: value)
+            case 1:
                 setStreakOfMonthEnabled(enabled: true)
-                sender.uiSwitch.setOn(true, animated: true)
-            }
-        case 2:
-            setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: temp)
-            if(temp != 0){
+                setStreakOfMonthLimit(month: dateToMonthConverter(date: Date()), value: value)
+            case 2:
                 setCurrentExpenseEnabled(enabled: true)
-                sender.uiSwitch.setOn(true, animated: true)
-            }
-        case 3:
-            setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: temp)
-            if(temp != 0){
+                setCurrentExpenseLimit(month: dateToMonthConverter(date: Date()), value: value)
+            case 3:
                 setCaloriesOfMonthEnabled(enabled: true)
-                sender.uiSwitch.setOn(true, animated: true)
+                setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: value)
+            default:
+                print("Not Accepted Switch Value")
             }
-        default:
-            print("wtf")
+        }
+        else{
+            switch indexPath.row {
+            case 0:
+                setDaysOfMonthEnabled(enabled: false)
+            case 1:
+                setStreakOfMonthEnabled(enabled: false)
+            case 2:
+                setCurrentExpenseEnabled(enabled: false)
+            case 3:
+                setCaloriesOfMonthEnabled(enabled: false)
+            default:
+                print("Not Accepted Switch Value")
+            }
         }
         
-        let numDays = Calendar.current.range(of: .day, in: .month, for: Date())!.count
-        let month = Calendar.current.component(.month, from: Date())
-        
+
         goals = [
             UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: monthmonth), value: getDaysOfMonthLimit(month: monthmonth)!),
             UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: monthmonth), value: getStreakOfMonthLimit(month: monthmonth)!),
             UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: monthmonth), value: getCurrentExpenseLimit(month: monthmonth)!),
             UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: monthmonth), value: getCaloriesOfMonthLimit(month: monthmonth)!)
         ]
-        
-        if(indexPath.row == 0 && goals[indexPath.row].value > numDays){
-            let alertController = UIAlertController(title: "며칠이라고요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
-            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                sender.editField.text = String(numDays)
-                setDaysOfMonthLimit(month: monthmonth, value: numDays)
-            }
-            alertController.addAction(cancelAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-        else if(indexPath.row == 1 && goals[indexPath.row].value > numDays){
-            let alertController = UIAlertController(title: "며칠이라고요?", message: "\(month)월의 말일은 \(numDays)일입니다.\n입력하신 수가 이번 달의 날수보다 큽니다.", preferredStyle: UIAlertControllerStyle.alert)
-            let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                sender.editField.text = String(numDays)
-                setStreakOfMonthLimit(month: monthmonth, value: numDays)
-            }
-            alertController.addAction(cancelAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
     }
     
     let formatter = DateFormatter()
+    
+    //save button
+//    @objc func buttonAction(){
+//        self.navigationController?.popViewController(animated: true)
+//    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +96,12 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GoalsEditTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        //save button
+//        let rightBtn = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(buttonAction))
+//        self.navigationItem.rightBarButtonItem = rightBtn
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = colorPoint
         backgroundView.backgroundColor = colorDeepBackground
@@ -178,23 +155,36 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "goalsEditIdentifier", for: indexPath)
+        let row = indexPath.row
         
         guard let customCell = cell as? GoalsEditTableCell else {
             return cell
         }
 
-        customCell.titleLabel.text = "\(goals[indexPath.row].name)"
+        customCell.titleLabel.text = "\(goals[row].name)"
         customCell.delegate = self
-        customCell.uiSwitch.setOn(goals[indexPath.row].checked, animated: false)
-        customCell.editField.text = String(goals[indexPath.row].value)
+        switch row{
+        case 0:
+            customCell.editField.text = "\(goals[row].value)일"
+        case 1:
+            customCell.editField.text = "연속 \(goals[row].value)일"
+        case 2:
+            customCell.editField.text = "\(goals[row].value)원"
+        case 3:
+            customCell.editField.text = "\(goals[row].value)kcal"
+        default:
+            customCell.editField.text = "Not Accepted Switch Value"
+        }
         
-        if(goals[indexPath.row].value == 0){
+        
+        if(!(goals[row].checked)){
             customCell.editField.text = ""
         }
 
         customCell.contentView.backgroundColor = colorDeepBackground
         customCell.tintColor = colorDeepBackground
         customCell.backgroundColor = colorDeepBackground
+        customCell.currentRow = row
         
 //        for view in customCell.subviews {
 //            if(view.description.lowercased().contains("reorder")){
@@ -221,35 +211,119 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     }
 
 }
-class GoalsEditTableCell: UITableViewCell {
+class GoalsEditTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var picker = UIPickerView()
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return pickerList[currentRow].count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if(row == 0){
+            return "목표 설정 안 함"
+        }
+        else{
+            switch currentRow{
+            case 0:
+                return "\((pickerList[0])[row])일"
+            case 1:
+                return "연속 \((pickerList[1])[row])일"
+            case 2:
+                return "\((pickerList[2])[row])원"
+            case 3:
+                return "\((pickerList[3])[row])kcal"
+            default:
+                return "Not Accepted Switch Value"
+            }
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if(picker.selectedRow(inComponent: 0) == 0){
+            delegate?.tableManipulateValue(self, enable: false, value: 0)
+            editField.text = "목표 설정 안 함"
+        }
+        else{
+            delegate?.tableManipulateValue(self, enable: true, value: pickerList[currentRow][picker.selectedRow(inComponent: 0)])
+            switch currentRow{
+            case 0:
+                editField.text = "\((pickerList[0])[row])일"
+            case 1:
+                editField.text = "연속 \((pickerList[1])[row])일"
+            case 2:
+                editField.text = "\((pickerList[2])[row])원"
+            case 3:
+                editField.text = "\((pickerList[3])[row])kcal"
+            default:
+                editField.text = "Not Accepted Switch Value"
+            }
+        }
+    }
+    let numDays = Calendar.current.range(of: .day, in: .month, for: Date())!.count
+    let month = Calendar.current.component(.month, from: Date())
     
     var delegate: GoalsEditTableDelegate?
+    var currentRow: Int = 0
     
     @IBOutlet weak var editField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBAction func labelEditEnded(_ sender: UITextField) {
-        delegate?.tableManipulateValue(self)
-    }
-    @IBOutlet weak var uiSwitch: UISwitch!
-    @IBAction func switchChanged(_ sender: UISwitch) {
-        if(userSetting.isVibrationEnabled){
-            AudioServicesPlaySystemSound(vibPeek)
+    @IBAction func labelEditBegan(_ sender: UITextField) {
+        let tempValue: Int = goals[currentRow].value
+        if(goals[currentRow].checked){
+            picker.selectRow(pickerList[currentRow].firstIndex(of: tempValue) ?? 0, inComponent: 0, animated: true)
         }
-        delegate?.tableManipulateSwitch(self)
+        else{
+            picker.selectRow(0, inComponent: 0, animated: true)
+        }
+        sender.allowsEditingTextAttributes = false
+    }
+    @IBAction func labelEditEnded(_ sender: UITextField) {
+        
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        editField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        picker.delegate = self
+        picker.dataSource = self
         
-        uiSwitch.tintColor = colorPoint
-        uiSwitch.thumbTintColor = colorLightBackground
-        uiSwitch.onTintColor = colorPoint
+        pickerList = [[],[],[],[]]
+        for i in -1...numDays{
+            pickerList[0].append(i)
+        }
+        
+        for i in -1...numDays{
+            pickerList[1].append(i)
+        }
+        
+        for i in -1...19{
+            pickerList[2].append(i*5000)
+        }
+        for i in 2...10{
+            pickerList[2].append(i*50000)
+        }
+        //5000씩, 100000까지, 50000씩, 500000까지
+        
+        for i in -1...19{
+            pickerList[3].append(i*50)
+        }
+        for i in 10...49{
+            pickerList[3].append(i*100)
+        }
+        for i in 10...19{
+            pickerList[3].append(i*500)
+        }
+        for i in 2...20{
+            pickerList[3].append(i*5000)
+        }
+        //50씩, 1000까지, 100씩, 5000까지, 500씩, 10000까지, 5000씩 100000까지
+        
+        editField.inputView = picker
+        
         editField.textColor = colorPoint
-        
         editField.tintColor = colorText
-
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

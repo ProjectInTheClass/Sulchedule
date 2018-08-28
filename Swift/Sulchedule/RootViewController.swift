@@ -31,7 +31,6 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func showAd() {
-        print("///Show Ad")
         if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
             addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0

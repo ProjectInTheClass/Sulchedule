@@ -222,7 +222,7 @@ class MonthlyStatsViewController: UIViewController {
                 desc3.text = "\(temp2)회"
             }
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
     }
     
@@ -281,7 +281,7 @@ class MonthlyStatsViewController: UIViewController {
             sulCircle.lineWidth = 0.0
             locationCircle.lineWidth = 3.0
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
     }
 

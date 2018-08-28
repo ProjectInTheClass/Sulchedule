@@ -65,7 +65,7 @@ class EmbedGoalsTableViewController: UITableViewController {
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             default :
-                print("wtf")
+                print("Not Accepted Switch Value")
             }
             i += 1
         }
@@ -168,7 +168,7 @@ class EmbedGoalsTableViewController: UITableViewController {
             customCell.rightValueLabel.text = String(goalLimit[indexPath.row])
             customCell.setGraphValue(value: goalValue[indexPath.row])
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
             
         }
         
@@ -182,45 +182,6 @@ class EmbedGoalsTableViewController: UITableViewController {
         
         return customCell
     }
-
-    
-    
-    
-    // Override to support editing the table view.
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        } else if editingStyle == .insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        }    
-//    }
-// 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 class EmbedGoalsTableCell: UITableViewCell {

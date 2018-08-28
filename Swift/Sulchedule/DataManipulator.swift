@@ -1316,7 +1316,6 @@ func getAdIsOff() -> Bool{
         return false
     }
     else{
-        print("///adIsOff : \(userSetting.adIsOff!)")
         return userSetting.adIsOff!
 //        return false //remove before release
     }

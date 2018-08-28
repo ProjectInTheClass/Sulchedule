@@ -64,7 +64,7 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
                     goalValue.append(Float(getCaloriesOfMonthStatus(month: monthmonth)) / Float(getCaloriesOfMonthLimit(month: monthmonth)!))
                 }
             default :
-                print("wtf")
+                print("Not Accepted Switch Value")
             }
             i += 1
         }

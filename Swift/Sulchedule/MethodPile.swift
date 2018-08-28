@@ -135,7 +135,7 @@ func setSucceededLastMonth(){
                 goalValue.append(Float(getCaloriesOfMonthStatus(month: tempMonth)) / Float(getCaloriesOfMonthLimit(month: tempMonth)!))
             }
         default :
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
         i += 1
     }

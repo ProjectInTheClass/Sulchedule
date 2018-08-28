@@ -65,7 +65,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             loadSegment(whichSegment: 1)
             viewGestureRecognizer.isUserInteractionEnabled = false
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
     }
     
@@ -147,7 +147,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         if(userSetting.firstLaunch){
             snackBar(string: "음주 기록이 다양해지면 단상에 순위가 표시됩니다.", buttonPlaced: false)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime))) {
-                snackBar(string: "목표 탭으로 이동해주세요!", buttonPlaced: true)
+                snackBar(string: "이 달의 목표 탭으로 이동해주세요!", buttonPlaced: true)
             }
         }
     }
@@ -427,7 +427,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
     }
     
@@ -551,7 +551,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             sulCircle.lineWidth = 0.0
             locationCircle.lineWidth = 3.0
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
     }
 
@@ -677,7 +677,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
                 return false
             }
         default:
-            print("wtf")
+            print("Not Accepted Switch Value")
         }
         return true
     }
