@@ -198,4 +198,7 @@ class NoEditUITextField: UITextField {
         }
         return super.canPerformAction(action, withSender: sender)
     }
+    override func caretRect(for position: UITextPosition) -> CGRect {
+        return CGRect(x: 0, y: 0, width: 0, height: 0)
+    }
 }
