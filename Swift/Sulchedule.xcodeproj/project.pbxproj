@@ -46,6 +46,7 @@
 		35991192211EBE25002A5319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35991191211EBE23002A5319 /* Images.xcassets */; };
 		35AB7FCB21182F9E00B73F1B /* GoalsEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */; };
 		35B940D8211B55EB00287C00 /* EmbedAddSulTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */; };
+		35EC3EDB2137188100805E63 /* EmbedSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EC3EDA2137188100805E63 /* EmbedSettingsTableViewController.swift */; };
 		35FABC29211AB60400E3ECC1 /* AddSulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */; };
 		D2D756F4211D7032008051F2 /* DataManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D756F1211D7031008051F2 /* DataManipulator.swift */; };
 		D2D756F5211D7032008051F2 /* DataCentre.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D756F2211D7032008051F2 /* DataCentre.swift */; };
@@ -124,6 +125,7 @@
 		35991191211EBE23002A5319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35AB7FCA21182F9E00B73F1B /* GoalsEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsEditTableViewController.swift; sourceTree = "<group>"; };
 		35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedAddSulTableViewController.swift; sourceTree = "<group>"; };
+		35EC3EDA2137188100805E63 /* EmbedSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedSettingsTableViewController.swift; sourceTree = "<group>"; };
 		35FABC28211AB60400E3ECC1 /* AddSulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSulViewController.swift; sourceTree = "<group>"; };
 		D2D756F1211D7031008051F2 /* DataManipulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManipulator.swift; sourceTree = "<group>"; };
 		D2D756F2211D7032008051F2 /* DataCentre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCentre.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				35458DC62113D52B00878206 /* TodayAdditionalTableViewController.swift */,
+				35EC3EDA2137188100805E63 /* EmbedSettingsTableViewController.swift */,
 				35058F442115B63C002DBF23 /* EmbedStatsTableViewController.swift */,
 				35B940D7211B55EB00287C00 /* EmbedAddSulTableViewController.swift */,
 				354AA90A211826CA00CA4DC3 /* EmbedGoalsTableViewController.swift */,
@@ -431,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35EC3EDB2137188100805E63 /* EmbedSettingsTableViewController.swift in Sources */,
 				30F4C9441E07C3AD00D2EC4D /* FSCalendarExtensions.m in Sources */,
 				30F4C93D1E07C3AD00D2EC4D /* FSCalendarCalculator.m in Sources */,
 				3555AA8021187C2800716178 /* MonthlyStatsViewController.swift in Sources */,

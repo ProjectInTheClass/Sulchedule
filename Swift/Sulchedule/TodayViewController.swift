@@ -135,7 +135,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 snackBar(string: "통계 탭으로 이동해주세요!", buttonPlaced: true)
             }
         }
-        
+        setIsShowDrunkDays(enabled: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
