@@ -1,8 +1,13 @@
 import UIKit
 import AudioToolbox.AudioServices
 
+protocol RootSettingDelegate {
+    func darkThemeSwitch()
+    func resetButtonClicked()
+    func loadChangeIcon()
+}
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, RootSettingDelegate {
 
     @IBOutlet weak var navigationBar_changeColor: UINavigationBar!
     @IBOutlet weak var topBackgroundView: UIView!
@@ -180,6 +185,56 @@ class SettingsViewController: UIViewController {
         else{
             view.layer.shadowColor = UIColor.clear.cgColor
         }
+    }
+    
+    func resetButtonClicked() {
+        let alertController = UIAlertController(title: "모든 정보 삭제", message: "음주 기록, 설정을 포함한 모든 정보가 초기화됩니다. 계속하시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
+        let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
+            resetApp()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showToday"), object: nil)
+            
+            colorPoint = hexStringToUIColor(hex:"FFDC67")
+            colorLightBackground = hexStringToUIColor(hex:"252B53")
+            colorDeepBackground = hexStringToUIColor(hex:"0B102F")
+            colorGray = hexStringToUIColor(hex:"A4A4A4")
+            colorText = .white
+            UINavigationBar.appearance().barTintColor = colorLightBackground
+            UINavigationBar.appearance().backgroundColor = colorLightBackground
+            UILabel.appearance().textColor = UIColor.white
+            UITabBar.appearance().tintColor = colorPoint
+            UITabBar.appearance().barTintColor = colorLightBackground
+            self.tabBarController?.tabBar.barTintColor = colorLightBackground
+            self.tabBarController?.tabBar.tintColor = colorPoint
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+            self.tabBarController?.tabBar.unselectedItemTintColor = .white
+            UIApplication.shared.statusBarStyle = .lightContent
+            rootViewDelegate?.setBackgroundColor(light: true)
+            rootViewDelegate?.setAdBackgroundColor()
+            self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+            self.navigationBar_changeColor.barTintColor = colorLightBackground
+            self.tabBarController?.selectedIndex = 0
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : colorText]
+            
+            snackBar(string: "앱이 성공적으로 초기화되었습니다.", buttonPlaced: true)
+            
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func loadChangeIcon(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "iconNavigation")
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as? EmbedSettingsTableViewController
+        vc?.delegate = self
     }
 
 }

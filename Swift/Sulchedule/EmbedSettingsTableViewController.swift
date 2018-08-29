@@ -1,6 +1,9 @@
 import UIKit
+import AudioToolbox.AudioServices
 
 class EmbedSettingsTableViewController: UITableViewController {
+    
+    var delegate : SettingsViewController?
     
     @IBOutlet var backgroundView: UITableView!
     
@@ -8,13 +11,25 @@ class EmbedSettingsTableViewController: UITableViewController {
     @IBOutlet weak var adSwitch: UISwitch!
     @IBOutlet weak var hapticSwitch: UISwitch!
     @IBOutlet weak var yesterdaySwitch: UISwitch!
+    var switches: [UISwitch] = []
     
     @IBOutlet weak var iconCell: UITableViewCell!
     @IBOutlet weak var resetCell: UITableViewCell!
+    @IBOutlet weak var hapticCell: UITableViewCell!
     
     @IBAction func themeSwitch(_ sender: UISwitch) {
-        userSetting.isThemeBright = sender.isOn
-        darkThemeSwitch()
+        userSetting.isThemeBright = !sender.isOn
+        delegate?.darkThemeSwitch()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.tableView.backgroundColor = colorDeepBackground
+            self.backgroundView.separatorColor = colorLightBackground
+        })
+        for item in self.switches{
+            item.tintColor = colorPoint
+            item.thumbTintColor = colorLightBackground
+            item.onTintColor = colorPoint
+        }
+        backgroundView.reloadData()
     }
     @IBAction func adSwitch(_ sender: UISwitch) {
         if(userSetting.succeededLastMonth){
@@ -43,76 +58,62 @@ class EmbedSettingsTableViewController: UITableViewController {
             }
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: {
-                self.adSwitch.setOn(false, animated: true)})
+                self.adSwitch.setOn(true, animated: true)})
         }
     }
     @IBAction func hapticSwitch(_ sender: UISwitch) {
         userSetting.isVibrationEnabled = !userSetting.isVibrationEnabled
-        if(deviceCategory != 0){
-            if(userSetting.isVibrationEnabled){
-                AudioServicesPlaySystemSound(vibTryAgain)
-            }
-            else{
-            }
-        }
-        else{
-            //미지원 기기
+        if(userSetting.isVibrationEnabled){
+            AudioServicesPlaySystemSound(vibTryAgain)
         }
     }
     @IBAction func yesterdaySwitch(_ sender: UISwitch) {
         setShowYesterdayFirst(yesterday: !getShowYesterdayFirst())
-        if(getShowYesterdayFirst()){
-        }
-        else{
-        }
     }
-    func resetButtonClicked() {
-        let alertController = UIAlertController(title: "모든 정보 삭제", message: "음주 기록, 설정을 포함한 모든 정보가 초기화됩니다. 계속하시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
-        let deleteAction = UIAlertAction(title: "삭제", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
-            resetApp()
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "showToday"), object: nil)
-            
-            colorPoint = hexStringToUIColor(hex:"FFDC67")
-            colorLightBackground = hexStringToUIColor(hex:"252B53")
-            colorDeepBackground = hexStringToUIColor(hex:"0B102F")
-            colorGray = hexStringToUIColor(hex:"A4A4A4")
-            colorText = .white
-            UINavigationBar.appearance().barTintColor = colorLightBackground
-            UINavigationBar.appearance().backgroundColor = colorLightBackground
-            UILabel.appearance().textColor = UIColor.white
-            UITabBar.appearance().tintColor = colorPoint
-            UITabBar.appearance().barTintColor = colorLightBackground
-            self.tabBarController?.tabBar.barTintColor = colorLightBackground
-            self.tabBarController?.tabBar.tintColor = colorPoint
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-            self.tabBarController?.tabBar.unselectedItemTintColor = .white
-            UIApplication.shared.statusBarStyle = .lightContent
-            rootViewDelegate?.setBackgroundColor(light: true)
-            rootViewDelegate?.setAdBackgroundColor()
-            self.navigationBar_changeColor.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-            self.navigationBar_changeColor.barTintColor = colorLightBackground
-            self.tabBarController?.selectedIndex = 0
-            UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : colorText]
-            
-            snackBar(string: "앱이 성공적으로 초기화되었습니다.", buttonPlaced: true)
-            
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            self.dismiss(animated: true, completion: nil)
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(deleteAction)
-        self.present(alertController, animated: true, completion: nil)
+    
+    @objc func resetApp(){
+        delegate?.resetButtonClicked()
+    }
+    
+    @objc func changeIcon(){
+        delegate?.loadChangeIcon()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let tap = UITapGestureRecognizer(target: self, action: #selector(resetApp))
+        resetCell.addGestureRecognizer(tap)
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(changeIcon))
+        iconCell.addGestureRecognizer(tap2)
+        
+        switches = [self.themeSwitch, self.adSwitch, self.hapticSwitch, self.yesterdaySwitch]
+        
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(deviceCategory == 0 && indexPath.row == 2){
+            hapticCell.isHidden = true
+            return 0
+        }
+        else{
+            return 60
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.backgroundColor = colorDeepBackground
+        for item in switches{
+            item.tintColor = colorPoint
+            item.thumbTintColor = colorLightBackground
+            item.onTintColor = colorPoint
+        }
+        
+        themeSwitch.setOn(userSetting.isThemeBright, animated: false)
+        adSwitch.setOn(!(userSetting.adIsOff ?? false), animated: false)
+        hapticSwitch.setOn(userSetting.isVibrationEnabled, animated: false)
+        yesterdaySwitch.setOn(userSetting.showYesterdayFirst, animated: false)
+        
+        backgroundView.separatorColor = colorLightBackground
+    }
 }
