@@ -80,4 +80,18 @@ class IconSelectViewController: UIViewController {
         background2View.backgroundColor = colorDeepBackground
         close.tintColor = colorPoint
     }
+    
+    func changeIcon(to iconName: String) {
+        guard UIApplication.shared.supportsAlternateIcons else {
+            return
+        }
+        UIApplication.shared.setAlternateIconName(iconName, completionHandler: {(error) in
+            if error != nil {
+                let alertController = UIAlertController(title: "미지원 기기", message: "iPhone에서만 작동합니다.", preferredStyle: UIAlertControllerStyle.alert)
+                let cancelAction = UIAlertAction(title: "닫기", style: UIAlertActionStyle.default)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+    }
 }

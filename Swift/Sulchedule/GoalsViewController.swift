@@ -1,12 +1,12 @@
 import UIKit
 
 protocol CycleBorderDelegate{
-    func manipulateCircle(value: Int)
+    func manipulateSignal(value: Int)
 }
 
 class GoalsViewController: UIViewController, CycleBorderDelegate {
-    func manipulateCircle(value: Int) {
-        cycleCircleBorder(cursor: value)
+    func manipulateSignal(value: Int) {
+        cycleSignalColor(cursor: value)
     }
     
     
@@ -75,7 +75,7 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
         greenCircle.fillColor = colorGreen.cgColor
     }
     
-    func cycleCircleBorder(cursor: Int){
+    func cycleSignalColor(cursor: Int){
         let alpha: CGFloat = 0.2
         switch (cursor){
         case 3:

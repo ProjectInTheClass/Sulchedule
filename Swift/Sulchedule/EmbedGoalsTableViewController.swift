@@ -79,7 +79,7 @@ class EmbedGoalsTableViewController: UITableViewController {
         }
         
         var dangerLevel = 0
-        if(goalValue.count == 0){
+        if(isEnabled.isEmpty){
             dangerLevel = 3
         }
         else{
@@ -93,7 +93,7 @@ class EmbedGoalsTableViewController: UITableViewController {
             }
         }
         
-        goalViewDelegate?.manipulateCircle(value: dangerLevel)
+        goalViewDelegate?.manipulateSignal(value: dangerLevel)
         backgroundView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {

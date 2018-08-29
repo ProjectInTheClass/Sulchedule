@@ -84,20 +84,6 @@ func dateToMonthConverter(date: Date) -> Day{
 var isLastMonth = 0
 var monthmonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: isLastMonth, to: Date())!)
 
-func changeIcon(to iconName: String) {
-    guard UIApplication.shared.supportsAlternateIcons else {
-        return
-    }
-    UIApplication.shared.setAlternateIconName(iconName, completionHandler: {(error) in
-        if let error = error {
-            print("///App icon failed to change due to \(error.localizedDescription)")
-        }
-        else {
-            print("///App icon changed successfully")
-        }
-    })
-}
-
 func setSucceededLastMonth(){
     let tempMonth = dateToMonthConverter(date: Calendar.current.date(byAdding: .month, value: -1, to: Date())!)
     var isEnabled:[Int] = []
