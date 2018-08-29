@@ -1610,6 +1610,7 @@
                         <outlet property="hapticSwitch" destination="1Y2-VY-4Nw" id="HeG-RD-fwH"/>
                         <outlet property="iconCell" destination="NPW-X6-SRZ" id="iCi-mz-eQu"/>
                         <outlet property="resetCell" destination="jj0-Ui-DcY" id="QjH-jR-K01"/>
+                        <outlet property="resetLabel" destination="Xpy-g7-0hm" id="mtY-OR-FZw"/>
                         <outlet property="themeSwitch" destination="99Z-Ac-Mvu" id="qF2-Jy-m2O"/>
                         <outlet property="yesterdaySwitch" destination="PQD-DH-Wur" id="fZi-OX-d4C"/>
                     </connections>

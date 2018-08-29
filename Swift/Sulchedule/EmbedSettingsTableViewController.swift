@@ -16,6 +16,7 @@ class EmbedSettingsTableViewController: UITableViewController {
     @IBOutlet weak var iconCell: UITableViewCell!
     @IBOutlet weak var resetCell: UITableViewCell!
     @IBOutlet weak var hapticCell: UITableViewCell!
+    @IBOutlet weak var resetLabel: UILabel!
     
     @IBAction func themeSwitch(_ sender: UISwitch) {
         userSetting.isThemeBright = !sender.isOn
@@ -30,6 +31,7 @@ class EmbedSettingsTableViewController: UITableViewController {
             item.onTintColor = colorPoint
         }
         backgroundView.reloadData()
+        resetLabel.textColor = colorRed
     }
     @IBAction func adSwitch(_ sender: UISwitch) {
         if(userSetting.succeededLastMonth){
@@ -107,6 +109,7 @@ class EmbedSettingsTableViewController: UITableViewController {
             item.tintColor = colorPoint
             item.thumbTintColor = colorLightBackground
             item.onTintColor = colorPoint
+            resetLabel.textColor = colorRed
         }
         
         themeSwitch.setOn(userSetting.isThemeBright, animated: false)
