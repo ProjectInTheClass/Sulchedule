@@ -31,11 +31,8 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func showAd(_ animated: Bool = true) {
-        var time = 0.35
-        if(!animated){
-            time = 0
-        }
-        if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
+        let time = 0.35
+        if(!getAdIsOff() && adReceived && !userSetting.firstLaunch && animated){
             addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0
             UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
@@ -44,6 +41,12 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
             UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
+        }
+        else if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
+            addBannerViewToView(bannerView)
+            self.adAreaLoc.constant = 0
+            self.adArea.alpha = 1
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -75,11 +78,8 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func removeAd(_ animated: Bool = true) {
-        var time = 0.35
-        if(!animated){
-            time = 0
-        }
-        if(adReceived){
+        let time = 0.35
+        if(adReceived && animated){
             self.adAreaLoc.constant = -60
             UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.adArea.alpha = 0
@@ -89,6 +89,12 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
             }, completion:{ (finished: Bool) in for view in self.adArea.subviews {
                 view.removeFromSuperview()
                 }})
+        }
+        else if(adReceived){
+            self.adAreaLoc.constant = -60
+            self.adArea.alpha = 0
+            self.view.layoutIfNeeded()
+            view.removeFromSuperview()
         }
     }
     

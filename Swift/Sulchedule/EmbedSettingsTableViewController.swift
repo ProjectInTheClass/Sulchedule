@@ -1,7 +1,8 @@
 import UIKit
 import AudioToolbox.AudioServices
+import MessageUI
 
-class EmbedSettingsTableViewController: UITableViewController {
+class EmbedSettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
     var delegate : SettingsViewController?
     
@@ -17,6 +18,7 @@ class EmbedSettingsTableViewController: UITableViewController {
     @IBOutlet weak var resetCell: UITableViewCell!
     @IBOutlet weak var hapticCell: UITableViewCell!
     @IBOutlet weak var resetLabel: UILabel!
+    @IBOutlet weak var bugCell: UITableViewCell!
     
     @IBAction func themeSwitch(_ sender: UISwitch) {
         userSetting.isThemeBright = !sender.isOn
@@ -81,6 +83,36 @@ class EmbedSettingsTableViewController: UITableViewController {
         delegate?.loadChangeIcon()
     }
     
+    @objc func bugReport(){
+        sendEmail()
+    }
+    
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            UINavigationBar.appearance().barTintColor = hexStringToUIColor(hex: "DDDDDD")
+            UINavigationBar.appearance().backgroundColor = hexStringToUIColor(hex: "DDDDDD")
+            
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["herojeff02@daum.net"])
+            let chars = dateToDayConverter(date: Date())
+            mail.setSubject("술케줄 버그 신고/기능 요청 [\(chars.year)\(chars.month)\(chars.day!)]")
+            mail.setMessageBody("<br><br><br>뭐든지 자세하게 서술해주시면 큰 도움이 됩니다!", isHTML: true)
+            present(mail, animated: true)
+        } else {
+            snackBar(string: "지금 메일을 보낼 수 없습니다.", buttonPlaced: true)
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        UINavigationBar.appearance().barTintColor = colorLightBackground
+        UINavigationBar.appearance().backgroundColor = colorLightBackground
+        controller.dismiss(animated: true)
+        if(result.rawValue == 2){
+            snackBar(string: "메일이 발송됐습니다.", buttonPlaced: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -88,6 +120,8 @@ class EmbedSettingsTableViewController: UITableViewController {
         resetCell.addGestureRecognizer(tap)
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(changeIcon))
         iconCell.addGestureRecognizer(tap2)
+        let tap3 = UITapGestureRecognizer(target: self, action: #selector(bugReport))
+        bugCell.addGestureRecognizer(tap3)
         
         switches = [self.themeSwitch, self.adSwitch, self.hapticSwitch, self.yesterdaySwitch]
         
