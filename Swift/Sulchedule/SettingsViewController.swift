@@ -48,17 +48,17 @@ class SettingsViewController: UIViewController, RootSettingDelegate {
         monthlyReportButton.setTitleColor(colorPoint, for: .normal)
         setSucceededLastMonth()
         if(!userSetting.succeededLastMonth){
-            rootViewDelegate?.showAd()
+            rootViewDelegate?.showAd(true)
             setAdIsOff(adIsOff: false)
         }
         else if(getAdIsOff()){
 //            for future in-app purchase
 //            removeAdButton.isUserInteractionEnabled = false
 //            removeAdButton.setTitleColor(colorGray, for: .normal)
-            rootViewDelegate?.removeAd()
+            rootViewDelegate?.removeAd(true)
         }
         else{
-            rootViewDelegate?.showAd()
+            rootViewDelegate?.showAd(true)
         }
         
         rootViewDelegate?.setAdBackgroundColor()

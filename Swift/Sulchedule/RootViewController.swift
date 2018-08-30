@@ -2,13 +2,13 @@ import UIKit
 import GoogleMobileAds
 
 protocol RootViewDelegate{
-    func removeAd()
-    func showAd()
+    func removeAd(_ animated: Bool)
+    func showAd(_ animated: Bool)
     func setAdBackgroundColor()
     func setBackgroundColor(light: Bool)
-    func showSnackBar(string: String, buttonPlaced: Bool, _ animated: Bool)
+    func showSnackBar(string: String, buttonPlaced: Bool, animated: Bool)
     func refreshXLowerColor()
-    func hideSnackBar(_ animated: Bool)
+    func hideSnackBar(animated: Bool)
     
     func isSnackBarOpen() -> Bool
 }
@@ -30,14 +30,18 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
-    func showAd() {
+    func showAd(_ animated: Bool = true) {
+        var time = 0.35
+        if(!animated){
+            time = 0
+        }
         if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
             addBannerViewToView(bannerView)
             self.adAreaLoc.constant = 0
-            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.adArea.alpha = 1
             }, completion:nil)
-            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
@@ -70,13 +74,17 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         iPhoneXLowerBackground.backgroundColor = colorLightBackground
     }
     
-    func removeAd() {
+    func removeAd(_ animated: Bool = true) {
+        var time = 0.35
+        if(!animated){
+            time = 0
+        }
         if(adReceived){
             self.adAreaLoc.constant = -60
-            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.adArea.alpha = 0
             }, completion:nil)
-            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
             }, completion:{ (finished: Bool) in for view in self.adArea.subviews {
                 view.removeFromSuperview()
@@ -84,7 +92,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
-    func showSnackBar(string: String, buttonPlaced: Bool, _ animated: Bool = true) {
+    func showSnackBar(string: String, buttonPlaced: Bool, animated: Bool = true) {
         let radius: CGFloat = snackBarView.frame.width / 2.0
         let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: snackBarView.frame.height))
         snackBarView.layer.shadowColor = UIColor.black.cgColor
@@ -119,9 +127,11 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + snackBarWaitTime, execute: workItem!)
     }
     
-    func hideSnackBar(_ animated: Bool = true){
+    func hideSnackBar(animated: Bool = true){
         snackBarPositionConstraint.constant = 0
-        workItem!.cancel()
+        if(isSnackBarOpen()){
+            workItem!.cancel()
+        }
         if(animated){
             UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
                 self.snackBarView.alpha = 0
@@ -184,6 +194,26 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()
+        UIScreen.main.addObserver(self, forKeyPath: "captured", options: .new, context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if (keyPath == "captured") {
+            if #available(iOS 11.0, *) {
+                let isCaptured = UIScreen.main.isCaptured
+                if(isCaptured){
+                    removeAd(false)
+                    print("///removeAd from root")
+                }
+                else{
+                    if(!getAdIsOff()){
+                        showAd(false)
+                        print("///showAd from root")
+                    }
+                }
+            } else {
+            }
+        }
     }
     
     @objc func handleSwipeDown(gesture: UISwipeGestureRecognizer) {

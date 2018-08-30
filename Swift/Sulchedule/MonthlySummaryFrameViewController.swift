@@ -102,7 +102,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     
     func hideSnackBar(){
         snackBarPositionConstraint.constant = 0
-        workItem!.cancel()
+        workItem?.cancel()
         UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
             self.snackBarView.alpha = 0
             self.view.layoutIfNeeded()

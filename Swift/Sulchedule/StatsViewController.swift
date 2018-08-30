@@ -16,6 +16,9 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var vc:EmbedStatsTableViewController? = nil
     
+    
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var bannerView: UIView!
     @IBOutlet weak var viewGestureRecognizer: UIView!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var sulLabel: UILabel!
@@ -50,6 +53,11 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var leaderboardTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var picktargetTopConstraint: NSLayoutConstraint!
+    
+    
+    @IBAction func shareButton(_ sender: UIButton) {
+        screenShotMethod(captured: false, share: true)
+    }
     
     @IBAction func topSegmentControl(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -175,12 +183,15 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         locationLabel.textColor = colorText
         if(userSetting.isThemeBright){
             firstPlaceText.textColor = .white
+            shareButton.setImage(UIImage(named: "share_bright"), for: .normal)
         }
         else{
             firstPlaceText.textColor = .black
+            shareButton.setImage(UIImage(named: "share"), for: .normal)
         }
         
         backgroundView.backgroundColor = colorDeepBackground
+        
         
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
@@ -233,6 +244,39 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             leaderboardTopConstraint.constant = -120
             picktargetTopConstraint.constant = -66
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(screenshotTaken), name: .UIApplicationUserDidTakeScreenshot, object: nil)
+        UIScreen.main.addObserver(self, forKeyPath: "captured", options: .new, context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if (keyPath == "captured") {
+            if #available(iOS 11.0, *) {
+                let isCaptured = UIScreen.main.isCaptured
+                if(isCaptured){
+                    rootViewDelegate?.hideSnackBar(animated: false)
+                    bannerView.isHidden = false
+                    if(!constraintLarge || topSegmentOutlet.selectedSegmentIndex == 1){
+                        bannerView.backgroundColor = colorDeepBackground
+                    }
+                    else{
+                        bannerView.backgroundColor = colorLightBackground
+                    }
+                    
+                    print("///capture on")
+                }
+                else{
+                    bannerView.isHidden = true
+                    
+                    print("///capture off")
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+    
+    @objc func screenshotTaken(){
+        screenShotMethod(captured: true, share: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -278,6 +322,45 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
         vc?.reloadCurrentCursor(cursor: 2)
         cycleCircleBorder(cursor: currentCursor)
         showPlatform(cursor: currentCursor)
+    }
+    
+    func screenShotMethod(captured: Bool, share: Bool) {
+        UILabel.appearance().textColor = .black
+        rootViewDelegate?.removeAd(false)
+        rootViewDelegate?.hideSnackBar(animated: false)
+        bannerView.isHidden = false
+        if(!constraintLarge || topSegmentOutlet.selectedSegmentIndex == 1){
+            bannerView.backgroundColor = colorDeepBackground
+        }
+        else{
+            bannerView.backgroundColor = colorLightBackground
+        }
+        
+        let layer = UIApplication.shared.keyWindow!.layer
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        if (share){
+            let imageToShare = [screenshot!]
+            let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+            
+            activityViewController.excludedActivityTypes = [UIActivityType.airDrop]
+            if(captured){
+                activityViewController.excludedActivityTypes?.append(UIActivityType.saveToCameraRoll)
+            }
+            
+            self.present(activityViewController, animated: true, completion: {
+                UILabel.appearance().textColor = colorText
+            })
+        }
+        if(!getAdIsOff()){
+            rootViewDelegate?.showAd(false)
+        }
+        bannerView.isHidden = true
     }
     
     func showPlatform(cursor: Int){

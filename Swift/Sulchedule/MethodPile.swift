@@ -151,13 +151,13 @@ func firstMonthLaunchAction(){
 
 func snackBar(string: String, buttonPlaced: Bool){
     if(rootViewDelegate?.isSnackBarOpen() ?? false){
-        rootViewDelegate?.hideSnackBar()
+        rootViewDelegate?.hideSnackBar(animated: true)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-            rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced)
+            rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced, animated: true)
         }
     }
     else{
-        rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced)
+        rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced, animated: true)
     }
 }
 

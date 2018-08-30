@@ -39,10 +39,10 @@ class EmbedSettingsTableViewController: UITableViewController {
             userSetting.adIsOff? = !tempBool
             
             if(getAdIsOff()){
-                rootViewDelegate?.removeAd()
+                rootViewDelegate?.removeAd(true)
             }
             else{
-                rootViewDelegate?.showAd()
+                rootViewDelegate?.showAd(true)
             }
             rootViewDelegate?.setAdBackgroundColor()
         }
