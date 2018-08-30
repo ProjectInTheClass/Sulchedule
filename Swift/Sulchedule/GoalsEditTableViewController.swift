@@ -273,7 +273,7 @@ class GoalsEditTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDat
     @IBAction func labelEditBegan(_ sender: UITextField) {
         let tempValue: Int = goals[currentRow].value
         if(goals[currentRow].checked){
-            picker.selectRow(pickerList[currentRow].firstIndex(of: tempValue) ?? 0, inComponent: 0, animated: true)
+            picker.selectRow(pickerList[currentRow].firstIndex(of: tempValue) ?? 1, inComponent: 0, animated: true)
         }
         else{
             picker.selectRow(0, inComponent: 0, animated: true)

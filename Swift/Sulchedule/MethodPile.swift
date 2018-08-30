@@ -145,6 +145,10 @@ func firstLaunchAction(){
     snackBar(string: "술케줄에 오신 것을 환영합니다!", buttonPlaced: false)
 }
 
+func firstMonthLaunchAction(){
+    transferGoalFromLastRecordMonth()
+}
+
 func snackBar(string: String, buttonPlaced: Bool){
     if(rootViewDelegate?.isSnackBarOpen() ?? false){
         rootViewDelegate?.hideSnackBar()

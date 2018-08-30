@@ -12,7 +12,7 @@ func addNewRecordDay(newRecordDay: RecordDay){
     recordDayList.append(newRecordDay)
 }
 
-func getRecordDay(day: Day) -> RecordDay?{
+func getRecordDay(day: Day) -> RecordDay{
     if recordDayList.isEmpty {
         let firstRecordDay:RecordDay = RecordDay(today: dateToDayConverter(date: Date()), location: [], friends: [], expense: 0, customExpense: nil, calories: 0, drinks: [:])
         addNewRecordDay(newRecordDay: firstRecordDay)
@@ -40,12 +40,32 @@ func addNewRecordMonth(newRecordMonth: RecordMonth){
     recordMonthList.append(newRecordMonth)
 }
 
-func getRecordMonth(month: Day) -> RecordMonth?{
+func transferGoalFromLastRecordMonth(){
+    let newRecordMonth = getRecordMonth(month: dateToMonthConverter(date: Date()))
+    var month = dateToMonthConverter(date: Date()).month - 1
+    var year = dateToMonthConverter(date: Date()).year
+    if(month == 0){
+        year -= 1
+        month = 12
+    }
+    let lastMonth = getRecordMonth(month: Day(year: year, month: month, day: nil))
+    newRecordMonth.goal_DaysOfMonth = lastMonth.goal_DaysOfMonth
+    newRecordMonth.goal_TotalExpense = lastMonth.goal_TotalExpense
+    newRecordMonth.goal_StreakOfMonth = lastMonth.goal_StreakOfMonth
+    newRecordMonth.goal_CaloriesOfMonth = lastMonth.goal_CaloriesOfMonth
+    newRecordMonth.isDaysOfMonthEnabled = lastMonth.isDaysOfMonthEnabled
+    newRecordMonth.isStreakOfMonthEnabled = lastMonth.isStreakOfMonthEnabled
+    newRecordMonth.isCurrentExpenseEnabled = lastMonth.isCurrentExpenseEnabled
+    newRecordMonth.isCaloriesOfMonthEnabled = lastMonth.isCaloriesOfMonthEnabled
+}
+
+func getRecordMonth(month: Day) -> RecordMonth{
     if recordMonthList.isEmpty {
         let firstRecordMonth:RecordMonth = RecordMonth(thisMonth: month, isDaysOfMonthEnabled: false, isStreakOfMonthEnabled: false, isCaloriesOfMonthEnabled: false, isCurrentExpenseEnabled: false)
         addNewRecordMonth(newRecordMonth: firstRecordMonth)
         return firstRecordMonth
-    } else {
+    }
+    else {
         for i in 0...recordMonthList.count - 1 {
             if recordMonthList[i].thisMonth.year == month.year
                 ,recordMonthList[i].thisMonth.month == month.month{
@@ -64,7 +84,7 @@ func getRecordMonth(month: Day) -> RecordMonth?{
 func getRecordDayBottles(day: Day, index : Int) -> Int?{
     let recordDay = getRecordDay(day: day)
     
-    guard let drinks = recordDay?.drinks else{
+    guard let drinks = recordDay.drinks else{
         return 0
     }
     return drinks[index]
@@ -85,7 +105,7 @@ func setRecordDayForSul(day: Day, index: Int, bottles: Int){
     //        }else {
     //            getRecordDay(day: day)?.drinks = [:]
     //        }
-    getRecordDay(day: day)?.drinks![index] = bottles
+    getRecordDay(day: day).drinks![index] = bottles
     
     
     //익스펜스랑 칼로리는 그냥 위에 어레이만 잘 되면 그냥 그냥 함수로 그냥그냥 하면 해결될듯!
@@ -94,23 +114,23 @@ func setRecordDayForSul(day: Day, index: Int, bottles: Int){
     var expenseSum = 0
     var calorySum = 0
     
-    if let getre = getRecordDay(day: day)?.drinks?.keys{
+    if let getre = getRecordDay(day: day).drinks?.keys{
         arrayOfGetRecordDay += getre
     }
     
-    if((getRecordDay(day: day)?.drinks?.count)! != 0){
-        for i in 0...(getRecordDay(day: day)?.drinks?.count)! - 1 {
-            expenseSum += sul[arrayOfGetRecordDay[i]].basePrice * (getRecordDay(day: day)?.drinks![arrayOfGetRecordDay[i]])!
+    if((getRecordDay(day: day).drinks?.count)! != 0){
+        for i in 0...(getRecordDay(day: day).drinks?.count)! - 1 {
+            expenseSum += sul[arrayOfGetRecordDay[i]].basePrice * (getRecordDay(day: day).drinks![arrayOfGetRecordDay[i]])!
         }
     }
-    getRecordDay(day: day)?.expense = expenseSum
+    getRecordDay(day: day).expense = expenseSum
     
-    if(getRecordDay(day: day)?.drinks?.count != 0){
-        for i in 0...(getRecordDay(day: day)?.drinks?.count)! - 1 {
-            calorySum += sul[arrayOfGetRecordDay[i]].baseCalorie * (getRecordDay(day: day)?.drinks![arrayOfGetRecordDay[i]])!
+    if(getRecordDay(day: day).drinks?.count != 0){
+        for i in 0...(getRecordDay(day: day).drinks?.count)! - 1 {
+            calorySum += sul[arrayOfGetRecordDay[i]].baseCalorie * (getRecordDay(day: day).drinks![arrayOfGetRecordDay[i]])!
         }
     }
-    getRecordDay(day: day)?.calories = calorySum
+    getRecordDay(day: day).calories = calorySum
 }
 
 
@@ -118,8 +138,7 @@ func setRecordDayForSul(day: Day, index: Int, bottles: Int){
 //setRecordDayCustomExpense(day: Day, customExpense: Int)    day: 지정한 날짜, customExpense: 사용자가 직접 입력한 지출액        Day에 해당하는 RecordDay의 customExpense를 설정합니다.
 
 func setRecordDayCustomExpense(day: Day, customExpense: Int?){
-    let recordDay = getRecordDay(day: day)
-    recordDay?.customExpense = customExpense
+    getRecordDay(day: day).customExpense = customExpense
 }
 
 /*
@@ -159,24 +178,21 @@ func getDeletedSulTotalCalorieForDay(day: Day) -> Int{
 //setRecordDayLocation(day: Day, location: String)    day: 지정한 날짜, location: 장소 문자열        location을 해당 RecordDay에 저장해주세요!
 
 func setRecordDayLocation(day: Day, location: [String]?){
-    let recordDay = getRecordDay(day: day)
-    recordDay?.location = location
+    getRecordDay(day: day).location = location
 }
 
 
 //setRecordDayFriends(day:Day, friends: [String]    day: 지정한 날짜, friends: 친구들의 배열        friends를 해당 RecordDay에 저장해주세요!
 
 func setRecordDayFriends(day:Day, friends: [String]?){
-    let recordDay = getRecordDay(day: day)
-    recordDay?.friends = friends
+    getRecordDay(day: day).friends = friends
 }
 
 
 //getRecordDayCalorie(day: Day) -> Int    day: Day    Int(오늘의 칼로리)    오늘 칼로리를 반환
 //성공
 func getRecordDayCalorie(day: Day) -> Int?{
-    let recordDay = getRecordDay(day: day)
-    if let kcal = recordDay?.calories {
+    if let kcal = getRecordDay(day: day).calories {
         return kcal
     }
     return 0
@@ -584,7 +600,7 @@ func getWeeklyFriend() -> [String: Int] {
         
         let newday = Day(year: pastyear, month: pastmonth, day: pastday)
         
-        if let abc = getRecordDay(day: newday)?.friends {
+        if let abc = getRecordDay(day: newday).friends {
             pastfriends += abc
         }
         //어레이에 날짜에 해당하는 값을 하나씩 넣어준다.
@@ -631,8 +647,8 @@ func getWeeklySul() -> [Int: Int] {
         
         let newday = Day(year: pastyear, month: pastmonth, day: pastday)
         
-        if getRecordDay(day: newday)?.drinks != nil {
-            weeklySulDictionary?.append((getRecordDay(day: newday)?.drinks)!)
+        if getRecordDay(day: newday).drinks != nil {
+            weeklySulDictionary?.append((getRecordDay(day: newday).drinks)!)
         }
         
         
@@ -648,7 +664,6 @@ func getWeeklySul() -> [Int: Int] {
     let count = (weeklySulDictionary?.count)!-1
     if(count != -1){
         for j in 0...count {
-            let index = weeklySulDictionary!
             keyArray.append(j)
 //            keyArray += index[j].keys
         }
@@ -697,7 +712,7 @@ func getWeeklyLocation() -> [String: Int] {
         
         let newday = Day(year: pastyear, month: pastmonth, day: pastday)
         
-        if let abc = getRecordDay(day: newday)?.location {
+        if let abc = getRecordDay(day: newday).location {
             pastlocation += abc
         }
         //어레이에 날짜에 해당하는 값을 하나씩 넣어준다.
@@ -742,10 +757,10 @@ func getWeeklyExpense() -> Int {
         
         
         let newday = Day(year: pastyear, month: pastmonth, day: pastday)
-        if let onedayExpense = getRecordDay(day: newday)?.expense {
+        if let onedayExpense = getRecordDay(day: newday).expense {
             weeklyExpense = weeklyExpense + onedayExpense
         }
-        if let onedayCustomExpense = getRecordDay(day: newday)?.customExpense{
+        if let onedayCustomExpense = getRecordDay(day: newday).customExpense{
             weeklyExpense = weeklyExpense + onedayCustomExpense
         }
         
@@ -775,7 +790,7 @@ func getWeeklyCalorie() -> Int {
         
         
         let newday = Day(year: pastyear, month: pastmonth, day: pastday)
-        if let onedayCalorie = (getRecordDay(day: newday)?.calories){
+        if let onedayCalorie = (getRecordDay(day: newday).calories){
             weeklyCalorie = weeklyCalorie + onedayCalorie
         }
 //        print(weeklyCalorie)
@@ -814,7 +829,7 @@ func getWeeklyCalorie() -> Int {
 
 
 func getDaysOfMonthLimit(month: Day) -> Int?{
-    guard let daysLimit = getRecordMonth(month: month)?.goal_DaysOfMonth else{
+    guard let daysLimit = getRecordMonth(month: month).goal_DaysOfMonth else{
         return 0
     }
     return daysLimit
@@ -823,7 +838,7 @@ func getDaysOfMonthLimit(month: Day) -> Int?{
 //getStreakOfMonthLimit(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 설정 연속으로 마신 일 수 한도)    이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func getStreakOfMonthLimit(month: Day) -> Int?{
-    guard let streakLimit = getRecordMonth(month: month)?.goal_StreakOfMonth else{
+    guard let streakLimit = getRecordMonth(month: month).goal_StreakOfMonth else{
         return 0
     }
     return streakLimit
@@ -832,7 +847,7 @@ func getStreakOfMonthLimit(month: Day) -> Int?{
 //getCaloriesOfMonthLimit(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 설정 칼로리 한도)    이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func getCaloriesOfMonthLimit(month: Day) -> Int?{
-    guard let caloriesLimit = getRecordMonth(month: month)?.goal_CaloriesOfMonth else{
+    guard let caloriesLimit = getRecordMonth(month: month).goal_CaloriesOfMonth else{
         return 0
     }
     return caloriesLimit
@@ -842,7 +857,7 @@ func getCaloriesOfMonthLimit(month: Day) -> Int?{
 //getCurrentExpenseLimit(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 설정 지출액 한도)    이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func getCurrentExpenseLimit(month: Day) -> Int?{
-    guard let expenseLimit = getRecordMonth(month: month)?.goal_TotalExpense else{
+    guard let expenseLimit = getRecordMonth(month: month).goal_TotalExpense else{
         return 0
     }
     return expenseLimit
@@ -862,7 +877,7 @@ func getDaysOfMonthStatus(month:Day) -> Int {
         
         let newday = Day(year: inputYear, month: inputMonth, day: i)
         //        print(newday.day)
-        let recordMonth = getRecordDay(day: newday)!
+        let recordMonth = getRecordDay(day: newday)
         //       print(recordMonth)
         if (recordMonth.customExpense != 0 && recordMonth.customExpense != nil) || recordMonth.expense != 0 || (recordMonth.location!.count != 0 && recordMonth.location != nil) || (recordMonth.friends!.count != 0 && recordMonth.friends != nil) {
             monthDayCount += 1
@@ -922,7 +937,7 @@ func getCaloriesOfMonthStatus(month: Day) -> Int {
         
         let newday = Day(year: inputYear, month: inputMonth, day: i)
         //        print(newday.day)
-        let recordDailyCount = getRecordDay(day: newday)?.calories
+        let recordDailyCount = getRecordDay(day: newday).calories
         //       print(recordMonth)
         if recordDailyCount != nil{
             monthlyCalorySum += recordDailyCount!
@@ -947,8 +962,8 @@ func getCurrentExpenseStatus(month:Day) -> Int {
         
         let newday = Day(year: inputYear, month: inputMonth, day: i)
         //        print(newday.day)
-        let recordDailyCount = getRecordDay(day: newday)?.expense
-        let recordDailyCount2 = getRecordDay(day: newday)?.customExpense
+        let recordDailyCount = getRecordDay(day: newday).expense
+        let recordDailyCount2 = getRecordDay(day: newday).customExpense
         //       print(recordMonth)
         if recordDailyCount != nil {
             monthlyExpenseSum += recordDailyCount!
@@ -970,79 +985,54 @@ func getCurrentExpenseStatus(month:Day) -> Int {
 
 ////
 func isDaysOfMonthEnabled(month: Day) -> Bool {
-    if getRecordMonth(month: month)?.isDaysOfMonthEnabled == nil {
-        return false
-    } else {
-        return (getRecordMonth(month: month)?.isDaysOfMonthEnabled)!
-    }
+    return (getRecordMonth(month: month).isDaysOfMonthEnabled)
 }
 
 //isStreakOfMonth(month: Day) -> Bool    month: Day(day가 nil)    Bool(이번 달 목표로 '오늘까지 마신 연속 일 수 최고기록'이 활성화돼있으면 true, 비활이면 false)    isStreakOfMonth: Bool를 RecordMonth에 추가해주세요!
 //이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func isStreakOfMonthEnabled(month: Day) -> Bool {
-    if getRecordMonth(month: month)?.isStreakOfMonthEnabled == nil {
-        return false
-    } else {
-        return (getRecordMonth(month: month)?.isStreakOfMonthEnabled)!
-    }
+    return (getRecordMonth(month: month).isStreakOfMonthEnabled)
 }
 
 //isCaloriesOfMonth(month: Day) -> Bool    month: Day(day가 nil)    Bool(이번 달 목표로 '오늘까지의 칼로리'가 활성화돼있으면 true, 비활이면 false)    isCaloriesOfMonth: Bool를 RecordMonth에 추가해주세요!
 //이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func isCaloriesOfMonthEnabled(month: Day) -> Bool {
-    if getRecordMonth(month: month)?.isCaloriesOfMonthEnabled == nil {
-        return false
-    } else {
-        return (getRecordMonth(month: month)?.isCaloriesOfMonthEnabled)!
-        
-    }
+    return (getRecordMonth(month: month).isCaloriesOfMonthEnabled)
 }
 
 //isCurrentExpense(month: Day) -> Bool    month: Day(day가 nil)    Bool(이번 달 목표로 '오늘까지 쓴 돈'이 활성화돼있으면 true, 비활이면 false)    isCurrentExpense: Bool를 RecordMonth에 추가해주세요!
 //이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func isCurrentExpenseEnabled(month: Day) -> Bool {
-    if getRecordMonth(month: month)?.isCurrentExpenseEnabled == nil {
-        return false
-    } else {
-        return (getRecordMonth(month: month)?.isCurrentExpenseEnabled)!
-    }
+    return (getRecordMonth(month: month).isCurrentExpenseEnabled)
 }
 
 //setDaysOfMonthLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 마신 일 수 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setDaysOfMonthLimit(month: Day, value: Int) {
-    if let insert = getRecordMonth(month: month) {
-        insert.goal_DaysOfMonth = value
-    }
+    getRecordMonth(month: month).goal_DaysOfMonth = value
 }
 
 
 //setStreakOfMonthLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 연속으로 마신 일 수 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setStreakOfMonthLimit(month: Day, value: Int) {
-    if let insert = getRecordMonth(month: month) {
-        insert.goal_StreakOfMonth = value
-    }
+    getRecordMonth(month: month).goal_StreakOfMonth = value
 }
 
 //setCaloriesOfMonthLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 칼로리 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setCaloriesOfMonthLimit(month: Day, value: Int) {
-    if let insert = getRecordMonth(month: month) {
-        insert.goal_CaloriesOfMonth = value
-    }
+    getRecordMonth(month: month).goal_CaloriesOfMonth = value
 }
 
 
 //setCurrentExpenseLimit(month: Day, value: Int)    month: Day(day가 nil), value: 이번 달 설정 지출액 한도 설정값        이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
 func setCurrentExpenseLimit(month: Day, value: Int) {
-    if let insert = getRecordMonth(month: month) {
-        insert.goal_TotalExpense = value
-    }
+    getRecordMonth(month: month).goal_TotalExpense = value
 }
 
 func getSulIndexByName(sulName: String) -> Int?{
@@ -1148,19 +1138,19 @@ func setSulDisabled(index : Int){
 }
 
 func setFirstLaunchTodayFalse(){
-    getRecordDay(day: dateToDayConverter(date: Date()))!.firstLaunchToday = false
+    getRecordDay(day: dateToDayConverter(date: Date())).firstLaunchToday = false
 }
 
 func setFirstLaunchMonthFalse(){
-    getRecordMonth(month: dateToMonthConverter(date: Date()))!.firstLaunchMonth = false
+    getRecordMonth(month: dateToMonthConverter(date: Date())).firstLaunchMonth = false
 }
 
 func isFirstLaunchToday() -> Bool{
-    return getRecordDay(day: dateToDayConverter(date: Date()))!.firstLaunchToday
+    return getRecordDay(day: dateToDayConverter(date: Date())).firstLaunchToday
 }
 
 func isFirstLaunchMonth() -> Bool{
-    return getRecordMonth(month: dateToMonthConverter(date: Date()))!.firstLaunchMonth
+    return getRecordMonth(month: dateToMonthConverter(date: Date())).firstLaunchMonth
 }
 
 func setFirstLaunchFalse(){
@@ -1187,19 +1177,19 @@ func getSulDictionary() -> [Int:Sul]{
 }
 
 func setDaysOfMonthEnabled(enabled: Bool){
-    getRecordMonth(month: dateToDayConverter(date: Date()))?.isDaysOfMonthEnabled = enabled
+    getRecordMonth(month: dateToDayConverter(date: Date())).isDaysOfMonthEnabled = enabled
 }
 
 func setStreakOfMonthEnabled(enabled: Bool){
-    getRecordMonth(month: dateToDayConverter(date: Date()))?.isStreakOfMonthEnabled = enabled
+    getRecordMonth(month: dateToDayConverter(date: Date())).isStreakOfMonthEnabled = enabled
 }
 
 func setCaloriesOfMonthEnabled(enabled: Bool){
-    getRecordMonth(month: dateToDayConverter(date: Date()))?.isCaloriesOfMonthEnabled = enabled
+    getRecordMonth(month: dateToDayConverter(date: Date())).isCaloriesOfMonthEnabled = enabled
 }
 
 func setCurrentExpenseEnabled(enabled: Bool){
-    getRecordMonth(month: dateToDayConverter(date: Date()))?.isCurrentExpenseEnabled = enabled
+    getRecordMonth(month: dateToDayConverter(date: Date())).isCurrentExpenseEnabled = enabled
 }
 
 func isShowDrunkDaysEnabled() -> Bool{

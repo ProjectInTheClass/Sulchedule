@@ -267,6 +267,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.present(viewController, animated: true, completion: nil)
             })
         }
+        firstMonthLaunchAction()
         setFirstLaunchMonthFalse()
     }
     
@@ -358,7 +359,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         scope = .week
         self.calendar.setScope(.week, animated: true)
         
-        gotDay = getRecordDay(day: selectedDay)!
+        gotDay = getRecordDay(day: selectedDay)
         
         setTopInfoLabelString()
         setBottomInfoLabelString()

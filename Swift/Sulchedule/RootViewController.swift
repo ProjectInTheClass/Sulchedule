@@ -6,9 +6,9 @@ protocol RootViewDelegate{
     func showAd()
     func setAdBackgroundColor()
     func setBackgroundColor(light: Bool)
-    func showSnackBar(string: String, buttonPlaced: Bool)
+    func showSnackBar(string: String, buttonPlaced: Bool, _ animated: Bool)
     func refreshXLowerColor()
-    func hideSnackBar()
+    func hideSnackBar(_ animated: Bool)
     
     func isSnackBarOpen() -> Bool
 }
@@ -84,7 +84,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
-    func showSnackBar(string: String, buttonPlaced: Bool) {
+    func showSnackBar(string: String, buttonPlaced: Bool, _ animated: Bool = true) {
         let radius: CGFloat = snackBarView.frame.width / 2.0
         let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: snackBarView.frame.height))
         snackBarView.layer.shadowColor = UIColor.black.cgColor
@@ -105,21 +105,33 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
             snackBarCloseButton.isUserInteractionEnabled = false
         }
         
-        UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
+        if(animated){
+            UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
+                self.snackBarView.alpha = 1
+                self.view.layoutIfNeeded()
+            }, completion:nil)
+        }
+        else{
             self.snackBarView.alpha = 1
             self.view.layoutIfNeeded()
-        }, completion:nil)
+        }
         workItem = DispatchWorkItem { self.hideSnackBar() }
         DispatchQueue.main.asyncAfter(deadline: .now() + snackBarWaitTime, execute: workItem!)
     }
     
-    func hideSnackBar(){
+    func hideSnackBar(_ animated: Bool = true){
         snackBarPositionConstraint.constant = 0
         workItem!.cancel()
-        UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
+        if(animated){
+            UIView.animate(withDuration: 0.25, delay: 0.05, options: [.curveEaseInOut], animations: {
+                self.snackBarView.alpha = 0
+                self.view.layoutIfNeeded()
+            }, completion:nil)
+        }
+        else{
             self.snackBarView.alpha = 0
             self.view.layoutIfNeeded()
-        }, completion:nil)
+        }
     }
     
     @IBAction func snackBarCloseAction(_ sender: UIButton) {
