@@ -62,7 +62,6 @@ class SettingsViewController: UIViewController, RootSettingDelegate {
         }
         
         rootViewDelegate?.setAdBackgroundColor()
-        navigationItem.rightBarButtonItem?.tintColor = colorPoint
         self.tabBarController?.tabBar.barTintColor = colorLightBackground
         self.tabBarController?.tabBar.tintColor = colorPoint
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:colorText]

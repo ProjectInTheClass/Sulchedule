@@ -1,13 +1,80 @@
 import UIKit
 
-class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet weak var expenseField: UITextField!
-    @IBOutlet weak var locationField: UITextField!
-    @IBOutlet weak var friendsField: UITextField!
-    @IBOutlet var background: UIView!
-    @IBOutlet weak var promptLabel: UILabel!
+class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section{
+        case 0:
+            print("///\(gotDay?.friends?.count ?? 1)")
+            return gotDay?.friends?.count ?? 1
+        case 1:
+            print("///\(gotDay?.location?.count ?? 1)")
+            return gotDay?.location?.count ?? 1
+        case 2:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let customCell = tableView.dequeueReusableCell(withIdentifier: "additionO", for: indexPath) as! AdditionalInputTableViewCell
+        
+        if((indexPath.section == 0 && indexPath.row == (gotDay?.friends?.count ?? 1) - 1) || (indexPath.section == 1 && indexPath.row == (gotDay?.location?.count ?? 1) - 1)){
+            customCell.addButtonWidth.constant = 60
+            customCell.textFieldRightSpace.constant = 45
+        }
+        else{
+            customCell.addButtonWidth.constant = 0
+            customCell.textFieldRightSpace.constant = 0
+        }
+        
+        switch indexPath.section {
+        case 0:
+            customCell.inputField.text = gotDay?.friends?[indexPath.row]
+        case 1:
+            customCell.inputField.text = gotDay?.location?[indexPath.row]
+        case 2:
+            if let a = gotDay?.customExpense {
+                if(a == 0){
+                    customCell.inputField.text = ""
+                }
+                else{
+                    customCell.inputField.text = String(a)
+                }
+            }
+            else{
+                customCell.inputField.text = ""
+            }
+        default:
+            defaultSwitch()
+        }
+        
+        customCell.row = indexPath.row
+        customCell.section = indexPath.section
+        
+        return customCell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section{
+        case 0:
+            return "함께한 사람들"
+        case 1:
+            return "장소"
+        case 2:
+            return "총 지출액"
+        default:
+            return nil
+        }
+    }
+
+    @IBOutlet var background: UIView!
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func expenseField(_ sender: UITextField) {
         var input: String
@@ -78,12 +145,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
         
         self.navigationItem.title = "추가 정보 입력"
         self.hideKeyboardWhenTappedAround()
-        
-        expenseField.delegate = self
-        friendsField.delegate = self
-        locationField.delegate = self
-        
-    
     }
     
 
@@ -96,11 +157,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.tintColor = colorPoint
         background.backgroundColor = colorDeepBackground
         
-        expenseField.textColor = colorPoint
-        locationField.textColor = colorPoint
-        friendsField.textColor = colorPoint
-        promptLabel.backgroundColor = colorLightBackground
-        
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
         {
             _ = expenseField
@@ -109,118 +165,32 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
             return allowedCharacters.isSuperset(of: characterSet)
         }
         
-        expenseField.tintColor = colorText
-        locationField.tintColor = colorText
-        friendsField.tintColor = colorText
-        
         if(userSetting.isThemeBright){
-            expenseField.keyboardAppearance = .light
-            locationField.keyboardAppearance = .light
-            friendsField.keyboardAppearance = .light
+            //keyboard appearance
         }
         else{
-            expenseField.keyboardAppearance = .dark
-            locationField.keyboardAppearance = .dark
-            friendsField.keyboardAppearance = .dark
+//            expenseField.keyboardAppearance = .dark
+//            locationField.keyboardAppearance = .dark
+//            friendsField.keyboardAppearance = .dark
         }
         
-        expenseField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        locationField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        
-        var reusableTemp = ""
-        
-        for string in gotDay?.friends ?? [""]{
-            reusableTemp.append(", \(string)")
-        }
-        if(reusableTemp.count >= 2){
-            reusableTemp.removeFirst(2)
-        }
-        friendsField.text = reusableTemp
-        
-        reusableTemp = ""
-        
-        for string in gotDay?.location ?? [""]{
-            reusableTemp.append(", \(string)")
-        }
-        if(reusableTemp.count >= 2){
-            reusableTemp.removeFirst(2)
-        }
-        locationField.text = reusableTemp
-        
-        let k = (gotDay!.customExpense) ?? 0
-        if(k == 0){
-            expenseField.text = ""
-        }
-        else{
-            expenseField.text = String(k)
-        }
+//        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+//                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         
         
     }
     override func viewWillDisappear(_ animated: Bool) {
         var input: String
         var returnValue: Int? = nil
-        if(expenseField.text != "" || expenseField.text != nil){
-            input = expenseField.text!
-            
-            if let myNumber = NumberFormatter().number(from: input) {
-                returnValue = myNumber.intValue
-                expenseField.text = String(myNumber.intValue)
-            } else {
-                expenseField.text = ""
-            }
-        }
+
         setRecordDayCustomExpense(day: selectedDay, customExpense: returnValue)
 
-        input = locationField.text ?? ""
-        var split: [Substring] = (input.split(separator: ","))
-        var returnArray: [String] = []
-        if(split.count != 0){
-            for i in 0...split.count - 1{
-                while(split[i].hasSuffix(" ")){
-                    split[i].removeLast()
-                }
-                while(split[i].hasPrefix(" ")){
-                    split[i].removeFirst()
-                }
-                returnArray.append(String(split[i]))
-            }
-            var tmpText: String = ""
-            for string in returnArray{
-                tmpText.append(", \(string)")
-            }
-            tmpText.removeFirst()
-            tmpText.removeFirst()
-            locationField.text = tmpText
-        }
-        setRecordDayLocation(day: selectedDay, location: returnArray)
-
-        input = friendsField.text ?? ""
-        split = (input.split(separator: ","))
-        returnArray = []
-        if(split.count != 0){
-            for i in 0...split.count - 1{
-                while(split[i].hasSuffix(" ")){
-                    split[i].removeLast()
-                }
-                while(split[i].hasPrefix(" ")){
-                    split[i].removeFirst()
-                }
-                returnArray.append(String(split[i]))
-            }
-            var tmpText: String = ""
-            for string in returnArray{
-                tmpText.append(", \(string)")
-            }
-            tmpText.removeFirst()
-            tmpText.removeFirst()
-            friendsField.text = tmpText
-        }
-        setRecordDayFriends(day: selectedDay, friends: returnArray)
+        
+//        setRecordDayLocation(day: selectedDay, location: returnArray)
+//
+//
+//        setRecordDayFriends(day: selectedDay, friends: returnArray)
+//
         let a = gotDay?.friends
         let b = gotDay?.location
         let c = gotDay?.customExpense
@@ -230,12 +200,31 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        expenseField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        locationField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                 attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
     }
+}
 
+class AdditionalInputTableViewCell: UITableViewCell{
+    
+    var section = 0
+    var row = 0
+    
+    @IBOutlet weak var inputField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
+    
+    @IBOutlet weak var addButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var textFieldRightSpace: NSLayoutConstraint!
+    
+    @IBAction func inputEnded(_ sender: UITextField) {
+    }
+    @IBAction func addButtonPressed(_ sender: UIButton) {
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addButton.tintColor = colorPoint
+        inputField.attributedPlaceholder = NSAttributedString(string: "터치하세요", attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        
+        if(userSetting.isThemeBright){
+        }
+    }
 }

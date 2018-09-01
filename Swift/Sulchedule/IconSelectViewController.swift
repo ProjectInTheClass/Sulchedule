@@ -73,8 +73,8 @@ class IconSelectViewController: UIViewController {
         topTitle.textColor = colorText
         bottomExplanation.textColor = colorText
 
-        navigationController?.navigationItem.rightBarButtonItem?.title = "닫기"
-        navigationController?.navigationItem.rightBarButtonItem?.tintColor = colorPoint
+        navigationController?.navigationItem.leftBarButtonItem?.title = "닫기"
+        navigationController?.navigationItem.leftBarButtonItem?.tintColor = colorPoint
         
         backgroundView.backgroundColor = colorLightBackground
         background2View.backgroundColor = colorDeepBackground

@@ -31,22 +31,21 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func showAd(_ animated: Bool = true) {
-        let time = 0.35
-        if(!getAdIsOff() && adReceived && !userSetting.firstLaunch && animated){
-            addBannerViewToView(bannerView)
-            self.adAreaLoc.constant = 0
-            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
+        if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
+            if(animated){
+                addBannerViewToView(bannerView)
+                self.adAreaLoc.constant = 0
+                UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+                    self.adArea.alpha = 1
+                    self.view.layoutIfNeeded()
+                }, completion:nil)
+            }
+            else{
+                addBannerViewToView(bannerView)
+                self.adAreaLoc.constant = 0
                 self.adArea.alpha = 1
-            }, completion:nil)
-            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
-            }, completion: nil)
-        }
-        else if(!getAdIsOff() && adReceived && !userSetting.firstLaunch){
-            addBannerViewToView(bannerView)
-            self.adAreaLoc.constant = 0
-            self.adArea.alpha = 1
-            self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -78,13 +77,10 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func removeAd(_ animated: Bool = true) {
-        let time = 0.35
         if(adReceived && animated){
             self.adAreaLoc.constant = -60
-            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
                 self.adArea.alpha = 0
-            }, completion:nil)
-            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: {
                 self.view.layoutIfNeeded()
             }, completion:{ (finished: Bool) in for view in self.adArea.subviews {
                 view.removeFromSuperview()
@@ -213,7 +209,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
                 }
                 else{
                     if(!getAdIsOff()){
-                        showAd(false)
+                        showAd(true)
                         print("///showAd from root")
                     }
                 }
@@ -229,7 +225,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     }
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
+        print("///Banner loaded successfully")
         adReceived = true
         showAd()
     }

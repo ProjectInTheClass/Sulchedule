@@ -65,7 +65,7 @@ class EmbedGoalsTableViewController: UITableViewController {
                     goalValue.append(Float(goalStat[i]) / Float(goalLimit[i]))
                 }
             default :
-                print("Not Accepted Switch Value")
+                defaultSwitch()
             }
             i += 1
         }
@@ -168,7 +168,7 @@ class EmbedGoalsTableViewController: UITableViewController {
             customCell.rightValueLabel.text = String(goalLimit[indexPath.row])
             customCell.setGraphValue(value: goalValue[indexPath.row])
         default:
-            print("Not Accepted Switch Value")
+            defaultSwitch()
             
         }
         

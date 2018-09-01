@@ -99,7 +99,7 @@ class GoalsViewController: UIViewController, CycleBorderDelegate {
             greenView.alpha = 1.0
             howYouDoingLabel.text = "목표한 대로 잘하고 있어요!"
         default:
-            print("Not Accepted Switch Value")
+            defaultSwitch()
         }
     }
 

@@ -121,7 +121,7 @@ func setSucceededLastMonth(){
                 goalValue.append(Float(getCaloriesOfMonthStatus(month: tempMonth)) / Float(getCaloriesOfMonthLimit(month: tempMonth)!))
             }
         default :
-            print("Not Accepted Switch Value")
+            defaultSwitch()
         }
         i += 1
     }
@@ -159,6 +159,10 @@ func snackBar(string: String, buttonPlaced: Bool){
     else{
         rootViewDelegate?.showSnackBar(string: string, buttonPlaced: buttonPlaced, animated: true)
     }
+}
+
+func defaultSwitch(){
+    print("///Not Accepted Switch Value")
 }
 
 extension UITableView {

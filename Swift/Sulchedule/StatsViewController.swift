@@ -73,7 +73,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             loadSegment(whichSegment: 1)
             viewGestureRecognizer.isUserInteractionEnabled = false
         default:
-            print("Not Accepted Switch Value")
+            defaultSwitch()
         }
     }
     
@@ -510,7 +510,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             
         default:
-            print("Not Accepted Switch Value")
+            defaultSwitch()
         }
     }
     
@@ -634,7 +634,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
             sulCircle.lineWidth = 0.0
             locationCircle.lineWidth = 3.0
         default:
-            print("Not Accepted Switch Value")
+            defaultSwitch()
         }
     }
 
@@ -760,7 +760,7 @@ class StatsViewController: UIViewController, UIGestureRecognizerDelegate {
                 return false
             }
         default:
-            print("Not Accepted Switch Value")
+            defaultSwitch()
         }
         return true
     }

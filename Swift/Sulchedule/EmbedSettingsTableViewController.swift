@@ -38,7 +38,7 @@ class EmbedSettingsTableViewController: UITableViewController, MFMailComposeView
     @IBAction func adSwitch(_ sender: UISwitch) {
         if(userSetting.succeededLastMonth){
             let tempBool = userSetting.adIsOff ?? true
-            userSetting.adIsOff? = !tempBool
+            userSetting.adIsOff = !tempBool
             
             if(getAdIsOff()){
                 rootViewDelegate?.removeAd(true)
@@ -62,7 +62,9 @@ class EmbedSettingsTableViewController: UITableViewController, MFMailComposeView
             }
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: {
-                self.adSwitch.setOn(true, animated: true)})
+                self.adSwitch.setOn(true, animated: true)
+                rootViewDelegate?.showAd(true)
+            })
         }
     }
     @IBAction func hapticSwitch(_ sender: UISwitch) {
@@ -96,11 +98,19 @@ class EmbedSettingsTableViewController: UITableViewController, MFMailComposeView
             mail.mailComposeDelegate = self
             mail.setToRecipients(["herojeff02@daum.net"])
             let chars = dateToDayConverter(date: Date())
-            mail.setSubject("술케줄 버그 신고/기능 요청 [\(chars.year)\(chars.month)\(chars.day!)]")
+            var monthString = ""
+            if(chars.month < 10){
+                monthString = "0\(chars.month)"
+            }
+            else{
+                monthString = String(chars.month)
+            }
+            
+            mail.setSubject("술케줄 버그 신고/기능 요청 [\(chars.year)\(monthString)\(chars.day!)]")
             mail.setMessageBody("<br><br><br>뭐든지 자세하게 서술해주시면 큰 도움이 됩니다!", isHTML: true)
             present(mail, animated: true)
         } else {
-            snackBar(string: "지금 메일을 보낼 수 없습니다.", buttonPlaced: true)
+            snackBar(string: "설정 앱에서 메일 주소를 등록한 후 사용하세요.", buttonPlaced: true)
         }
     }
     

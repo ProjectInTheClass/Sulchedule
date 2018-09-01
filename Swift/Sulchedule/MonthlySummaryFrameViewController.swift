@@ -59,7 +59,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationBarTitle.rightBarButtonItem?.tintColor = colorPoint
+        navigationBarTitle.leftBarButtonItem?.tintColor = colorPoint
         pageOutlet.backgroundColor = colorDeepBackground
         pageOutlet.pageIndicatorTintColor = colorGray
         backgroundView.backgroundColor = colorLightBackground

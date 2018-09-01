@@ -50,7 +50,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
                 setCaloriesOfMonthEnabled(enabled: true)
                 setCaloriesOfMonthLimit(month: dateToMonthConverter(date: Date()), value: value)
             default:
-                print("Not Accepted Switch Value")
+                defaultSwitch()
             }
         }
         else{
@@ -64,7 +64,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
             case 3:
                 setCaloriesOfMonthEnabled(enabled: false)
             default:
-                print("Not Accepted Switch Value")
+                defaultSwitch()
             }
         }
         
