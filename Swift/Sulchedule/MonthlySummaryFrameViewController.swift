@@ -55,6 +55,7 @@ class MonthlySummaryFrameViewController: UIViewController, VC2ControlDelegate {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(Int(snackBarWaitTime))) {
                 self.showSnackBar(string: "매달 처음으로 실행할 때마다 보여드릴게요.\n마지막 페이지에서 앱 아이콘도 바꿔보세요!")
             }
+            setFirstLaunchFalse()
         }
     }
     

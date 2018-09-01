@@ -251,6 +251,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.navigationController?.show(vc, sender: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        setTopInfoLabelString()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

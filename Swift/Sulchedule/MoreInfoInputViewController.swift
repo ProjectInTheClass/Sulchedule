@@ -1,15 +1,78 @@
 import UIKit
 
-class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+var a: [String] = []
+var b: [String] = []
+var c: Int = 0
+
+protocol AddRowMoreInfoDelegate {
+    func addRow(section: Int, row: Int) -> Bool
+    func keyboard(float: Bool, indexPath: IndexPath)
+}
+
+class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AddRowMoreInfoDelegate {
+    
+    func addRow(section: Int, row: Int) -> Bool{
+        var flag = true
+        if(section == 0){
+            for item in a{
+                if(item == ""){
+                    flag = false
+                    break
+                }
+            }
+        }
+        else{
+            for item in b{
+                if(item == ""){
+                    flag = false
+                    break
+                }
+            }
+        }
+        
+        if(flag){
+            tableView.beginUpdates()
+            let index = IndexPath(row: row + 1, section: section)
+            if(section == 0){
+                a.append("")
+            }
+            else{
+                b.append("")
+            }
+            tableView.insertRows(at: [index], with: UITableViewRowAnimation.automatic)
+            tableView.endUpdates()
+        }
+        return flag
+    }
+    
+    func keyboard(float: Bool, indexPath: IndexPath){
+        if(float){
+            self.tableBottom.constant += 180
+        }
+        else{
+            self.tableBottom.constant -= 180
+        }
+        if(float){
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
         case 0:
-            print("///\(gotDay?.friends?.count ?? 1)")
-            return gotDay?.friends?.count ?? 1
+            if(a.count == 0){
+                return 1
+            }
+            else{
+                return (a.count)
+            }
         case 1:
-            print("///\(gotDay?.location?.count ?? 1)")
-            return gotDay?.location?.count ?? 1
+            if(b.count == 0){
+                return 1
+            }
+            else{
+                return (b.count)
+            }
         case 2:
             return 1
         default:
@@ -20,7 +83,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let customCell = tableView.dequeueReusableCell(withIdentifier: "additionO", for: indexPath) as! AdditionalInputTableViewCell
         
-        if((indexPath.section == 0 && indexPath.row == (gotDay?.friends?.count ?? 1) - 1) || (indexPath.section == 1 && indexPath.row == (gotDay?.location?.count ?? 1) - 1)){
+        if((indexPath.section == 0 && indexPath.row == a.count - 1) || (indexPath.section == 1 && indexPath.row == b.count - 1)){
             customCell.addButtonWidth.constant = 60
             customCell.textFieldRightSpace.constant = 45
         }
@@ -31,16 +94,26 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         
         switch indexPath.section {
         case 0:
-            customCell.inputField.text = gotDay?.friends?[indexPath.row]
+            if(indexPath.row >= a.count){
+                customCell.inputField.text = ""
+            }
+            else{
+                customCell.inputField.text = a[indexPath.row]
+            }
         case 1:
-            customCell.inputField.text = gotDay?.location?[indexPath.row]
+            if(indexPath.row >= b.count){
+                customCell.inputField.text = ""
+            }
+            else{
+                customCell.inputField.text = b[indexPath.row]
+            }
         case 2:
-            if let a = gotDay?.customExpense {
-                if(a == 0){
+            if let c = gotDay?.customExpense {
+                if(c == 0){
                     customCell.inputField.text = ""
                 }
                 else{
-                    customCell.inputField.text = String(a)
+                    customCell.inputField.text = String(c)
                 }
             }
             else{
@@ -52,6 +125,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         
         customCell.row = indexPath.row
         customCell.section = indexPath.section
+        customCell.delegate = self
         
         return customCell
     }
@@ -75,76 +149,22 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
 
     @IBOutlet var background: UIView!
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func expenseField(_ sender: UITextField) {
-        var input: String
-        var returnValue: Int? = nil
-        if(sender.text != "" || sender.text != nil){
-            input = sender.text!
-            
-            if let myNumber = NumberFormatter().number(from: input) {
-                returnValue = myNumber.intValue
-                sender.text = String(myNumber.intValue)
-            } else {
-                sender.text = ""
-            }
-        }
-        setRecordDayCustomExpense(day: selectedDay, customExpense: returnValue)
-    }
-    @IBAction func locationField(_ sender: UITextField) {
-        let input = sender.text
-        var split: [Substring] = (input?.split(separator: ","))!
-        var returnArray: [String] = []
-        if(split.count != 0){
-            for i in 0...split.count - 1{
-                while(split[i].hasSuffix(" ")){
-                    split[i].removeLast()
-                }
-                while(split[i].hasPrefix(" ")){
-                    split[i].removeFirst()
-                }
-                returnArray.append(String(split[i]))
-            }
-            var tmpText: String = ""
-            for string in returnArray{
-                tmpText.append(", \(string)")
-            }
-            tmpText.removeFirst()
-            tmpText.removeFirst()
-            sender.text = tmpText
-        }
-        setRecordDayLocation(day: selectedDay, location: returnArray)
-    }
-    @IBAction func friendsField(_ sender: UITextField) {
-        let input = sender.text
-        var split: [Substring] = (input?.split(separator: ","))!
-        var returnArray: [String] = []
-        if(split.count != 0){
-            for i in 0...split.count - 1{
-                while(split[i].hasSuffix(" ")){
-                    split[i].removeLast()
-                }
-                while(split[i].hasPrefix(" ")){
-                    split[i].removeFirst()
-                }
-                returnArray.append(String(split[i]))
-            }
-            var tmpText: String = ""
-            for string in returnArray{
-                tmpText.append(", \(string)")
-            }
-            tmpText.removeFirst()
-            tmpText.removeFirst()
-            sender.text = tmpText
-        }
-        setRecordDayFriends(day: selectedDay, friends: returnArray)
-    }
+    @IBOutlet weak var tableBottom: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "추가 정보 입력"
         self.hideKeyboardWhenTappedAround()
+        
+        a = gotDay?.friends ?? []
+        a.append("")
+        b = gotDay?.location ?? []
+        b.append("")
+        c = gotDay?.customExpense ?? 0
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(save))
+        navigationController?.navigationItem.rightBarButtonItem?.tintColor = colorPoint
     }
     
 
@@ -156,14 +176,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = colorPoint
         background.backgroundColor = colorDeepBackground
-        
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-        {
-            _ = expenseField
-            let allowedCharacters = CharacterSet.decimalDigits
-            let characterSet = CharacterSet(charactersIn: string)
-            return allowedCharacters.isSuperset(of: characterSet)
-        }
         
         if(userSetting.isThemeBright){
             //keyboard appearance
@@ -179,22 +191,49 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         
         
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        var input: String
-        var returnValue: Int? = nil
-
-        setRecordDayCustomExpense(day: selectedDay, customExpense: returnValue)
-
+    @objc func save() {
         
-//        setRecordDayLocation(day: selectedDay, location: returnArray)
-//
-//
-//        setRecordDayFriends(day: selectedDay, friends: returnArray)
-//
-        let a = gotDay?.friends
-        let b = gotDay?.location
-        let c = gotDay?.customExpense
-        if(!((a == nil || a?.count == 0) && (b == nil || b?.count == 0) && (c == nil || c == 0))){
+        view.endEditing(true)
+        
+        if(!a.isEmpty){
+            for i in 0...(a.count - 1) {
+                while(a[i].hasSuffix(" ")){
+                    a[i].removeLast()
+                }
+                while(a[i].hasPrefix(" ")){
+                    a[i].removeFirst()
+                }
+            }
+        }
+        
+        if(!b.isEmpty){
+            for i in 0...(b.count - 1) {
+                while(b[i].hasSuffix(" ")){
+                    b[i].removeLast()
+                }
+                while(b[i].hasPrefix(" ")){
+                    b[i].removeFirst()
+                }
+            }
+        }
+
+        a = a.filter { $0 != "" }
+        b = b.filter { $0 != "" }
+        
+        setRecordDayCustomExpense(day: selectedDay, customExpense: c)
+        setRecordDayLocation(day: selectedDay, location: b)
+        setRecordDayFriends(day: selectedDay, friends: a)
+        
+        if(a.isEmpty){
+            a.append("")
+        }
+        if(b.isEmpty){
+            b.append("")
+        }
+        
+        tableView.reloadData()
+
+        if(!((a.count == 0) && (b.count == 0) && (c == 0))){
             snackBar(string: "추가 정보가 저장되었습니다.", buttonPlaced: true)
         }
     }
@@ -207,16 +246,48 @@ class AdditionalInputTableViewCell: UITableViewCell{
     
     var section = 0
     var row = 0
+    var delegate: AddRowMoreInfoDelegate?
     
-    @IBOutlet weak var inputField: UITextField!
+    @IBOutlet weak var inputField: NoEditUITextFieldForSection!
     @IBOutlet weak var addButton: UIButton!
     
     @IBOutlet weak var addButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var textFieldRightSpace: NSLayoutConstraint!
     
     @IBAction func inputEnded(_ sender: UITextField) {
+        switch section {
+        case 0:
+            if(a.count >= row + 1){
+                a[row] = sender.text ?? ""
+            }
+            else{
+                a.insert(sender.text ?? "", at: row)
+            }
+            
+        case 1:
+            if(b.count >= row + 1){
+                b[row] = sender.text ?? ""
+            }
+            else{
+                b.insert(sender.text ?? "", at: row)
+            }
+        case 2:
+            c = Int(sender.text ?? "0") ?? 0
+        default:
+            defaultSwitch()
+        }
+    }
+    @IBAction func editBegan(_ sender: Any) {
+        delegate?.keyboard(float: true, indexPath: IndexPath(row: row, section: section))
+    }
+    @IBAction func editEnded(_ sender: Any) {
+        delegate?.keyboard(float: false, indexPath: IndexPath(row: row, section: section))
     }
     @IBAction func addButtonPressed(_ sender: UIButton) {
+        if((delegate?.addRow(section: section, row: row))!){
+            addButtonWidth.constant = 0
+            textFieldRightSpace.constant = 0
+        }
     }
     
     override func awakeFromNib() {
@@ -225,6 +296,24 @@ class AdditionalInputTableViewCell: UITableViewCell{
         inputField.attributedPlaceholder = NSAttributedString(string: "터치하세요", attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         
         if(userSetting.isThemeBright){
+            inputField.keyboardAppearance = .light
         }
+        else{
+            inputField.keyboardAppearance = .dark
+        }
+    }
+}
+
+class NoEditUITextFieldForSection: UITextField {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if(self.keyboardType == .numberPad){
+            if action == #selector(UIResponderStandardEditActions.paste(_:)){
+                return false
+            }
+            if action == #selector(UIResponderStandardEditActions.cut(_:)){
+                return false
+            }
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 }

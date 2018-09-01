@@ -44,7 +44,6 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
                 addBannerViewToView(bannerView)
                 self.adAreaLoc.constant = 0
                 self.adArea.alpha = 1
-                self.view.layoutIfNeeded()
             }
         }
     }
@@ -89,8 +88,9 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         else if(adReceived){
             self.adAreaLoc.constant = -60
             self.adArea.alpha = 0
-            self.view.layoutIfNeeded()
-            view.removeFromSuperview()
+            for view in self.adArea.subviews {
+                view.removeFromSuperview()
+            }
         }
     }
     
@@ -123,7 +123,6 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
         else{
             self.snackBarView.alpha = 1
-            self.view.layoutIfNeeded()
         }
         workItem = DispatchWorkItem { self.hideSnackBar() }
         DispatchQueue.main.asyncAfter(deadline: .now() + snackBarWaitTime, execute: workItem!)
@@ -142,7 +141,6 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
         else{
             self.snackBarView.alpha = 0
-            self.view.layoutIfNeeded()
         }
     }
     

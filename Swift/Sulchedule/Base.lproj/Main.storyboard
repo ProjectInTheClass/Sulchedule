@@ -1125,7 +1125,7 @@
                                 </connections>
                             </segmentedControl>
                             <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9L-5Q-xgF">
-                                <rect key="frame" x="325" y="14" width="40" height="40"/>
+                                <rect key="frame" x="325" y="13" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="F9L-5Q-xgF" secondAttribute="height" multiplier="1:1" id="Hwt-ZA-77i"/>
                                     <constraint firstAttribute="width" constant="40" id="a3I-8I-qf1"/>
@@ -1170,7 +1170,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="plD-5O-7iM" secondAttribute="trailing" id="0TV-VQ-0We"/>
                             <constraint firstItem="PvB-dX-0cE" firstAttribute="leading" secondItem="CtX-Zi-BRC" secondAttribute="leading" id="3lC-YK-iC0"/>
-                            <constraint firstItem="F9L-5Q-xgF" firstAttribute="centerY" secondItem="Zwg-Ue-gFa" secondAttribute="centerY" id="95t-za-PfK"/>
+                            <constraint firstItem="F9L-5Q-xgF" firstAttribute="centerY" secondItem="Zwg-Ue-gFa" secondAttribute="centerY" constant="-1" id="95t-za-PfK"/>
                             <constraint firstItem="8fU-Gs-MJE" firstAttribute="top" secondItem="plD-5O-7iM" secondAttribute="bottom" id="DmF-Fn-3bp"/>
                             <constraint firstItem="Sc6-et-vAL" firstAttribute="top" secondItem="RDO-bg-aVM" secondAttribute="bottom" id="HNE-lx-fcH"/>
                             <constraint firstAttribute="trailing" secondItem="RDO-bg-aVM" secondAttribute="trailing" id="I5y-fZ-VEz"/>
@@ -2775,12 +2775,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mSH-Aw-HU3">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mSH-Aw-HU3" customClass="NoEditUITextFieldForSection" customModule="Sulchedule" customModuleProvider="target">
                                                     <rect key="frame" x="15" y="5" width="300" height="39.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="editBegan:" destination="pFP-Uu-Xj0" eventType="editingDidBegin" id="Ych-5B-JcY"/>
+                                                        <action selector="editEnded:" destination="pFP-Uu-Xj0" eventType="editingDidEnd" id="ai3-fC-IBc"/>
                                                         <action selector="inputEnded:" destination="pFP-Uu-Xj0" eventType="editingDidEnd" id="vCq-ng-qgb"/>
                                                     </connections>
                                                 </textField>
@@ -2830,6 +2832,7 @@
                     </view>
                     <connections>
                         <outlet property="background" destination="D6B-RU-HZY" id="Nxy-n0-lbI"/>
+                        <outlet property="tableBottom" destination="BFF-aM-eeq" id="NeB-lk-6Q9"/>
                         <outlet property="tableView" destination="xzq-k0-x0m" id="zrO-FZ-wtS"/>
                     </connections>
                 </viewController>
