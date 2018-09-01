@@ -46,11 +46,18 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
     }
     
     func keyboard(float: Bool, indexPath: IndexPath){
-        if(float){
-            self.tableBottom.constant += 180
+        var distance: CGFloat = 0
+        if(getAdIsOff()){
+            distance = 165
         }
         else{
-            self.tableBottom.constant -= 180
+            distance = 140
+        }
+        if(float){
+            self.tableBottom.constant += distance
+        }
+        else{
+            self.tableBottom.constant -= distance
         }
         if(float){
             self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
@@ -127,6 +134,13 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         customCell.section = indexPath.section
         customCell.delegate = self
         
+        if(indexPath.section == 2){
+            customCell.inputField.keyboardType = .numberPad
+        }
+        else{
+            customCell.inputField.keyboardType = .default
+        }
+        
         return customCell
     }
     
@@ -165,6 +179,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(save))
         navigationController?.navigationItem.rightBarButtonItem?.tintColor = colorPoint
+        tableView.sectionIndexTrackingBackgroundColor = colorLightBackground
     }
     
 
@@ -176,15 +191,9 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = colorPoint
         background.backgroundColor = colorDeepBackground
-        
-        if(userSetting.isThemeBright){
-            //keyboard appearance
-        }
-        else{
-//            expenseField.keyboardAppearance = .dark
-//            locationField.keyboardAppearance = .dark
-//            friendsField.keyboardAppearance = .dark
-        }
+        tableView.backgroundColor = colorDeepBackground
+        tableView.separatorColor = colorLightBackground
+
         
 //        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
 //                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
@@ -293,6 +302,7 @@ class AdditionalInputTableViewCell: UITableViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
         addButton.tintColor = colorPoint
+        inputField.textColor = colorText
         inputField.attributedPlaceholder = NSAttributedString(string: "터치하세요", attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
         
         if(userSetting.isThemeBright){
