@@ -222,22 +222,47 @@ class GoalsEditTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDat
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
             return pickerList[currentRow].count
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if(row == 0){
+//            return "목표 설정 안 함"
+//        }
+//        else{
+//            switch currentRow{
+//            case 0:
+//                return "\((pickerList[0])[row])일"
+//            case 1:
+//                return "연속 \((pickerList[1])[row])일"
+//            case 2:
+//                return "\((pickerList[2])[row])원"
+//            case 3:
+//                return "\((pickerList[3])[row])kcal"
+//            default:
+//                return "Not Accepted Switch Value"
+//            }
+//        }
+//    }
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if(row == 0){
-            return "목표 설정 안 함"
+            return NSAttributedString(string: "목표 설정 안 함", attributes: [NSAttributedStringKey.foregroundColor : colorText])
+//            return "목표 설정 안 함"
         }
         else{
             switch currentRow{
             case 0:
-                return "\((pickerList[0])[row])일"
+                return NSAttributedString(string: "\((pickerList[0])[row])일", attributes: [NSAttributedStringKey.foregroundColor : colorText])
+//                return "\((pickerList[0])[row])일"
             case 1:
-                return "연속 \((pickerList[1])[row])일"
+                return NSAttributedString(string: "연속 \((pickerList[1])[row])일", attributes: [NSAttributedStringKey.foregroundColor : colorText])
+//                return "연속 \((pickerList[1])[row])일"
             case 2:
-                return "\((pickerList[2])[row])원"
+                return NSAttributedString(string: "\((pickerList[2])[row])원", attributes: [NSAttributedStringKey.foregroundColor : colorText])
+//                return "\((pickerList[2])[row])원"
             case 3:
-                return "\((pickerList[3])[row])kcal"
+                return NSAttributedString(string: "\((pickerList[3])[row])kcal", attributes: [NSAttributedStringKey.foregroundColor : colorText])
+//                return "\((pickerList[3])[row])kcal"
             default:
-                return "Not Accepted Switch Value"
+                return NSAttributedString(string: "Not Accepted Switch Value", attributes: [NSAttributedStringKey.foregroundColor : colorText])
+//                return "Not Accepted Switch Value"
             }
         }
     }
@@ -297,6 +322,7 @@ class GoalsEditTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDat
         super.awakeFromNib()
         picker.delegate = self
         picker.dataSource = self
+        picker.backgroundColor = colorLightBackground
         
         pickerList = [[],[],[],[]]
         for i in -1...numDays{
