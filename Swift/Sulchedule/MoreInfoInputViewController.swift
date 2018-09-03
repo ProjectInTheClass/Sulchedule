@@ -124,7 +124,6 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         customCell.row = indexPath.row
         customCell.section = indexPath.section
         customCell.delegate = self
-        print("///from cellforrowat row: \(indexPath.row), section: \(indexPath.section)")
         
         if(indexPath.section == 2){
             customCell.inputField.keyboardType = .numberPad
@@ -291,9 +290,7 @@ class AdditionalInputTableViewCell: UITableViewCell{
             defaultSwitch()
         }
     }
-    @IBAction func editBegan(_ sender: Any) {
-        print("///from cell row: \(row), section: \(section)")
-        
+    @IBAction func editBegan(_ sender: Any) { 
         delegate?.initIndexPath(row: row, section: section)
     }
     @IBAction func editEnded(_ sender: Any) {

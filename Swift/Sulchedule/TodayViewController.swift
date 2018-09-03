@@ -388,7 +388,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
             let tempLocation = gotDay?.location ?? []
             let tempFriends = gotDay?.friends ?? []
-            let tempExpense = gotDay?.customExpense ?? 0
+            let tempExpense = gotDay?.customExpense ?? -1
             
             if (tempLocation.count != 0){
                 for i in (tempLocation) {
@@ -404,11 +404,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 tempStr.removeLast(2)
                 tempStr.append("와(과) ")
             }
-            if (tempExpense != 0){
-                tempStr.append("\(tempExpense)원 지출했어요")
+            if (tempExpense == -1){
+                if(tempLocation.count != 0 && tempFriends.count != 0){
+                    tempStr.append("마셨어요")
+                }
             }
             else{
-                tempStr.append("마셨어요")
+                tempStr.append("\(tempExpense)원 지출했어요")
             }
         }
         topInfoLabel.text = tempStr
@@ -424,7 +426,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             temp = "약 \((gotDay?.expense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
         else{
-            temp = "\((gotDay?.customExpense)!)원, 약 \((gotDay?.calories)!)kcal"
+            temp = "약 \((gotDay?.calories)!)kcal"
         }
         
         if(getDeletedSulTotalCalorieForDay(day: selectedDay) != 0){
