@@ -6,11 +6,19 @@ var c: Int = 0
 
 protocol AddRowMoreInfoDelegate {
     func addRow(section: Int, row: Int) -> Bool
-    func keyboard(float: Bool, indexPath: IndexPath)
+    func keyboard(pullUp: Bool, row: Int, section: Int)
+    func initIndexPath(row: Int, section: Int)
 }
 
 class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AddRowMoreInfoDelegate {
+    var keyboardHeight: CGFloat = 0
+    var tempRow = 0
+    var tempSection = 0
     
+    func initIndexPath(row: Int, section: Int){
+        tempRow = row
+        tempSection = section
+    }
     func addRow(section: Int, row: Int) -> Bool{
         var flag = true
         if(section == 0){
@@ -45,41 +53,39 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         return flag
     }
     
-    func keyboard(float: Bool, indexPath: IndexPath){
-        var distance: CGFloat = 0
-        if(getAdIsOff()){
-            distance = 165
+    func keyboard(pullUp: Bool, row: Int, section: Int){
+        if(pullUp){
+            self.tableBottom.constant = keyboardHeight
         }
         else{
-            distance = 140
+            self.tableBottom.constant = 0
         }
-        if(float){
-            self.tableBottom.constant += distance
-        }
-        else{
-            self.tableBottom.constant -= distance
-        }
-        if(float){
-            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-        }
+    }
+    
+    @objc func keyboardShown(notification: NSNotification) {
+        let info = notification.userInfo!
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardHeight = keyboardFrame.height
+        keyboard(pullUp: true, row: tempRow, section: tempSection)
+    }
+    
+    @objc func keyboardFixed(notification: NSNotification) {
+        tableView.scrollToRow(at: IndexPath(row:tempRow, section:tempSection), at: .bottom, animated: true)
+    }
+    
+    @objc func keyboardHidden(notification: NSNotification) {
+        let info = notification.userInfo!
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardHeight = keyboardFrame.height
+        keyboard(pullUp: false, row: tempRow, section: tempSection)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
         case 0:
-            if(a.count == 0){
-                return 1
-            }
-            else{
-                return (a.count)
-            }
+            return (a.count)
         case 1:
-            if(b.count == 0){
-                return 1
-            }
-            else{
-                return (b.count)
-            }
+            return (b.count)
         case 2:
             return 1
         default:
@@ -101,27 +107,12 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         
         switch indexPath.section {
         case 0:
-            if(indexPath.row >= a.count){
-                customCell.inputField.text = ""
-            }
-            else{
-                customCell.inputField.text = a[indexPath.row]
-            }
+            customCell.inputField.text = a[indexPath.row]
         case 1:
-            if(indexPath.row >= b.count){
-                customCell.inputField.text = ""
-            }
-            else{
-                customCell.inputField.text = b[indexPath.row]
-            }
+            customCell.inputField.text = b[indexPath.row]
         case 2:
             if let c = gotDay?.customExpense {
-                if(c == 0){
-                    customCell.inputField.text = ""
-                }
-                else{
-                    customCell.inputField.text = String(c)
-                }
+                customCell.inputField.text = String(c)
             }
             else{
                 customCell.inputField.text = ""
@@ -133,6 +124,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         customCell.row = indexPath.row
         customCell.section = indexPath.section
         customCell.delegate = self
+        print("///from cellforrowat row: \(indexPath.row), section: \(indexPath.section)")
         
         if(indexPath.section == 2){
             customCell.inputField.keyboardType = .numberPad
@@ -198,16 +190,18 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         a = a.filter { $0 != "" }
         b = b.filter { $0 != "" }
         
-        setRecordDayCustomExpense(day: selectedDay, customExpense: c)
         setRecordDayLocation(day: selectedDay, location: b)
         setRecordDayFriends(day: selectedDay, friends: a)
+        if(c == -1){
+            setRecordDayCustomExpense(day: selectedDay, customExpense: nil)
+        }
+        else{
+            setRecordDayCustomExpense(day: selectedDay, customExpense: c)
+        }
         
-        if(a.isEmpty){
-            a.append("")
-        }
-        if(b.isEmpty){
-            b.append("")
-        }
+        a.append("")
+        b.append("")
+        
         
         tableView.reloadData()
         
@@ -224,15 +218,19 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         self.hideKeyboardWhenTappedAround()
         
         a = gotDay?.friends ?? []
-        a.append("")
         b = gotDay?.location ?? []
+        a = a.filter { $0 != "" }
+        b = b.filter { $0 != "" }
+        a.append("")
         b.append("")
-        c = gotDay?.customExpense ?? 0
+        c = gotDay?.customExpense ?? -1
         
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(save))
         navigationBar.tintColor = colorPoint
-        
         tableView.sectionIndexTrackingBackgroundColor = colorLightBackground
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardFixed), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHidden), name:NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
 
@@ -255,6 +253,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
     }
     override func viewDidAppear(_ animated: Bool) {
     }
+    
 }
 
 class AdditionalInputTableViewCell: UITableViewCell{
@@ -287,16 +286,18 @@ class AdditionalInputTableViewCell: UITableViewCell{
                 b.insert(sender.text ?? "", at: row)
             }
         case 2:
-            c = Int(sender.text ?? "0") ?? 0
+            c = Int(sender.text ?? "") ?? -1
         default:
             defaultSwitch()
         }
     }
     @IBAction func editBegan(_ sender: Any) {
-        delegate?.keyboard(float: true, indexPath: IndexPath(row: row, section: section))
+        print("///from cell row: \(row), section: \(section)")
+        
+        delegate?.initIndexPath(row: row, section: section)
     }
     @IBAction func editEnded(_ sender: Any) {
-        delegate?.keyboard(float: false, indexPath: IndexPath(row: row, section: section))
+//        delegate?.keyboard(float: false, indexPath: IndexPath(row: row, section: section))
     }
     @IBAction func addButtonPressed(_ sender: UIButton) {
         if((delegate?.addRow(section: section, row: row))!){

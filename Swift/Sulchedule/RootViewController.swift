@@ -4,6 +4,7 @@ import GoogleMobileAds
 protocol RootViewDelegate{
     func removeAd(_ animated: Bool)
     func showAd(_ animated: Bool)
+    func showAdAreaForTest(_ animated: Bool)
     func setAdBackgroundColor()
     func setBackgroundColor(light: Bool)
     func showSnackBar(string: String, buttonPlaced: Bool, animated: Bool)
@@ -45,6 +46,20 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
                 self.adAreaLoc.constant = 0
                 self.adArea.alpha = 1
             }
+        }
+    }
+    
+    func showAdAreaForTest(_ animated: Bool = true) {
+        if(animated){
+            self.adAreaLoc.constant = 0
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut], animations: {
+                self.adArea.alpha = 1
+                self.view.layoutIfNeeded()
+            }, completion:nil)
+        }
+        else{
+            self.adAreaLoc.constant = 0
+            self.adArea.alpha = 1
         }
     }
     
@@ -96,10 +111,10 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     
     func showSnackBar(string: String, buttonPlaced: Bool, animated: Bool = true) {
         let radius: CGFloat = snackBarView.frame.width / 2.0
-        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2 * radius, height: snackBarView.frame.height))
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 2.1 * radius, height: 1.05*snackBarView.frame.height))
         snackBarView.layer.shadowColor = UIColor.black.cgColor
-        snackBarView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        snackBarView.layer.shadowOpacity = 0.4
+        snackBarView.layer.shadowOffset = CGSize(width: -0.05*radius, height: -0.025*snackBarView.frame.height)
+        snackBarView.layer.shadowOpacity = 0.25
         snackBarView.layer.shadowRadius = 7.0
         snackBarView.layer.masksToBounds =  false
         snackBarView.layer.shadowPath = shadowPath.cgPath
@@ -184,6 +199,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
             snackBarLeftConstraint.constant = 10
             snackBarRightConstraint.constant = 10
             positionConstraintValue = -110
+            snackBarView.layer.cornerRadius = 20
         }
         iPhoneXLowerBackground.backgroundColor = colorLightBackground
         

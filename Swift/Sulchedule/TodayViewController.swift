@@ -380,7 +380,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let a = gotDay?.friends
         let b = gotDay?.location
         let c = gotDay?.customExpense
-        if((a == nil || a?.count == 0) && (b == nil || b?.count == 0) && (c == nil || c == 0)){
+        if((a == nil || a?.count == 0) && (b == nil || b?.count == 0) && (c == nil)){
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
             tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
         }
@@ -420,11 +420,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if((gotDay?.customExpense == nil || gotDay?.customExpense == 0) && gotDay?.calories == 0){
             temp = "0원, 0kcal"
         }
-        else if (gotDay?.customExpense == nil || gotDay?.customExpense == 0){
+        else if (gotDay?.customExpense == nil){
             temp = "약 \((gotDay?.expense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
         else{
-            temp = "약 \((gotDay?.calories)!)kcal"
+            temp = "\((gotDay?.customExpense)!)원, 약 \((gotDay?.calories)!)kcal"
         }
         
         if(getDeletedSulTotalCalorieForDay(day: selectedDay) != 0){
