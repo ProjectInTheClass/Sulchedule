@@ -161,47 +161,16 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         }
     }
 
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet var background: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableBottom: NSLayoutConstraint!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationItem.title = "추가 정보 입력"
-        self.hideKeyboardWhenTappedAround()
-        
-        a = gotDay?.friends ?? []
-        a.append("")
-        b = gotDay?.location ?? []
-        b.append("")
-        c = gotDay?.customExpense ?? 0
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(save))
-        navigationController?.navigationItem.rightBarButtonItem?.tintColor = colorPoint
-        tableView.sectionIndexTrackingBackgroundColor = colorLightBackground
+    @IBOutlet weak var topBackground: UIView!
+    @IBAction func close(_ sender: Any) {
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
     }
-    
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.tintColor = colorPoint
-        background.backgroundColor = colorDeepBackground
-        tableView.backgroundColor = colorDeepBackground
-        tableView.separatorColor = colorLightBackground
-
-        
-//        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
-//                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
-        
-        
-    }
-    @objc func save() {
-        
+    @IBAction func save(_ sender: Any) {
         view.endEditing(true)
         
         if(!a.isEmpty){
@@ -225,7 +194,7 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
                 }
             }
         }
-
+        
         a = a.filter { $0 != "" }
         b = b.filter { $0 != "" }
         
@@ -241,12 +210,49 @@ class MoreInfoInputViewController: UIViewController, UITextFieldDelegate, UITabl
         }
         
         tableView.reloadData()
-
-        if(!((a.count == 0) && (b.count == 0) && (c == 0))){
+        
+        dismiss(animated: true, completion: {
+            if(!((a.count == 0) && (b.count == 0) && (c == 0))){
             snackBar(string: "추가 정보가 저장되었습니다.", buttonPlaced: true)
-        }
+            }
+        })
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
+        
+        a = gotDay?.friends ?? []
+        a.append("")
+        b = gotDay?.location ?? []
+        b.append("")
+        c = gotDay?.customExpense ?? 0
+        
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(save))
+        navigationBar.tintColor = colorPoint
+        
+        tableView.sectionIndexTrackingBackgroundColor = colorLightBackground
+    }
+    
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        background.backgroundColor = colorDeepBackground
+        tableView.backgroundColor = colorDeepBackground
+        tableView.separatorColor = colorLightBackground
+        topBackground.backgroundColor = colorLightBackground
+
+        
+//        friendsField.attributedPlaceholder = NSAttributedString(string: "터치하세요",
+//                                                                attributes: [NSAttributedStringKey.foregroundColor: colorPoint])
+        
+        
+    }
     override func viewDidAppear(_ animated: Bool) {
     }
 }

@@ -174,7 +174,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.handleTapMoreInfo(_:)))
         moreInfoInput.addGestureRecognizer(tap2)
         
-        calendar.reloadData()
         tableView.reloadData()
         setTopInfoLabelString()
         setBottomInfoLabelString()
@@ -248,12 +247,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @objc func handleTapMoreInfo(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "moreInfoView")
-        self.navigationController?.show(vc, sender: nil)
+        present(vc, animated: true, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         setTopInfoLabelString()
+        calendar.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -331,8 +331,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         customCell.titleLabel.text = sul[tempFavourite[indexPath.row]].displayName
         
         //UI
-        customCell.backgroundColor = .clear
-        customCell.contentView.backgroundColor = colorDeepBackground
         customCell.bottleStepper.tintColor = colorPoint
         customCell.colorTag.backgroundColor = .clear
         if(indexPath.row < getFavouriteSulIndex().count){
