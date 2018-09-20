@@ -90,7 +90,7 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         
         self.hideKeyboardWhenTappedAround()
 
-        formatter.dateFormat = "M월 목표 수정"
+        formatter.dateFormat = "M월 목표 설정"
         self.navigationItem.title = formatter.string(from: Date())
         self.tableView.isEditing = true
         

@@ -195,7 +195,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         snackBarText.numberOfLines = 2
         
         positionConstraintValue = -80
-        if(UIScreen.main.nativeBounds.height == 2436){
+        if(notched_display_height.contains(Int(UIScreen.main.nativeBounds.height))){
             snackBarLeftConstraint.constant = 10
             snackBarRightConstraint.constant = 10
             positionConstraintValue = -110

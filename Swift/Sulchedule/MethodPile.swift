@@ -31,6 +31,8 @@ protocol VC2ControlDelegate {
     func sendData(data:Int)
 }
 
+let notched_display_height: [Int] = [2436, 2688, 1792]
+
 func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return false
