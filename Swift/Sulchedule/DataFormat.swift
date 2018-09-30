@@ -112,7 +112,7 @@ class RecordDay : NSObject, NSCoding {
         if let customExpense = aDecoder.decodeObject(forKey: "customExpense") as? Int{
             self.customExpense = customExpense
         } else {
-            self.customExpense = 0
+            self.customExpense = nil
         }
         if let calories = aDecoder.decodeObject(forKey: "calories") as? Int{
             self.calories = calories

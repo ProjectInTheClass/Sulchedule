@@ -49,19 +49,19 @@ class MonthlySummaryViewController: UIPageViewController, UIPageViewControllerDa
             switch item {
             case 0 :
                 if(isDaysOfMonthEnabled(month: monthmonth)){
-                    goalValue.append(Float(getDaysOfMonthStatus(month: monthmonth)) / Float(getDaysOfMonthLimit(month: monthmonth)!))
+                    goalValue.append(Float(getDaysOfMonthStatus(month: monthmonth)) / Float(getDaysOfMonthLimit(month: monthmonth)))
                 }
             case 1 :
                 if(isStreakOfMonthEnabled(month: monthmonth)){
-                    goalValue.append(Float(getStreakOfMonthStatus(month: monthmonth)) / Float(getStreakOfMonthLimit(month: monthmonth)!))
+                    goalValue.append(Float(getStreakOfMonthStatus(month: monthmonth)) / Float(getStreakOfMonthLimit(month: monthmonth)))
                 }
             case 2 :
                 if(isCurrentExpenseEnabled(month: monthmonth)){
-                    goalValue.append(Float(getCurrentExpenseStatus(month: monthmonth)) / Float(getCurrentExpenseLimit(month: monthmonth)!))
+                    goalValue.append(Float(getCurrentExpenseStatus(month: monthmonth)) / Float(getCurrentExpenseLimit(month: monthmonth)))
                 }
             case 3 :
                 if(isCaloriesOfMonthEnabled(month: monthmonth)){
-                    goalValue.append(Float(getCaloriesOfMonthStatus(month: monthmonth)) / Float(getCaloriesOfMonthLimit(month: monthmonth)!))
+                    goalValue.append(Float(getCaloriesOfMonthStatus(month: monthmonth)) / Float(getCaloriesOfMonthLimit(month: monthmonth)))
                 }
             default :
                 defaultSwitch()

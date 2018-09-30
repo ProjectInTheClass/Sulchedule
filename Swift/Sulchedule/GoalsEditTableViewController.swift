@@ -23,10 +23,10 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
     
     func reload(){
         goals = [
-            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: monthmonth), value: getDaysOfMonthLimit(month: monthmonth)!),
-            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: monthmonth), value: getStreakOfMonthLimit(month: monthmonth)!),
-            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: monthmonth), value: getCurrentExpenseLimit(month: monthmonth)!),
-            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: monthmonth), value: getCaloriesOfMonthLimit(month: monthmonth)!)
+            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: monthmonth), value: getDaysOfMonthLimit(month: monthmonth)),
+            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: monthmonth), value: getStreakOfMonthLimit(month: monthmonth)),
+            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: monthmonth), value: getCurrentExpenseLimit(month: monthmonth)),
+            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: monthmonth), value: getCaloriesOfMonthLimit(month: monthmonth))
         ]
         
         backgroundView.reloadData()
@@ -70,10 +70,10 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         
 
         goals = [
-            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: monthmonth), value: getDaysOfMonthLimit(month: monthmonth)!),
-            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: monthmonth), value: getStreakOfMonthLimit(month: monthmonth)!),
-            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: monthmonth), value: getCurrentExpenseLimit(month: monthmonth)!),
-            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: monthmonth), value: getCaloriesOfMonthLimit(month: monthmonth)!)
+            UserGoal(name: "음주 일수", checked: isDaysOfMonthEnabled(month: monthmonth), value: getDaysOfMonthLimit(month: monthmonth)),
+            UserGoal(name: "연이어 음주한 일수", checked: isStreakOfMonthEnabled(month: monthmonth), value: getStreakOfMonthLimit(month: monthmonth)),
+            UserGoal(name: "총 지출액", checked: isCurrentExpenseEnabled(month: monthmonth), value: getCurrentExpenseLimit(month: monthmonth)),
+            UserGoal(name: "총 열량", checked: isCaloriesOfMonthEnabled(month: monthmonth), value: getCaloriesOfMonthLimit(month: monthmonth))
         ]
     }
     
@@ -164,16 +164,16 @@ class GoalsEditTableViewController: UITableViewController, GoalsEditTableDelegat
         customCell.titleLabel.text = "\(goals[row].name)"
         customCell.delegate = self
         switch row{
-        case 0:
-            customCell.editField.text = "\(goals[row].value)일"
-        case 1:
-            customCell.editField.text = "연속 \(goals[row].value)일"
-        case 2:
-            customCell.editField.text = "\(goals[row].value)원"
-        case 3:
-            customCell.editField.text = "\(goals[row].value)kcal"
-        default:
-            customCell.editField.text = "Not Accepted Switch Value"
+            case 0:
+                customCell.editField.text = "\(goals[row].value)일"
+            case 1:
+                customCell.editField.text = "연속 \(goals[row].value)일"
+            case 2:
+                customCell.editField.text = "\(goals[row].value)원"
+            case 3:
+                customCell.editField.text = "\(goals[row].value)kcal"
+            default:
+                customCell.editField.text = "Not Accepted Switch Value"
         }
         
         
@@ -222,25 +222,6 @@ class GoalsEditTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDat
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
             return pickerList[currentRow].count
     }
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if(row == 0){
-//            return "목표 설정 안 함"
-//        }
-//        else{
-//            switch currentRow{
-//            case 0:
-//                return "\((pickerList[0])[row])일"
-//            case 1:
-//                return "연속 \((pickerList[1])[row])일"
-//            case 2:
-//                return "\((pickerList[2])[row])원"
-//            case 3:
-//                return "\((pickerList[3])[row])kcal"
-//            default:
-//                return "Not Accepted Switch Value"
-//            }
-//        }
-//    }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if(row == 0){
             return NSAttributedString(string: "목표 설정 안 함", attributes: [NSAttributedStringKey.foregroundColor : colorText])

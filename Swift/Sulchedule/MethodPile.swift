@@ -108,19 +108,19 @@ func setSucceededLastMonth(){
         switch item {
         case 0 :
             if(isDaysOfMonthEnabled(month: tempMonth)){
-                goalValue.append(Float(getDaysOfMonthStatus(month: tempMonth)) / Float(getDaysOfMonthLimit(month: tempMonth)!))
+                goalValue.append(Float(getDaysOfMonthStatus(month: tempMonth)) / Float(getDaysOfMonthLimit(month: tempMonth)))
             }
         case 1 :
             if(isStreakOfMonthEnabled(month: tempMonth)){
-                goalValue.append(Float(getStreakOfMonthStatus(month: tempMonth)) / Float(getStreakOfMonthLimit(month: tempMonth)!))
+                goalValue.append(Float(getStreakOfMonthStatus(month: tempMonth)) / Float(getStreakOfMonthLimit(month: tempMonth)))
             }
         case 2 :
             if(isCurrentExpenseEnabled(month: tempMonth)){
-                goalValue.append(Float(getCurrentExpenseStatus(month: tempMonth)) / Float(getCurrentExpenseLimit(month: tempMonth)!))
+                goalValue.append(Float(getCurrentExpenseStatus(month: tempMonth)) / Float(getCurrentExpenseLimit(month: tempMonth)))
             }
         case 3 :
             if(isCaloriesOfMonthEnabled(month: tempMonth)){
-                goalValue.append(Float(getCaloriesOfMonthStatus(month: tempMonth)) / Float(getCaloriesOfMonthLimit(month: tempMonth)!))
+                goalValue.append(Float(getCaloriesOfMonthStatus(month: tempMonth)) / Float(getCaloriesOfMonthLimit(month: tempMonth)))
             }
         default :
             defaultSwitch()

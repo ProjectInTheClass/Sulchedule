@@ -1,5 +1,6 @@
 import UIKit
 import GoogleMobileAds
+import UserNotifications
 
 protocol RootViewDelegate{
     func removeAd(_ animated: Bool)
@@ -12,15 +13,17 @@ protocol RootViewDelegate{
     func hideSnackBar(animated: Bool)
     
     func isSnackBarOpen() -> Bool
+    func isAdOpen() -> Bool
 }
 
 var rootViewDelegate: RootViewDelegate?
 
-class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDelegate, UIGestureRecognizerDelegate {
+class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDelegate, UIGestureRecognizerDelegate, UNUserNotificationCenterDelegate {
     var adReceived = false
     var positionConstraintValue = -80
     
     var workItem: DispatchWorkItem? = nil
+    var notificationGranted = false
     
     func setBackgroundColor(light: Bool) {
         if(light){
@@ -159,6 +162,15 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
+    func isAdOpen() -> Bool {
+        if(!getAdIsOff() && adReceived){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    
     @IBAction func snackBarCloseAction(_ sender: UIButton) {
         hideSnackBar()
     }
@@ -211,6 +223,18 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()
         UIScreen.main.addObserver(self, forKeyPath: "captured", options: .new, context: nil)
+        
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert,.sound])
+        {
+            (granted, error) in
+            self.notificationGranted = granted
+            if let error = error {
+                print("granted, but Error in notification permission:\(error.localizedDescription)")
+            }
+        }
+        
+        scheduleNotification(at: createDate(weekday: 7, month: monthmonth.month, hour: 08, minute: 30, year: monthmonth.year), body: "술케줄로 당신의 음주 건강을 관리하세요!", titles: "어젠 얼마나 음주하셨나요?")
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -227,7 +251,6 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
                         print("///showAd from root")
                     }
                 }
-            } else {
             }
         }
     }
@@ -263,5 +286,44 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
                                 multiplier: 1,
                                 constant: 0)
             ])
+    }
+    
+    func createDate(weekday: Int, month: Int, hour: Int, minute: Int, year: Int)->Date{
+        
+        var components = DateComponents()
+        components.hour = hour
+        components.minute = minute
+        components.year = year
+        components.month = month
+        components.weekday = weekday // sunday = 1 ... saturday = 7
+        components.weekdayOrdinal = 10
+        components.timeZone = .current
+        
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.date(from: components)!
+    }
+    
+    //Schedule Notification with weekly bases.
+    func scheduleNotification(at date: Date, body: String, titles:String) {
+        
+        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute,.second,], from: date)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerWeekly, repeats: true)
+        
+        let content = UNMutableNotificationContent()
+        content.title = titles
+        content.body = body
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "todoList"
+        
+        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().delegate = self
+        //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        }
     }
 }

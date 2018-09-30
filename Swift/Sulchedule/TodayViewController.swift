@@ -103,6 +103,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         if(userSetting.firstLaunch){
             firstLaunchAction()
         }
+        if(isFirstLaunchMonth()){
+            firstMonthLaunchAction()
+        }
         
         self.calendar.select(Date())
         
@@ -113,7 +116,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.calendar.scope = .week
         self.calendar.accessibilityIdentifier = "calendar" // For UITest
         
-        if(Calendar.current.component(.hour, from: Date()) < 12 && getShowYesterdayFirst()) {
+        if(Calendar.current.component(.hour, from: Date()) < 12 && getShowYesterdayFirst() && selectedDay.day != 1) {
             newDaySelected(date: Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)
             gotDay = getRecordDay(day: selectedDay)
             calendar.select(Calendar.current.date(byAdding: .day, value: -1, to: Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!)!)
@@ -272,7 +275,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.present(viewController, animated: true, completion: nil)
             })
         }
-        firstMonthLaunchAction()
         setFirstLaunchMonthFalse()
     }
     
@@ -405,7 +407,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 tempStr.append("와(과) ")
             }
             if (tempExpense == -1){
-                if(tempLocation.count != 0 && tempFriends.count != 0){
+                if(tempLocation.count != 0 || tempFriends.count != 0){
                     tempStr.append("마셨어요")
                 }
             }

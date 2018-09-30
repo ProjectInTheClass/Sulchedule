@@ -828,7 +828,7 @@ func getWeeklyCalorie() -> Int {
 //}
 
 
-func getDaysOfMonthLimit(month: Day) -> Int?{
+func getDaysOfMonthLimit(month: Day) -> Int{
     guard let daysLimit = getRecordMonth(month: month).goal_DaysOfMonth else{
         return 0
     }
@@ -837,7 +837,7 @@ func getDaysOfMonthLimit(month: Day) -> Int?{
 
 //getStreakOfMonthLimit(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 설정 연속으로 마신 일 수 한도)    이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
-func getStreakOfMonthLimit(month: Day) -> Int?{
+func getStreakOfMonthLimit(month: Day) -> Int{
     guard let streakLimit = getRecordMonth(month: month).goal_StreakOfMonth else{
         return 0
     }
@@ -846,7 +846,7 @@ func getStreakOfMonthLimit(month: Day) -> Int?{
 
 //getCaloriesOfMonthLimit(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 설정 칼로리 한도)    이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
-func getCaloriesOfMonthLimit(month: Day) -> Int?{
+func getCaloriesOfMonthLimit(month: Day) -> Int{
     guard let caloriesLimit = getRecordMonth(month: month).goal_CaloriesOfMonth else{
         return 0
     }
@@ -856,7 +856,7 @@ func getCaloriesOfMonthLimit(month: Day) -> Int?{
 
 //getCurrentExpenseLimit(month: Day) -> Int    month: Day(day가 nil)    Int(이번 달 설정 지출액 한도)    이번 달 : 매개변수 month에 해당하는 달을 말합니다.
 
-func getCurrentExpenseLimit(month: Day) -> Int?{
+func getCurrentExpenseLimit(month: Day) -> Int{
     guard let expenseLimit = getRecordMonth(month: month).goal_TotalExpense else{
         return 0
     }
