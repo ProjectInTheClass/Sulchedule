@@ -53,6 +53,7 @@ class GoalsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
         if(editEnabled){
+            snackBar(string: "저장됐습니다.", buttonPlaced: true)
             editEnabled = false
             sender.title = "목표 수정"
         }
