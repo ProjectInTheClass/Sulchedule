@@ -215,10 +215,13 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
         iPhoneXLowerBackground.backgroundColor = colorLightBackground
         
-        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeDown))
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture))
         swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.down
         swipeDownRecognizer.delegate = self
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleGesture))
+        tapRecognizer.delegate = self
         snackBarView.addGestureRecognizer(swipeDownRecognizer)
+        snackBarView.addGestureRecognizer(tapRecognizer)
     }
     override func viewDidAppear(_ animated: Bool) {
         setAdBackgroundColor()
@@ -255,7 +258,7 @@ class RootViewController: UIViewController, GADBannerViewDelegate, RootViewDeleg
         }
     }
     
-    @objc func handleSwipeDown(gesture: UISwipeGestureRecognizer) {
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) {
         if(!snackBarCloseButton.isHidden){
             hideSnackBar()
         }
