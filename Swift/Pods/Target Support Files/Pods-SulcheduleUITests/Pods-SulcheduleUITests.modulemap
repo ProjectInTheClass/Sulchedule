@@ -1,0 +1,6 @@
+framework module Pods_SulcheduleUITests {
+  umbrella header "Pods-SulcheduleUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

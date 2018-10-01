@@ -477,8 +477,7 @@ class EmbedGoalsTableCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         }
     }
     
-    func drawRect(color: UIColor, value: Float)
-    {
+    func drawRect(color: UIColor, value: Float){
         bgGraph.layer.cornerRadius = bgGraph.bounds.height/2
         actualGraph.layer.cornerRadius = bgGraph.bounds.height/2
         bgGraph.layer.backgroundColor = colorLightBackground.cgColor

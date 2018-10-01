@@ -384,7 +384,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let c = gotDay?.customExpense
         if((a == nil || a?.count == 0) && (b == nil || b?.count == 0) && (c == nil)){
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 17)!
-            tempStr = "함께한 사람, 지출액, 장소를 입력하려면 누르세요"
+            tempStr = "추가 정보를 입력하려면 누르세요."
+            drawRect(colored: true)
         }
         else{
             topInfoLabel.font = UIFont(name: "Helvetica Neue", size: 15)!
@@ -414,6 +415,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             else{
                 tempStr.append("\(tempExpense)원 지출했어요")
             }
+            drawRect(colored: false)
         }
         topInfoLabel.text = tempStr
     }
@@ -441,6 +443,18 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         return 0.1
     }
     
+    func drawRect(colored: Bool){
+        if(colored){
+            topInfoLabel.layer.cornerRadius = topInfoLabel.bounds.height/2
+            topInfoLabel.layer.backgroundColor = colorPoint.cgColor
+            topInfoLabel.textColor = colorDeepBackground
+        }
+        else{
+            topInfoLabel.layer.cornerRadius = topInfoLabel.bounds.height/2
+            topInfoLabel.layer.backgroundColor = colorDeepBackground.cgColor
+            topInfoLabel.textColor = colorText
+        }
+    }
 }
 
 class TodayTableViewCell: UITableViewCell {

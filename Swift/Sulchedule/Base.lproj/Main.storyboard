@@ -198,8 +198,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8p1-Rc-rPC">
                                 <rect key="frame" x="0.0" y="349" width="375" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="함께한 사람, 지출액, 장소를 입력하려면 누르세요" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glt-nh-ekg">
-                                        <rect key="frame" x="15" y="19.5" width="345" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추가 정보를 입력하려면 누르세요" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glt-nh-ekg">
+                                        <rect key="frame" x="25" y="15" width="325" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -209,8 +209,10 @@
                                 <constraints>
                                     <constraint firstItem="glt-nh-ekg" firstAttribute="centerY" secondItem="8p1-Rc-rPC" secondAttribute="centerY" id="EqO-DU-IC1"/>
                                     <constraint firstAttribute="height" constant="60" id="MNy-iP-qdy"/>
-                                    <constraint firstAttribute="trailing" secondItem="glt-nh-ekg" secondAttribute="trailing" constant="15" id="iF1-Wk-DDe"/>
-                                    <constraint firstItem="glt-nh-ekg" firstAttribute="leading" secondItem="8p1-Rc-rPC" secondAttribute="leading" constant="15" id="j3R-jE-eNj"/>
+                                    <constraint firstAttribute="bottom" secondItem="glt-nh-ekg" secondAttribute="bottom" constant="15" id="TdB-Lc-4Ke"/>
+                                    <constraint firstAttribute="trailing" secondItem="glt-nh-ekg" secondAttribute="trailing" constant="25" id="iF1-Wk-DDe"/>
+                                    <constraint firstItem="glt-nh-ekg" firstAttribute="leading" secondItem="8p1-Rc-rPC" secondAttribute="leading" constant="25" id="j3R-jE-eNj"/>
+                                    <constraint firstItem="glt-nh-ekg" firstAttribute="top" secondItem="8p1-Rc-rPC" secondAttribute="top" constant="15" id="utO-jl-HyC"/>
                                 </constraints>
                             </view>
                         </subviews>
