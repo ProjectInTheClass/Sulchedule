@@ -1363,11 +1363,11 @@
             </objects>
             <point key="canvasLocation" x="2071" y="421"/>
         </scene>
-        <!--이 달의 목표-->
+        <!--건강 신호등-->
         <scene sceneID="srx-bu-M9N">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vNw-2C-nsD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="이 달의 목표" image="goals" id="wcQ-ic-S2X"/>
+                    <tabBarItem key="tabBarItem" title="건강 신호등" image="traffic" id="wcQ-ic-S2X"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XsG-hq-af6">
@@ -2781,7 +2781,6 @@
         <image name="bannerIcon" width="1024" height="1024"/>
         <image name="crown" width="20" height="20"/>
         <image name="depressed" width="1024" height="1024"/>
-        <image name="goals" width="40" height="40"/>
         <image name="happy" width="1024" height="1024"/>
         <image name="koala" width="1024" height="1024"/>
         <image name="more" width="40" height="40"/>
@@ -2792,5 +2791,6 @@
         <image name="straight" width="1024" height="1024"/>
         <image name="thrilled" width="1024" height="1024"/>
         <image name="today" width="40" height="40"/>
+        <image name="traffic" width="37.5" height="37.5"/>
     </resources>
 </document>

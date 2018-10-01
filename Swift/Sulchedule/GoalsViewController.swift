@@ -34,7 +34,7 @@ class GoalsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
             }
         }
-        tableBottom.constant = final_value
+        tableBottom?.constant = final_value
     }
     func manipulateSignal(value: Int) {
         cycleSignalColor(cursor: value)
@@ -49,7 +49,7 @@ class GoalsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var redView: UIView!
     @IBOutlet weak var howYouDoingLabel: UILabel!
     @IBOutlet weak var topBackgroundView: UIView!
-    @IBOutlet weak var tableBottom: NSLayoutConstraint!
+    @IBOutlet weak var tableBottom: NSLayoutConstraint?
     
     @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
         if(editEnabled){
@@ -83,7 +83,7 @@ class GoalsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
     
         initCircle()
-        formatter.dateFormat = "M월의 목표"
+        formatter.dateFormat = "M월의 건강 신호등"
         self.navigationItem.title = formatter.string(from: date)
         
         //0:며칠
