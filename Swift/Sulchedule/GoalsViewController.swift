@@ -128,6 +128,9 @@ class GoalsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.tabBarController?.tabBar.tintColor = colorPoint
         self.tabBarController?.tabBar.unselectedItemTintColor = colorText
         
+        reloadTableData()
+        tableOutlet.reloadData()
+        
         var dangerLevel = 0
         var flag_dangerLevel = false
         for item in goals {
@@ -144,9 +147,6 @@ class GoalsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if(!flag_dangerLevel){
             dangerLevel = 3
         }
-        
-        reloadTableData()
-        tableOutlet.reloadData()
         manipulateSignal(value: dangerLevel)
     }
     override func viewWillDisappear(_ animated: Bool) {
