@@ -67,7 +67,7 @@
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="75" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="JDR-5L-1w9">
-                                <rect key="frame" x="0.0" y="409" width="375" height="189"/>
+                                <rect key="frame" x="0.0" y="399" width="375" height="199"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="k7m-d1-m3S" userLabel="Footer">
                                     <rect key="frame" x="0.0" y="148.5" width="375" height="119"/>
@@ -196,10 +196,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8p1-Rc-rPC">
-                                <rect key="frame" x="0.0" y="349" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="349" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추가 정보를 입력하려면 누르세요" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glt-nh-ekg">
-                                        <rect key="frame" x="25" y="15" width="325" height="30"/>
+                                        <rect key="frame" x="25" y="8" width="325" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="f3f-fh-i6A"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -207,12 +210,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="glt-nh-ekg" firstAttribute="centerY" secondItem="8p1-Rc-rPC" secondAttribute="centerY" id="EqO-DU-IC1"/>
-                                    <constraint firstAttribute="height" constant="60" id="MNy-iP-qdy"/>
-                                    <constraint firstAttribute="bottom" secondItem="glt-nh-ekg" secondAttribute="bottom" constant="15" id="TdB-Lc-4Ke"/>
+                                    <constraint firstItem="glt-nh-ekg" firstAttribute="centerY" secondItem="8p1-Rc-rPC" secondAttribute="centerY" constant="-3" id="EqO-DU-IC1"/>
+                                    <constraint firstAttribute="height" constant="50" id="MNy-iP-qdy"/>
                                     <constraint firstAttribute="trailing" secondItem="glt-nh-ekg" secondAttribute="trailing" constant="25" id="iF1-Wk-DDe"/>
                                     <constraint firstItem="glt-nh-ekg" firstAttribute="leading" secondItem="8p1-Rc-rPC" secondAttribute="leading" constant="25" id="j3R-jE-eNj"/>
-                                    <constraint firstItem="glt-nh-ekg" firstAttribute="top" secondItem="8p1-Rc-rPC" secondAttribute="top" constant="15" id="utO-jl-HyC"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1525,7 +1526,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 아이콘 변경" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Bd-le-j8n">
-                                                    <rect key="frame" x="26" y="19.5" width="323" height="21"/>
+                                                    <rect key="frame" x="22" y="19.5" width="327" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1534,7 +1535,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="7Bd-le-j8n" secondAttribute="trailing" constant="10" id="2Sc-5E-wzX"/>
                                                 <constraint firstItem="7Bd-le-j8n" firstAttribute="centerY" secondItem="XHQ-xB-vZe" secondAttribute="centerY" id="7wu-a9-Ntd"/>
-                                                <constraint firstItem="7Bd-le-j8n" firstAttribute="leading" secondItem="XHQ-xB-vZe" secondAttribute="leadingMargin" constant="10" id="sA6-jq-Wlo"/>
+                                                <constraint firstItem="7Bd-le-j8n" firstAttribute="leading" secondItem="XHQ-xB-vZe" secondAttribute="leadingMargin" constant="6" id="sA6-jq-Wlo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1547,7 +1548,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="버그 신고, 기능 요청" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlg-EQ-207">
-                                                    <rect key="frame" x="26" y="19.5" width="323" height="21"/>
+                                                    <rect key="frame" x="22" y="19.5" width="327" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1555,7 +1556,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="mlg-EQ-207" secondAttribute="trailing" constant="10" id="2Zu-t9-ray"/>
-                                                <constraint firstItem="mlg-EQ-207" firstAttribute="leading" secondItem="dmo-3B-cDh" secondAttribute="leadingMargin" constant="10" id="TDd-XC-89D"/>
+                                                <constraint firstItem="mlg-EQ-207" firstAttribute="leading" secondItem="dmo-3B-cDh" secondAttribute="leadingMargin" constant="6" id="TDd-XC-89D"/>
                                                 <constraint firstItem="mlg-EQ-207" firstAttribute="centerY" secondItem="dmo-3B-cDh" secondAttribute="centerY" id="jOM-8h-Vct"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1569,14 +1570,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 초기화" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xpy-g7-0hm">
-                                                    <rect key="frame" x="26" y="19.5" width="323" height="21"/>
+                                                    <rect key="frame" x="22" y="19.5" width="327" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Xpy-g7-0hm" firstAttribute="leading" secondItem="Kmc-49-Epw" secondAttribute="leadingMargin" constant="10" id="7HM-as-fUR"/>
+                                                <constraint firstItem="Xpy-g7-0hm" firstAttribute="leading" secondItem="Kmc-49-Epw" secondAttribute="leadingMargin" constant="6" id="7HM-as-fUR"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Xpy-g7-0hm" secondAttribute="trailing" constant="10" id="HdB-hW-FFY"/>
                                                 <constraint firstItem="Xpy-g7-0hm" firstAttribute="centerY" secondItem="Kmc-49-Epw" secondAttribute="centerY" id="kFT-da-aDX"/>
                                             </constraints>
